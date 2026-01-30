@@ -11,5 +11,5 @@ fi
 if [ $# -gt 0 ]; then
     exec "$@"
 else
-    exec /Split Chill AI/Split Chill AI server run ${conf_path_param};
+    exec /splitchill-ai/splitchill-ai server run ${conf_path_param};
 fi

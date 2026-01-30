@@ -1,28 +1,28 @@
-package services
+﻿package services
 
 import (
 	"bytes"
 	"fmt"
 	"net/url"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/locales"
-	"github.com/mayswind/ezbookkeeping/pkg/mail"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
-	"github.com/mayswind/ezbookkeeping/pkg/templates"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/locales"
+	"github.com/Shavitjnr/split-chill-ai/pkg/mail"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/templates"
 )
 
 const passwordResetUrlFormat = "%sdesktop#/resetpassword?token=%s"
 
-// ForgetPasswordService represents forget password service
+
 type ForgetPasswordService struct {
 	ServiceUsingConfig
 	ServiceUsingMailer
 }
 
-// Initialize a forget password service singleton instance
+
 var (
 	ForgetPasswords = &ForgetPasswordService{
 		ServiceUsingConfig: ServiceUsingConfig{
@@ -34,7 +34,7 @@ var (
 	}
 )
 
-// SendPasswordResetEmail sends password reset email according to specified parameters
+
 func (s *ForgetPasswordService) SendPasswordResetEmail(c core.Context, user *models.User, passwordResetToken string, backupLocale string) error {
 	if !s.CurrentConfig().EnableSMTP {
 		return errs.ErrSMTPServerNotEnabled

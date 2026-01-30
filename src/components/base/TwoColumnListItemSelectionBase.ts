@@ -1,4 +1,4 @@
-import { type Ref } from 'vue';
+﻿import { type Ref } from 'vue';
 
 import {
     type TwoLevelItemSelectionBaseProps,
@@ -51,12 +51,12 @@ export function useTwoColumnListItemSelectionBase(props: CommonTwoColumnListItem
     }
 
     return {
-        // states
+        
         filterContent,
-        // computed states
+        
         visibleItemsCount,
         filteredItems,
-        // functions
+        
         getFilteredSubItems,
         getCurrentPrimaryValueBySecondaryValue,
         isSecondaryValueSelected,

@@ -8,8 +8,8 @@ import (
 
 	"github.com/sirupsen/logrus"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
 const logFieldRequestId = "REQUEST_ID"

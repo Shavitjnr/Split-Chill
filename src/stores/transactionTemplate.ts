@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 
 import { type BeforeResolveFunction, itemAndIndex, entries } from '@/core/base.ts';
@@ -431,15 +431,15 @@ export const useTransactionTemplatesStore = defineStore('transactionTemplates', 
     }
 
     return {
-        // states
+        
         allTransactionTemplates,
         allTransactionTemplatesMap,
         transactionTemplateListStatesInvalid,
-        // computed states
+        
         allVisibleTemplates,
         allAvailableTemplatesCount,
         allVisibleTemplatesCount,
-        // functions
+        
         updateTransactionTemplateListInvalidState,
         resetTransactionTemplates,
         loadAllTemplates,

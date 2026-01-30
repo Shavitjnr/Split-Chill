@@ -1,13 +1,9 @@
-/** Materio Template Vuetify styles **/
-/** https://github.com/themeselection/materio-vuetify-vuejs-admin-template-free **/
+﻿
 
-/* stylelint-disable no-descending-specificity */
 @use "sass:list";
 @use "sass:map";
 @use "@/styles/desktop/configured-variables/template" as variables;
 
-/* 👉 Button
- Above map but opacity values as key and variant as value */
 
 body {
     .v-btn {
@@ -25,7 +21,7 @@ body {
         }
 
         // Default (elevated) button
-        /* stylelint-disable-next-line no-duplicate-selectors */
+        
         &--variant-elevated,
         &--variant-flat {
             // We want darker background on hover instead of light

@@ -1,4 +1,4 @@
-package feidee
+﻿package feidee
 
 import (
 	"testing"
@@ -6,11 +6,11 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/converter"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/converter"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 func TestFeideeMymoneyCsvFileImporterParseImportedData_MinimumValidData(t *testing.T) {
@@ -406,37 +406,37 @@ func TestFeideeMymoneyCsvFileImporterParseImportedData_MissingRequiredColumn(t *
 		DefaultCurrency: "CNY",
 	}
 
-	// Missing Time Column
+	
 	_, _, _, _, _, _, err := importer.ParseImportedData(context, user, []byte("随手记导出文件(headers:v5;xxxxx)\n"+
 		"\"交易类型\",\"子类别\",\"账户\",\"金额\",\"备注\",\"关联Id\"\n"+
 		"\"余额变更\",\"\",\"Test Account\",\"123.45\",\"\",\"\"\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingRequiredFieldInHeaderRow.Message)
 
-	// Missing Type Column
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte("随手记导出文件(headers:v5;xxxxx)\n"+
 		"\"日期\",\"子类别\",\"账户\",\"金额\",\"备注\",\"关联Id\"\n"+
 		"\"2024-09-01 00:00:00\",\"Test Category\",\"Test Account\",\"123.45\",\"\",\"\"\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingRequiredFieldInHeaderRow.Message)
 
-	// Missing Sub Category Column
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte("随手记导出文件(headers:v5;xxxxx)\n"+
 		"\"交易类型\",\"日期\",\"账户\",\"金额\",\"备注\",\"关联Id\"\n"+
 		"\"余额变更\",\"2024-09-01 00:00:00\",\"Test Account\",\"123.45\",\"\",\"\"\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingRequiredFieldInHeaderRow.Message)
 
-	// Missing Account Name Column
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte("随手记导出文件(headers:v5;xxxxx)\n"+
 		"\"交易类型\",\"日期\",\"子类别\",\"金额\",\"备注\",\"关联Id\"\n"+
 		"\"余额变更\",\"2024-09-01 00:00:00\",\"\",\"123.45\",\"\",\"\"\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingRequiredFieldInHeaderRow.Message)
 
-	// Missing Amount Column
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte("随手记导出文件(headers:v5;xxxxx)\n"+
 		"\"交易类型\",\"日期\",\"子类别\",\"账户\",\"备注\",\"关联Id\"\n"+
 		"\"余额变更\",\"2024-09-01 00:00:00\",\"\",\"Test Account\",\"\",\"\"\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingRequiredFieldInHeaderRow.Message)
 
-	// Missing Related ID Column
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte("随手记导出文件(headers:v5;xxxxx)\n"+
 		"\"交易类型\",\"日期\",\"子类别\",\"账户\",\"金额\",\"备注\"\n"+
 		"\"余额变更\",\"2024-09-01 00:00:00\",\"\",\"Test Account\",\"123.45\",\"\"\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)

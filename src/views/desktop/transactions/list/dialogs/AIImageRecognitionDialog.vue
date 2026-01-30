@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <v-dialog width="800" :persistent="loading || recognizing || !!imageFile" v-model="showState" @paste="onPaste">
         <v-card class="pa-sm-1 pa-md-2">
             <template #title>
@@ -277,7 +277,7 @@ defineExpose({
 }
 
 .dropzone-blurry-bg {
-    /* stylelint-disable property-no-vendor-prefix */
+    
     -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
 }

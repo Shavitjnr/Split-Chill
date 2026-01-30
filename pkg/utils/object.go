@@ -1,4 +1,4 @@
-package utils
+﻿package utils
 
 import (
 	"bytes"
@@ -7,7 +7,7 @@ import (
 	"reflect"
 )
 
-// Clone deep-clones src object to dst object
+
 func Clone(src, dst any) error {
 	var buf bytes.Buffer
 
@@ -24,7 +24,7 @@ func Clone(src, dst any) error {
 	return nil
 }
 
-// PrintObjectFields prints all fields in specified object
+
 func PrintObjectFields(obj any) {
 	if obj == nil {
 		return

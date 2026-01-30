@@ -1,15 +1,15 @@
-package camt
+﻿package camt
 
 import (
 	"fmt"
 	"strings"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/datatable"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/datatable"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 var camtTransactionSupportedColumns = map[datatable.TransactionDataTableColumn]bool{
@@ -24,12 +24,12 @@ var camtTransactionSupportedColumns = map[datatable.TransactionDataTableColumn]b
 	datatable.TRANSACTION_DATA_TABLE_DESCRIPTION:          true,
 }
 
-// camtStatementTransactionDataTable defines the structure of camt statement transaction data table
+
 type camtStatementTransactionDataTable struct {
 	allStatements []*camtStatement
 }
 
-// camtStatementTransactionDataRow defines the structure of camt statement transaction data row
+
 type camtStatementTransactionDataRow struct {
 	dataTable          *camtStatementTransactionDataTable
 	account            *camtAccount
@@ -38,7 +38,7 @@ type camtStatementTransactionDataRow struct {
 	finalItems         map[datatable.TransactionDataTableColumn]string
 }
 
-// camtStatementTransactionDataRowIterator defines the structure of camt statement transaction data row iterator
+
 type camtStatementTransactionDataRowIterator struct {
 	dataTable                      *camtStatementTransactionDataTable
 	currentStatementIndex          int
@@ -46,13 +46,13 @@ type camtStatementTransactionDataRowIterator struct {
 	currentTransactionDetailsIndex int
 }
 
-// HasColumn returns whether the transaction data table has specified column
+
 func (t *camtStatementTransactionDataTable) HasColumn(column datatable.TransactionDataTableColumn) bool {
 	_, exists := camtTransactionSupportedColumns[column]
 	return exists
 }
 
-// TransactionRowCount returns the total count of transaction data row
+
 func (t *camtStatementTransactionDataTable) TransactionRowCount() int {
 	totalDataRowCount := 0
 
@@ -73,7 +73,7 @@ func (t *camtStatementTransactionDataTable) TransactionRowCount() int {
 	return totalDataRowCount
 }
 
-// TransactionRowIterator returns the iterator of transaction data row
+
 func (t *camtStatementTransactionDataTable) TransactionRowIterator() datatable.TransactionDataRowIterator {
 	return &camtStatementTransactionDataRowIterator{
 		dataTable:                      t,
@@ -83,12 +83,12 @@ func (t *camtStatementTransactionDataTable) TransactionRowIterator() datatable.T
 	}
 }
 
-// IsValid returns whether this row is valid data for importing
+
 func (r *camtStatementTransactionDataRow) IsValid() bool {
 	return true
 }
 
-// GetData returns the data in the specified column type
+
 func (r *camtStatementTransactionDataRow) GetData(column datatable.TransactionDataTableColumn) string {
 	_, exists := camtTransactionSupportedColumns[column]
 
@@ -99,7 +99,7 @@ func (r *camtStatementTransactionDataRow) GetData(column datatable.TransactionDa
 	return ""
 }
 
-// HasNext returns whether the iterator does not reach the end
+
 func (t *camtStatementTransactionDataRowIterator) HasNext() bool {
 	allStatements := t.dataTable.allStatements
 
@@ -138,7 +138,7 @@ func (t *camtStatementTransactionDataRowIterator) HasNext() bool {
 	return false
 }
 
-// Next returns the next transaction data row
+
 func (t *camtStatementTransactionDataRowIterator) Next(ctx core.Context, user *models.User) (daraRow datatable.TransactionDataRow, err error) {
 	allStatements := t.dataTable.allStatements
 
@@ -257,7 +257,7 @@ func (t *camtStatementTransactionDataRowIterator) parseTransaction(ctx core.Cont
 
 	amountValue := ""
 
-	if entry.EntryDetails != nil && len(entry.EntryDetails.TransactionDetails) > 1 && transactionDetails != nil { // when there are multiple transaction details in one entry, only use the amount in the transaction details
+	if entry.EntryDetails != nil && len(entry.EntryDetails.TransactionDetails) > 1 && transactionDetails != nil { 
 		if transactionDetails.AmountDetails != nil && transactionDetails.AmountDetails.InstructedAmount != nil && transactionDetails.AmountDetails.InstructedAmount.Value != "" {
 			amountValue = transactionDetails.AmountDetails.InstructedAmount.Value
 		} else if transactionDetails.AmountDetails != nil && transactionDetails.AmountDetails.TransactionAmount != nil && transactionDetails.AmountDetails.TransactionAmount.Value != "" {

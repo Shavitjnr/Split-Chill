@@ -1,4 +1,4 @@
-package exchangerates
+﻿package exchangerates
 
 import (
 	"bytes"
@@ -8,12 +8,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
-	"github.com/mayswind/ezbookkeeping/pkg/validators"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/validators"
 )
 
 const centralBankOfHungaryExchangeRateServiceUrl = "http://www.mnb.hu/arfolyamok.asmx"
@@ -25,37 +25,37 @@ const centralBankOfHungaryBaseCurrency = "HUF"
 const centralBankOfHungaryUpdateDateFormat = "2006-01-02 15"
 const centralBankOfHungaryUpdateDateTimezone = "Europe/Budapest"
 
-// CentralBankOfHungaryDataSource defines the structure of exchange rates data source of central bank of Hungary
+
 type CentralBankOfHungaryDataSource struct {
 	HttpExchangeRatesDataSource
 }
 
-// CentralBankOfHungaryExchangeRateServiceResponse represents the response data of exchange rate service for central bank of Hungary
+
 type CentralBankOfHungaryExchangeRateServiceResponse struct {
 	XMLName                       xml.Name `xml:"Envelope"`
 	GetCurrentExchangeRatesResult string   `xml:"Body>GetCurrentExchangeRatesResponse>GetCurrentExchangeRatesResult"`
 }
 
-// CentralBankOfHungaryCurrentExchangeRatesResult represents the current exchange rate result data from central bank of Hungary
+
 type CentralBankOfHungaryCurrentExchangeRatesResult struct {
 	XMLName          xml.Name                             `xml:"MNBCurrentExchangeRates"`
 	AllExchangeRates []*CentralBankOfHungaryExchangeRates `xml:"Day"`
 }
 
-// CentralBankOfHungaryExchangeRates represents the exchange rates data from Danmarks Nationalbank
+
 type CentralBankOfHungaryExchangeRates struct {
 	Date          string                              `xml:"date,attr"`
 	ExchangeRates []*CentralBankOfHungaryExchangeRate `xml:"Rate"`
 }
 
-// CentralBankOfHungaryExchangeRate represents the exchange rate data from central bank of Hungary
+
 type CentralBankOfHungaryExchangeRate struct {
 	Currency string `xml:"curr,attr"`
 	Unit     string `xml:"unit,attr"`
 	Rate     string `xml:",chardata"`
 }
 
-// ToLatestExchangeRateResponse returns a view-object according to original data from central bank of Hungary
+
 func (e *CentralBankOfHungaryCurrentExchangeRatesResult) ToLatestExchangeRateResponse(c core.Context) *models.LatestExchangeRateResponse {
 	if len(e.AllExchangeRates) < 1 {
 		log.Errorf(c, "[central_bank_of_hungary_datasource.ToLatestExchangeRateResponse] all exchange rates is empty")
@@ -94,7 +94,7 @@ func (e *CentralBankOfHungaryCurrentExchangeRatesResult) ToLatestExchangeRateRes
 		return nil
 	}
 
-	updateDateTime := latestCentralBankOfHungaryExchangeRate.Date + " 11" // The exchange rates are fixed at 11 am.
+	updateDateTime := latestCentralBankOfHungaryExchangeRate.Date + " 11" 
 	updateTime, err := time.ParseInLocation(centralBankOfHungaryUpdateDateFormat, updateDateTime, timezone)
 
 	if err != nil {
@@ -113,7 +113,7 @@ func (e *CentralBankOfHungaryCurrentExchangeRatesResult) ToLatestExchangeRateRes
 	return latestExchangeRateResp
 }
 
-// ToLatestExchangeRate returns a data pair according to original data from central bank of Hungary
+
 func (e *CentralBankOfHungaryExchangeRate) ToLatestExchangeRate(c core.Context) *models.LatestExchangeRate {
 	rate, err := utils.StringToFloat64(strings.ReplaceAll(e.Rate, ",", "."))
 
@@ -151,7 +151,7 @@ func (e *CentralBankOfHungaryExchangeRate) ToLatestExchangeRate(c core.Context) 
 	}
 }
 
-// BuildRequests returns the central bank of Hungary exchange rates http requests
+
 func (e *CentralBankOfHungaryDataSource) BuildRequests() ([]*http.Request, error) {
 	req, err := http.NewRequest("POST", centralBankOfHungaryExchangeRateServiceUrl, bytes.NewReader([]byte(
 		"<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\">"+
@@ -170,7 +170,7 @@ func (e *CentralBankOfHungaryDataSource) BuildRequests() ([]*http.Request, error
 	return []*http.Request{req}, nil
 }
 
-// Parse returns the common response entity according to the central bank of Hungary data source raw response
+
 func (e *CentralBankOfHungaryDataSource) Parse(c core.Context, content []byte) (*models.LatestExchangeRateResponse, error) {
 	responseXmlDecoder := xml.NewDecoder(bytes.NewReader(content))
 

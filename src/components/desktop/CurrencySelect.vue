@@ -7,6 +7,7 @@
         :disabled="disabled"
         :label="label"
         :placeholder="placeholder"
+        :prepend-inner-icon="prependInnerIcon"
         :items="allCurrencies"
         :no-data-text="tt('No results')"
         :custom-filter="filterCurrency"
@@ -47,7 +48,8 @@ const props = defineProps<{
     disabled?: boolean;
     label?: string;
     placeholder?: string;
-    modelValue: string;
+    prependInnerIcon?: string;
+    modelValue?: string;
 }>();
 
 const emit = defineEmits<{
@@ -58,8 +60,8 @@ const { tt, getAllCurrencies } = useI18n();
 
 const allCurrencies = computed<LocalizedCurrencyInfo[]>(() => getAllCurrencies());
 
-const currentCurrencyValue = computed<string | null>({
-    get: () => props.modelValue,
+const currentCurrencyValue = computed<string>({
+    get: () => props.modelValue ?? '',
     set: (value: string | null) => {
         if (value === null) {
             emit('update:modelValue', '');

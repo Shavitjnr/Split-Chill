@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 
 import { useI18n } from '@/locales/helpers.ts';
 
@@ -358,7 +358,7 @@ export function useTransactionListPageBase() {
             } else if (transaction.destinationAccount && (queryAllFilterAccountIds.value[transaction.destinationAccount.id] || queryAllFilterAccountIds.value[transaction.destinationAccount.parentId])) {
                 return formatAmount(transaction.destinationAmount, transaction.hideAmount, transaction.destinationAccount.currency);
             }
-        } else { // queryAllFilterAccountIdsCount.value > 1
+        } else { 
             if (transaction.sourceAccount && transaction.destinationAccount) {
                 if ((queryAllFilterAccountIds.value[transaction.sourceAccount.id] || queryAllFilterAccountIds.value[transaction.sourceAccount.parentId])
                     && !queryAllFilterAccountIds.value[transaction.destinationAccount.id] && !queryAllFilterAccountIds.value[transaction.destinationAccount.parentId]) {
@@ -398,13 +398,13 @@ export function useTransactionListPageBase() {
     }
 
     return {
-        // states
+        
         pageType,
         loading,
         customMinDatetime,
         customMaxDatetime,
         currentCalendarDate,
-        // computed states
+        
         firstDayOfWeek,
         fiscalYearStart,
         defaultCurrency,
@@ -442,7 +442,7 @@ export function useTransactionListPageBase() {
         transactionCalendarMaxDate,
         currentMonthTransactionData,
         canAddTransaction,
-        // functions
+        
         hasSubCategoryInQuery,
         hasVisibleTagsInTagGroup,
         isSameAsDefaultTimezoneOffsetMinutes,

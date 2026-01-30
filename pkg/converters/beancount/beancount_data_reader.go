@@ -1,4 +1,4 @@
-package beancount
+﻿package beancount
 
 import (
 	"bytes"
@@ -9,10 +9,10 @@ import (
 	"golang.org/x/text/encoding/unicode"
 	"golang.org/x/text/transform"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 const beancountDefaultAssetsAccountTypeName = "Assets"
@@ -34,15 +34,14 @@ const beancountPricePrefix = '@'
 const beancountLinkPrefix = '^'
 const beancountTagPrefix = '#'
 
-// beancountDataReader defines the structure of Beancount data reader
+
 type beancountDataReader struct {
 	accountTypeNameMap         map[string]beancountAccountType
 	accountTypeNameReversedMap map[beancountAccountType]string
 	allData                    [][]string
 }
 
-// read returns the imported Beancount data
-// Reference: https://beancount.github.io/docs/beancount_language_syntax.html
+
 func (r *beancountDataReader) read(ctx core.Context) (*beancountData, error) {
 	if len(r.allData) < 1 {
 		return nil, errs.ErrNotFoundTransactionDataInFile
@@ -61,7 +60,7 @@ func (r *beancountDataReader) read(ctx core.Context) (*beancountData, error) {
 	for i := 0; i < len(r.allData); i++ {
 		items := r.allData[i]
 
-		if len(items) == 0 || (len(items) == 1 && len(items[0]) == 0) || (len(r.getNotEmptyItemByIndex(items, 0)) > 0 && r.getNotEmptyItemByIndex(items, 0)[0] == beancountCommentPrefix) { // skip empty or comment lines
+		if len(items) == 0 || (len(items) == 1 && len(items[0]) == 0) || (len(r.getNotEmptyItemByIndex(items, 0)) > 0 && r.getNotEmptyItemByIndex(items, 0)[0] == beancountCommentPrefix) { 
 			continue
 		}
 
@@ -72,9 +71,9 @@ func (r *beancountDataReader) read(ctx core.Context) (*beancountData, error) {
 
 		firstItem := items[0]
 
-		if firstItem == "include" { // not support include directive
+		if firstItem == "include" { 
 			return nil, errs.ErrBeancountFileNotSupportInclude
-		} else if firstItem == "plugin" { // skip plugin directive lines
+		} else if firstItem == "plugin" { 
 			currentTransactionEntry, currentTransactionPosting = r.updateCurrentState(data, currentTransactionEntry, currentTransactionPosting)
 			continue
 		} else if firstItem == "option" {
@@ -91,14 +90,14 @@ func (r *beancountDataReader) read(ctx core.Context) (*beancountData, error) {
 			continue
 		}
 
-		if len(firstItem) == 0 { // original line has space prefix, maybe transaction posting or metadata line
+		if len(firstItem) == 0 { 
 			actualFirstItem := r.getNotEmptyItemByIndex(items, 0)
 
-			if len(actualFirstItem) == 0 { // skip empty lines
+			if len(actualFirstItem) == 0 { 
 				continue
 			}
 
-			if ('A' <= actualFirstItem[0] && actualFirstItem[0] <= 'Z') || actualFirstItem[0] == '!' { // transaction posting
+			if ('A' <= actualFirstItem[0] && actualFirstItem[0] <= 'Z') || actualFirstItem[0] == '!' { 
 				if currentTransactionEntry != nil && currentTransactionPosting != nil {
 					currentTransactionEntry.Postings = append(currentTransactionEntry.Postings, currentTransactionPosting)
 					currentTransactionPosting = nil
@@ -109,7 +108,7 @@ func (r *beancountDataReader) read(ctx core.Context) (*beancountData, error) {
 				if err != nil {
 					return nil, err
 				}
-			} else if 'a' <= actualFirstItem[0] && actualFirstItem[0] <= 'z' { // metadata
+			} else if 'a' <= actualFirstItem[0] && actualFirstItem[0] <= 'z' { 
 				metadata := r.readTransactionMetadataLine(ctx, i, items)
 
 				if metadata == nil {
@@ -133,7 +132,7 @@ func (r *beancountDataReader) read(ctx core.Context) (*beancountData, error) {
 				currentTransactionEntry, currentTransactionPosting = r.updateCurrentState(data, currentTransactionEntry, currentTransactionPosting)
 				continue
 			}
-		} else if _, err := utils.ParseFromLongDateFirstTime(firstItem, 0); err == nil { // original line has date as first item
+		} else if _, err := utils.ParseFromLongDateFirstTime(firstItem, 0); err == nil { 
 			currentTransactionEntry, currentTransactionPosting = r.updateCurrentState(data, currentTransactionEntry, currentTransactionPosting)
 
 			directive := r.getNotEmptyItemByIndex(items, 1)
@@ -158,13 +157,13 @@ func (r *beancountDataReader) read(ctx core.Context) (*beancountData, error) {
 				directive == string(beancountDirectiveBalance) ||
 				directive == string(beancountDirectivePad) ||
 				directive == string(beancountDirectiveQuery) ||
-				directive == string(beancountDirectiveCustom) { // skip commodity / price / note / document / event / balance / pad / query / custom lines
+				directive == string(beancountDirectiveCustom) { 
 				continue
 			} else {
 				log.Warnf(ctx, "[beancount_data_reader.read] cannot parse line#%d \"%s\", because directive is unknown", i, strings.Join(items, " "))
 				continue
 			}
-		} else { // first item not start with date or space
+		} else { 
 			currentTransactionEntry, currentTransactionPosting = r.updateCurrentState(data, currentTransactionEntry, currentTransactionPosting)
 			continue
 		}
@@ -252,7 +251,7 @@ func (r *beancountDataReader) readAndSetTags(ctx core.Context, lineIndex int, it
 		}
 
 		return append(currentTags, tag)
-	} else { // pop tag
+	} else { 
 		for i := 0; i < len(currentTags); i++ {
 			if currentTags[i] == tag {
 				return append(currentTags[:i], currentTags[i+1:]...)
@@ -339,11 +338,11 @@ func (r *beancountDataReader) readTransactionLine(ctx core.Context, lineIndex in
 		allTags[tag] = true
 	}
 
-	// YYYY-MM-DD [txn|Flag] [[Payee] Narration] [#tag] [ˆlink]
+	
 	payeeNarrationFirstIndex := 2
 	payeeNarrationLastIndex := len(items) - 1
 
-	// parse remain items
+	
 	for i := payeeNarrationFirstIndex; i < len(items); i++ {
 		item := items[i]
 
@@ -351,7 +350,7 @@ func (r *beancountDataReader) readTransactionLine(ctx core.Context, lineIndex in
 			continue
 		}
 
-		if item[0] == beancountCommentPrefix { // ; comment
+		if item[0] == beancountCommentPrefix { 
 			if i-1 < payeeNarrationLastIndex {
 				payeeNarrationLastIndex = i - 1
 			}
@@ -359,7 +358,7 @@ func (r *beancountDataReader) readTransactionLine(ctx core.Context, lineIndex in
 			break
 		}
 
-		if item[0] == beancountTagPrefix { // [#tag]
+		if item[0] == beancountTagPrefix { 
 			tagName := item[1:]
 
 			if _, exists := allTags[tagName]; !exists {
@@ -370,7 +369,7 @@ func (r *beancountDataReader) readTransactionLine(ctx core.Context, lineIndex in
 			if i-1 < payeeNarrationLastIndex {
 				payeeNarrationLastIndex = i - 1
 			}
-		} else if item[0] == beancountLinkPrefix { // [ˆlink]
+		} else if item[0] == beancountLinkPrefix { 
 			transactionEntry.Links = append(transactionEntry.Links, item[1:])
 
 			if i-1 < payeeNarrationLastIndex {
@@ -390,7 +389,7 @@ func (r *beancountDataReader) readTransactionLine(ctx core.Context, lineIndex in
 }
 
 func (r *beancountDataReader) readTransactionPostingLine(ctx core.Context, lineIndex int, items []string, data *beancountData, hasFlag bool) (*beancountPosting, error) {
-	// [Flag] Account Amount [{Cost}] [@ Price]
+	
 	accountNameExpectedIndex := 0
 
 	if hasFlag {
@@ -439,12 +438,12 @@ func (r *beancountDataReader) readTransactionPostingLine(ctx core.Context, lineI
 		return nil, errs.ErrInvalidBeancountFile
 	}
 
-	if strings.ToUpper(transactionPositing.Commodity) != transactionPositing.Commodity { // The syntax for a currency is a word all in capital letters
+	if strings.ToUpper(transactionPositing.Commodity) != transactionPositing.Commodity { 
 		log.Warnf(ctx, "[beancount_data_reader.readTransactionPostingLine] cannot parse transaction posting line#%d \"%s\", because commodity name is not capital letters", lineIndex, strings.Join(items, " "))
 		return nil, errs.ErrInvalidBeancountFile
 	}
 
-	// parse remain items
+	
 	if commodityActualIndex > 0 {
 		for i := commodityActualIndex + 1; i < len(items); i++ {
 			item := items[i]
@@ -453,11 +452,11 @@ func (r *beancountDataReader) readTransactionPostingLine(ctx core.Context, lineI
 				continue
 			}
 
-			if item[0] == beancountCommentPrefix { // ; comment
+			if item[0] == beancountCommentPrefix { 
 				break
 			}
 
-			if len(item) == 2 && item[0] == beancountPricePrefix && item[1] == beancountPricePrefix { // [@@ TotalCost]
+			if len(item) == 2 && item[0] == beancountPricePrefix && item[1] == beancountPricePrefix { 
 				totalCost, totalCostActualIndex := r.getNotEmptyItemAndIndexFromIndex(items, i+1)
 
 				if totalCostActualIndex > 0 {
@@ -471,7 +470,7 @@ func (r *beancountDataReader) readTransactionPostingLine(ctx core.Context, lineI
 						i = totalCostCommodityActualIndex
 					}
 				}
-			} else if len(item) == 1 && item[0] == beancountPricePrefix { // [@ Price]
+			} else if len(item) == 1 && item[0] == beancountPricePrefix { 
 				price, priceActualIndex := r.getNotEmptyItemAndIndexFromIndex(items, i+1)
 
 				if priceActualIndex > 0 {
@@ -587,7 +586,7 @@ func (r *beancountDataReader) getOriginalAmountAndLastIndexFromIndex(items []str
 
 		valid := true
 
-		// The Amount in “Postings” can also be an arithmetic expression using ( ) * / - +
+		
 		for j := 0; j < len(item); j++ {
 			if !(item[j] >= '0' && item[j] <= '9') && item[j] != '.' && item[j] != '(' && item[j] != ')' &&
 				item[j] != '*' && item[j] != '/' && item[j] != '-' && item[j] != '+' {

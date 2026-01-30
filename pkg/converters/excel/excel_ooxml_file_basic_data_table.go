@@ -1,4 +1,4 @@
-package excel
+﻿package excel
 
 import (
 	"bytes"
@@ -6,38 +6,38 @@ import (
 
 	"github.com/xuri/excelize/v2"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/datatable"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/datatable"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
 )
 
-// excelOOXMLSheet defines the structure of excel (Office Open XML) file sheet
+
 type excelOOXMLSheet struct {
 	sheetName string
 	allData   [][]string
 }
 
-// ExcelOOXMLFileBasicDataTable defines the structure of excel (Office Open XML) file data table
+
 type ExcelOOXMLFileBasicDataTable struct {
 	sheets                []*excelOOXMLSheet
 	headerLineColumnNames []string
 	hasTitleLine          bool
 }
 
-// ExcelOOXMLFileBasicDataTableRow defines the structure of excel (Office Open XML) file data table row
+
 type ExcelOOXMLFileBasicDataTableRow struct {
 	sheet    *excelOOXMLSheet
 	rowData  []string
 	rowIndex int
 }
 
-// ExcelOOXMLFileBasicDataTableRowIterator defines the structure of excel (Office Open XML) file data table row iterator
+
 type ExcelOOXMLFileBasicDataTableRowIterator struct {
 	dataTable              *ExcelOOXMLFileBasicDataTable
 	currentSheetIndex      int
 	currentRowIndexInSheet int
 }
 
-// DataRowCount returns the total count of data row
+
 func (t *ExcelOOXMLFileBasicDataTable) DataRowCount() int {
 	totalDataRowCount := 0
 
@@ -58,7 +58,7 @@ func (t *ExcelOOXMLFileBasicDataTable) DataRowCount() int {
 	return totalDataRowCount
 }
 
-// HeaderColumnNames returns the header column name list
+
 func (t *ExcelOOXMLFileBasicDataTable) HeaderColumnNames() []string {
 	if !t.hasTitleLine {
 		return nil
@@ -67,7 +67,7 @@ func (t *ExcelOOXMLFileBasicDataTable) HeaderColumnNames() []string {
 	return t.headerLineColumnNames
 }
 
-// DataRowIterator returns the iterator of data row
+
 func (t *ExcelOOXMLFileBasicDataTable) DataRowIterator() datatable.BasicDataTableRowIterator {
 	startIndex := -1
 
@@ -82,12 +82,12 @@ func (t *ExcelOOXMLFileBasicDataTable) DataRowIterator() datatable.BasicDataTabl
 	}
 }
 
-// ColumnCount returns the total count of column in this data row
+
 func (r *ExcelOOXMLFileBasicDataTableRow) ColumnCount() int {
 	return len(r.rowData)
 }
 
-// GetData returns the data in the specified column index
+
 func (r *ExcelOOXMLFileBasicDataTableRow) GetData(columnIndex int) string {
 	if columnIndex < 0 || columnIndex >= len(r.rowData) {
 		return ""
@@ -96,7 +96,7 @@ func (r *ExcelOOXMLFileBasicDataTableRow) GetData(columnIndex int) string {
 	return r.rowData[columnIndex]
 }
 
-// HasNext returns whether the iterator does not reach the end
+
 func (t *ExcelOOXMLFileBasicDataTableRowIterator) HasNext() bool {
 	sheets := t.dataTable.sheets
 
@@ -129,12 +129,12 @@ func (t *ExcelOOXMLFileBasicDataTableRowIterator) HasNext() bool {
 	return false
 }
 
-// CurrentRowId returns current index
+
 func (t *ExcelOOXMLFileBasicDataTableRowIterator) CurrentRowId() string {
 	return fmt.Sprintf("sheet#%d-row#%d", t.currentSheetIndex, t.currentRowIndexInSheet)
 }
 
-// Next returns the next basic data row
+
 func (t *ExcelOOXMLFileBasicDataTableRowIterator) Next() datatable.BasicDataTableRow {
 	sheets := t.dataTable.sheets
 
@@ -172,7 +172,7 @@ func (t *ExcelOOXMLFileBasicDataTableRowIterator) Next() datatable.BasicDataTabl
 	}
 }
 
-// CreateNewExcelOOXMLFileBasicDataTable returns excel (Office Open XML) data table by file binary data
+
 func CreateNewExcelOOXMLFileBasicDataTable(data []byte, hasTitleLine bool) (datatable.BasicDataTable, error) {
 	reader := bytes.NewReader(data)
 	file, err := excelize.OpenReader(reader)

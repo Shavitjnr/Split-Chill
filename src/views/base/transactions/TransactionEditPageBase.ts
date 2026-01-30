@@ -1,4 +1,4 @@
-import { ref, computed, watch } from 'vue';
+﻿import { ref, computed, watch } from 'vue';
 
 import { useI18n } from '@/locales/helpers.ts';
 
@@ -422,7 +422,7 @@ export function useTransactionEditPageBase(type: TransactionEditPageType, initMo
         }
     });
 
-    // Watch for account changes and recalculate destination amount for transfers
+    
     watch(() => [transaction.value.sourceAccountId, transaction.value.destinationAccountId], ([newSourceAccountId, newDestinationAccountId], [oldSourceAccountId, oldDestinationAccountId]) => {
         if (mode.value === TransactionEditPageMode.View || loading.value) {
             return;
@@ -432,7 +432,7 @@ export function useTransactionEditPageBase(type: TransactionEditPageType, initMo
             return;
         }
 
-        // Only recalculate if accounts actually changed (skip initial watch call)
+        
         if (isDefined(oldSourceAccountId) && isDefined(oldDestinationAccountId)) {
             if (newSourceAccountId === oldSourceAccountId && newDestinationAccountId === oldDestinationAccountId) {
                 return;
@@ -443,9 +443,9 @@ export function useTransactionEditPageBase(type: TransactionEditPageType, initMo
     });
 
     return {
-        // constants
+        
         isSupportGeoLocation,
-        // states
+        
         mode,
         editId,
         addByTemplateId,
@@ -457,7 +457,7 @@ export function useTransactionEditPageBase(type: TransactionEditPageType, initMo
         geoLocationStatus,
         setGeoLocationByClickMap,
         transaction,
-        // computed states
+        
         numeralSystem,
         currentTimezoneOffsetMinutes,
         showAccountBalance,
@@ -494,7 +494,7 @@ export function useTransactionEditPageBase(type: TransactionEditPageType, initMo
         geoLocationStatusInfo,
         inputEmptyProblemMessage,
         inputIsEmpty,
-        // functions
+        
         createNewTransactionModel,
         updateTransactionTime,
         updateTransactionTimezone,

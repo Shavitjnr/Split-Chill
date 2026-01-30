@@ -1,5 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+﻿
+
 import type { Coordinate } from '@/core/coordinate.ts';
 import type { MapProvider, MapInstance, MapCreateOptions, MapInstanceInitOptions } from './base.ts';
 
@@ -8,7 +8,7 @@ import { asyncLoadAssets } from '@/lib/misc.ts';
 import services from '@/lib/services.ts';
 
 export class GoogleMapProvider implements MapProvider {
-    // https://developers.google.com/maps/documentation/javascript/reference/map
+    
     public static GoogleMap: unknown = null;
     public static ControlPosition = {
         LEFT_TOP: (window.google && window.google.maps && window.google.maps.ControlPosition) ? window.google.maps.ControlPosition.LEFT_TOP : 5

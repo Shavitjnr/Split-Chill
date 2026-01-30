@@ -1,4 +1,4 @@
-import { type Ref, ref, computed } from 'vue';
+﻿import { type Ref, ref, computed } from 'vue';
 
 import { useI18n } from '@/locales/helpers.ts';
 
@@ -148,12 +148,12 @@ export function useTwoLevelItemSelectionBase(props: TwoLevelItemSelectionBasePro
     }
 
     return {
-        // states
+        
         filterContent,
-        // computed states
+        
         visibleItemsCount,
         filteredItems,
-        // functions
+        
         getFilteredSubItems,
         isSecondaryValueSelected,
         getSelectedSecondaryItem,

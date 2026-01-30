@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <v-app>
         <router-view />
     </v-app>
@@ -108,7 +108,7 @@ setExpenseAndIncomeAmountColor(userStore.currentUserExpenseAmountColor, userStor
 
 if (isUserLogined() && initialRoutePath !== '/verify_email' && initialRoutePath !== '/resetpassword' && initialRoutePath !== '/oauth2_callback') {
     if (!settingsStore.appSettings.applicationLock || isUserUnlocked()) {
-        // refresh token if user is logined
+        
         tokensStore.refreshTokenAndRevokeOldToken().then(response => {
             if (response.user) {
                 localeDefaultSettings = setLanguage(response.user.language);
@@ -122,7 +122,7 @@ if (isUserLogined() && initialRoutePath !== '/verify_email' && initialRoutePath 
             }
         });
 
-        // auto refresh exchange rates data
+        
         if (settingsStore.appSettings.autoUpdateExchangeRatesData) {
             exchangeRatesStore.getLatestExchangeRates({ silent: true, force: false });
         }

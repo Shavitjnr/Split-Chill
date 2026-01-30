@@ -1,28 +1,28 @@
-package api
+﻿package api
 
 import (
 	"sort"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/services"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/services"
 )
 
-// TransactionTagsApi represents transaction tag api
+
 type TransactionTagsApi struct {
 	tags *services.TransactionTagService
 }
 
-// Initialize a transaction tag api singleton instance
+
 var (
 	TransactionTags = &TransactionTagsApi{
 		tags: services.TransactionTags,
 	}
 )
 
-// TagListHandler returns transaction tag list of current user
+
 func (a *TransactionTagsApi) TagListHandler(c *core.WebContext) (any, *errs.Error) {
 	uid := c.GetCurrentUid()
 	tags, err := a.tags.GetAllTagsByUid(c, uid)
@@ -43,7 +43,7 @@ func (a *TransactionTagsApi) TagListHandler(c *core.WebContext) (any, *errs.Erro
 	return tagResps, nil
 }
 
-// TagGetHandler returns one specific transaction tag of current user
+
 func (a *TransactionTagsApi) TagGetHandler(c *core.WebContext) (any, *errs.Error) {
 	var tagGetReq models.TransactionTagGetRequest
 	err := c.ShouldBindQuery(&tagGetReq)
@@ -66,7 +66,7 @@ func (a *TransactionTagsApi) TagGetHandler(c *core.WebContext) (any, *errs.Error
 	return tagResp, nil
 }
 
-// TagCreateHandler saves a new transaction tag by request parameters for current user
+
 func (a *TransactionTagsApi) TagCreateHandler(c *core.WebContext) (any, *errs.Error) {
 	var tagCreateReq models.TransactionTagCreateRequest
 	err := c.ShouldBindJSON(&tagCreateReq)
@@ -101,7 +101,7 @@ func (a *TransactionTagsApi) TagCreateHandler(c *core.WebContext) (any, *errs.Er
 	return tagResp, nil
 }
 
-// TagCreateBatchHandler saves some new transaction tags by request parameters for current user
+
 func (a *TransactionTagsApi) TagCreateBatchHandler(c *core.WebContext) (any, *errs.Error) {
 	var tagCreateBatchReq models.TransactionTagCreateBatchRequest
 	err := c.ShouldBindJSON(&tagCreateBatchReq)
@@ -149,7 +149,7 @@ func (a *TransactionTagsApi) TagCreateBatchHandler(c *core.WebContext) (any, *er
 	return tagResps, nil
 }
 
-// TagModifyHandler saves an existed transaction tag by request parameters for current user
+
 func (a *TransactionTagsApi) TagModifyHandler(c *core.WebContext) (any, *errs.Error) {
 	var tagModifyReq models.TransactionTagModifyRequest
 	err := c.ShouldBindJSON(&tagModifyReq)
@@ -209,7 +209,7 @@ func (a *TransactionTagsApi) TagModifyHandler(c *core.WebContext) (any, *errs.Er
 	return tagResp, nil
 }
 
-// TagHideHandler hides a transaction tag by request parameters for current user
+
 func (a *TransactionTagsApi) TagHideHandler(c *core.WebContext) (any, *errs.Error) {
 	var tagHideReq models.TransactionTagHideRequest
 	err := c.ShouldBindJSON(&tagHideReq)
@@ -231,7 +231,7 @@ func (a *TransactionTagsApi) TagHideHandler(c *core.WebContext) (any, *errs.Erro
 	return true, nil
 }
 
-// TagMoveHandler moves display order of existed transaction tags by request parameters for current user
+
 func (a *TransactionTagsApi) TagMoveHandler(c *core.WebContext) (any, *errs.Error) {
 	var tagMoveReq models.TransactionTagMoveRequest
 	err := c.ShouldBindJSON(&tagMoveReq)
@@ -266,7 +266,7 @@ func (a *TransactionTagsApi) TagMoveHandler(c *core.WebContext) (any, *errs.Erro
 	return true, nil
 }
 
-// TagDeleteHandler deletes an existed transaction tag by request parameters for current user
+
 func (a *TransactionTagsApi) TagDeleteHandler(c *core.WebContext) (any, *errs.Error) {
 	var tagDeleteReq models.TransactionTagDeleteRequest
 	err := c.ShouldBindJSON(&tagDeleteReq)

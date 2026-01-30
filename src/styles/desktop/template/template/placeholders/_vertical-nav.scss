@@ -1,5 +1,4 @@
-/** Materio Template styles **/
-/** https://github.com/themeselection/materio-vuetify-vuejs-admin-template-free **/
+﻿
 
 @use "@/styles/desktop/configured-variables/template" as variables;
 
@@ -13,10 +12,7 @@
     block-size: 2rem;
     font-size: 0.8125rem;
     line-height: 1.125rem;
-    /*
-      ℹ️ We will use this to add gap between divider and text.
-      Moreover, we will use this to adjust the `flex-basis` property of left divider
-    */
+    
     $divider-gap: 0.625rem;
 
     // Thanks: https://stackoverflow.com/a/62359101/10796681

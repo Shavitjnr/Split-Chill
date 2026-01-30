@@ -1,4 +1,4 @@
-package converter
+﻿package converter
 
 import (
 	"testing"
@@ -91,7 +91,7 @@ func TestParseImporterOptions_Clone(t *testing.T) {
 	cloned := original.Clone()
 	assert.Equal(t, original, cloned)
 
-	// Modify cloned options and verify original options are not affected
+	
 	cloned.payeeAsTag = false
 	cloned.payeeAsDescription = true
 	cloned.memberAsTag = true

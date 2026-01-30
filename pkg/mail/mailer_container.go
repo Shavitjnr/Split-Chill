@@ -1,21 +1,21 @@
-package mail
+﻿package mail
 
 import (
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
-// MailerContainer contains the current mailer
+
 type MailerContainer struct {
 	current Mailer
 }
 
-// Initialize a mailer container singleton instance
+
 var (
 	Container = &MailerContainer{}
 )
 
-// InitializeMailer initializes the current mailer according to the config
+
 func InitializeMailer(config *settings.Config) error {
 	if !config.EnableSMTP {
 		Container.current = nil
@@ -32,7 +32,7 @@ func InitializeMailer(config *settings.Config) error {
 	return nil
 }
 
-// SendMail sends an email according to argument
+
 func (m *MailerContainer) SendMail(message *MailMessage) error {
 	if m.current == nil {
 		return errs.ErrSMTPServerNotEnabled

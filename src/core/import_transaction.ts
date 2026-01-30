@@ -38,7 +38,7 @@ export class ImportTransactionColumnType implements TypeAndName {
 }
 
 export class ImportTransactionDataMapping {
-    private static readonly JSON_ROOT_FIELD = 'ezBookkeepingImportTransactionDataMapping';
+    private static readonly JSON_ROOT_FIELD = 'Split Chill AIImportTransactionDataMapping';
     private static readonly DEFAULT_INCLUDE_HEADER = true;
     private static readonly DEFAULT_TIME_FORMAT = '';
     private static readonly DEFAULT_TIMEZONE_FORMAT = '';
@@ -385,7 +385,7 @@ export class ImportTransactionReplaceRule {
 }
 
 export class ImportTransactionReplaceRules {
-    private static readonly JSON_ROOT_FIELD = 'ezBookkeepingImportTransactionReplaceRules';
+    private static readonly JSON_ROOT_FIELD = 'Split Chill AIImportTransactionReplaceRules';
 
     private readonly rules: ImportTransactionReplaceRule[];
 

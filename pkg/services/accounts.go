@@ -1,4 +1,4 @@
-package services
+﻿package services
 
 import (
 	"fmt"
@@ -7,22 +7,22 @@ import (
 
 	"xorm.io/xorm"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/datastore"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
-	"github.com/mayswind/ezbookkeeping/pkg/uuid"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/datastore"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/uuid"
 )
 
-// AccountService represents account service
+
 type AccountService struct {
 	ServiceUsingDB
 	ServiceUsingUuid
 }
 
-// Initialize a account service singleton instance
+
 var (
 	Accounts = &AccountService{
 		ServiceUsingDB: ServiceUsingDB{
@@ -34,7 +34,7 @@ var (
 	}
 )
 
-// GetTotalAccountCountByUid returns total account count of user
+
 func (s *AccountService) GetTotalAccountCountByUid(c core.Context, uid int64) (int64, error) {
 	if uid <= 0 {
 		return 0, errs.ErrUserIdInvalid
@@ -45,7 +45,7 @@ func (s *AccountService) GetTotalAccountCountByUid(c core.Context, uid int64) (i
 	return count, err
 }
 
-// GetAllAccountsByUid returns all account models of user
+
 func (s *AccountService) GetAllAccountsByUid(c core.Context, uid int64) ([]*models.Account, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -57,7 +57,7 @@ func (s *AccountService) GetAllAccountsByUid(c core.Context, uid int64) ([]*mode
 	return accounts, err
 }
 
-// GetAccountByAccountId returns account model according to account id
+
 func (s *AccountService) GetAccountByAccountId(c core.Context, uid int64, accountId int64) (*models.Account, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -79,7 +79,7 @@ func (s *AccountService) GetAccountByAccountId(c core.Context, uid int64, accoun
 	return account, err
 }
 
-// GetAccountAndSubAccountsByAccountId returns account model and sub-account models according to account id
+
 func (s *AccountService) GetAccountAndSubAccountsByAccountId(c core.Context, uid int64, accountId int64) ([]*models.Account, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -95,7 +95,7 @@ func (s *AccountService) GetAccountAndSubAccountsByAccountId(c core.Context, uid
 	return accounts, err
 }
 
-// GetSubAccountsByAccountId returns sub-account models according to account id
+
 func (s *AccountService) GetSubAccountsByAccountId(c core.Context, uid int64, accountId int64) ([]*models.Account, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -111,7 +111,7 @@ func (s *AccountService) GetSubAccountsByAccountId(c core.Context, uid int64, ac
 	return accounts, err
 }
 
-// GetSubAccountsByAccountIds returns sub-account models according to account ids
+
 func (s *AccountService) GetSubAccountsByAccountIds(c core.Context, uid int64, accountIds []int64) ([]*models.Account, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -153,7 +153,7 @@ func (s *AccountService) GetSubAccountsByAccountIds(c core.Context, uid int64, a
 	return accounts, err
 }
 
-// GetAccountsByAccountIds returns account models according to account ids
+
 func (s *AccountService) GetAccountsByAccountIds(c core.Context, uid int64, accountIds []int64) (map[int64]*models.Account, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -174,7 +174,7 @@ func (s *AccountService) GetAccountsByAccountIds(c core.Context, uid int64, acco
 	return accountMap, err
 }
 
-// GetMaxDisplayOrder returns the max display order according to account category
+
 func (s *AccountService) GetMaxDisplayOrder(c core.Context, uid int64, category models.AccountCategory) (int32, error) {
 	if uid <= 0 {
 		return 0, errs.ErrUserIdInvalid
@@ -194,7 +194,7 @@ func (s *AccountService) GetMaxDisplayOrder(c core.Context, uid int64, category 
 	}
 }
 
-// GetMaxSubAccountDisplayOrder returns the max display order of sub-account according to account category and parent account id
+
 func (s *AccountService) GetMaxSubAccountDisplayOrder(c core.Context, uid int64, category models.AccountCategory, parentAccountId int64) (int32, error) {
 	if uid <= 0 {
 		return 0, errs.ErrUserIdInvalid
@@ -218,7 +218,7 @@ func (s *AccountService) GetMaxSubAccountDisplayOrder(c core.Context, uid int64,
 	}
 }
 
-// CreateAccounts saves a new account model to database
+
 func (s *AccountService) CreateAccounts(c core.Context, mainAccount *models.Account, mainAccountBalanceTime int64, childrenAccounts []*models.Account, childrenAccountBalanceTimes []int64, clientTimezone *time.Location) error {
 	if mainAccount.Uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -322,7 +322,7 @@ func (s *AccountService) CreateAccounts(c core.Context, mainAccount *models.Acco
 
 			createdRows, err := sess.Insert(transaction)
 
-			if err != nil || createdRows < 1 { // maybe another transaction has same time
+			if err != nil || createdRows < 1 { 
 				if err != nil {
 					log.Warnf(c, "[accounts.CreateAccounts] cannot create transaction, because %s, regenerate transaction time value", err.Error())
 				} else {
@@ -368,7 +368,7 @@ func (s *AccountService) CreateAccounts(c core.Context, mainAccount *models.Acco
 	})
 }
 
-// ModifyAccounts saves an existed account model to database
+
 func (s *AccountService) ModifyAccounts(c core.Context, mainAccount *models.Account, updateAccounts []*models.Account, addSubAccounts []*models.Account, addSubAccountBalanceTimes []int64, removeSubAccountIds []int64, clientTimezone *time.Location) error {
 	if mainAccount.Uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -442,7 +442,7 @@ func (s *AccountService) ModifyAccounts(c core.Context, mainAccount *models.Acco
 	userDataDb := s.UserDataDB(mainAccount.Uid)
 
 	return userDataDb.DoTransaction(c, func(sess *xorm.Session) error {
-		// update accounts
+		
 		for i := 0; i < len(updateAccounts); i++ {
 			account := updateAccounts[i]
 			updatedRows, err := sess.ID(account.AccountId).Cols("name", "display_order", "category", "icon", "color", "comment", "extend", "hidden", "updated_unix_time").Where("uid=? AND deleted=?", account.Uid, false).Update(account)
@@ -454,7 +454,7 @@ func (s *AccountService) ModifyAccounts(c core.Context, mainAccount *models.Acco
 			}
 		}
 
-		// add new sub accounts
+		
 		for i := 0; i < len(addSubAccounts); i++ {
 			account := addSubAccounts[i]
 			_, err := sess.Insert(account)
@@ -464,7 +464,7 @@ func (s *AccountService) ModifyAccounts(c core.Context, mainAccount *models.Acco
 			}
 		}
 
-		// add init transaction for new sub accounts
+		
 		for i := 0; i < len(addInitTransactions); i++ {
 			transaction := addInitTransactions[i]
 
@@ -478,7 +478,7 @@ func (s *AccountService) ModifyAccounts(c core.Context, mainAccount *models.Acco
 
 			createdRows, err := sess.Insert(transaction)
 
-			if err != nil || createdRows < 1 { // maybe another transaction has same time
+			if err != nil || createdRows < 1 { 
 				if err != nil {
 					log.Warnf(c, "[accounts.ModifyAccounts] cannot create trasaction, because %s, regenerate transaction time value", err.Error())
 				} else {
@@ -520,7 +520,7 @@ func (s *AccountService) ModifyAccounts(c core.Context, mainAccount *models.Acco
 			}
 		}
 
-		// remove sub accounts
+		
 		if len(removeSubAccountIds) > 0 {
 			subAccountsCount, err := sess.Where("uid=? AND deleted=? AND parent_account_id=?", mainAccount.Uid, false, mainAccount.AccountId).Count(&models.Account{})
 
@@ -592,7 +592,7 @@ func (s *AccountService) ModifyAccounts(c core.Context, mainAccount *models.Acco
 	})
 }
 
-// HideAccount updates hidden field of given accounts
+
 func (s *AccountService) HideAccount(c core.Context, uid int64, ids []int64, hidden bool) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -618,7 +618,7 @@ func (s *AccountService) HideAccount(c core.Context, uid int64, ids []int64, hid
 	})
 }
 
-// ModifyAccountDisplayOrders updates display order of given accounts
+
 func (s *AccountService) ModifyAccountDisplayOrders(c core.Context, uid int64, accounts []*models.Account) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -644,7 +644,7 @@ func (s *AccountService) ModifyAccountDisplayOrders(c core.Context, uid int64, a
 	})
 }
 
-// DeleteAccount deletes an existed account from database
+
 func (s *AccountService) DeleteAccount(c core.Context, uid int64, accountId int64) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -762,7 +762,7 @@ func (s *AccountService) DeleteAccount(c core.Context, uid int64, accountId int6
 	})
 }
 
-// DeleteSubAccount deletes an existed sub-account from database
+
 func (s *AccountService) DeleteSubAccount(c core.Context, uid int64, accountId int64) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -851,7 +851,7 @@ func (s *AccountService) DeleteSubAccount(c core.Context, uid int64, accountId i
 	})
 }
 
-// GetAccountMapByList returns an account map by a list
+
 func (s *AccountService) GetAccountMapByList(accounts []*models.Account) map[int64]*models.Account {
 	accountMap := make(map[int64]*models.Account)
 
@@ -862,7 +862,7 @@ func (s *AccountService) GetAccountMapByList(accounts []*models.Account) map[int
 	return accountMap
 }
 
-// GetVisibleAccountNameMapByList returns visible account map by a list
+
 func (s *AccountService) GetVisibleAccountNameMapByList(accounts []*models.Account) map[string]*models.Account {
 	accountMap := make(map[string]*models.Account)
 
@@ -882,7 +882,7 @@ func (s *AccountService) GetVisibleAccountNameMapByList(accounts []*models.Accou
 	return accountMap
 }
 
-// GetAccountNames returns a list with account names from account models list
+
 func (s *AccountService) GetAccountNames(accounts []*models.Account) []string {
 	accountNames := make([]string, len(accounts))
 
@@ -893,7 +893,7 @@ func (s *AccountService) GetAccountNames(accounts []*models.Account) []string {
 	return accountNames
 }
 
-// GetAccountOrSubAccountIds returns a list of account ids or sub-account ids according to given account ids
+
 func (s *AccountService) GetAccountOrSubAccountIds(c core.Context, accountIds string, uid int64) ([]int64, error) {
 	if accountIds == "" || accountIds == "0" {
 		return nil, nil
@@ -946,7 +946,7 @@ func (s *AccountService) GetAccountOrSubAccountIds(c core.Context, accountIds st
 	return allAccountIds, nil
 }
 
-// GetAccountOrSubAccountIdsByAccountName returns a list of account ids or sub-account ids according to given account name
+
 func (s *AccountService) GetAccountOrSubAccountIdsByAccountName(accounts []*models.Account, accountName string) []int64 {
 	accountIds := make([]int64, 0)
 	parentAccountIds := make([]int64, 0)

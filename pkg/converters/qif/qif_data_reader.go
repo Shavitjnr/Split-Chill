@@ -1,4 +1,4 @@
-package qif
+﻿package qif
 
 import (
 	"bufio"
@@ -8,9 +8,9 @@ import (
 	"golang.org/x/text/encoding/unicode"
 	"golang.org/x/text/transform"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
 )
 
 const qifBankTransactionHeader = "!Type:Bank"
@@ -29,13 +29,12 @@ const qifTypeHeaderPrefix = "!Type:"
 const qifEntryStartRune = '!'
 const qifEntryEnd = '^'
 
-// qifDataReader defines the structure of quicken interchange format (qif) data reader
+
 type qifDataReader struct {
 	allLines []string
 }
 
-// read returns the imported qif data
-// Reference: https://www.w3.org/2000/10/swap/pim/qif-doc/QIF-doc.htm
+
 func (r *qifDataReader) read(ctx core.Context) (*qifData, error) {
 	if len(r.allLines) < 1 {
 		return nil, errs.ErrNotFoundTransactionDataInFile
@@ -257,7 +256,7 @@ func (r *qifDataReader) parseMemorizedTransaction(ctx core.Context, data []strin
 			continue
 		}
 
-		// these lines has been already processed in parseTransaction
+		
 		if line[0] == 'D' || line[0] == 'T' || line[0] == 'C' || line[0] == 'N' ||
 			line[0] == 'P' || line[0] == 'M' || line[0] == 'A' || line[0] == 'L' ||
 			line[0] == 'S' || line[0] == 'E' || line[0] == '$' {

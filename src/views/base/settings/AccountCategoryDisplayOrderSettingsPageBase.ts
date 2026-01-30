@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+﻿import { ref } from 'vue';
 
 import { AccountCategory } from '@/core/account.ts';
 
@@ -52,9 +52,9 @@ export function useAccountCategoryDisplayOrderSettingsPageBase() {
     }
 
     return {
-        // states
+        
         accountCategories,
-        // functions
+        
         isDisplayOrderModified,
         loadDisplayOrderFromSettings,
         saveDisplayOrderToSettings,

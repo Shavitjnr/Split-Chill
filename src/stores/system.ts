@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+﻿import { defineStore } from 'pinia';
 
 import type { VersionInfo } from '@/core/version.ts';
 
@@ -54,7 +54,7 @@ export const useSystemsStore = defineStore('systems', () => {
     }
 
     return {
-        // functions
+        
         checkIfClientVersionMatchServerVersion,
     };
 });

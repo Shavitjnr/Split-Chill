@@ -1,12 +1,12 @@
-package mt
+﻿package mt
 
 import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
 )
 
 func TestMT940DataReaderParse(t *testing.T) {
@@ -18,10 +18,10 @@ func TestMT940DataReaderParse(t *testing.T) {
 			":25:123456789",
 			":28C:123/1",
 			":60F:C250601CNY1234,56",
-			":61:2506010602DY123,45NTRFTEST//ABC123456",
+			":61:2506010602DY123,45NTRFTEST
 			":86:First Transaction",
 			"Additional Info",
-			":61:2506020620CY234,56NSTFFOOBAR//DEF789012",
+			":61:2506020620CY234,56NSTFFOOBAR
 			":86:Second Transaction",
 			"More Info",
 			":62F:C250602CNY2345,67",
@@ -86,7 +86,7 @@ func TestMT940DataReaderParse_NoBlockHeaderFooter(t *testing.T) {
 			":25:123456789",
 			":28C:123/1",
 			":60F:C250601CNY1234,56",
-			":61:2506010602DY123,45NTRFTEST//ABC123456",
+			":61:2506010602DY123,45NTRFTEST
 			":86:First Transaction",
 		},
 	}
@@ -214,7 +214,7 @@ func TestMT940DataReaderParse_DuplicateBlockHeader(t *testing.T) {
 			":28C:123/1",
 			":60F:C250601CNY1234,56",
 			"{1:F01TESTBANK123456789}{2:I940TESTBANK}{4:",
-			":61:2506010602DY123,45NTRFTEST//ABC123456",
+			":61:2506010602DY123,45NTRFTEST
 			":86:First Transaction",
 			"-}",
 		},
@@ -286,7 +286,7 @@ func TestMT940DataReaderParseStatement_ValidFields(t *testing.T) {
 	reader := &mt940DataReader{}
 	context := core.NewNullContext()
 
-	statement, err := reader.parseStatement(context, "2506010602RDY123,45NTRFTEST//ABC123456")
+	statement, err := reader.parseStatement(context, "2506010602RDY123,45NTRFTEST
 	assert.Nil(t, err)
 	assert.Equal(t, "250601", statement.ValueDate)
 	assert.Equal(t, "0602", statement.EntryDate)
@@ -319,23 +319,23 @@ func TestMT940DataReaderParseStatement_MissingField(t *testing.T) {
 	reader := &mt940DataReader{}
 	context := core.NewNullContext()
 
-	// Missing entry date
+	
 	_, err := reader.parseStatement(context, "2406")
 	assert.EqualError(t, err, errs.ErrInvalidMT940File.Message)
 
-	// Missing debit/credit mark
-	_, err = reader.parseStatement(context, "250601060234,56NTRFTEST//ABC123456")
+	
+	_, err = reader.parseStatement(context, "250601060234,56NTRFTEST
 	assert.EqualError(t, err, errs.ErrTransactionTypeInvalid.Message)
 
-	// Missing amount
-	_, err = reader.parseStatement(context, "250601DNTRFTEST//ABC123456")
+	
+	_, err = reader.parseStatement(context, "250601DNTRFTEST
 	assert.EqualError(t, err, errs.ErrAmountInvalid.Message)
 
-	// Missing transaction type identification code
-	_, err = reader.parseStatement(context, "250601D234,56TEST//ABC123456")
+	
+	_, err = reader.parseStatement(context, "250601D234,56TEST
 	assert.EqualError(t, err, errs.ErrInvalidMT940File.Message)
 
-	// Missing reference for account owner
-	_, err = reader.parseStatement(context, "250601D234,56NTRF//ABC123456")
+	
+	_, err = reader.parseStatement(context, "250601D234,56NTRF
 	assert.EqualError(t, err, errs.ErrInvalidMT940File.Message)
 }

@@ -1,4 +1,4 @@
-package github
+﻿package github
 
 import (
 	"encoding/json"
@@ -7,19 +7,19 @@ import (
 
 	"golang.org/x/oauth2"
 
-	"github.com/mayswind/ezbookkeeping/pkg/auth/oauth2/data"
-	"github.com/mayswind/ezbookkeeping/pkg/auth/oauth2/provider"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/httpclient"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/auth/oauth2/data"
+	"github.com/Shavitjnr/split-chill-ai/pkg/auth/oauth2/provider"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/httpclient"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
-const githubOAuth2AuthUrl = "https://github.com/login/oauth/authorize"     // Reference: https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps
-const githubOAuth2TokenUrl = "https://github.com/login/oauth/access_token" // Reference: https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps
-const githubUserProfileApiUrl = "https://api.github.com/user"              // Reference: https://docs.github.com/en/rest/users/users
-const githubUserEmailApiUrl = "https://api.github.com/user/emails"         // Reference: https://docs.github.com/en/rest/users/emails
+const githubOAuth2AuthUrl = "https://github.com/login/oauth/authorize"     
+const githubOAuth2TokenUrl = "https://github.com/login/oauth/access_token" 
+const githubUserProfileApiUrl = "https://api.github.com/user"              
+const githubUserEmailApiUrl = "https://api.github.com/user/emails"         
 
 var githubOAuth2Scopes = []string{"user:email"}
 
@@ -35,25 +35,25 @@ type githubUserEmailsResponse struct {
 	Verified bool   `json:"verified"`
 }
 
-// GithubOAuth2Provider represents Github OAuth 2.0 provider
+
 type GithubOAuth2Provider struct {
 	provider.OAuth2Provider
 	oauth2Config *oauth2.Config
 }
 
-// GetOAuth2AuthUrl returns the authentication url of the GitHub OAuth 2.0 provider
+
 func (p *GithubOAuth2Provider) GetOAuth2AuthUrl(c core.Context, state string, opts ...oauth2.AuthCodeOption) (string, error) {
 	return p.oauth2Config.AuthCodeURL(state, opts...), nil
 }
 
-// GetOAuth2Token returns the OAuth 2.0 token of the GitHub OAuth 2.0 provider
+
 func (p *GithubOAuth2Provider) GetOAuth2Token(c core.Context, code string, opts ...oauth2.AuthCodeOption) (*oauth2.Token, error) {
 	return p.oauth2Config.Exchange(c, code, opts...)
 }
 
-// GetUserInfo returns the user info by the Github OAuth 2.0 provider
+
 func (p *GithubOAuth2Provider) GetUserInfo(c core.Context, oauth2Token *oauth2.Token) (*data.OAuth2UserInfo, error) {
-	// first get user name and nick name from user profile
+	
 	req, err := p.buildAPIRequest(githubUserProfileApiUrl)
 
 	if err != nil {
@@ -88,7 +88,7 @@ func (p *GithubOAuth2Provider) GetUserInfo(c core.Context, oauth2Token *oauth2.T
 		return nil, err
 	}
 
-	// then get user primary email
+	
 	req, err = p.buildAPIRequest(githubUserEmailApiUrl)
 
 	if err != nil {
@@ -174,7 +174,7 @@ func (p *GithubOAuth2Provider) buildAPIRequest(url string) (*http.Request, error
 	return req, nil
 }
 
-// NewGithubOAuth2Provider creates a new Github OAuth 2.0 provider instance
+
 func NewGithubOAuth2Provider(config *settings.Config, redirectUrl string) (provider.OAuth2Provider, error) {
 	oauth2Config := &oauth2.Config{
 		ClientID:     config.OAuth2ClientID,

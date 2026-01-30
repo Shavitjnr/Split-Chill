@@ -1,5 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+﻿
+
 import type { Coordinate } from '@/core/coordinate.ts';
 import type { MapProvider, MapInstance, MapCreateOptions, MapInstanceInitOptions } from './base.ts';
 
@@ -14,7 +14,7 @@ import {
 import logger from '@/lib/logger.ts';
 
 export class AmapMapProvider implements MapProvider {
-    // https://lbs.amap.com/api/javascript-api-v2/documentation
+    
     public static AMap: unknown = null;
 
     public getWebsite(): string {
@@ -25,7 +25,7 @@ export class AmapMapProvider implements MapProvider {
         return false;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    
     public asyncLoadAssets(language?: string): Promise<unknown> {
         if (AmapMapProvider.AMap) {
             return Promise.resolve();

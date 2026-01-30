@@ -1,8 +1,8 @@
-package errs
+﻿package errs
 
 import "net/http"
 
-// Error codes related to two-factor authorization
+
 var (
 	ErrPasscodeInvalid               = NewNormalError(NormalSubcategoryTwofactor, 0, http.StatusUnauthorized, "passcode is invalid")
 	ErrTwoFactorRecoveryCodeInvalid  = NewNormalError(NormalSubcategoryTwofactor, 1, http.StatusUnauthorized, "two-factor backup code is invalid")

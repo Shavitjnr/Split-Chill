@@ -1,10 +1,10 @@
-package errs
+﻿package errs
 
 import (
 	"net/http"
 )
 
-// Error codes related to users
+
 var (
 	ErrLoginNameInvalid                                    = NewNormalError(NormalSubcategoryUser, 0, http.StatusUnauthorized, "login name is invalid")
 	ErrLoginNameOrPasswordInvalid                          = NewNormalError(NormalSubcategoryUser, 1, http.StatusUnauthorized, "login name or password is invalid")

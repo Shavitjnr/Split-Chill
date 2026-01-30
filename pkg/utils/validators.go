@@ -1,4 +1,4 @@
-package utils
+﻿package utils
 
 import "regexp"
 
@@ -14,52 +14,52 @@ var (
 	longOrShortDayMonthYearDatePattern = regexp.MustCompile("^([1-9]|0[1-9]|1[0-9]|2[0-9]|3[01])[-/.']([1-9]|0[1-9]|1[0-2])[-/.'](([1-9][0-9])?[0-9]{2})$")
 )
 
-// IsValidUsername reports whether username is valid
+
 func IsValidUsername(username string) bool {
 	return len(username) <= 32 && usernamePattern.MatchString(username)
 }
 
-// IsValidEmail reports whether email is valid
+
 func IsValidEmail(email string) bool {
 	return len(email) <= 100 && emailPattern.MatchString(email)
 }
 
-// IsValidNickName reports whether user nick name is valid
+
 func IsValidNickName(nickname string) bool {
 	return len(nickname) <= 64
 }
 
-// IsValidHexRGBColor reports whether color is valid
+
 func IsValidHexRGBColor(color string) bool {
 	return hexRGBColorPattern.MatchString(color)
 }
 
-// IsValidLongDateTimeFormat reports whether long date time is valid format
+
 func IsValidLongDateTimeFormat(datetime string) bool {
 	return longDateTimePattern.MatchString(datetime)
 }
 
-// IsValidLongDateTimeWithoutSecondFormat reports long date time without seconds is valid format
+
 func IsValidLongDateTimeWithoutSecondFormat(datetime string) bool {
 	return longDateTimeWithoutSecondPattern.MatchString(datetime)
 }
 
-// IsValidLongDateFormat reports long date is valid format
+
 func IsValidLongDateFormat(date string) bool {
 	return longDatePattern.MatchString(date)
 }
 
-// IsValidYearMonthDayLongOrShortDateFormat reports long date is valid format
+
 func IsValidYearMonthDayLongOrShortDateFormat(date string) bool {
 	return longOrShortYearMonthDayDatePattern.MatchString(date)
 }
 
-// IsValidMonthDayYearLongOrShortDateFormat reports long date is valid format
+
 func IsValidMonthDayYearLongOrShortDateFormat(date string) bool {
 	return longOrShortMonthDayYearDatePattern.MatchString(date)
 }
 
-// IsValidDayMonthYearLongOrShortDateFormat reports long date is valid format
+
 func IsValidDayMonthYearLongOrShortDateFormat(date string) bool {
 	return longOrShortDayMonthYearDatePattern.MatchString(date)
 }

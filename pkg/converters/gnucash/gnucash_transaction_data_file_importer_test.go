@@ -1,4 +1,4 @@
-package gnucash
+﻿package gnucash
 
 import (
 	"bytes"
@@ -8,11 +8,11 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/converter"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/converter"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 const gnucashMinimumValidDataCase = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n" +
@@ -820,7 +820,7 @@ func TestGnuCashTransactionDatabaseFileParseImportedData_MissingAccountRequiredN
 		DefaultCurrency: "CNY",
 	}
 
-	// Missing Account Currency Node
+	
 	_, _, _, _, _, _, err := importer.ParseImportedData(context, user, []byte(
 		"<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n"+
 			"<gnc-v2\n"+
@@ -887,7 +887,7 @@ func TestGnuCashTransactionDatabaseFileParseImportedData_MissingTransactionRequi
 		DefaultCurrency: "CNY",
 	}
 
-	// Missing Transaction Time Node
+	
 	_, _, _, _, _, _, err := importer.ParseImportedData(context, user, []byte(
 		gnucashCommonValidDataCaseHeader+
 			"<gnc:transaction version=\"2.0.0\">\n"+
@@ -905,7 +905,7 @@ func TestGnuCashTransactionDatabaseFileParseImportedData_MissingTransactionRequi
 			gnucashCommonValidDataCaseFooter), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingTransactionTime.Message)
 
-	// Missing Transaction Splits Node
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		gnucashCommonValidDataCaseHeader+
 			"<gnc:transaction version=\"2.0.0\">\n"+
@@ -916,7 +916,7 @@ func TestGnuCashTransactionDatabaseFileParseImportedData_MissingTransactionRequi
 			gnucashCommonValidDataCaseFooter), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrInvalidGnuCashFile.Message)
 
-	// Missing Transaction Split Quantity Node
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		gnucashCommonValidDataCaseHeader+
 			"<gnc:transaction version=\"2.0.0\">\n"+
@@ -935,7 +935,7 @@ func TestGnuCashTransactionDatabaseFileParseImportedData_MissingTransactionRequi
 			gnucashCommonValidDataCaseFooter), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrAmountInvalid.Message)
 
-	// Missing Transaction Split Account Node
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		gnucashCommonValidDataCaseHeader+
 			"<gnc:transaction version=\"2.0.0\">\n"+

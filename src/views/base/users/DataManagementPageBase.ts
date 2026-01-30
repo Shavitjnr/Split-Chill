@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 
 import { useI18n } from '@/locales/helpers.ts';
 
@@ -43,11 +43,11 @@ export function useDataManagementPageBase() {
     }
 
     return {
-        // states
+        
         dataStatistics,
-        // computed states
+        
         displayDataStatistics,
-        // functions
+        
         getExportFileName
     }
 }

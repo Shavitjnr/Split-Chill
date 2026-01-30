@@ -1,8 +1,8 @@
-package errs
+﻿package errs
 
 import "net/http"
 
-// Error codes related to transaction categories
+
 var (
 	ErrTransactionCategoryIdInvalid                        = NewNormalError(NormalSubcategoryCategory, 0, http.StatusBadRequest, "transaction category id is invalid")
 	ErrTransactionCategoryNotFound                         = NewNormalError(NormalSubcategoryCategory, 1, http.StatusBadRequest, "transaction category not found")

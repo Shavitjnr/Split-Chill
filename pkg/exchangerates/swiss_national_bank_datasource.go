@@ -1,4 +1,4 @@
-package exchangerates
+﻿package exchangerates
 
 import (
 	"bytes"
@@ -9,12 +9,12 @@ import (
 
 	"golang.org/x/net/html/charset"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
-	"github.com/mayswind/ezbookkeeping/pkg/validators"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/validators"
 )
 
 const swissNationalBankExchangeRateUrl = "https://www.snb.ch/public/en/rss/exchangeRates"
@@ -25,34 +25,34 @@ const swissNationalBankBaseCurrency = "CHF"
 const swissNationalBankDataUpdateDateFormat = "Mon, 02 Jan 2006 15:04:05 MST"
 const swissNationalBankExchangeRatePeriodDateFormat = "2006-01-02"
 
-// SwissNationalBankDataSource defines the structure of exchange rates data source of the reserve Swiss National Bank
+
 type SwissNationalBankDataSource struct {
 	HttpExchangeRatesDataSource
 }
 
-// SwissNationalBankData represents the whole data from the reserve Swiss National Bank
+
 type SwissNationalBankData struct {
 	XMLName xml.Name                     `xml:"rss"`
 	Channel *SwissNationalBankRssChannel `xml:"channel"`
 }
 
-// SwissNationalBankRssChannel represents the rss channel from the reserve Swiss National Bank
+
 type SwissNationalBankRssChannel struct {
 	PublishDate string                          `xml:"pubDate"`
 	Items       []*SwissNationalBankChannelItem `xml:"item"`
 }
 
-// SwissNationalBankChannelItem represents the channel item from the reserve Swiss National Bank
+
 type SwissNationalBankChannelItem struct {
 	Statistics *SwissNationalBankItemStatistics `xml:"statistics"`
 }
 
-// SwissNationalBankItemStatistics represents the item statistics from the reserve Swiss National Bank
+
 type SwissNationalBankItemStatistics struct {
 	ExchangeRate *SwissNationalBankExchangeRate `xml:"exchangeRate"`
 }
 
-// SwissNationalBankExchangeRate represents the exchange rate from the reserve Swiss National Bank
+
 type SwissNationalBankExchangeRate struct {
 	BaseCurrency      string                                          `xml:"baseCurrency"`
 	TargetCurrency    string                                          `xml:"targetCurrency"`
@@ -60,19 +60,19 @@ type SwissNationalBankExchangeRate struct {
 	ObservationPeriod *SwissNationalBankExchangeRateObservationPeriod `xml:"observationPeriod"`
 }
 
-// SwissNationalBankExchangeRateObservation represents the exchange rate data from the reserve Swiss National Bank
+
 type SwissNationalBankExchangeRateObservation struct {
 	Value        string `xml:"value"`
 	Unit         string `xml:"unit"`
 	UnitExponent string `xml:"unit_mult"`
 }
 
-// SwissNationalBankExchangeRateObservationPeriod represents the exchange rate period data from the reserve Swiss National Bank
+
 type SwissNationalBankExchangeRateObservationPeriod struct {
 	Period string `xml:"period"`
 }
 
-// ToLatestExchangeRateResponse returns a view-object according to original data from the reserve Swiss National Bank
+
 func (e *SwissNationalBankData) ToLatestExchangeRateResponse(c core.Context) *models.LatestExchangeRateResponse {
 	if e.Channel == nil {
 		log.Errorf(c, "[swiss_national_bank_datasource.ToLatestExchangeRateResponse] rss channel does not exist")
@@ -147,7 +147,7 @@ func (e *SwissNationalBankData) ToLatestExchangeRateResponse(c core.Context) *mo
 	return latestExchangeRateResp
 }
 
-// ToLatestExchangeRate returns a data pair according to original data from the reserve Swiss National Bank
+
 func (e *SwissNationalBankExchangeRate) ToLatestExchangeRate(c core.Context) *models.LatestExchangeRate {
 	rate, err := utils.StringToFloat64(e.Observation.Value)
 
@@ -189,7 +189,7 @@ func (e *SwissNationalBankExchangeRate) ToLatestExchangeRate(c core.Context) *mo
 	}
 }
 
-// BuildRequests returns the Swiss National Bank exchange rates http requests
+
 func (e *SwissNationalBankDataSource) BuildRequests() ([]*http.Request, error) {
 	req, err := http.NewRequest("GET", swissNationalBankExchangeRateUrl, nil)
 
@@ -200,7 +200,7 @@ func (e *SwissNationalBankDataSource) BuildRequests() ([]*http.Request, error) {
 	return []*http.Request{req}, nil
 }
 
-// Parse returns the common response entity according to the the reserve Swiss National Bank data source raw response
+
 func (e *SwissNationalBankDataSource) Parse(c core.Context, content []byte) (*models.LatestExchangeRateResponse, error) {
 	xmlDecoder := xml.NewDecoder(bytes.NewReader(content))
 	xmlDecoder.CharsetReader = charset.NewReaderLabel

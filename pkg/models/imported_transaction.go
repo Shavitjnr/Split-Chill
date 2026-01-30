@@ -1,8 +1,8 @@
-package models
+﻿package models
 
-import "github.com/mayswind/ezbookkeeping/pkg/utils"
+import "github.com/Shavitjnr/split-chill-ai/pkg/utils"
 
-// ImportTransaction represents the imported transaction data
+
 type ImportTransaction struct {
 	*Transaction
 	TagIds                             []string
@@ -14,12 +14,12 @@ type ImportTransaction struct {
 	OriginalTagNames                   []string
 }
 
-// ImportTransactionRequest represents all parameters of the imported transaction data
+
 type ImportTransactionRequest struct {
 	Transactions []*ImportTransactionRequestItem
 }
 
-// ImportTransactionRequestItem represents a single item of the imported transaction data
+
 type ImportTransactionRequestItem struct {
 	Time                   string `json:"time"`
 	UtcOffset              string `json:"utcOffset"`
@@ -34,7 +34,7 @@ type ImportTransactionRequestItem struct {
 	Comment                string `json:"comment,omitempty"`
 }
 
-// ImportTransactionResponse represents a view-object of the imported transaction data
+
 type ImportTransactionResponse struct {
 	Type                               TransactionType                 `json:"type"`
 	CategoryId                         int64                           `json:"categoryId,string"`
@@ -55,13 +55,13 @@ type ImportTransactionResponse struct {
 	GeoLocation                        *TransactionGeoLocationResponse `json:"geoLocation,omitempty"`
 }
 
-// ImportTransactionResponsePageWrapper represents a response of imported transaction which contains items and count
+
 type ImportTransactionResponsePageWrapper struct {
 	Items      []*ImportTransactionResponse `json:"items"`
 	TotalCount int64                        `json:"totalCount"`
 }
 
-// ToImportTransactionResponse returns the a view-objects according to imported transaction data
+
 func (t ImportTransaction) ToImportTransactionResponse() *ImportTransactionResponse {
 	transactionType, err := t.Type.ToTransactionType()
 
@@ -99,20 +99,20 @@ func (t ImportTransaction) ToImportTransactionResponse() *ImportTransactionRespo
 	}
 }
 
-// ImportedTransactionSlice represents the slice data structure of import transaction data
+
 type ImportedTransactionSlice []*ImportTransaction
 
-// Len returns the count of items
+
 func (s ImportedTransactionSlice) Len() int {
 	return len(s)
 }
 
-// Swap swaps two items
+
 func (s ImportedTransactionSlice) Swap(i, j int) {
 	s[i], s[j] = s[j], s[i]
 }
 
-// Less reports whether the first item is less than the second one
+
 func (s ImportedTransactionSlice) Less(i, j int) bool {
 	if s[i].Type != s[j].Type && (s[i].Type == TRANSACTION_DB_TYPE_MODIFY_BALANCE || s[j].Type == TRANSACTION_DB_TYPE_MODIFY_BALANCE) {
 		if s[i].Type == TRANSACTION_DB_TYPE_MODIFY_BALANCE {
@@ -149,7 +149,7 @@ func (s ImportedTransactionSlice) Less(i, j int) bool {
 	return false
 }
 
-// ToTransactionsList returns a list of transaction models
+
 func (s ImportedTransactionSlice) ToTransactionsList() []*Transaction {
 	transactions := make([]*Transaction, s.Len())
 
@@ -160,7 +160,7 @@ func (s ImportedTransactionSlice) ToTransactionsList() []*Transaction {
 	return transactions
 }
 
-// ToTransactionTagIdsMap returns a list of transaction tag ids
+
 func (s ImportedTransactionSlice) ToTransactionTagIdsMap() (map[int][]int64, error) {
 	transactionTagIdsMap := make(map[int][]int64, s.Len())
 
@@ -177,7 +177,7 @@ func (s ImportedTransactionSlice) ToTransactionTagIdsMap() (map[int][]int64, err
 	return transactionTagIdsMap, nil
 }
 
-// ToImportTransactionResponseList returns the a list of view-objects according to imported transaction data
+
 func (s ImportedTransactionSlice) ToImportTransactionResponseList() []*ImportTransactionResponse {
 	transactionResps := make([]*ImportTransactionResponse, 0, s.Len())
 

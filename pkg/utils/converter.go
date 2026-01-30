@@ -1,24 +1,23 @@
-package utils
+﻿package utils
 
 import (
 	"strconv"
 	"strings"
 
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
 )
 
-// IntToString returns the textual representation of this number
+
 func IntToString(num int) string {
 	return strconv.Itoa(num)
 }
 
-// StringToInt parses a textual representation of the number to int
+
 func StringToInt(str string) (int, error) {
 	return strconv.Atoi(str)
 }
 
-// StringTryToInt parses a textual representation of the number to int if str is valid,
-// or returns the default value
+
 func StringTryToInt(str string, defaultValue int) int {
 	num, err := StringToInt(str)
 
@@ -29,7 +28,7 @@ func StringTryToInt(str string, defaultValue int) int {
 	return num
 }
 
-// StringToInt32 parses a textual representation of the number to int32
+
 func StringToInt32(str string) (int32, error) {
 	val, err := strconv.ParseInt(str, 10, 32)
 
@@ -40,12 +39,12 @@ func StringToInt32(str string) (int32, error) {
 	return int32(val), nil
 }
 
-// Int64ToString returns the textual representation of this number
+
 func Int64ToString(num int64) string {
 	return strconv.FormatInt(num, 10)
 }
 
-// Int64ArrayToStringArray returns a array of textual representation of these numbers
+
 func Int64ArrayToStringArray(num []int64) []string {
 	ret := make([]string, 0, len(num))
 
@@ -56,12 +55,12 @@ func Int64ArrayToStringArray(num []int64) []string {
 	return ret
 }
 
-// StringToInt64 parses a textual representation of the number to int64
+
 func StringToInt64(str string) (int64, error) {
 	return strconv.ParseInt(str, 10, 64)
 }
 
-// StringArrayToInt64Array parses a series textual representations of the numbers to int64 array
+
 func StringArrayToInt64Array(strs []string) ([]int64, error) {
 	ret := make([]int64, 0, len(strs))
 
@@ -78,8 +77,7 @@ func StringArrayToInt64Array(strs []string) ([]int64, error) {
 	return ret, nil
 }
 
-// StringTryToInt64 parses a textual representation of the number to int64 if str is valid,
-// or returns the default value
+
 func StringTryToInt64(str string, defaultValue int64) int64 {
 	num, err := StringToInt64(str)
 
@@ -90,17 +88,17 @@ func StringTryToInt64(str string, defaultValue int64) int64 {
 	return num
 }
 
-// Float64ToString returns the textual representation of this number
+
 func Float64ToString(num float64) string {
 	return strconv.FormatFloat(num, 'f', -1, 64)
 }
 
-// StringToFloat64 parses a textual representation of the number to float64
+
 func StringToFloat64(str string) (float64, error) {
 	return strconv.ParseFloat(str, 64)
 }
 
-// FormatAmount returns a textual representation of amount
+
 func FormatAmount(value int64) string {
 	displayAmount := Int64ToString(value)
 	negative := displayAmount[0] == '-'
@@ -129,7 +127,7 @@ func FormatAmount(value int64) string {
 	return integer + "." + decimals
 }
 
-// ParseAmount parses a textual representation of amount
+
 func ParseAmount(amount string) (int64, error) {
 	if len(amount) < 1 {
 		return 0, nil

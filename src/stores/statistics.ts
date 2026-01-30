@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 
 import { useSettingsStore } from './setting.ts';
@@ -464,10 +464,10 @@ export const useStatisticsStore = defineStore('statistics', () => {
             const accountNetCashFlow: number = accountTotalInflowsAmount - accountTotalTransferAmount - accountTotalOutflowsAmount;
 
             if (incomeByAccountItem && accountsStore.allAccountsMap[item.id]?.isAsset) {
-                if (accountBalance > 0) { // has positive balance, transfer the amount from income account to expense account
+                if (accountBalance > 0) { 
                     incomeByAccountItem.outflows.push({ amount: accountBalance + accountTotalOutflowsAmount, relatedItem: item });
                     item.inflows.push({ amount: accountBalance + accountTotalOutflowsAmount, relatedItem: incomeByAccountItem });
-                } else if (accountNetCashFlow < 0) { // has negative net cash flow, add the difference to income account
+                } else if (accountNetCashFlow < 0) { 
                     incomeByAccountItem.totalAmount += -accountNetCashFlow;
                     incomeByAccountItem.totalNonNegativeAmount += -accountNetCashFlow > 0 ? -accountNetCashFlow : 0;
                     incomeByAccountItem.outflows.push({ amount: -accountNetCashFlow, relatedItem: item });
@@ -773,7 +773,7 @@ export const useStatisticsStore = defineStore('statistics', () => {
             const missingDays: number = getDayDifference(lastAssetTrendItem, assetTrendItem) - 1;
             const lastAssetTrendItemDate: DateTime = getYearMonthDayDateTime(lastAssetTrendItem.year, lastAssetTrendItem.month, lastAssetTrendItem.day);
 
-            // fill in missing days with last known balance
+            
             for (let i = 1; i <= missingDays; i++) {
                 const missingStatisticResponseItems: TransactionStatisticResponseItem[] = [];
                 const dateTime: DateTime = lastAssetTrendItemDate.add(i, 'days');
@@ -799,7 +799,7 @@ export const useStatisticsStore = defineStore('statistics', () => {
                 finalAssetTrendsData.push(finalAssetTrendItem);
             }
 
-            // fill in current day data
+            
             for (const item of assetTrendItem.items) {
                 const statisticResponseItem: TransactionStatisticResponseItem = {
                     categoryId: '',
@@ -812,7 +812,7 @@ export const useStatisticsStore = defineStore('statistics', () => {
                 statisticResponseItems.push(statisticResponseItem);
             }
 
-            // fill in missing accounts with last known balance
+            
             for (const item of values(lastAssetTrendItemMap)) {
                 if (existedAccountIds[item.accountId]) {
                     continue;
@@ -874,7 +874,7 @@ export const useStatisticsStore = defineStore('statistics', () => {
                         continue;
                     }
                 } else if (transactionStatisticsFilter.value.chartDataType === ChartDataType.NetWorth.type) {
-                    // Do Nothing
+                    
                 } else {
                     continue;
                 }
@@ -1110,7 +1110,7 @@ export const useStatisticsStore = defineStore('statistics', () => {
                     continue;
                 }
             } else if (transactionStatisticsFilter.chartDataType === ChartDataType.NetCashFlow.type) {
-                // Do Nothing
+                
             } else if (transactionStatisticsFilter.chartDataType === ChartDataType.NetIncome.type) {
                 if (item.category.type === CategoryType.Transfer) {
                     continue;
@@ -1153,7 +1153,7 @@ export const useStatisticsStore = defineStore('statistics', () => {
 
                     let includeInTotal: boolean = true;
 
-                    // total outflows / inflows do not include transfer transactions between unfiltered accounts
+                    
                     if (transactionStatisticsFilter.chartDataType === ChartDataType.OutflowsByAccount.type ||
                         transactionStatisticsFilter.chartDataType === ChartDataType.InflowsByAccount.type) {
                         if (item.relatedAccount && (!transactionStatisticsFilter.filterAccountIds || !transactionStatisticsFilter.filterAccountIds[item.relatedAccount.id])) {
@@ -1246,7 +1246,7 @@ export const useStatisticsStore = defineStore('statistics', () => {
                         amount = -amount;
                     }
 
-                    // total outflows / inflows do not include transfer transactions between unfiltered accounts
+                    
                     if (transactionStatisticsFilter.chartDataType === ChartDataType.TotalOutflows.type ||
                         transactionStatisticsFilter.chartDataType === ChartDataType.TotalInflows.type ||
                         transactionStatisticsFilter.chartDataType === ChartDataType.NetCashFlow.type) {
@@ -1354,7 +1354,7 @@ export const useStatisticsStore = defineStore('statistics', () => {
             }
         }
 
-        // Categorical Analysis filter initialization
+        
         if (filter && isInteger(filter.categoricalChartType)) {
             transactionStatisticsFilter.value.categoricalChartType = filter.categoricalChartType;
         } else {
@@ -1400,7 +1400,7 @@ export const useStatisticsStore = defineStore('statistics', () => {
             }
         }
 
-        // Trend Analysis filter initialization
+        
         if (filter && isInteger(filter.trendChartType)) {
             transactionStatisticsFilter.value.trendChartType = filter.trendChartType;
         } else {
@@ -1446,7 +1446,7 @@ export const useStatisticsStore = defineStore('statistics', () => {
             }
         }
 
-        // Asset Trends filter initialization
+        
         if (filter && isInteger(filter.assetTrendsChartType)) {
             transactionStatisticsFilter.value.assetTrendsChartType = filter.assetTrendsChartType;
         } else {
@@ -1492,7 +1492,7 @@ export const useStatisticsStore = defineStore('statistics', () => {
             }
         }
 
-        // Other filter initialization
+        
         if (filter && isObject(filter.filterAccountIds)) {
             transactionStatisticsFilter.value.filterAccountIds = filter.filterAccountIds;
         } else {
@@ -1536,7 +1536,7 @@ export const useStatisticsStore = defineStore('statistics', () => {
             changed = true;
         }
 
-        // Categorical Analysis filter update
+        
         if (filter && isInteger(filter.categoricalChartType) && transactionStatisticsFilter.value.categoricalChartType !== filter.categoricalChartType) {
             transactionStatisticsFilter.value.categoricalChartType = filter.categoricalChartType;
             changed = true;
@@ -1557,7 +1557,7 @@ export const useStatisticsStore = defineStore('statistics', () => {
             changed = true;
         }
 
-        // Trend Analysis filter update
+        
         if (filter && isInteger(filter.trendChartType) && transactionStatisticsFilter.value.trendChartType !== filter.trendChartType) {
             transactionStatisticsFilter.value.trendChartType = filter.trendChartType;
             changed = true;
@@ -1578,7 +1578,7 @@ export const useStatisticsStore = defineStore('statistics', () => {
             changed = true;
         }
 
-        // Asset Trends filter update
+        
         if (filter && isInteger(filter.assetTrendsChartType) && transactionStatisticsFilter.value.assetTrendsChartType !== filter.assetTrendsChartType) {
             transactionStatisticsFilter.value.assetTrendsChartType = filter.assetTrendsChartType;
             changed = true;
@@ -1599,7 +1599,7 @@ export const useStatisticsStore = defineStore('statistics', () => {
             changed = true;
         }
 
-        // Other filter update
+        
         if (filter && isObject(filter.filterAccountIds) && !isEquals(transactionStatisticsFilter.value.filterAccountIds, filter.filterAccountIds)) {
             transactionStatisticsFilter.value.filterAccountIds = filter.filterAccountIds;
             changed = true;
@@ -1937,18 +1937,18 @@ export const useStatisticsStore = defineStore('statistics', () => {
     }
 
     return {
-        // states
+        
         transactionStatisticsFilter,
         transactionCategoryStatisticsData,
         transactionCategoryTrendsData,
         transactionStatisticsStateInvalid,
-        // computed states
+        
         categoricalAnalysisChartDataCategory,
         categoricalOverviewAnalysisData,
         categoricalAnalysisData,
         trendsAnalysisData,
         assetTrendsData,
-        // functions
+        
         updateTransactionStatisticsInvalidState,
         resetTransactionStatistics,
         initTransactionStatisticsFilter,

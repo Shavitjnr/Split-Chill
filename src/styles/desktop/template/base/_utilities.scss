@@ -1,5 +1,4 @@
-/** Materio Template base classes **/
-/** https://github.com/themeselection/materio-vuetify-vuejs-admin-template-free **/
+﻿
 
 @use "@/styles/desktop/configured-variables/template" as variables;
 @use "@/styles/desktop/template/layout/mixins" as layoutsMixins;
@@ -42,14 +41,7 @@ $card-spacer-content: 16px;
 
 // 👉 Colors
 
-/*
-  ℹ️ Vuetify is applying `.text-white` class to badge icon but don't provide its styles
-  Moreover, we also use this class in some places
 
-  ℹ️ In vuetify 2 with `$color-pack: false` SCSS var config this class was getting generated but this is not the case in v3
-
-  ℹ️ We also need !important to get correct color in badge icon
-*/
 .text-white {
     color: #fff !important;
 }

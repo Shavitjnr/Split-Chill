@@ -301,7 +301,7 @@ init(props.length, props.modelValue);
 <style>
 .pin-codes-input {
     --ebk-pin-code-border-color: #bbb;
-    --ebk-pin-code-focued-color: #c67e48;
+    --ebk-pin-code-focued-color: #3B82F6;
     --ebk-pin-code-border-radius: 8px;
     --ebk-pin-code-input-height: 46px;
     --ebk-pin-code-input-gap: 8px;

@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/mayswind/ezbookkeeping/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
 )
 
 func TestGetAccountMapByList_EmptyList(t *testing.T) {

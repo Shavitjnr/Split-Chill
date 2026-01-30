@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+﻿import { ref } from 'vue';
 import { defineStore } from 'pinia';
 
 export const useDesktopPageStore = defineStore('desktopPages', () => {
@@ -13,9 +13,9 @@ export const useDesktopPageStore = defineStore('desktopPages', () => {
     }
 
     return {
-        // states
+        
         showAddTransactionDialogInTransactionList,
-        // functions
+        
         setShowAddTransactionDialogInTransactionList,
         resetShowAddTransactionDialogInTransactionList
     }

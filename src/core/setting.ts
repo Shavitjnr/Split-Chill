@@ -1,4 +1,4 @@
-import { type WeekDayValue, WeekDay } from './datetime.ts';
+﻿import { type WeekDayValue, WeekDay } from './datetime.ts';
 import { TimezoneTypeForStatistics } from './timezone.ts';
 import { CurrencySortingType } from './currency.ts';
 import {
@@ -22,9 +22,9 @@ export interface BaseApplicationSetting {
 }
 
 export interface ApplicationSettings extends BaseApplicationSetting {
-    // Debug Settings
+    
     debug: boolean;
-    // Basic Settings
+    
     theme: string;
     fontSize: number;
     timeZone: string;
@@ -32,37 +32,37 @@ export interface ApplicationSettings extends BaseApplicationSetting {
     showAccountBalance: boolean;
     swipeBack: boolean;
     animate: boolean;
-    // Application Lock
+    
     applicationLock: boolean;
     applicationLockWebAuthn: boolean;
-    // Navigation Bar
+    
     showAddTransactionButtonInDesktopNavbar: boolean;
-    // Overview Page
+    
     showAmountInHomePage: boolean;
     timezoneUsedForStatisticsInHomePage: number;
     overviewAccountFilterInHomePage: Record<string, boolean>;
     overviewTransactionCategoryFilterInHomePage: Record<string, boolean>;
-    // Transaction List Page
+    
     itemsCountInTransactionListPage: number;
     showTotalAmountInTransactionListPage: boolean;
     showTagInTransactionListPage: boolean;
-    // Transaction Edit Page
+    
     autoSaveTransactionDraft: string;
     autoGetCurrentGeoLocation: boolean;
     alwaysShowTransactionPicturesInMobileTransactionEditPage: boolean;
-    // Import Transaction Dialog
+    
     rememberLastSelectedFileTypeInImportTransactionDialog: boolean;
     lastSelectedFileTypeInImportTransactionDialog: string;
-    // Insights Explorer Page
+    
     insightsExplorerDefaultDateRangeType: number;
     showTagInInsightsExplorerPage: boolean;
-    // Account List Page
+    
     totalAmountExcludeAccountIds: Record<string, boolean>;
     accountCategoryOrders: string;
     hideCategoriesWithoutAccounts: boolean;
-    // Exchange Rates Data Page
+    
     currencySortByInExchangeRatesPage: number;
-    // Statistics Settings
+    
     statistics: {
         defaultChartDataType: number;
         defaultTimezoneType: number;
@@ -105,34 +105,34 @@ export interface WebAuthnConfig {
 }
 
 export const ALL_ALLOWED_CLOUD_SYNC_APP_SETTING_KEY_TYPES: Record<string, UserApplicationCloudSettingType> = {
-    // Basic Settings
+    
     'showAccountBalance': UserApplicationCloudSettingType.Boolean,
-    // Overview Page
+    
     'showAmountInHomePage': UserApplicationCloudSettingType.Boolean,
     'timezoneUsedForStatisticsInHomePage': UserApplicationCloudSettingType.Number,
     'overviewAccountFilterInHomePage': UserApplicationCloudSettingType.StringBooleanMap,
     'overviewTransactionCategoryFilterInHomePage': UserApplicationCloudSettingType.StringBooleanMap,
-    // Transaction List Page
+    
     'itemsCountInTransactionListPage': UserApplicationCloudSettingType.Number,
     'showTotalAmountInTransactionListPage': UserApplicationCloudSettingType.Boolean,
     'showTagInTransactionListPage': UserApplicationCloudSettingType.Boolean,
-    // Transaction Edit Page
+    
     'autoSaveTransactionDraft': UserApplicationCloudSettingType.String,
     'autoGetCurrentGeoLocation': UserApplicationCloudSettingType.Boolean,
     'alwaysShowTransactionPicturesInMobileTransactionEditPage': UserApplicationCloudSettingType.Boolean,
-    // Import Transaction Dialog
+    
     'rememberLastSelectedFileTypeInImportTransactionDialog': UserApplicationCloudSettingType.Boolean,
     'lastSelectedFileTypeInImportTransactionDialog': UserApplicationCloudSettingType.String,
-    // Insights Explorer Page
+    
     'insightsExplorerDefaultDateRangeType': UserApplicationCloudSettingType.Number,
     'showTagInInsightsExplorerPage': UserApplicationCloudSettingType.Boolean,
-    // Account List Page
+    
     'totalAmountExcludeAccountIds': UserApplicationCloudSettingType.StringBooleanMap,
     'accountCategoryOrders': UserApplicationCloudSettingType.String,
     'hideCategoriesWithoutAccounts': UserApplicationCloudSettingType.Boolean,
-    // Exchange Rates Data Page
+    
     'currencySortByInExchangeRatesPage': UserApplicationCloudSettingType.Number,
-    // Statistics Settings
+    
     'statistics.defaultChartDataType': UserApplicationCloudSettingType.Number,
     'statistics.defaultTimezoneType': UserApplicationCloudSettingType.Number,
     'statistics.defaultAccountFilter': UserApplicationCloudSettingType.StringBooleanMap,
@@ -147,9 +147,9 @@ export const ALL_ALLOWED_CLOUD_SYNC_APP_SETTING_KEY_TYPES: Record<string, UserAp
 };
 
 export const DEFAULT_APPLICATION_SETTINGS: ApplicationSettings = {
-    // Debug Settings
+    
     debug: false,
-    // Basic Settings
+    
     theme: 'auto',
     fontSize: 1,
     timeZone: '',
@@ -157,37 +157,37 @@ export const DEFAULT_APPLICATION_SETTINGS: ApplicationSettings = {
     showAccountBalance: true,
     swipeBack: true,
     animate: true,
-    // Application Lock
+    
     applicationLock: false,
     applicationLockWebAuthn: false,
-    // Navigation Bar
+    
     showAddTransactionButtonInDesktopNavbar: true,
-    // Overview Page
+    
     showAmountInHomePage: true,
     timezoneUsedForStatisticsInHomePage: TimezoneTypeForStatistics.Default.type,
     overviewAccountFilterInHomePage: {},
     overviewTransactionCategoryFilterInHomePage: {},
-    // Transaction List Page
+    
     itemsCountInTransactionListPage: 15,
     showTotalAmountInTransactionListPage: true,
     showTagInTransactionListPage: true,
-    // Transaction Edit Page
+    
     autoSaveTransactionDraft: 'disabled',
     autoGetCurrentGeoLocation: false,
     alwaysShowTransactionPicturesInMobileTransactionEditPage: false,
-    // Import Transaction Dialog
+    
     rememberLastSelectedFileTypeInImportTransactionDialog: true,
     lastSelectedFileTypeInImportTransactionDialog: '',
-    // Insights Explorer Page
+    
     insightsExplorerDefaultDateRangeType: DEFAULT_TRANSACTION_EXPLORER_DATE_RANGE.type,
     showTagInInsightsExplorerPage: true,
-    // Account List Page
+    
     totalAmountExcludeAccountIds: {},
     accountCategoryOrders: '',
     hideCategoriesWithoutAccounts: false,
-    // Exchange Rates Data Page
+    
     currencySortByInExchangeRatesPage: CurrencySortingType.Default.type,
-    // Statistics Settings
+    
     statistics: {
         defaultChartDataType: ChartDataType.Default.type,
         defaultTimezoneType: TimezoneTypeForStatistics.Default.type,

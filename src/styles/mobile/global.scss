@@ -1,6 +1,25 @@
-/** Global style **/
+﻿
 html, body {
     position: fixed;
+}
+
+
+::placeholder {
+    color: rgba(var(--f7-input-placeholder-color, #000), 0.38) !important;
+    font-style: italic;
+    font-weight: 400;
+    opacity: 1; 
+    transition: color 0.2s ease;
+}
+
+:-ms-input-placeholder { 
+    color: rgba(var(--f7-input-placeholder-color, #000), 0.38) !important;
+    font-style: italic;
+}
+
+::-ms-input-placeholder { 
+    color: rgba(var(--f7-input-placeholder-color, #000), 0.38) !important;
+    font-style: italic;
 }
 
 body {
@@ -8,172 +27,124 @@ body {
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;
+    font-family: 'Inter', -apple-system, sans-serif !important;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+h1, h2, h3, h4, h5, h6, .navbar-title, .button, .login-page-logo + div {
+    font-family: 'Outfit', sans-serif !important;
 }
 
-input[type=number] {
-    -moz-appearance: textfield;
-}
 
-/** Common class **/
-.margin-inline-start {
-    margin-inline-start: var(--f7-typography-margin) !important;
-}
-
-.margin-inline-start-half {
-    margin-inline-start: calc(var(--f7-typography-margin) / 2) !important;
-}
-
-.margin-inline-end {
-    margin-inline-end: var(--f7-typography-margin) !important;
-}
-
-.margin-inline-end-half {
-    margin-inline-end: calc(var(--f7-typography-margin) / 2) !important;
-}
-
-.padding-inline-start {
-    padding-inline-start: var(--f7-typography-padding) !important;
-}
-
-.padding-inline-start-half {
-    padding-inline-start: calc(var(--f7-typography-padding) / 2) !important;
-}
-
-.padding-inline-end {
-    padding-inline-end: var(--f7-typography-padding) !important;
-}
-
-.padding-inline-end-half {
-    padding-inline-end: calc(var(--f7-typography-padding) / 2) !important;
-}
-
-.no-right-border {
-    border-right: 0;
-}
-
-.no-bottom-border {
-    border-bottom: 0;
-}
-
-.work-break-all {
-    word-break: break-all;
-}
-
-.full-line {
-    width: 100%;
-}
-
-.smaller {
-    font-size: var(--ebk-smaller-font-size);
-}
-
-.readonly {
-    pointer-events: none !important;
-}
-
-.skeleton-text {
-    pointer-events: none !important;
-}
-
-.segmented.readonly .button:not(.button-active) > span,
-.list.readonly .item-content .item-title.item-label,
-.list.readonly .item-content .item-title > .item-header {
-    opacity: 0.55 !important;
-}
-
-/** Replacing the default style of framework7 **/
 :root {
-    --f7-toolbar-inner-padding-left: 8px;
-    --f7-toolbar-inner-padding-right: 8px;
-    --f7-popup-push-offset: 5px;
-    --f7-color-gray: #8e8e93;
-    --f7-color-gray-rgb: 142, 142, 147;
-    --f7-color-gray-shade: #79797f;
-    --f7-color-gray-tint: #a3a3a7;
-    --f7-notification-title-text-transform: unset;
-}
+    
+    --ebk-primary-h: 221;
+    --ebk-primary-s: 83%;
+    --ebk-primary-l: 53%;
+    --ebk-primary: hsl(var(--ebk-primary-h), var(--ebk-primary-s), var(--ebk-primary-l));
+    
+    
+    --f7-theme-color: var(--ebk-primary);
+    --f7-button-border-radius: 14px;
+    --f7-card-border-radius: 20px;
+    --f7-block-strong-border-radius: 20px;
+    --f7-list-inset-border-radius: 20px;
+    --f7-popup-border-radius: 24px;
+    --f7-sheet-border-radius: 24px;
+    
+    
+    --ebk-bg-main: #f8fafc;
+    --ebk-surface: #ffffff;
+    --ebk-transaction-tag-chip-bg-color: hsla(var(--ebk-primary-h), var(--ebk-primary-s), var(--ebk-primary-l), 0.08);
 
-.color-gray {
-    --f7-theme-color: var(--f7-color-gray);
-    --f7-theme-color-rgb: var(--f7-color-gray-rgb);
-    --f7-theme-color-shade: var(--f7-color-gray-shade);
-    --f7-theme-color-tint: var(--f7-color-gray-tint);
-}
-
-.ios .dark, .ios.dark {
-    --f7-list-item-header-text-color: inherit !important;
-}
-
-i.icon.la, i.icon.las, i.icon.lab {
-    font-size: var(--ebk-icon-font-size);
-}
-
-.f7-icons, .framework7-icons {
-    font-size: var(--ebk-icon-font-size);
-}
-
-.ios .searchbar-icon:after {
-    font-size: var(--ebk-searchbar-icon-font-size);
-}
-
-.ios .searchbar-disable-button {
-    font-size: var(--ebk-searchbar-disable-button-font-size);
-}
-
-.ios .toolbar .link {
-    padding: 0 6px;
-}
-
-.chip.chip-placeholder {
-    border: 0;
-}
-
-.ios .popover-inner {
-    touch-action: inherit;
-
-    > :not(.list) {
-        display: none;
-    }
-}
-
-.actions-button.disabled {
-    --f7-actions-bg-color: rgba(208, 208, 208, 0.95);
-    opacity: inherit !important;
-}
-
-.actions-button.disabled .actions-button-text {
-    opacity: 0.55 !important;
-}
-
-.item-input.item-input-outline {
-    > .item-inner {
-        min-height: calc(var(--f7-input-height) + 6px);
-    }
-}
-
-/** custom class **/
-:root {
-    --default-icon-color: #000;
-    --ebk-primary-color: 198, 126, 72;
-    --ebk-transaction-tag-chip-bg-color: rgba(0, 0, 0, 0.04);
+    
+    --modern-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 }
 
 :root.dark {
-    --default-icon-color: #fff;
-    --ebk-transaction-tag-chip-bg-color: rgba(255, 255, 255, 0.04);
+    --ebk-bg-main: #020617;
+    --ebk-surface: #1e293b;
+    --ebk-transaction-tag-chip-bg-color: hsla(var(--ebk-primary-h), var(--ebk-primary-s), 80%, 0.1);
 }
+
+.login-bg {
+    background: radial-gradient(circle at top right, hsla(221, 83%, 93%, 1), transparent),
+                radial-gradient(circle at bottom left, hsla(142, 71%, 95%, 1), transparent),
+                var(--ebk-bg-main);
+}
+
+.dark .login-bg {
+    background: radial-gradient(circle at top right, hsla(221, 83%, 15%, 0.5), transparent),
+                radial-gradient(circle at bottom left, hsla(142, 71%, 10%, 0.3), transparent),
+                #020617;
+}
+
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, var(--ebk-primary) 0%, #a855f7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.button {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s;
+    font-weight: 600 !important;
+    
+    &.active-state {
+        transform: scale(0.97);
+        opacity: 0.9;
+    }
+}
+
+
+.card {
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    overflow: hidden;
+}
+
+.list.inset {
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.popup, .sheet-modal {
+    --f7-popup-bg-color: var(--ebk-bg-main);
+}
+
+
+.glass-header {
+    background: hsla(0, 0%, 100%, 0.75) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    backdrop-filter: blur(20px) !important;
+}
+
+.dark .glass-header {
+    background: hsla(221, 39%, 11%, 0.75) !important;
+}
+
 
 .pin-codes-input {
     --ebk-pin-code-border-color: var(--f7-input-outline-border-color);
-    --ebk-pin-code-focued-color: var(--f7-input-outline-invalid-border-color, var(--f7-theme-color));
-    --ebk-pin-code-border-radius: var(--f7-input-outline-border-radius);
-    --ebk-pin-code-input-height: 46px;
+    --ebk-pin-code-focued-color: var(--ebk-primary);
+    --ebk-pin-code-border-radius: 14px;
+    --ebk-pin-code-input-height: 56px;
 }
 
 .page-title-bar-icon {
@@ -317,9 +288,9 @@ html[dir="rtl"] i.icon.icon-with-direction {
     font-size: var(--ebk-datetime-picker-alternate-date-font-size);
 }
 
-/** Replacing the default style of @vuepic/vue-datepicker **/
+
 .dp__theme_light {
-    --dp-primary-color: #c67e48;
+    --dp-primary-color: #3B82F6;
     --dp-background-color: inherit;
     --dp-border-color: #aaa;
     --dp-menu-border-color: #aaa;
@@ -330,7 +301,7 @@ html[dir="rtl"] i.icon.icon-with-direction {
 }
 
 .dp__theme_dark {
-    --dp-primary-color: #c67e48;
+    --dp-primary-color: #3B82F6;
     --dp-background-color: inherit;
     --dp-border-color: #555;
     --dp-menu-border-color: #555;
@@ -340,7 +311,7 @@ html[dir="rtl"] i.icon.icon-with-direction {
     }
 }
 
-/** Common class for replacing the default style of framework7 **/
+
 .navbar .navbar-compact-icons.right a + a {
     margin-inline-start: 0;
 }
@@ -596,7 +567,7 @@ html[dir="rtl"] .icon.las .badge.right-bottom-icon {
     height: var(--ebk-right-bottom-icon-font-size);
 }
 
-/** Swipe handler **/
+
 .swipe-handler {
     height: 26px;
     position: absolute;
@@ -628,7 +599,7 @@ html[dir="rtl"] .icon.las .badge.right-bottom-icon {
     }
 }
 
-/** list-item-with-multi-item for framework7 **/
+
 .list-item-with-multi-item .item-content,
 .list-item-with-multi-item .item-inner {
     padding: 0;
@@ -658,7 +629,7 @@ html[dir="rtl"] .icon.las .badge.right-bottom-icon {
     padding-inline-start: 0;
 }
 
-/** Combination list for framework7 **/
+
 .combination-list-wrapper {
     margin: 0;
     padding: 0;
@@ -710,7 +681,7 @@ html[dir="rtl"] .combination-list-wrapper .list.combination-list-header .combina
     border-radius: var(--f7-list-inset-border-radius);
 }
 
-/** Nested List item for framework7 **/
+
 .nested-list-item .item-title {
     width: 100%;
 }
@@ -811,7 +782,7 @@ html[dir="rtl"] .combination-list-wrapper .list.combination-list-header .combina
     padding-inline-end: var(--f7-safe-area-right) !important;
 }
 
-/** Fix @vuepic/vue-datepicker style issue **/
+
 .dp__main.dp__flex_display {
     flex-direction: column;
 }
@@ -841,7 +812,7 @@ html[dir="rtl"] .dp__main .dp__btn.dp--arrow-btn-nav {
     transform: scaleX(-1);
 }
 
-/* statistics-list */
+
 .statistics-list-item-overview-amount {
     margin-top: 2px;
     font-size: 1.5em;

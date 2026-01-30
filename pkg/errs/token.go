@@ -1,10 +1,10 @@
-package errs
+﻿package errs
 
 import (
 	"net/http"
 )
 
-// Error codes related to tokens
+
 var (
 	ErrTokenGenerating                      = NewNormalError(NormalSubcategoryToken, 0, http.StatusInternalServerError, "failed to generate token")
 	ErrUnauthorizedAccess                   = NewNormalError(NormalSubcategoryToken, 1, http.StatusUnauthorized, "unauthorized access")

@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 
 import {
     type DateTime,
@@ -126,13 +126,13 @@ export function useDateRangeSelectionBase(props: CommonDateRangeSelectionProps) 
     }
 
     return {
-        // states
+        
         dateRange,
-        // computed states
+        
         beginDateTime,
         endDateTime,
         presetRanges,
-        // functions
+        
         getLocalDatetimeFromSameDateTimeOfUnixTime,
         getDateTimeFromSameDateTimeOfLocalDatetime,
         getFinalDateRange

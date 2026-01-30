@@ -14,8 +14,8 @@
         <f7-list strong inset dividers>
             <f7-list-item :title="tt('Version')" :after="clientVersion" @click="showVersion"></f7-list-item>
             <f7-list-item :title="tt('Build Time')" :after="clientBuildTime" v-if="clientBuildTime"></f7-list-item>
-            <f7-list-item :title="tt('Official Website')" link="#" @click="openExternalUrl('https://github.com/mayswind/ezbookkeeping')"></f7-list-item>
-            <f7-list-item :title="tt('Report Issue')" link="#" @click="openExternalUrl('https://github.com/mayswind/ezbookkeeping/issues')"></f7-list-item>
+            <f7-list-item :title="tt('Official Website')" link="#" @click="openExternalUrl('https://github.com/Shavitjnr')"></f7-list-item>
+            <f7-list-item :title="tt('Report Issue')" link="#" @click="openExternalUrl('https://github.com/Shavitjnr')"></f7-list-item>
             <f7-list-item :title="tt('Getting help')" link="#" popup-open=".document-popup"></f7-list-item>
             <f7-list-item :title="tt('License')" link="#" popup-open=".license-popup"></f7-list-item>
         </f7-list>
@@ -49,12 +49,16 @@
                     </p>
                     <hr/>
                     <p>
-                        <span>ezBookkeeping's codebase and localization translation rely on contributions from the community. The following people have contributed to ezBookkeeping:</span>
+                        <span>Split Chill AI's codebase and localization translation rely on contributions from the community. The following people have contributed to Split Chill AI:</span>
+                    </p>
+                    <p>
+                        <strong>Contact Information</strong><br/>
+                        <span>For support and inquiries, please reach out to: <b>+91 82838 06534</b></span>
                     </p>
                     <div>
                         <strong>Project Maintainer</strong>
                         <div class="margin-top-half">
-                            <f7-link target="_blank" @click="openExternalUrl('https://github.com/mayswind')">@mayswind</f7-link>
+                            <f7-link target="_blank" @click="openExternalUrl('https://github.com/Shavitjnr')">@Shavitjnr</f7-link>
                         </div>
                     </div>
                     <p class="margin-top">
@@ -92,7 +96,7 @@
                             <td>{{ lang.languageTag }}</td>
                             <td>{{ lang.nativeDisplayName }}</td>
                             <td>
-                                <template :key="contributor"
+                                <template :key="index"
                                           v-for="(contributor, index) in contributors.translators[lang.languageTag] ?? []">
                                     <span v-if="index > 0">, </span>
                                     <f7-link target="_blank" @click="openExternalUrl(`https://github.com/${contributor}`)">
@@ -105,7 +109,7 @@
                         </tbody>
                     </table>
                     <p class="margin-top margin-bottom">
-                        <span>ezBookkeeping also contains additional third party software and illustration.</span><br/>
+                        <span>Split Chill AI also contains additional third party software and illustration.</span><br/>
                         <span>All the third party software / illustration included or linked is redistributed under the terms and conditions of their original licenses.</span>
                     </p>
                     <p :key="licenseInfo.name" v-for="licenseInfo in thirdPartyLicenses">
@@ -183,9 +187,9 @@ const forceShowRefreshBrowserCacheMenu = computed<boolean>(() => versionClickCou
 
 const documentUrl = computed<string>(() => {
     if (getCurrentLanguageTag() === 'zh-Hans' || getCurrentLanguageTag() === 'zh-Hant') {
-        return 'https://ezbookkeeping.mayswind.net/zh_Hans/faq/';
+        return 'https://splitchill-ai.shavitjnr.net/zh_Hans/faq/';
     } else {
-        return 'https://ezbookkeeping.mayswind.net/faq/';
+        return 'https://splitchill-ai.shavitjnr.net/faq/';
     }
 });
 

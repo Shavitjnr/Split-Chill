@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <f7-page ptr @ptr:refresh="reload" @page:afterin="onPageAfterIn">
         <f7-navbar>
             <f7-nav-left :class="{ 'disabled': loading }" :back-link="tt('Back')"></f7-nav-left>
@@ -693,21 +693,21 @@ function setAssetTrendsDateAggregationType(type: number): void {
 
 function setDateFilter(dateType: number): void {
     if (analysisType.value === StatisticsAnalysisType.CategoricalAnalysis) {
-        if (dateType === DateRange.Custom.type) { // Custom
+        if (dateType === DateRange.Custom.type) { 
             showCustomDateRangeSheet.value = true;
             return;
         } else if (query.value.categoricalChartDateType === dateType) {
             return;
         }
     } else if (analysisType.value === StatisticsAnalysisType.TrendAnalysis) {
-        if (dateType === DateRange.Custom.type) { // Custom
+        if (dateType === DateRange.Custom.type) { 
             showCustomMonthRangeSheet.value = true;
             return;
         } else if (query.value.trendChartDateType === dateType) {
             return;
         }
     } else if (analysisType.value === StatisticsAnalysisType.AssetTrends) {
-        if (dateType === DateRange.Custom.type) { // Custom
+        if (dateType === DateRange.Custom.type) { 
             showCustomDateRangeSheet.value = true;
             return;
         } else if (query.value.assetTrendsChartDateType === dateType) {

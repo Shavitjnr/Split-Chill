@@ -43,7 +43,7 @@ goto :pre_parse_args
     goto :check_dependency
 
 :show_help
-    echo ezBookkeeping build script for Windows
+    echo splitchill-ai build script for Windows
     echo.
     echo Usage:
     echo     build.cmd type [options]
@@ -174,7 +174,7 @@ goto :pre_parse_args
 
     echo Building backend binary file (%RELEASE_TYPE%)...
 
-    call go build -a -v -trimpath -tags timetzdata -ldflags "-w -s -linkmode external -extldflags '-static' %backend_build_extra_arguments%" -o ezbookkeeping.exe ezbookkeeping.go
+    call go build -a -v -trimpath -tags timetzdata -ldflags "-w -s -linkmode external -extldflags '-static' %backend_build_extra_arguments%" -o splitchill-ai.exe splitchill-ai.go
     endlocal
 
     set "CGO_ENABLED="
@@ -231,7 +231,7 @@ goto :pre_parse_args
         set "package_file_name=%package_file_name%-%build_date%"
     )
 
-    set "package_file_name=ezbookkeeping-%package_file_name%-windows.zip"
+    set "package_file_name=splitchill-ai-%package_file_name%-windows.zip"
 
     if defined PACKAGE_FILENAME set "package_file_name=%PACKAGE_FILENAME%"
 
@@ -254,7 +254,7 @@ goto :pre_parse_args
     mkdir package\data
     mkdir package\storage
     mkdir package\log
-    xcopy ezbookkeeping.exe package\
+    xcopy splitchill-ai.exe package\
     xcopy dist package\public /e /i
     xcopy conf package\conf /e /i
     xcopy templates package\templates /e /i

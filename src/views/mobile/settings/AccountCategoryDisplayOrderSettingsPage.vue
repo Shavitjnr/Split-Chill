@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <f7-page>
         <f7-navbar>
             <f7-nav-left :back-link="tt('Back')"></f7-nav-left>
@@ -65,7 +65,7 @@ function parseAccountCategoryTypeFromDomId(domId: string): string | null {
         return null;
     }
 
-    return domId.substring(17); // account_category_
+    return domId.substring(17); 
 }
 
 function init(): void {

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <v-data-table
         fixed-header
         fixed-footer
@@ -474,14 +474,14 @@ type BatchReplaceAllTypesDialogType = InstanceType<typeof BatchReplaceAllTypesDi
 type BatchCreateDialogType = InstanceType<typeof BatchCreateDialog>;
 
 interface ImportTransactionCheckDataFilter {
-    minDatetime: number | null; // minDatetime or maxDatetime is null for 'All Date Range', all are not null for 'Custom Date Range'
+    minDatetime: number | null; 
     maxDatetime: number | null;
-    transactionType: TransactionType | null; // null for 'All Transaction Type'
-    category: string | null | undefined; // null for 'All Category', undefined for 'Invalid Category'
-    amount: string | null; // null for 'All Amount'
-    account: string | null | undefined; // null for 'All Account', undefined for 'Invalid Account'
-    tag: string | null | undefined; // null for 'All Tag', undefined for 'Invalid Tag'
-    description: string | null; // null for 'All Description'
+    transactionType: TransactionType | null; 
+    category: string | null | undefined; 
+    amount: string | null; 
+    account: string | null | undefined; 
+    tag: string | null | undefined; 
+    description: string | null; 
 }
 
 interface ImportTransactionCheckDataMenuGroup {

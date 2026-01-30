@@ -1,17 +1,17 @@
-package models
+﻿package models
 
 import (
 	"fmt"
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
-// TransactionEditScope represents the scope which transaction can be edited
+
 type TransactionEditScope byte
 
-// Editable Transaction Ranges
+
 const (
 	TRANSACTION_EDIT_SCOPE_NONE                TransactionEditScope = 0
 	TRANSACTION_EDIT_SCOPE_ALL                 TransactionEditScope = 1
@@ -23,7 +23,7 @@ const (
 	TRANSACTION_EDIT_SCOPE_INVALID             TransactionEditScope = 255
 )
 
-// String returns a textual representation of the editable transaction ranges enum
+
 func (s TransactionEditScope) String() string {
 	switch s {
 	case TRANSACTION_EDIT_SCOPE_NONE:
@@ -47,10 +47,10 @@ func (s TransactionEditScope) String() string {
 	}
 }
 
-// AmountColorType represents the type of amount color in frontend
+
 type AmountColorType byte
 
-// Amount Color Types
+
 const (
 	AMOUNT_COLOR_TYPE_DEFAULT        AmountColorType = 0
 	AMOUNT_COLOR_TYPE_GREEN          AmountColorType = 1
@@ -60,7 +60,7 @@ const (
 	AMOUNT_COLOR_TYPE_INVALID        AmountColorType = 255
 )
 
-// String returns a textual representation of the amount color type enum
+
 func (s AmountColorType) String() string {
 	switch s {
 	case AMOUNT_COLOR_TYPE_DEFAULT:
@@ -80,7 +80,7 @@ func (s AmountColorType) String() string {
 	}
 }
 
-// User represents user data stored in database
+
 type User struct {
 	Uid                   int64  `xorm:"PK"`
 	Username              string `xorm:"VARCHAR(32) UNIQUE NOT NULL"`
@@ -120,7 +120,7 @@ type User struct {
 	LastLoginUnixTime     int64
 }
 
-// UserBasicInfo represents a view-object of user basic info
+
 type UserBasicInfo struct {
 	Username              string                     `json:"username"`
 	Email                 string                     `json:"email"`
@@ -151,13 +151,13 @@ type UserBasicInfo struct {
 	EmailVerified         bool                       `json:"emailVerified"`
 }
 
-// UserLoginRequest represents all parameters of user login request
+
 type UserLoginRequest struct {
 	LoginName string `json:"loginName" binding:"required,notBlank,max=100,validUsername|validEmail"`
 	Password  string `json:"password" binding:"required,min=6,max=128"`
 }
 
-// UserRegisterRequest represents all parameters of user registering request
+
 type UserRegisterRequest struct {
 	Username        string       `json:"username" binding:"required,notBlank,max=32,validUsername"`
 	Email           string       `json:"email" binding:"required,notBlank,max=100,validEmail"`
@@ -169,25 +169,25 @@ type UserRegisterRequest struct {
 	TransactionCategoryCreateBatchRequest
 }
 
-// UserVerifyEmailRequest represents all parameters of user verify email request
+
 type UserVerifyEmailRequest struct {
 	RequestNewToken bool `json:"requestNewToken" binding:"omitempty"`
 }
 
-// UserVerifyEmailResponse represents all response parameters after user have verified email
+
 type UserVerifyEmailResponse struct {
 	NewToken            string         `json:"newToken,omitempty"`
 	User                *UserBasicInfo `json:"user"`
 	NotificationContent string         `json:"notificationContent,omitempty"`
 }
 
-// UserResendVerifyEmailRequest represents all parameters of user resend verify email request
+
 type UserResendVerifyEmailRequest struct {
 	Email    string `json:"email" binding:"omitempty,max=100,validEmail"`
 	Password string `json:"password" binding:"omitempty,min=6,max=128"`
 }
 
-// UserProfileUpdateRequest represents all parameters of user updating profile request
+
 type UserProfileUpdateRequest struct {
 	Email                 string                      `json:"email" binding:"omitempty,notBlank,max=100,validEmail"`
 	Nickname              string                      `json:"nickname" binding:"omitempty,notBlank,max=64,validNickname"`
@@ -216,20 +216,20 @@ type UserProfileUpdateRequest struct {
 	IncomeAmountColor     *AmountColorType            `json:"incomeAmountColor" binding:"omitempty,min=0,max=4"`
 }
 
-// UserProfileUpdateResponse represents the data returns to frontend after updating profile
+
 type UserProfileUpdateResponse struct {
 	User     *UserBasicInfo `json:"user"`
 	NewToken string         `json:"newToken,omitempty"`
 }
 
-// UserProfileResponse represents a view-object of user profile
+
 type UserProfileResponse struct {
 	*UserBasicInfo
 	NoPassword  bool  `json:"noPassword,omitempty"`
 	LastLoginAt int64 `json:"lastLoginAt"`
 }
 
-// CanEditTransactionByTransactionTime returns whether this user can edit transaction with specified transaction time
+
 func (u *User) CanEditTransactionByTransactionTime(transactionTime int64, clientTimezone *time.Location) bool {
 	if u.TransactionEditScope == TRANSACTION_EDIT_SCOPE_NONE {
 		return false
@@ -270,7 +270,7 @@ func (u *User) CanEditTransactionByTransactionTime(transactionTime int64, client
 	return false
 }
 
-// ToUserBasicInfo returns a user basic view-object according to database model
+
 func (u *User) ToUserBasicInfo(avatarProvider core.UserAvatarProviderType, avatarUrl string) *UserBasicInfo {
 	fiscalYearStart := u.FiscalYearStart
 
@@ -309,7 +309,7 @@ func (u *User) ToUserBasicInfo(avatarProvider core.UserAvatarProviderType, avata
 	}
 }
 
-// ToUserProfileResponse returns a user profile view-object according to database model
+
 func (u *User) ToUserProfileResponse(basicInfo *UserBasicInfo) *UserProfileResponse {
 	return &UserProfileResponse{
 		UserBasicInfo: basicInfo,

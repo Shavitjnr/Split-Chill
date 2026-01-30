@@ -1,4 +1,4 @@
-package csv
+﻿package csv
 
 import (
 	"bytes"
@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
 )
 
 func TestCsvFileBasicDataTableDataRowCount(t *testing.T) {
@@ -73,19 +73,19 @@ func TestCsvFileBasicDataTableRowIterator(t *testing.T) {
 	iterator := datatable.DataRowIterator()
 	assert.True(t, iterator.HasNext())
 
-	// data row 1
+	
 	assert.NotNil(t, iterator.Next())
 	assert.True(t, iterator.HasNext())
 
-	// data row 2
+	
 	assert.NotNil(t, iterator.Next())
 	assert.True(t, iterator.HasNext())
 
-	// data row 3
+	
 	assert.NotNil(t, iterator.Next())
 	assert.False(t, iterator.HasNext())
 
-	// not existed data row 4
+	
 	assert.Nil(t, iterator.Next())
 	assert.False(t, iterator.HasNext())
 }
@@ -100,19 +100,19 @@ func TestCsvFileBasicDataTableRowIterator_HasTitleLine(t *testing.T) {
 	iterator := datatable.DataRowIterator()
 	assert.True(t, iterator.HasNext())
 
-	// data row 1
+	
 	assert.NotNil(t, iterator.Next())
 	assert.True(t, iterator.HasNext())
 
-	// data row 2
+	
 	assert.NotNil(t, iterator.Next())
 	assert.False(t, iterator.HasNext())
 
-	// not existed data row 3
+	
 	assert.Nil(t, iterator.Next())
 	assert.False(t, iterator.HasNext())
 
-	// not existed data row 4
+	
 	assert.Nil(t, iterator.Next())
 	assert.False(t, iterator.HasNext())
 }

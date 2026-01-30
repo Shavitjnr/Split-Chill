@@ -1,4 +1,4 @@
-package mail
+﻿package mail
 
 import (
 	"crypto/tls"
@@ -6,18 +6,18 @@ import (
 
 	"gopkg.in/mail.v2"
 
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
-// DefaultMailer represents default mailer
+
 type DefaultMailer struct {
 	dialer      *mail.Dialer
 	fromAddress string
 }
 
-// NewDefaultMailer returns a new default mailer
+
 func NewDefaultMailer(smtpConfig *settings.SMTPConfig) (*DefaultMailer, error) {
 	host, portStr, err := net.SplitHostPort(smtpConfig.SMTPHost)
 
@@ -45,7 +45,7 @@ func NewDefaultMailer(smtpConfig *settings.SMTPConfig) (*DefaultMailer, error) {
 	return mailer, nil
 }
 
-// SendMail sends an email according to argument
+
 func (m *DefaultMailer) SendMail(message *MailMessage) error {
 	if m.dialer == nil {
 		return errs.ErrSMTPServerNotEnabled

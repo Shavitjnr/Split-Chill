@@ -1,4 +1,4 @@
-package api
+﻿package api
 
 import (
 	"bytes"
@@ -8,21 +8,21 @@ import (
 
 	"github.com/pquerna/otp/totp"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/services"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/services"
 )
 
-// TwoFactorAuthorizationsApi represents 2fa api
+
 type TwoFactorAuthorizationsApi struct {
 	twoFactorAuthorizations *services.TwoFactorAuthorizationService
 	users                   *services.UserService
 	tokens                  *services.TokenService
 }
 
-// Initialize a 2fa api singleton instance
+
 var (
 	TwoFactorAuthorizations = &TwoFactorAuthorizationsApi{
 		twoFactorAuthorizations: services.TwoFactorAuthorizations,
@@ -31,7 +31,7 @@ var (
 	}
 )
 
-// TwoFactorStatusHandler returns 2fa status of current user
+
 func (a *TwoFactorAuthorizationsApi) TwoFactorStatusHandler(c *core.WebContext) (any, *errs.Error) {
 	uid := c.GetCurrentUid()
 	twoFactorSetting, err := a.twoFactorAuthorizations.GetUserTwoFactorSettingByUid(c, uid)
@@ -57,7 +57,7 @@ func (a *TwoFactorAuthorizationsApi) TwoFactorStatusHandler(c *core.WebContext) 
 	return statusResp, nil
 }
 
-// TwoFactorEnableRequestHandler returns a new 2fa secret and qr code for current user to set 2fa and verify passcode next
+
 func (a *TwoFactorAuthorizationsApi) TwoFactorEnableRequestHandler(c *core.WebContext) (any, *errs.Error) {
 	uid := c.GetCurrentUid()
 	enabled, err := a.twoFactorAuthorizations.ExistsTwoFactorSetting(c, uid)
@@ -113,7 +113,7 @@ func (a *TwoFactorAuthorizationsApi) TwoFactorEnableRequestHandler(c *core.WebCo
 	return enableResp, nil
 }
 
-// TwoFactorEnableConfirmHandler enables 2fa for current user
+
 func (a *TwoFactorAuthorizationsApi) TwoFactorEnableConfirmHandler(c *core.WebContext) (any, *errs.Error) {
 	var confirmReq models.TwoFactorEnableConfirmRequest
 	err := c.ShouldBindJSON(&confirmReq)
@@ -217,7 +217,7 @@ func (a *TwoFactorAuthorizationsApi) TwoFactorEnableConfirmHandler(c *core.WebCo
 	return confirmResp, nil
 }
 
-// TwoFactorDisableHandler disables 2fa for current user
+
 func (a *TwoFactorAuthorizationsApi) TwoFactorDisableHandler(c *core.WebContext) (any, *errs.Error) {
 	var disableReq models.TwoFactorDisableRequest
 	err := c.ShouldBindJSON(&disableReq)
@@ -276,7 +276,7 @@ func (a *TwoFactorAuthorizationsApi) TwoFactorDisableHandler(c *core.WebContext)
 	return true, nil
 }
 
-// TwoFactorRecoveryCodeRegenerateHandler returns new 2fa recovery codes and revokes old recovery codes for current user
+
 func (a *TwoFactorAuthorizationsApi) TwoFactorRecoveryCodeRegenerateHandler(c *core.WebContext) (any, *errs.Error) {
 	var regenerateReq models.TwoFactorRegenerateRecoveryCodeRequest
 	err := c.ShouldBindJSON(&regenerateReq)

@@ -1,17 +1,17 @@
-package settings
+﻿package settings
 
 import (
 	"fmt"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
 )
 
-// ConfigContainer contains the current setting config
+
 type ConfigContainer struct {
 	current *Config
 }
 
-// Initialize a config container singleton instance
+
 var (
 	Version    string
 	CommitHash string
@@ -19,12 +19,12 @@ var (
 	Container  = &ConfigContainer{}
 )
 
-// SetCurrentConfig sets the current config by a given config
+
 func SetCurrentConfig(config *Config) {
 	Container.current = config
 }
 
-// GetCurrentConfig returns the current config
+
 func (c *ConfigContainer) GetCurrentConfig() *Config {
 	return c.current
 }

@@ -1,7 +1,7 @@
 {
     "global": {
         "app": {
-            "title": "ezBookkeeping"
+            "title": "Split Chill AI"
         }
     },
     "language": {
@@ -137,20 +137,20 @@
             "clearTransactionsInAccountTip": "You CANNOT undo this action. This will clear your transactions data in {account}. Please enter your current password to confirm.",
             "accountActivationAndResendValidationEmailTip": "O link de ativação da conta foi enviado para seu endereço de e-mail: {email}. Se você não receber o e-mail, por favor preencha a senha novamente e clique no botão abaixo para reenviar o e-mail de validação.",
             "resendValidationEmailTip": "Se você não receber o e-mail, por favor preencha a senha novamente e clique no botão abaixo para reenviar o e-mail de validação para: {email}",
-            "oauth2bindTip": "You're signing in to the {userName} user using {providerName}. Please enter your ezBookkeeping password to verify."
+            "oauth2bindTip": "You're signing in to the {userName} user using {providerName}. Please enter your Split Chill AI password to verify."
         }
     },
     "dataExport": {
-        "defaultExportFilename": "ezBookkeeping_export_data",
-        "exportFilename": "ezBookkeeping_{nickname}_export_data",
-        "defaultExportStatisticsFileName": "ezBookkeeping_dados_estatísticos",
-        "exportStatisticsFileName": "ezBookkeeping_{nickname}_dados_estatísticos",
-        "defaultExportReconciliationStatementsFileName": "ezBookkeeping_reconciliation_statements",
-        "exportReconciliationStatementsFileName": "ezBookkeeping_{nickname}_reconciliation_statements",
-        "defaultImportDataMappingFileName": "ezBookkeeping_import_data_mapping",
-        "defaultImportHandlingScript": "ezBookkeeping_handling_script",
-        "defaultImportReplaceRuleFileName": "ezBookkeeping_import_replace_rule",
-        "defaultImportCheckResultFileName": "ezBookkeeping_import_check_result"
+        "defaultExportFilename": "Split Chill AI_export_data",
+        "exportFilename": "Split Chill AI_{nickname}_export_data",
+        "defaultExportStatisticsFileName": "Split Chill AI_dados_estatísticos",
+        "exportStatisticsFileName": "Split Chill AI_{nickname}_dados_estatísticos",
+        "defaultExportReconciliationStatementsFileName": "Split Chill AI_reconciliation_statements",
+        "exportReconciliationStatementsFileName": "Split Chill AI_{nickname}_reconciliation_statements",
+        "defaultImportDataMappingFileName": "Split Chill AI_import_data_mapping",
+        "defaultImportHandlingScript": "Split Chill AI_handling_script",
+        "defaultImportReplaceRuleFileName": "Split Chill AI_import_replace_rule",
+        "defaultImportCheckResultFileName": "Split Chill AI_import_check_result"
     },
     "calendar": {
         "Gregorian": "Gregorian",
@@ -1618,8 +1618,8 @@
     "Change Language": "Alterar Idioma",
     "Date is too early": "Data é muito cedo",
     "User Canceled": "User Canceled",
-    "Welcome to ezBookkeeping": "Bem-vindo ao ezBookkeeping",
-    "Please log in with your ezBookkeeping account": "Por favor, faça login com sua conta ezBookkeeping",
+    "Welcome to Split Chill AI": "Bem-vindo ao Split Chill AI",
+    "Please log in with your Split Chill AI account": "Por favor, faça login com sua conta Split Chill AI",
     "Unlock Application": "Desbloquear Aplicativo",
     "Please enter your PIN code or use WebAuthn to unlock application": "Por favor, digite seu código PIN ou use o WebAuthn para desbloquear o aplicativo",
     "Please enter your PIN code to unlock application": "Por favor, digite seu código PIN para desbloquear o aplicativo",
@@ -1966,13 +1966,13 @@
     "Filter Description": "Descrição do Filtro",
     "How to import this file?": "Como importar este arquivo?",
     "How to export this file?": "Como exportar este arquivo?",
-    "ezBookkeeping File Format": "ezBookkeeping File Format",
+    "Split Chill AI File Format": "Split Chill AI File Format",
     "Custom File Format": "Custom File Format",
     "General Data Exchange Format": "General Data Exchange Format",
     "General Bank Statement Format": "General Bank Statement Format",
     "Other Bank/Payment App Statement File": "Other Bank/Payment App Statement File",
     "Other Finance App File Format": "Other Finance App File Format",
-    "ezbookkeeping Data Export File": "Arquivo de Exportação de Dados ezbookkeeping",
+    "Split Chill AI Data Export File": "Arquivo de Exportação de Dados Split Chill AI",
     "Excel Workbook File": "Excel Workbook File",
     "Open Financial Exchange (OFX) File": "Arquivo Open Financial Exchange (OFX)",
     "Quicken Financial Exchange (QFX) File": "Arquivo Quicken Financial Exchange (QFX)",

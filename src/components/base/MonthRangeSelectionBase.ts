@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 
 import type { TextualYearMonth, Year0BasedMonth } from '@/core/datetime.ts';
 
@@ -80,12 +80,12 @@ export function useMonthRangeSelectionBase(props: CommonMonthRangeSelectionProps
     }
 
     return {
-        // states
+        
         dateRange,
-        // computed states
+        
         beginDateTime,
         endDateTime,
-        // functions
+        
         getFinalMonthRange
     };
 }

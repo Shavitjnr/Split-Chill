@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 
 import { useI18n } from '@/locales/helpers.ts';
 
@@ -58,16 +58,16 @@ export function useExchangeRatesPageBase() {
     }
 
     return {
-        // states
+        
         baseCurrency,
         baseAmount,
-        // computed states
+        
         defaultCurrency,
         exchangeRatesData,
         isUserCustomExchangeRates,
         exchangeRatesDataUpdateTime,
         availableExchangeRates,
-        // functions
+        
         getConvertedAmount,
         setAsBaseline
     };

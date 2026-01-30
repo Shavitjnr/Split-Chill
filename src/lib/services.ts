@@ -1,4 +1,4 @@
-import axios, { type AxiosRequestConfig, type AxiosRequestHeaders, type AxiosResponse } from 'axios';
+﻿import axios, { type AxiosRequestConfig, type AxiosRequestHeaders, type AxiosResponse } from 'axios';
 
 import type { ApiResponse } from '@/core/api.ts';
 
@@ -269,13 +269,13 @@ axios.interceptors.response.use(response => {
     if (error.response && !error.response.config.ignoreError && error.response.data && error.response.data.errorCode) {
         const errorCode = error.response.data.errorCode;
 
-        if (errorCode === 202001 // unauthorized access
-            || errorCode === 202002 // current token is invalid
-            || errorCode === 202003 // current token is expired
-            || errorCode === 202004 // current token type is invalid
-            || errorCode === 202005 // current token requires two-factor authorization
-            || errorCode === 202006 // current token does not require two-factor authorization
-            || errorCode === 202012 // token is empty
+        if (errorCode === 202001 
+            || errorCode === 202002 
+            || errorCode === 202003 
+            || errorCode === 202004 
+            || errorCode === 202005 
+            || errorCode === 202006 
+            || errorCode === 202012 
         ) {
             clearCurrentTokenAndUserInfo(false);
             location.reload();

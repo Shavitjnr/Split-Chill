@@ -1,4 +1,4 @@
-package services
+﻿package services
 
 import (
 	"sort"
@@ -6,19 +6,19 @@ import (
 
 	"xorm.io/xorm"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/datastore"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/datastore"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
 )
 
-// UserApplicationCloudSettingsService represents user application cloud settings service
+
 type UserApplicationCloudSettingsService struct {
 	ServiceUsingDB
 }
 
-// Initialize a user application cloud settings service singleton instance
+
 var (
 	UserApplicationCloudSettings = &UserApplicationCloudSettingsService{
 		ServiceUsingDB: ServiceUsingDB{
@@ -27,7 +27,7 @@ var (
 	}
 )
 
-// GetUserApplicationCloudSettingsByUid returns user application cloud settings models of user
+
 func (s *UserApplicationCloudSettingsService) GetUserApplicationCloudSettingsByUid(c core.Context, uid int64) (*models.UserApplicationCloudSetting, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -45,7 +45,7 @@ func (s *UserApplicationCloudSettingsService) GetUserApplicationCloudSettingsByU
 	return applicationCloudSetting, nil
 }
 
-// UpdateUserApplicationCloudSettings updates user application cloud settings
+
 func (s *UserApplicationCloudSettingsService) UpdateUserApplicationCloudSettings(c core.Context, uid int64, settings models.ApplicationCloudSettingSlice, forceUpdate bool, lastUpdateTime int64) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -87,7 +87,7 @@ func (s *UserApplicationCloudSettingsService) UpdateUserApplicationCloudSettings
 	})
 }
 
-// ClearUserApplicationCloudSettings clears user application cloud settings
+
 func (s *UserApplicationCloudSettingsService) ClearUserApplicationCloudSettings(c core.Context, uid int64) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid

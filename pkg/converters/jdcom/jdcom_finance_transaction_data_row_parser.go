@@ -1,13 +1,13 @@
-package jdcom
+﻿package jdcom
 
 import (
 	"strings"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/datatable"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/datatable"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 const jdComFinanceTransactionDataCsvFileHeader = "导出信息："
@@ -50,12 +50,12 @@ var jdComFinanceTransactionTypeNameMapping = map[models.TransactionType]string{
 	models.TRANSACTION_TYPE_TRANSFER: "不计收支",
 }
 
-// jdComFinanceTransactionDataRowParser defines the structure of jd.com finance transaction data row parser
+
 type jdComFinanceTransactionDataRowParser struct {
 	existedOriginalDataColumns map[string]bool
 }
 
-// Parse returns the converted transaction data row
+
 func (p *jdComFinanceTransactionDataRowParser) Parse(ctx core.Context, user *models.User, dataRow datatable.CommonDataTableRow, rowId string) (rowData map[datatable.TransactionDataTableColumn]string, rowDataValid bool, err error) {
 	if dataRow.GetData(jdComFinanceTransactionTypeColumnName) != jdComFinanceTransactionTypeNameMapping[models.TRANSACTION_TYPE_INCOME] &&
 		dataRow.GetData(jdComFinanceTransactionTypeColumnName) != jdComFinanceTransactionTypeNameMapping[models.TRANSACTION_TYPE_EXPENSE] &&
@@ -80,7 +80,7 @@ func (p *jdComFinanceTransactionDataRowParser) Parse(ctx core.Context, user *mod
 	data[datatable.TRANSACTION_DATA_TABLE_RELATED_ACCOUNT_NAME] = ""
 
 	if strings.Index(dataRow.GetData(jdComFinanceTransactionAmountColumnName), "(") >= 0 {
-		// If a transaction includes a refund, the original transaction amount will like "-xx.xx(已全额退款)" or "-xx.xx(已退款yy.yy)", along with another refund transaction
+		
 		data[datatable.TRANSACTION_DATA_TABLE_AMOUNT] = strings.Split(dataRow.GetData(jdComFinanceTransactionAmountColumnName), "(")[0]
 	} else {
 		data[datatable.TRANSACTION_DATA_TABLE_AMOUNT] = dataRow.GetData(jdComFinanceTransactionAmountColumnName)
@@ -97,27 +97,27 @@ func (p *jdComFinanceTransactionDataRowParser) Parse(ctx core.Context, user *mod
 	if data[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE] == jdComFinanceTransactionTypeNameMapping[models.TRANSACTION_TYPE_TRANSFER] {
 		memo := dataRow.GetData(jdComFinanceTransactionMemoColumnName)
 
-		if statusName == jdComFinanceTransactionDataStatusRefundSuccessName || strings.Index(memo, jdComFinanceTransactionMemoRefundText) >= 0 { // refund
+		if statusName == jdComFinanceTransactionDataStatusRefundSuccessName || strings.Index(memo, jdComFinanceTransactionMemoRefundText) >= 0 { 
 			amount, err := utils.ParseAmount(data[datatable.TRANSACTION_DATA_TABLE_AMOUNT])
 
 			if err == nil {
 				data[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE] = jdComFinanceTransactionTypeNameMapping[models.TRANSACTION_TYPE_EXPENSE]
 				data[datatable.TRANSACTION_DATA_TABLE_AMOUNT] = utils.FormatAmount(-amount)
 			}
-		} else if strings.Index(dataRow.GetData(jdComFinanceTransactionAmountColumnName), jdComFinanceTransactionAmountRefundAll) > 0 { // expense transaction (but include a full refund)
+		} else if strings.Index(dataRow.GetData(jdComFinanceTransactionAmountColumnName), jdComFinanceTransactionAmountRefundAll) > 0 { 
 			data[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE] = jdComFinanceTransactionTypeNameMapping[models.TRANSACTION_TYPE_EXPENSE]
-		} else { // transfer
-			if strings.Index(memo, jdComFinanceTransactionMemoTransferToWalletPrefix) >= 0 { // transfer to jd.com finance wallet
+		} else { 
+			if strings.Index(memo, jdComFinanceTransactionMemoTransferToWalletPrefix) >= 0 { 
 				data[datatable.TRANSACTION_DATA_TABLE_RELATED_ACCOUNT_NAME] = dataRow.GetData(jdComFinanceTransactionMerchantNameColumnName)
-			} else if strings.Index(memo, jdComFinanceTransactionMemoTransferFromWalletPrefix) >= 0 { // transfer from jd.com finance wallet
+			} else if strings.Index(memo, jdComFinanceTransactionMemoTransferFromWalletPrefix) >= 0 { 
 				data[datatable.TRANSACTION_DATA_TABLE_RELATED_ACCOUNT_NAME] = data[datatable.TRANSACTION_DATA_TABLE_ACCOUNT_NAME]
 				data[datatable.TRANSACTION_DATA_TABLE_ACCOUNT_NAME] = dataRow.GetData(jdComFinanceTransactionMerchantNameColumnName)
-			} else if strings.Index(memo, jdComFinanceTransactionMemoTransferInText) >= 0 { // transfer in
+			} else if strings.Index(memo, jdComFinanceTransactionMemoTransferInText) >= 0 { 
 				data[datatable.TRANSACTION_DATA_TABLE_RELATED_ACCOUNT_NAME] = dataRow.GetData(jdComFinanceTransactionMerchantNameColumnName)
-			} else if strings.Index(memo, jdComFinanceTransactionMemoTransferOutText) >= 0 { // transfer out
+			} else if strings.Index(memo, jdComFinanceTransactionMemoTransferOutText) >= 0 { 
 				data[datatable.TRANSACTION_DATA_TABLE_RELATED_ACCOUNT_NAME] = data[datatable.TRANSACTION_DATA_TABLE_ACCOUNT_NAME]
 				data[datatable.TRANSACTION_DATA_TABLE_ACCOUNT_NAME] = dataRow.GetData(jdComFinanceTransactionMerchantNameColumnName)
-			} else if strings.Index(memo, jdComFinanceTransactionMemoRepaymentText) >= 0 { // repayment
+			} else if strings.Index(memo, jdComFinanceTransactionMemoRepaymentText) >= 0 { 
 				data[datatable.TRANSACTION_DATA_TABLE_RELATED_ACCOUNT_NAME] = dataRow.GetData(jdComFinanceTransactionMerchantNameColumnName)
 			} else {
 				log.Warnf(ctx, "[jdcom_finance_transaction_data_row_parser.Parse] skip parsing transaction in row \"%s\", because memo (\"%s\") of this transfer transaction is unknown", rowId, memo)
@@ -134,7 +134,7 @@ func (p *jdComFinanceTransactionDataRowParser) hasOriginalColumn(columnName stri
 	return exists
 }
 
-// createJDComFinanceTransactionDataRowParser returns jd.com finance transaction data row parser
+
 func createJDComFinanceTransactionDataRowParser(headerColumnNames []string) datatable.CommonTransactionDataRowParser {
 	existedOriginalDataColumns := make(map[string]bool, len(headerColumnNames))
 

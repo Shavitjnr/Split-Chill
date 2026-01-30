@@ -1,7 +1,7 @@
 {
     "global": {
         "app": {
-            "title": "ezBookkeeping"
+            "title": "Split Chill AI"
         }
     },
     "language": {
@@ -137,20 +137,20 @@
             "clearTransactionsInAccountTip": "คุณไม่สามารถยกเลิกการกระทำนี้ได้ การกระทำนี้จะลบข้อมูลธุรกรรมทั้งหมดใน {account} โปรดป้อนรหัสผ่านปัจจุบันเพื่อยืนยัน",
             "accountActivationAndResendValidationEmailTip": "ลิงก์สำหรับเปิดใช้งานบัญชีได้ถูกส่งไปยังอีเมลของคุณแล้ว: {email} หากคุณไม่ได้รับอีเมล โปรดกรอกรหัสผ่านอีกครั้งแล้วกดปุ่มด้านล่างเพื่อส่งอีเมลยืนยันอีกครั้ง",
             "resendValidationEmailTip": "หากคุณไม่ได้รับอีเมล โปรดกรอกรหัสผ่านอีกครั้งแล้วกดปุ่มด้านล่างเพื่อส่งอีเมลยืนยันไปยัง: {email}",
-            "oauth2bindTip": "You're signing in to the {userName} user using {providerName}. Please enter your ezBookkeeping password to verify."
+            "oauth2bindTip": "You're signing in to the {userName} user using {providerName}. Please enter your Split Chill AI password to verify."
         }
     },
     "dataExport": {
-        "defaultExportFilename": "ezBookkeeping_export_data",
-        "exportFilename": "ezBookkeeping_{nickname}_export_data",
-        "defaultExportStatisticsFileName": "ezBookkeeping_statistics_data",
-        "exportStatisticsFileName": "ezBookkeeping_{nickname}_statistics_data",
-        "defaultExportReconciliationStatementsFileName": "ezBookkeeping_reconciliation_statements",
-        "exportReconciliationStatementsFileName": "ezBookkeeping_{nickname}_reconciliation_statements",
-        "defaultImportDataMappingFileName": "ezBookkeeping_import_data_mapping",
-        "defaultImportHandlingScript": "ezBookkeeping_handling_script",
-        "defaultImportReplaceRuleFileName": "ezBookkeeping_import_replace_rule",
-        "defaultImportCheckResultFileName": "ezBookkeeping_import_check_result"
+        "defaultExportFilename": "Split Chill AI_export_data",
+        "exportFilename": "Split Chill AI_{nickname}_export_data",
+        "defaultExportStatisticsFileName": "Split Chill AI_statistics_data",
+        "exportStatisticsFileName": "Split Chill AI_{nickname}_statistics_data",
+        "defaultExportReconciliationStatementsFileName": "Split Chill AI_reconciliation_statements",
+        "exportReconciliationStatementsFileName": "Split Chill AI_{nickname}_reconciliation_statements",
+        "defaultImportDataMappingFileName": "Split Chill AI_import_data_mapping",
+        "defaultImportHandlingScript": "Split Chill AI_handling_script",
+        "defaultImportReplaceRuleFileName": "Split Chill AI_import_replace_rule",
+        "defaultImportCheckResultFileName": "Split Chill AI_import_check_result"
     },
     "calendar": {
         "Gregorian": "เกรกอเรียน",
@@ -1618,8 +1618,8 @@
     "Change Language": "เปลี่ยนภาษา",
     "Date is too early": "วันที่เร็วเกินไป",
     "User Canceled": "User Canceled",
-    "Welcome to ezBookkeeping": "ยินดีต้อนรับสู่ ezBookkeeping",
-    "Please log in with your ezBookkeeping account": "กรุณาเข้าสู่ระบบด้วยบัญชี ezBookkeeping ของคุณ",
+    "Welcome to Split Chill AI": "ยินดีต้อนรับสู่ Split Chill AI",
+    "Please log in with your Split Chill AI account": "กรุณาเข้าสู่ระบบด้วยบัญชี Split Chill AI ของคุณ",
     "Unlock Application": "ปลดล็อกแอปพลิเคชัน",
     "Please enter your PIN code or use WebAuthn to unlock application": "กรุณาใส่รหัส PIN หรือใช้ WebAuthn เพื่อปลดล็อกแอปพลิเคชัน",
     "Please enter your PIN code to unlock application": "กรุณาใส่รหัส PIN เพื่อปลดล็อกแอปพลิเคชัน",
@@ -1966,13 +1966,13 @@
     "Filter Description": "กรองคำอธิบาย",
     "How to import this file?": "วิธีการนำเข้าไฟล์นี้?",
     "How to export this file?": "วิธีการส่งออกไฟล์นี้?",
-    "ezBookkeeping File Format": "รูปแบบไฟล์ ezBookkeeping",
+    "Split Chill AI File Format": "รูปแบบไฟล์ Split Chill AI",
     "Custom File Format": "รูปแบบไฟล์กำหนดเอง",
     "General Data Exchange Format": "รูปแบบแลกเปลี่ยนข้อมูลทั่วไป",
     "General Bank Statement Format": "รูปแบบรายการบัญชีธนาคารทั่วไป",
     "Other Bank/Payment App Statement File": "ไฟล์รายการธนาคาร/แอปชำระเงินอื่น",
     "Other Finance App File Format": "รูปแบบไฟแอปการเงินอื่น",
-    "ezbookkeeping Data Export File": "ไฟล์ส่งออกข้อมูล ezBookkeeping",
+    "Split Chill AI Data Export File": "ไฟล์ส่งออกข้อมูล Split Chill AI",
     "Excel Workbook File": "ไฟล์ Excel",
     "Open Financial Exchange (OFX) File": "ไฟล์ Open Financial Exchange (OFX)",
     "Quicken Financial Exchange (QFX) File": "ไฟล์ Quicken Financial Exchange (QFX)",

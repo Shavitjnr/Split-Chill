@@ -1,4 +1,4 @@
-package iif
+﻿package iif
 
 import (
 	"bytes"
@@ -6,9 +6,9 @@ import (
 	"io"
 	"strings"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
 )
 
 const iifAccountSampleLineSignColumnName = "!ACCNT"
@@ -21,12 +21,12 @@ const iifTransactionLineSignColumnName = "TRNS"
 const iifTransactionSplitLineSignColumnName = "SPL"
 const iifTransactionEndLineSignColumnName = "ENDTRNS"
 
-// iifDataReader defines the structure of intuit interchange format (iif) data reader
+
 type iifDataReader struct {
 	reader *csv.Reader
 }
 
-// read returns the iif transaction dataset
+
 func (r *iifDataReader) read(ctx core.Context) ([]*iifAccountDataset, []*iifTransactionDataset, error) {
 	allAccountDatasets := make([]*iifAccountDataset, 0)
 	allTransactionDatasets := make([]*iifTransactionDataset, 0)
@@ -59,7 +59,7 @@ func (r *iifDataReader) read(ctx core.Context) ([]*iifAccountDataset, []*iifTran
 			return nil, nil, errs.ErrInvalidIIFFile
 		}
 
-		// read sample line
+		
 		if items[0][0] == '!' {
 			if lastLineSign != "" {
 				log.Errorf(ctx, "[iif_data_reader.read] iif missing transaction end line")
@@ -96,12 +96,12 @@ func (r *iifDataReader) read(ctx core.Context) ([]*iifAccountDataset, []*iifTran
 				if err != nil {
 					return nil, nil, err
 				}
-			} // not process (read sample line) for other dataset type
+			} 
 
 			continue
 		}
 
-		// read data lines
+		
 		if currentDatasetType == "" {
 			log.Errorf(ctx, "[iif_data_reader.read] cannot read data line before sample line")
 			return nil, nil, errs.ErrInvalidIIFFile
@@ -159,7 +159,7 @@ func (r *iifDataReader) read(ctx core.Context) ([]*iifAccountDataset, []*iifTran
 				log.Errorf(ctx, "[iif_data_reader.read] iif missing transaction sample end line")
 				return nil, nil, errs.ErrInvalidIIFFile
 			}
-		} // not process (read data line) for other dataset type
+		} 
 	}
 
 	if lastLineSign != "" {

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <axis-chart class="trends-chart-container" ref="axisChart" values-field="values"
                 :skeleton="skeleton" :type="chartDisplayType" :stacked="stacked" :sorting-type="sortingType"
                 :show-value="showValue"
@@ -162,7 +162,7 @@ const allSeriesData = computed<Record<string, unknown>[]>(() => {
                     dateRangeKey = `${dataItem.year}-${Math.floor((dataItem.month - 1) / 3) + 1}`;
                 } else if (props.dateAggregationType === ChartDateAggregationType.Month.type) {
                     dateRangeKey = `${dataItem.year}-${dataItem.month}`;
-                } else { // if (props.dateAggregationType === ChartDateAggregationType.Day.type) {
+                } else { 
                     dateRangeKey = `${dataItem.year}-${dataItem.month}-${dataItem.day}`;
                 }
             } else if (props.chartMode === 'monthly' && 'month1base' in dataItem) {
@@ -176,7 +176,7 @@ const allSeriesData = computed<Record<string, unknown>[]>(() => {
                     dateRangeKey = fiscalYear.toString();
                 } else if (props.dateAggregationType === ChartDateAggregationType.Quarter.type) {
                     dateRangeKey = `${dataItem.year}-${Math.floor((dataItem.month1base - 1) / 3) + 1}`;
-                } else { // if (props.dateAggregationType === ChartDateAggregationType.Month.type) {
+                } else { 
                     dateRangeKey = `${dataItem.year}-${dataItem.month1base}`;
                 }
             }

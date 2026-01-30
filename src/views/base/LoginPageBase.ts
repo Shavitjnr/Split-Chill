@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 
 import { useI18n } from '@/locales/helpers.ts';
 
@@ -64,9 +64,9 @@ export function useLoginPageBase(platform: 'mobile' | 'desktop') {
     }
 
     return {
-        // constants
+        
         version,
-        // states
+        
         username,
         password,
         passcode,
@@ -77,13 +77,13 @@ export function useLoginPageBase(platform: 'mobile' | 'desktop') {
         loggingInByPassword,
         loggingInByOAuth2,
         verifying,
-        // computed states
+        
         inputIsEmpty,
         twoFAInputIsEmpty,
         oauth2LoginUrl,
         oauth2LoginDisplayName,
         tips,
-        // functions
+        
         doAfterLogin
     }
 }

@@ -1,4 +1,4 @@
-import { computed } from 'vue';
+﻿import { computed } from 'vue';
 
 import { useI18n } from '@/locales/helpers.ts';
 
@@ -255,7 +255,7 @@ export function useAccountBalanceTrendsChartBase(props: CommonAccountBalanceTren
     });
 
     return {
-        // computed states
+        
         allDateRanges,
         allDataItems,
         allDisplayDateRanges

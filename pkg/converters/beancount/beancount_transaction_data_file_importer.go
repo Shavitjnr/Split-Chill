@@ -1,12 +1,12 @@
-package beancount
+﻿package beancount
 
 import (
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/converter"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/converter"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 var beancountTransactionTypeNameMapping = map[models.TransactionType]string{
@@ -16,16 +16,16 @@ var beancountTransactionTypeNameMapping = map[models.TransactionType]string{
 	models.TRANSACTION_TYPE_TRANSFER:       utils.IntToString(int(models.TRANSACTION_TYPE_TRANSFER)),
 }
 
-// beancountTransactionDataImporter defines the structure of Beancount importer for transaction data
+
 type beancountTransactionDataImporter struct {
 }
 
-// Initialize a beancount transaction data importer singleton instance
+
 var (
 	BeancountTransactionDataImporter = &beancountTransactionDataImporter{}
 )
 
-// ParseImportedData returns the imported data by parsing the Beancount transaction data
+
 func (c *beancountTransactionDataImporter) ParseImportedData(ctx core.Context, user *models.User, data []byte, defaultTimezone *time.Location, additionalOptions converter.TransactionDataImporterOptions, accountMap map[string]*models.Account, expenseCategoryMap map[string]map[string]*models.TransactionCategory, incomeCategoryMap map[string]map[string]*models.TransactionCategory, transferCategoryMap map[string]map[string]*models.TransactionCategory, tagMap map[string]*models.TransactionTag) (models.ImportedTransactionSlice, []*models.Account, []*models.TransactionCategory, []*models.TransactionCategory, []*models.TransactionCategory, []*models.TransactionTag, error) {
 	beancountDataReader, err := createNewBeancountDataReader(ctx, data)
 

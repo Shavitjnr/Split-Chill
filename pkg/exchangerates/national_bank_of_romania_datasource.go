@@ -1,4 +1,4 @@
-package exchangerates
+﻿package exchangerates
 
 import (
 	"bytes"
@@ -9,12 +9,12 @@ import (
 
 	"golang.org/x/net/html/charset"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
-	"github.com/mayswind/ezbookkeeping/pkg/validators"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/validators"
 )
 
 const nationalBankOfRomaniaExchangeRateUrl = "https://www.bnr.ro/nbrfxrates.xml"
@@ -24,43 +24,43 @@ const nationalBankOfRomaniaDataSource = "Banca Naţională a României"
 const nationalBankOfRomaniaUpdateDateFormat = "2006-01-02 15"
 const nationalBankOfRomaniaUpdateDateTimezone = "Europe/Bucharest"
 
-// NationalBankOfRomaniaDataSource defines the structure of exchange rates data source of national bank of Romania
+
 type NationalBankOfRomaniaDataSource struct {
 	HttpExchangeRatesDataSource
 }
 
-// NationalBankOfRomaniaExchangeRateData represents the whole data from national bank of Romania
+
 type NationalBankOfRomaniaExchangeRateData struct {
 	XMLName xml.Name                                     `xml:"DataSet"`
 	Header  *NationalBankOfRomaniaExchangeRateDataHeader `xml:"Header"`
 	Body    *NationalBankOfRomaniaExchangeRateDataBody   `xml:"Body"`
 }
 
-// NationalBankOfRomaniaExchangeRateDataHeader represents the header for exchange rates data of national bank of Romania
+
 type NationalBankOfRomaniaExchangeRateDataHeader struct {
 	PublishingDate string `xml:"PublishingDate"`
 }
 
-// NationalBankOfRomaniaExchangeRateDataBody represents the body for exchange rates data of national bank of Romania
+
 type NationalBankOfRomaniaExchangeRateDataBody struct {
 	OrigCurrency     string                                `xml:"OrigCurrency"`
 	AllExchangeRates []*NationalBankOfRomaniaExchangeRates `xml:"Cube"`
 }
 
-// NationalBankOfRomaniaExchangeRates represents the exchange rates data from national bank of Romania
+
 type NationalBankOfRomaniaExchangeRates struct {
 	Date          string                               `xml:"date,attr"`
 	ExchangeRates []*NationalBankOfRomaniaExchangeRate `xml:"Rate"`
 }
 
-// NationalBankOfRomaniaExchangeRate represents the exchange rate data from national bank of Romania
+
 type NationalBankOfRomaniaExchangeRate struct {
 	Currency   string `xml:"currency,attr"`
 	Multiplier string `xml:"multiplier,attr"`
 	Rate       string `xml:",chardata"`
 }
 
-// ToLatestExchangeRateResponse returns a view-object according to original data from national bank of Romania
+
 func (e *NationalBankOfRomaniaExchangeRateData) ToLatestExchangeRateResponse(c core.Context) *models.LatestExchangeRateResponse {
 	if e.Header == nil || e.Body == nil {
 		log.Errorf(c, "[national_bank_of_romania_datasource.ToLatestExchangeRateResponse] header or body is empty")
@@ -104,7 +104,7 @@ func (e *NationalBankOfRomaniaExchangeRateData) ToLatestExchangeRateResponse(c c
 		return nil
 	}
 
-	updateDateTime := e.Header.PublishingDate + " 13" // The data are updated in real time, shortly after 13:00, every banking day.
+	updateDateTime := e.Header.PublishingDate + " 13" 
 	updateTime, err := time.ParseInLocation(nationalBankOfRomaniaUpdateDateFormat, updateDateTime, timezone)
 
 	if err != nil {
@@ -123,7 +123,7 @@ func (e *NationalBankOfRomaniaExchangeRateData) ToLatestExchangeRateResponse(c c
 	return latestExchangeRateResp
 }
 
-// ToLatestExchangeRate returns a data pair according to original data from national bank of Romania
+
 func (e *NationalBankOfRomaniaExchangeRate) ToLatestExchangeRate(c core.Context) *models.LatestExchangeRate {
 	rate, err := utils.StringToFloat64(e.Rate)
 
@@ -160,7 +160,7 @@ func (e *NationalBankOfRomaniaExchangeRate) ToLatestExchangeRate(c core.Context)
 	}
 }
 
-// BuildRequests returns the national bank of Romania exchange rates http requests
+
 func (e *NationalBankOfRomaniaDataSource) BuildRequests() ([]*http.Request, error) {
 	req, err := http.NewRequest("GET", nationalBankOfRomaniaExchangeRateUrl, nil)
 
@@ -171,7 +171,7 @@ func (e *NationalBankOfRomaniaDataSource) BuildRequests() ([]*http.Request, erro
 	return []*http.Request{req}, nil
 }
 
-// Parse returns the common response entity according to the national bank of Romania data source raw response
+
 func (e *NationalBankOfRomaniaDataSource) Parse(c core.Context, content []byte) (*models.LatestExchangeRateResponse, error) {
 	xmlDecoder := xml.NewDecoder(bytes.NewReader(content))
 	xmlDecoder.CharsetReader = charset.NewReaderLabel

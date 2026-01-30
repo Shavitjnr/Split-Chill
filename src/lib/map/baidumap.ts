@@ -1,5 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+﻿
+
 import type { Coordinate } from '@/core/coordinate.ts';
 import type { MapProvider, MapInstance, MapCreateOptions, MapInstanceInitOptions } from './base.ts';
 
@@ -9,7 +9,7 @@ import services from '@/lib/services.ts';
 import logger from '@/lib/logger.ts';
 
 export class BaiduMapProvider implements MapProvider {
-    // https://mapopen-pub-jsapi.bj.bcebos.com/jsapi/reference/jsapi_reference_3_0.html
+    
     public static BMap: unknown = null;
     public static BMAP_NAVIGATION_CONTROL_ZOOM: unknown = window.BMAP_NAVIGATION_CONTROL_ZOOM || 3;
     public static BMAP_ANCHOR_TOP_LEFT: unknown = window.BMAP_ANCHOR_TOP_LEFT || 0;
@@ -24,7 +24,7 @@ export class BaiduMapProvider implements MapProvider {
         return false;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    
     public asyncLoadAssets(language?: string): Promise<unknown> {
         if (BaiduMapProvider.BMap) {
             return Promise.resolve();

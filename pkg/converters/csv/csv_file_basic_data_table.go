@@ -1,35 +1,35 @@
-package csv
+﻿package csv
 
 import (
 	"encoding/csv"
 	"fmt"
 	"io"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/datatable"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/datatable"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
 )
 
-// CsvFileBasicDataTable defines the structure of csv data table
+
 type CsvFileBasicDataTable struct {
 	allLines     [][]string
 	hasTitleLine bool
 }
 
-// CsvFileBasicDataTableRow defines the structure of csv data table row
+
 type CsvFileBasicDataTableRow struct {
 	dataTable *CsvFileBasicDataTable
 	allItems  []string
 }
 
-// CsvFileBasicDataTableRowIterator defines the structure of csv data table row iterator
+
 type CsvFileBasicDataTableRowIterator struct {
 	dataTable    *CsvFileBasicDataTable
 	currentIndex int
 }
 
-// DataRowCount returns the total count of data row
+
 func (t *CsvFileBasicDataTable) DataRowCount() int {
 	if len(t.allLines) < 1 {
 		return 0
@@ -42,7 +42,7 @@ func (t *CsvFileBasicDataTable) DataRowCount() int {
 	}
 }
 
-// HeaderColumnNames returns the header column name list
+
 func (t *CsvFileBasicDataTable) HeaderColumnNames() []string {
 	if len(t.allLines) < 1 {
 		return nil
@@ -55,7 +55,7 @@ func (t *CsvFileBasicDataTable) HeaderColumnNames() []string {
 	}
 }
 
-// DataRowIterator returns the iterator of data row
+
 func (t *CsvFileBasicDataTable) DataRowIterator() datatable.BasicDataTableRowIterator {
 	startIndex := -1
 
@@ -69,12 +69,12 @@ func (t *CsvFileBasicDataTable) DataRowIterator() datatable.BasicDataTableRowIte
 	}
 }
 
-// ColumnCount returns the total count of column in this data row
+
 func (r *CsvFileBasicDataTableRow) ColumnCount() int {
 	return len(r.allItems)
 }
 
-// GetData returns the data in the specified column index
+
 func (r *CsvFileBasicDataTableRow) GetData(columnIndex int) string {
 	if columnIndex >= len(r.allItems) {
 		return ""
@@ -83,17 +83,17 @@ func (r *CsvFileBasicDataTableRow) GetData(columnIndex int) string {
 	return r.allItems[columnIndex]
 }
 
-// HasNext returns whether the iterator does not reach the end
+
 func (t *CsvFileBasicDataTableRowIterator) HasNext() bool {
 	return t.currentIndex+1 < len(t.dataTable.allLines)
 }
 
-// CurrentRowId returns current index
+
 func (t *CsvFileBasicDataTableRowIterator) CurrentRowId() string {
 	return fmt.Sprintf("line#%d", t.currentIndex)
 }
 
-// Next returns the next basic data row
+
 func (t *CsvFileBasicDataTableRowIterator) Next() datatable.BasicDataTableRow {
 	if t.currentIndex+1 >= len(t.dataTable.allLines) {
 		return nil
@@ -109,12 +109,12 @@ func (t *CsvFileBasicDataTableRowIterator) Next() datatable.BasicDataTableRow {
 	}
 }
 
-// CreateNewCsvBasicDataTable returns comma separated values data table by io readers
+
 func CreateNewCsvBasicDataTable(ctx core.Context, reader io.Reader, hasTitleLine bool) (datatable.BasicDataTable, error) {
 	return createNewCsvFileBasicDataTable(ctx, reader, ',', hasTitleLine)
 }
 
-// CreateNewCustomCsvBasicDataTable returns character separated values data table by io readers
+
 func CreateNewCustomCsvBasicDataTable(allLines [][]string, hasTitleLine bool) datatable.BasicDataTable {
 	return &CsvFileBasicDataTable{
 		allLines:     allLines,

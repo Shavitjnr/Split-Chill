@@ -1,13 +1,13 @@
-package utils
+﻿package utils
 
 import (
 	"bytes"
 	"net"
 
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
 )
 
-// GetLocalIPAddressesString returns all local ip address, every ip split by comma
+
 func GetLocalIPAddressesString() (string, error) {
 	localAddrs, err := GetLocalIPAddresses()
 
@@ -32,7 +32,7 @@ func GetLocalIPAddressesString() (string, error) {
 	return string(buff.Bytes()), nil
 }
 
-// GetLocalIPAddresses returns all local ip address object array
+
 func GetLocalIPAddresses() ([]net.IP, error) {
 	addrs, err := net.InterfaceAddrs()
 

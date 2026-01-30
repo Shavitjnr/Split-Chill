@@ -1,8 +1,8 @@
-package errs
+﻿package errs
 
 import "net/http"
 
-// Error codes related to data converters
+
 var (
 	ErrNotFoundTransactionDataInFile       = NewNormalError(NormalSubcategoryConverter, 0, http.StatusBadRequest, "not found transaction data")
 	ErrMissingRequiredFieldInHeaderRow     = NewNormalError(NormalSubcategoryConverter, 1, http.StatusBadRequest, "missing required field in header row")

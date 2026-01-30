@@ -1,21 +1,21 @@
-package exchangerates
+﻿package exchangerates
 
 import (
 	"sort"
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/services"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
-	"github.com/mayswind/ezbookkeeping/pkg/validators"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/services"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/validators"
 )
 
 const userDataSourceType = "user_custom"
 
-// UserCustomExchangeRatesDataProvider defines the structure of user custom exchange rates data provider
+
 type UserCustomExchangeRatesDataProvider struct {
 	ExchangeRatesDataProvider
 	users                   *services.UserService

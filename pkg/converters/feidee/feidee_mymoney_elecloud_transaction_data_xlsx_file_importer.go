@@ -1,13 +1,13 @@
-package feidee
+﻿package feidee
 
 import (
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/converter"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/datatable"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/excel"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/converter"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/datatable"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/excel"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
 )
 
 var feideeMymoneyElecloudDataColumnNameMapping = map[datatable.TransactionDataTableColumn]string{
@@ -25,17 +25,17 @@ var feideeMymoneyElecloudDataColumnNameMapping = map[datatable.TransactionDataTa
 	datatable.TRANSACTION_DATA_TABLE_MERCHANT:             "商家",
 }
 
-// feideeMymoneyElecloudTransactionDataXlsxFileImporter defines the structure of feidee mymoney (elecloud) xlsx importer for transaction data
+
 type feideeMymoneyElecloudTransactionDataXlsxFileImporter struct {
 	converter.DataTableTransactionDataImporter
 }
 
-// Initialize a feidee mymoney (elecloud) transaction data xlsx file importer singleton instance
+
 var (
 	FeideeMymoneyElecloudTransactionDataXlsxFileImporter = &feideeMymoneyElecloudTransactionDataXlsxFileImporter{}
 )
 
-// ParseImportedData returns the imported data by parsing the feidee mymoney (elecloud) transaction xlsx data
+
 func (c *feideeMymoneyElecloudTransactionDataXlsxFileImporter) ParseImportedData(ctx core.Context, user *models.User, data []byte, defaultTimezone *time.Location, additionalOptions converter.TransactionDataImporterOptions, accountMap map[string]*models.Account, expenseCategoryMap map[string]map[string]*models.TransactionCategory, incomeCategoryMap map[string]map[string]*models.TransactionCategory, transferCategoryMap map[string]map[string]*models.TransactionCategory, tagMap map[string]*models.TransactionTag) (models.ImportedTransactionSlice, []*models.Account, []*models.TransactionCategory, []*models.TransactionCategory, []*models.TransactionCategory, []*models.TransactionTag, error) {
 	dataTable, err := excel.CreateNewExcelOOXMLFileBasicDataTable(data, true)
 

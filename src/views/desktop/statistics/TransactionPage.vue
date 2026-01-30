@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <v-row class="match-height">
         <v-col cols="12">
             <v-card>
@@ -1036,21 +1036,21 @@ function setAssetTrendsDateAggregationType(type: number): void {
 
 function setDateFilter(dateType: number): void {
     if (analysisType.value === StatisticsAnalysisType.CategoricalAnalysis) {
-        if (dateType === DateRange.Custom.type) { // Custom
+        if (dateType === DateRange.Custom.type) { 
             showCustomDateRangeDialog.value = true;
             return;
         } else if (query.value.categoricalChartDateType === dateType) {
             return;
         }
     } else if (analysisType.value === StatisticsAnalysisType.TrendAnalysis) {
-        if (dateType === DateRange.Custom.type) { // Custom
+        if (dateType === DateRange.Custom.type) { 
             showCustomMonthRangeDialog.value = true;
             return;
         } else if (query.value.trendChartDateType === dateType) {
             return;
         }
     } else if (analysisType.value === StatisticsAnalysisType.AssetTrends) {
-        if (dateType === DateRange.Custom.type) { // Custom
+        if (dateType === DateRange.Custom.type) { 
             showCustomDateRangeDialog.value = true;
             return;
         } else if (query.value.assetTrendsChartDateType === dateType) {

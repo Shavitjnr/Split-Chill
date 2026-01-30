@@ -1,27 +1,27 @@
-package api
+﻿package api
 
 import (
 	"sort"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/duplicatechecker"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/services"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
-	"github.com/mayswind/ezbookkeeping/pkg/validators"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/duplicatechecker"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/services"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/validators"
 )
 
-// AccountsApi represents account api
+
 type AccountsApi struct {
 	ApiUsingConfig
 	ApiUsingDuplicateChecker
 	accounts *services.AccountService
 }
 
-// Initialize an account api singleton instance
+
 var (
 	Accounts = &AccountsApi{
 		ApiUsingConfig: ApiUsingConfig{
@@ -37,7 +37,7 @@ var (
 	}
 )
 
-// AccountListHandler returns accounts list of current user
+
 func (a *AccountsApi) AccountListHandler(c *core.WebContext) (any, *errs.Error) {
 	var accountListReq models.AccountListRequest
 	err := c.ShouldBindQuery(&accountListReq)
@@ -97,7 +97,7 @@ func (a *AccountsApi) AccountListHandler(c *core.WebContext) (any, *errs.Error) 
 	return userFinalAccountResps, nil
 }
 
-// AccountGetHandler returns one specific account of current user
+
 func (a *AccountsApi) AccountGetHandler(c *core.WebContext) (any, *errs.Error) {
 	var accountGetReq models.AccountGetRequest
 	err := c.ShouldBindQuery(&accountGetReq)
@@ -140,7 +140,7 @@ func (a *AccountsApi) AccountGetHandler(c *core.WebContext) (any, *errs.Error) {
 	return accountResp, nil
 }
 
-// AccountCreateHandler saves a new account by request parameters for current user
+
 func (a *AccountsApi) AccountCreateHandler(c *core.WebContext) (any, *errs.Error) {
 	var accountCreateReq models.AccountCreateRequest
 	err := c.ShouldBindJSON(&accountCreateReq)
@@ -301,7 +301,7 @@ func (a *AccountsApi) AccountCreateHandler(c *core.WebContext) (any, *errs.Error
 	return accountInfoResp, nil
 }
 
-// AccountModifyHandler saves an existed account by request parameters for current user
+
 func (a *AccountsApi) AccountModifyHandler(c *core.WebContext) (any, *errs.Error) {
 	var accountModifyReq models.AccountModifyRequest
 	err := c.ShouldBindJSON(&accountModifyReq)
@@ -378,7 +378,7 @@ func (a *AccountsApi) AccountModifyHandler(c *core.WebContext) (any, *errs.Error
 				return nil, errs.ErrSubAccountCategoryNotEqualsToParent
 			}
 
-			if subAccountReq.Id == 0 { // create new sub-account
+			if subAccountReq.Id == 0 { 
 				if subAccountReq.Currency == nil {
 					log.Warnf(c, "[accounts.AccountModifyHandler] sub-account#%d not set currency", i)
 					return nil, errs.ErrAccountCurrencyInvalid
@@ -401,7 +401,7 @@ func (a *AccountsApi) AccountModifyHandler(c *core.WebContext) (any, *errs.Error
 					log.Warnf(c, "[accounts.AccountModifyHandler] sub-account#%d balance time is not set", i)
 					return nil, errs.ErrAccountBalanceTimeNotSet
 				}
-			} else { // modify existed sub-account
+			} else { 
 				subAccount, exists := accountMap[subAccountReq.Id]
 
 				if !exists {
@@ -607,7 +607,7 @@ func (a *AccountsApi) AccountModifyHandler(c *core.WebContext) (any, *errs.Error
 	return accountResp, nil
 }
 
-// AccountHideHandler hides an existed account by request parameters for current user
+
 func (a *AccountsApi) AccountHideHandler(c *core.WebContext) (any, *errs.Error) {
 	var accountHideReq models.AccountHideRequest
 	err := c.ShouldBindJSON(&accountHideReq)
@@ -629,7 +629,7 @@ func (a *AccountsApi) AccountHideHandler(c *core.WebContext) (any, *errs.Error) 
 	return true, nil
 }
 
-// AccountMoveHandler moves display order of existed accounts by request parameters for current user
+
 func (a *AccountsApi) AccountMoveHandler(c *core.WebContext) (any, *errs.Error) {
 	var accountMoveReq models.AccountMoveRequest
 	err := c.ShouldBindJSON(&accountMoveReq)
@@ -664,7 +664,7 @@ func (a *AccountsApi) AccountMoveHandler(c *core.WebContext) (any, *errs.Error) 
 	return true, nil
 }
 
-// AccountDeleteHandler deletes an existed account by request parameters for current user
+
 func (a *AccountsApi) AccountDeleteHandler(c *core.WebContext) (any, *errs.Error) {
 	var accountDeleteReq models.AccountDeleteRequest
 	err := c.ShouldBindJSON(&accountDeleteReq)
@@ -686,7 +686,7 @@ func (a *AccountsApi) AccountDeleteHandler(c *core.WebContext) (any, *errs.Error
 	return true, nil
 }
 
-// SubAccountDeleteHandler deletes an existed sub-account by request parameters for current user
+
 func (a *AccountsApi) SubAccountDeleteHandler(c *core.WebContext) (any, *errs.Error) {
 	var accountDeleteReq models.AccountDeleteRequest
 	err := c.ShouldBindJSON(&accountDeleteReq)

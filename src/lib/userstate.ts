@@ -1,4 +1,4 @@
-import CryptoJS from 'crypto-js';
+﻿import CryptoJS from 'crypto-js';
 
 import type { ApplicationLockState, WebAuthnConfig } from '@/core/setting.ts';
 import type { UserBasicInfo } from '@/models/user.ts';
@@ -17,11 +17,11 @@ const transactionDraftLocalStorageKey: string = 'ebk_user_draft_transaction';
 
 const tokenSessionStorageKey: string = 'ebk_user_session_token';
 const encryptedTokenSessionStorageKey: string = 'ebk_user_session_encrypted_token';
-const appLockStateSessionStorageKey: string = 'ebk_user_app_lock_state'; // { 'username': '', secret: '' }
+const appLockStateSessionStorageKey: string = 'ebk_user_app_lock_state'; 
 
 function getAppLockSecret(pinCode: string): string {
     const hashedPinCode = CryptoJS.SHA256(appLockSecretBaseStringPrefix + pinCode).toString();
-    return hashedPinCode.substring(0, 24); // put secret into user id of webauthn (user id total length must less 64 bytes)
+    return hashedPinCode.substring(0, 24); 
 }
 
 function getEncryptedToken(token: string, appLockState: ApplicationLockState): string {
@@ -175,7 +175,7 @@ export function getCurrentToken(): string | null {
             return sessionStorage.getItem(tokenSessionStorageKey);
         }
 
-        // re-decrypt token
+        
         logger.warn(`encrypted token in local storage does not equal to the one in session storage, need to re-decrypt`);
 
         const appLockState = getUserAppLockState();

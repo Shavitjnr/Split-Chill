@@ -1,4 +1,4 @@
-package camt
+﻿package camt
 
 import (
 	"bytes"
@@ -6,22 +6,21 @@ import (
 
 	"golang.org/x/net/html/charset"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
 )
 
-// camt052FileReader defines the structure of camt.052 file reader
+
 type camt052FileReader struct {
 	xmlDecoder *xml.Decoder
 }
 
-// camt053FileReader defines the structure of camt.053 file reader
+
 type camt053FileReader struct {
 	xmlDecoder *xml.Decoder
 }
 
-// read returns the imported camt.052 data
-// Reference: https://www.iso20022.org/message-set/1196/download
+
 func (r *camt052FileReader) read(ctx core.Context) (*camt052File, error) {
 	file := &camt052File{}
 
@@ -34,8 +33,7 @@ func (r *camt052FileReader) read(ctx core.Context) (*camt052File, error) {
 	return file, nil
 }
 
-// read returns the imported camt.053 data
-// Reference: https://www.iso20022.org/message-set/1196/download
+
 func (r *camt053FileReader) read(ctx core.Context) (*camt053File, error) {
 	file := &camt053File{}
 
@@ -49,7 +47,7 @@ func (r *camt053FileReader) read(ctx core.Context) (*camt053File, error) {
 }
 
 func createNewCamt052FileReader(data []byte) (*camt052FileReader, error) {
-	if len(data) > 5 && data[0] == 0x3C && data[1] == 0x3F && data[2] == 0x78 && data[3] == 0x6D && data[4] == 0x6C { // <?xml
+	if len(data) > 5 && data[0] == 0x3C && data[1] == 0x3F && data[2] == 0x78 && data[3] == 0x6D && data[4] == 0x6C { 
 		xmlDecoder := xml.NewDecoder(bytes.NewReader(data))
 		xmlDecoder.CharsetReader = charset.NewReaderLabel
 
@@ -62,7 +60,7 @@ func createNewCamt052FileReader(data []byte) (*camt052FileReader, error) {
 }
 
 func createNewCamt053FileReader(data []byte) (*camt053FileReader, error) {
-	if len(data) > 5 && data[0] == 0x3C && data[1] == 0x3F && data[2] == 0x78 && data[3] == 0x6D && data[4] == 0x6C { // <?xml
+	if len(data) > 5 && data[0] == 0x3C && data[1] == 0x3F && data[2] == 0x78 && data[3] == 0x6D && data[4] == 0x6C { 
 		xmlDecoder := xml.NewDecoder(bytes.NewReader(data))
 		xmlDecoder.CharsetReader = charset.NewReaderLabel
 

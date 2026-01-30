@@ -1,13 +1,13 @@
-package beancount
+﻿package beancount
 
 import "strings"
 
 const beancountEquityAccountNameOpeningBalance = "Opening-Balances"
 
-// beancountDirective represents the Beancount directive
+
 type beancountDirective string
 
-// Beancount directives
+
 const (
 	beancountDirectiveOpen                  beancountDirective = "open"
 	beancountDirectiveClose                 beancountDirective = "close"
@@ -26,10 +26,10 @@ const (
 	beancountDirectiveCustom                beancountDirective = "custom"
 )
 
-// beancountAccountType represents the Beancount account type
+
 type beancountAccountType byte
 
-// Beancount account types
+
 const (
 	beancountUnknownAccountType     beancountAccountType = 0
 	beancountAssetsAccountType      beancountAccountType = 1
@@ -39,13 +39,13 @@ const (
 	beancountExpensesAccountType    beancountAccountType = 5
 )
 
-// beancountData defines the structure of beancount data
+
 type beancountData struct {
 	Accounts     map[string]*beancountAccount
 	Transactions []*beancountTransactionEntry
 }
 
-// beancountAccount defines the structure of beancount account
+
 type beancountAccount struct {
 	Name        string
 	AccountType beancountAccountType
@@ -53,7 +53,7 @@ type beancountAccount struct {
 	CloseDate   string
 }
 
-// beancountTransactionEntry defines the structure of beancount transaction entry
+
 type beancountTransactionEntry struct {
 	Date      string
 	Directive beancountDirective
@@ -65,7 +65,7 @@ type beancountTransactionEntry struct {
 	Metadata  map[string]string
 }
 
-// beancountPosting defines the structure of beancount transaction posting
+
 type beancountPosting struct {
 	Account            string
 	Amount             string

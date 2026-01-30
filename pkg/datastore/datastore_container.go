@@ -1,4 +1,4 @@
-package datastore
+﻿package datastore
 
 import (
 	"fmt"
@@ -10,26 +10,26 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/lib/pq"
-	_ "github.com/mattn/go-sqlite3"
+	_ "modernc.org/sqlite"
 	"xorm.io/xorm"
 
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
-// DataStoreContainer contains all data storages
+
 type DataStoreContainer struct {
 	UserStore     *DataStore
 	TokenStore    *DataStore
 	UserDataStore *DataStore
 }
 
-// Initialize a data storage container singleton instance
+
 var (
 	Container = &DataStoreContainer{}
 )
 
-// InitializeDataStore initializes data storage according to the config
+
 func InitializeDataStore(config *settings.Config) error {
 	database, err := initializeDatabase(config.DatabaseConfig)
 
@@ -93,7 +93,14 @@ func initializeDatabase(dbConfig *settings.DatabaseConfig) (*Database, error) {
 	connStrs := []string{
 		connStr,
 	}
-	engineGroup, err := xorm.NewEngineGroup(dbConfig.DatabaseType, connStrs, xorm.RoundRobinPolicy())
+
+	driverName := dbConfig.DatabaseType
+
+	if driverName == settings.Sqlite3DbType {
+		driverName = "sqlite"
+	}
+
+	engineGroup, err := xorm.NewEngineGroup(driverName, connStrs, xorm.RoundRobinPolicy())
 
 	if err != nil {
 		return nil, err
@@ -119,7 +126,7 @@ func setDatabaseLogger(database *Database, config *settings.Config) {
 func getMysqlConnectionString(dbConfig *settings.DatabaseConfig) (string, error) {
 	protocol := "tcp"
 
-	if strings.HasPrefix(dbConfig.DatabaseHost, "/") { // unix socket path
+	if strings.HasPrefix(dbConfig.DatabaseHost, "/") { 
 		protocol = "unix"
 	}
 
@@ -128,8 +135,8 @@ func getMysqlConnectionString(dbConfig *settings.DatabaseConfig) (string, error)
 }
 
 func getPostgresConnectionString(dbConfig *settings.DatabaseConfig) (string, error) {
-	if strings.HasPrefix(dbConfig.DatabaseHost, "/") { // unix socket path
-		return fmt.Sprintf("postgres:///%s?sslmode=%s&host=%s&user=%s&password=%s",
+	if strings.HasPrefix(dbConfig.DatabaseHost, "/") { 
+		return fmt.Sprintf("postgres:/
 			dbConfig.DatabaseName, dbConfig.DatabaseSSLMode, dbConfig.DatabaseHost, url.QueryEscape(dbConfig.DatabaseUser), url.QueryEscape(dbConfig.DatabasePassword)), nil
 	} else {
 		host, port, err := net.SplitHostPort(dbConfig.DatabaseHost)

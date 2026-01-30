@@ -1,9 +1,8 @@
-import type { CurrencyInfo } from '@/core/currency.ts';
+﻿import type { CurrencyInfo } from '@/core/currency.ts';
 
-// ISO 4217
-// Reference: https://www.six-group.com/dam/download/financial-information/data-center/iso-currrency/lists/list-one.xml
+
 export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
-    'AED': { // UAE Dirham
+    'AED': { 
         code: 'AED',
         fraction: 2,
         symbol: {
@@ -12,7 +11,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dirham'
     },
-    'AFN': { // Afghani
+    'AFN': { 
         code: 'AFN',
         fraction: 2,
         symbol: {
@@ -21,7 +20,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Afghani'
     },
-    'ALL': { // Lek
+    'ALL': { 
         code: 'ALL',
         fraction: 2,
         symbol: {
@@ -29,7 +28,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Lek'
     },
-    'AMD': { // Armenian Dram
+    'AMD': { 
         code: 'AMD',
         fraction: 2,
         symbol: {
@@ -37,7 +36,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dram'
     },
-    'ANG': { // Netherlands Antillean Guilder
+    'ANG': { 
         code: 'ANG',
         fraction: 2,
         symbol: {
@@ -45,7 +44,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Guilder'
     },
-    'AOA': { // Kwanza
+    'AOA': { 
         code: 'AOA',
         fraction: 2,
         symbol: {
@@ -53,7 +52,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Kwanza'
     },
-    'ARS': { // Argentine Peso
+    'ARS': { 
         code: 'ARS',
         fraction: 2,
         symbol: {
@@ -61,7 +60,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Peso'
     },
-    'AUD': { // Australian Dollar
+    'AUD': { 
         code: 'AUD',
         fraction: 2,
         symbol: {
@@ -69,7 +68,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dollar'
     },
-    'AWG': { // Aruban Florin
+    'AWG': { 
         code: 'AWG',
         fraction: 2,
         symbol: {
@@ -77,7 +76,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Florin'
     },
-    'AZN': { // Azerbaijan Manat
+    'AZN': { 
         code: 'AZN',
         fraction: 2,
         symbol: {
@@ -85,7 +84,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Manat'
     },
-    'BAM': { // Convertible Mark
+    'BAM': { 
         code: 'BAM',
         fraction: 2,
         symbol: {
@@ -93,7 +92,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Mark'
     },
-    'BBD': { // Barbados Dollar
+    'BBD': { 
         code: 'BBD',
         fraction: 2,
         symbol: {
@@ -101,7 +100,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dollar'
     },
-    'BDT': { // Taka
+    'BDT': { 
         code: 'BDT',
         fraction: 2,
         symbol: {
@@ -109,7 +108,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Taka'
     },
-    'BGN': { // Bulgarian Lev
+    'BGN': { 
         code: 'BGN',
         fraction: 2,
         symbol: {
@@ -117,7 +116,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Lev'
     },
-    'BHD': { // Bahraini Dinar
+    'BHD': { 
         code: 'BHD',
         fraction: 3,
         symbol: {
@@ -125,7 +124,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dinar'
     },
-    'BIF': { // Burundi Franc
+    'BIF': { 
         code: 'BIF',
         fraction: 0,
         symbol: {
@@ -133,7 +132,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Franc'
     },
-    'BMD': { // Bermudian Dollar
+    'BMD': { 
         code: 'BMD',
         fraction: 2,
         symbol: {
@@ -141,7 +140,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dollar'
     },
-    'BND': { // Brunei Dollar
+    'BND': { 
         code: 'BND',
         fraction: 2,
         symbol: {
@@ -149,7 +148,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dollar'
     },
-    'BOB': { // Boliviano
+    'BOB': { 
         code: 'BOB',
         fraction: 2,
         symbol: {
@@ -157,7 +156,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Boliviano'
     },
-    'BRL': { // Brazilian Real
+    'BRL': { 
         code: 'BRL',
         fraction: 2,
         symbol: {
@@ -165,7 +164,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Real'
     },
-    'BSD': { // Bahamian Dollar
+    'BSD': { 
         code: 'BSD',
         fraction: 2,
         symbol: {
@@ -173,7 +172,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dollar'
     },
-    'BTN': { // Ngultrum
+    'BTN': { 
         code: 'BTN',
         fraction: 2,
         symbol: {
@@ -181,7 +180,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Ngultrum'
     },
-    'BWP': { // Pula
+    'BWP': { 
         code: 'BWP',
         fraction: 2,
         symbol: {
@@ -189,7 +188,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Pula'
     },
-    'BYN': { // Belarusian Ruble
+    'BYN': { 
         code: 'BYN',
         fraction: 2,
         symbol: {
@@ -198,7 +197,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Ruble'
     },
-    'BZD': { // Belize Dollar
+    'BZD': { 
         code: 'BZD',
         fraction: 2,
         symbol: {
@@ -206,7 +205,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dollar'
     },
-    'CAD': { // Canadian Dollar
+    'CAD': { 
         code: 'CAD',
         fraction: 2,
         symbol: {
@@ -214,7 +213,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dollar'
     },
-    'CDF': { // Congolese Franc
+    'CDF': { 
         code: 'CDF',
         fraction: 2,
         symbol: {
@@ -222,7 +221,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Franc'
     },
-    'CHF': { // Swiss Franc
+    'CHF': { 
         code: 'CHF',
         fraction: 2,
         symbol: {
@@ -230,7 +229,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Franc'
     },
-    'CLP': { // Chilean Peso
+    'CLP': { 
         code: 'CLP',
         fraction: 0,
         symbol: {
@@ -238,7 +237,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Peso'
     },
-    'CNY': { // Yuan Renminbi
+    'CNY': { 
         code: 'CNY',
         fraction: 2,
         symbol: {
@@ -246,7 +245,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Yuan'
     },
-    'COP': { // Colombian Peso
+    'COP': { 
         code: 'COP',
         fraction: 2,
         symbol: {
@@ -254,7 +253,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Peso'
     },
-    'CRC': { // Costa Rican Colon
+    'CRC': { 
         code: 'CRC',
         fraction: 2,
         symbol: {
@@ -262,7 +261,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Colon'
     },
-    'CUC': { // Peso Convertible
+    'CUC': { 
         code: 'CUC',
         fraction: 2,
         symbol: {
@@ -270,7 +269,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Peso'
     },
-    'CUP': { // Cuban Peso
+    'CUP': { 
         code: 'CUP',
         fraction: 2,
         symbol: {
@@ -278,7 +277,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Peso'
     },
-    'CVE': { // Cabo Verde Escudo
+    'CVE': { 
         code: 'CVE',
         fraction: 2,
         symbol: {
@@ -286,7 +285,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Escudo'
     },
-    'CZK': { // Czech Koruna
+    'CZK': { 
         code: 'CZK',
         fraction: 2,
         symbol: {
@@ -294,7 +293,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Koruna'
     },
-    'DJF': { // Djibouti Franc
+    'DJF': { 
         code: 'DJF',
         fraction: 0,
         symbol: {
@@ -302,7 +301,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Franc'
     },
-    'DKK': { // Danish Krone
+    'DKK': { 
         code: 'DKK',
         fraction: 2,
         symbol: {
@@ -310,7 +309,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Krone'
     },
-    'DOP': { // Dominican Peso
+    'DOP': { 
         code: 'DOP',
         fraction: 2,
         symbol: {
@@ -318,7 +317,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Peso'
     },
-    'DZD': { // Algerian Dinar
+    'DZD': { 
         code: 'DZD',
         fraction: 2,
         symbol: {
@@ -326,7 +325,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dinar'
     },
-    'EGP': { // Egyptian Pound
+    'EGP': { 
         code: 'EGP',
         fraction: 2,
         symbol: {
@@ -334,7 +333,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Pound'
     },
-    'ERN': { // Nakfa
+    'ERN': { 
         code: 'ERN',
         fraction: 2,
         symbol: {
@@ -342,7 +341,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Nakfa'
     },
-    'ETB': { // Ethiopian Birr
+    'ETB': { 
         code: 'ETB',
         fraction: 2,
         symbol: {
@@ -350,7 +349,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Birr'
     },
-    'EUR': { // Euro
+    'EUR': { 
         code: 'EUR',
         fraction: 2,
         symbol: {
@@ -358,7 +357,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Euro'
     },
-    'FJD': { // Fiji Dollar
+    'FJD': { 
         code: 'FJD',
         fraction: 2,
         symbol: {
@@ -366,7 +365,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dollar'
     },
-    'FKP': { // Falkland Islands Pound
+    'FKP': { 
         code: 'FKP',
         fraction: 2,
         symbol: {
@@ -374,7 +373,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Pound'
     },
-    'GBP': { // Pound Sterling
+    'GBP': { 
         code: 'GBP',
         fraction: 2,
         symbol: {
@@ -382,7 +381,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Pound'
     },
-    'GEL': { // Lari
+    'GEL': { 
         code: 'GEL',
         fraction: 2,
         symbol: {
@@ -390,7 +389,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Lari'
     },
-    'GHS': { // Ghana Cedi
+    'GHS': { 
         code: 'GHS',
         fraction: 2,
         symbol: {
@@ -398,7 +397,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Cedi'
     },
-    'GIP': { // Gibraltar Pound
+    'GIP': { 
         code: 'GIP',
         fraction: 2,
         symbol: {
@@ -406,7 +405,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Pound'
     },
-    'GMD': { // Dalasi
+    'GMD': { 
         code: 'GMD',
         fraction: 2,
         symbol: {
@@ -414,7 +413,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dalasi'
     },
-    'GNF': { // Guinean Franc
+    'GNF': { 
         code: 'GNF',
         fraction: 0,
         symbol: {
@@ -422,7 +421,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Franc'
     },
-    'GTQ': { // Quetzal
+    'GTQ': { 
         code: 'GTQ',
         fraction: 2,
         symbol: {
@@ -430,7 +429,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Quetzal'
     },
-    'GYD': { // Guyana Dollar
+    'GYD': { 
         code: 'GYD',
         fraction: 2,
         symbol: {
@@ -438,7 +437,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dollar'
     },
-    'HKD': { // Hong Kong Dollar
+    'HKD': { 
         code: 'HKD',
         fraction: 2,
         symbol: {
@@ -446,7 +445,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dollar'
     },
-    'HNL': { // Lempira
+    'HNL': { 
         code: 'HNL',
         fraction: 2,
         symbol: {
@@ -454,7 +453,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Lempira'
     },
-    'HTG': { // Gourde
+    'HTG': { 
         code: 'HTG',
         fraction: 2,
         symbol: {
@@ -462,7 +461,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Gourde'
     },
-    'HUF': { // Forint
+    'HUF': { 
         code: 'HUF',
         fraction: 2,
         symbol: {
@@ -470,7 +469,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Forint'
     },
-    'IDR': { // Rupiah
+    'IDR': { 
         code: 'IDR',
         fraction: 2,
         symbol: {
@@ -478,7 +477,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Rupiah'
     },
-    'ILS': { // New Israeli Sheqel
+    'ILS': { 
         code: 'ILS',
         fraction: 2,
         symbol: {
@@ -486,7 +485,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Shekel'
     },
-    'INR': { // Indian Rupee
+    'INR': { 
         code: 'INR',
         fraction: 2,
         symbol: {
@@ -494,7 +493,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Rupee'
     },
-    'IQD': { // Iraqi Dinar
+    'IQD': { 
         code: 'IQD',
         fraction: 3,
         symbol: {
@@ -502,7 +501,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dinar'
     },
-    'IRR': { // Iranian Rial
+    'IRR': { 
         code: 'IRR',
         fraction: 2,
         symbol: {
@@ -511,7 +510,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Rial'
     },
-    'ISK': { // Iceland Krona
+    'ISK': { 
         code: 'ISK',
         fraction: 0,
         symbol: {
@@ -519,7 +518,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Krona'
     },
-    'JMD': { // Jamaican Dollar
+    'JMD': { 
         code: 'JMD',
         fraction: 2,
         symbol: {
@@ -527,7 +526,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dollar'
     },
-    'JOD': { // Jordanian Dinar
+    'JOD': { 
         code: 'JOD',
         fraction: 3,
         symbol: {
@@ -535,7 +534,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dinar'
     },
-    'JPY': { // Yen
+    'JPY': { 
         code: 'JPY',
         fraction: 0,
         symbol: {
@@ -543,7 +542,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Yen'
     },
-    'KES': { // Kenyan Shilling
+    'KES': { 
         code: 'KES',
         fraction: 2,
         symbol: {
@@ -551,7 +550,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Shilling'
     },
-    'KGS': { // Som
+    'KGS': { 
         code: 'KGS',
         fraction: 2,
         symbol: {
@@ -559,7 +558,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Som'
     },
-    'KHR': { // Riel
+    'KHR': { 
         code: 'KHR',
         fraction: 2,
         symbol: {
@@ -567,7 +566,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Riel'
     },
-    'KMF': { // Comorian Franc
+    'KMF': { 
         code: 'KMF',
         fraction: 0,
         symbol: {
@@ -575,7 +574,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Franc'
     },
-    'KPW': { // North Korean Won
+    'KPW': { 
         code: 'KPW',
         fraction: 2,
         symbol: {
@@ -583,7 +582,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Won'
     },
-    'KRW': { // Won
+    'KRW': { 
         code: 'KRW',
         fraction: 0,
         symbol: {
@@ -591,7 +590,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Won'
     },
-    'KWD': { // Kuwaiti Dinar
+    'KWD': { 
         code: 'KWD',
         fraction: 3,
         symbol: {
@@ -599,7 +598,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dinar'
     },
-    'KYD': { // Cayman Islands Dollar
+    'KYD': { 
         code: 'KYD',
         fraction: 2,
         symbol: {
@@ -607,7 +606,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dollar'
     },
-    'KZT': { // Tenge
+    'KZT': { 
         code: 'KZT',
         fraction: 2,
         symbol: {
@@ -615,7 +614,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Tenge'
     },
-    'LAK': { // Lao Kip
+    'LAK': { 
         code: 'LAK',
         fraction: 2,
         symbol: {
@@ -623,7 +622,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Kip'
     },
-    'LBP': { // Lebanese Pound
+    'LBP': { 
         code: 'LBP',
         fraction: 2,
         symbol: {
@@ -631,7 +630,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Pound'
     },
-    'LKR': { // Sri Lanka Rupee
+    'LKR': { 
         code: 'LKR',
         fraction: 2,
         symbol: {
@@ -639,7 +638,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Rupee'
     },
-    'LRD': { // Liberian Dollar
+    'LRD': { 
         code: 'LRD',
         fraction: 2,
         symbol: {
@@ -647,7 +646,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dollar'
     },
-    'LSL': { // Loti
+    'LSL': { 
         code: 'LSL',
         fraction: 2,
         symbol: {
@@ -656,7 +655,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Loti'
     },
-    'LYD': { // Libyan Dinar
+    'LYD': { 
         code: 'LYD',
         fraction: 3,
         symbol: {
@@ -664,7 +663,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dinar'
     },
-    'MAD': { // Moroccan Dirham
+    'MAD': { 
         code: 'MAD',
         fraction: 2,
         symbol: {
@@ -672,7 +671,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dirham'
     },
-    'MDL': { // Moldovan Leu
+    'MDL': { 
         code: 'MDL',
         fraction: 2,
         symbol: {
@@ -680,7 +679,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Leu'
     },
-    'MGA': { // Malagasy Ariary
+    'MGA': { 
         code: 'MGA',
         fraction: 2,
         symbol: {
@@ -688,7 +687,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Ariary'
     },
-    'MKD': { // Denar
+    'MKD': { 
         code: 'MKD',
         fraction: 2,
         symbol: {
@@ -696,7 +695,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Denar'
     },
-    'MMK': { // Kyat
+    'MMK': { 
         code: 'MMK',
         fraction: 2,
         symbol: {
@@ -705,7 +704,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Kyat'
     },
-    'MNT': { // Tugrik
+    'MNT': { 
         code: 'MNT',
         fraction: 2,
         symbol: {
@@ -713,7 +712,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Tugrik'
     },
-    'MOP': { // Pataca
+    'MOP': { 
         code: 'MOP',
         fraction: 2,
         symbol: {
@@ -721,7 +720,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Pataca'
     },
-    'MRU': { // Ouguiya
+    'MRU': { 
         code: 'MRU',
         fraction: 2,
         symbol: {
@@ -729,7 +728,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Ouguiya'
     },
-    'MUR': { // Mauritius Rupee
+    'MUR': { 
         code: 'MUR',
         fraction: 2,
         symbol: {
@@ -738,7 +737,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Rupee'
     },
-    'MVR': { // Rufiyaa
+    'MVR': { 
         code: 'MVR',
         fraction: 2,
         symbol: {
@@ -746,7 +745,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Rufiyaa'
     },
-    'MWK': { // Malawi Kwacha
+    'MWK': { 
         code: 'MWK',
         fraction: 2,
         symbol: {
@@ -754,7 +753,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Kwacha'
     },
-    'MXN': { // Mexican Peso
+    'MXN': { 
         code: 'MXN',
         fraction: 2,
         symbol: {
@@ -762,7 +761,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Peso'
     },
-    'MYR': { // Malaysian Ringgit
+    'MYR': { 
         code: 'MYR',
         fraction: 2,
         symbol: {
@@ -770,7 +769,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Ringgit'
     },
-    'MZN': { // Mozambique Metical
+    'MZN': { 
         code: 'MZN',
         fraction: 2,
         symbol: {
@@ -778,7 +777,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Metical'
     },
-    'NAD': { // Namibia Dollar
+    'NAD': { 
         code: 'NAD',
         fraction: 2,
         symbol: {
@@ -786,7 +785,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dollar'
     },
-    'NGN': { // Naira
+    'NGN': { 
         code: 'NGN',
         fraction: 2,
         symbol: {
@@ -794,7 +793,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Naira'
     },
-    'NIO': { // Cordoba Oro
+    'NIO': { 
         code: 'NIO',
         fraction: 2,
         symbol: {
@@ -802,7 +801,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Cordoba'
     },
-    'NOK': { // Norwegian Krone
+    'NOK': { 
         code: 'NOK',
         fraction: 2,
         symbol: {
@@ -810,7 +809,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Krone'
     },
-    'NPR': { // Nepalese Rupee
+    'NPR': { 
         code: 'NPR',
         fraction: 2,
         symbol: {
@@ -818,7 +817,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Rupee'
     },
-    'NZD': { // New Zealand Dollar
+    'NZD': { 
         code: 'NZD',
         fraction: 2,
         symbol: {
@@ -826,7 +825,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dollar'
     },
-    'OMR': { // Rial Omani
+    'OMR': { 
         code: 'OMR',
         fraction: 3,
         symbol: {
@@ -834,7 +833,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Rial'
     },
-    'PAB': { // Balboa
+    'PAB': { 
         code: 'PAB',
         fraction: 2,
         symbol: {
@@ -842,7 +841,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Balboa'
     },
-    'PEN': { // Sol
+    'PEN': { 
         code: 'PEN',
         fraction: 2,
         symbol: {
@@ -850,7 +849,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Sol'
     },
-    'PGK': { // Kina
+    'PGK': { 
         code: 'PGK',
         fraction: 2,
         symbol: {
@@ -858,7 +857,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Kina'
     },
-    'PHP': { // Philippine Peso
+    'PHP': { 
         code: 'PHP',
         fraction: 2,
         symbol: {
@@ -866,7 +865,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Peso'
     },
-    'PKR': { // Pakistan Rupee
+    'PKR': { 
         code: 'PKR',
         fraction: 2,
         symbol: {
@@ -875,7 +874,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Rupee'
     },
-    'PLN': { // Zloty
+    'PLN': { 
         code: 'PLN',
         fraction: 2,
         symbol: {
@@ -883,7 +882,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Zloty'
     },
-    'PYG': { // Guarani
+    'PYG': { 
         code: 'PYG',
         fraction: 0,
         symbol: {
@@ -891,7 +890,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Guarani'
     },
-    'QAR': { // Qatari Rial
+    'QAR': { 
         code: 'QAR',
         fraction: 2,
         symbol: {
@@ -899,7 +898,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Rial'
     },
-    'RON': { // Romanian Leu
+    'RON': { 
         code: 'RON',
         fraction: 2,
         symbol: {
@@ -907,7 +906,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Leu'
     },
-    'RSD': { // Serbian Dinar
+    'RSD': { 
         code: 'RSD',
         fraction: 2,
         symbol: {
@@ -915,7 +914,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dinar'
     },
-    'RUB': { // Russian Ruble
+    'RUB': { 
         code: 'RUB',
         fraction: 2,
         symbol: {
@@ -923,7 +922,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Ruble'
     },
-    'RWF': { // Rwanda Franc
+    'RWF': { 
         code: 'RWF',
         fraction: 0,
         symbol: {
@@ -931,7 +930,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Franc'
     },
-    'SAR': { // Saudi Riyal
+    'SAR': { 
         code: 'SAR',
         fraction: 2,
         symbol: {
@@ -939,7 +938,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Riyal'
     },
-    'SBD': { // Solomon Islands Dollar
+    'SBD': { 
         code: 'SBD',
         fraction: 2,
         symbol: {
@@ -947,7 +946,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dollar'
     },
-    'SCR': { // Seychelles Rupee
+    'SCR': { 
         code: 'SCR',
         fraction: 2,
         symbol: {
@@ -956,7 +955,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Rupee'
     },
-    'SDG': { // Sudanese Pound
+    'SDG': { 
         code: 'SDG',
         fraction: 2,
         symbol: {
@@ -964,7 +963,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Pound'
     },
-    'SEK': { // Swedish Krona
+    'SEK': { 
         code: 'SEK',
         fraction: 2,
         symbol: {
@@ -972,7 +971,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Krona'
     },
-    'SGD': { // Singapore Dollar
+    'SGD': { 
         code: 'SGD',
         fraction: 2,
         symbol: {
@@ -980,7 +979,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dollar'
     },
-    'SHP': { // Saint Helena Pound
+    'SHP': { 
         code: 'SHP',
         fraction: 2,
         symbol: {
@@ -988,7 +987,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Pound'
     },
-    'SLE': { // Leone
+    'SLE': { 
         code: 'SLE',
         fraction: 2,
         symbol: {
@@ -996,7 +995,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Leone'
     },
-    'SOS': { // Somali Shilling
+    'SOS': { 
         code: 'SOS',
         fraction: 2,
         symbol: {
@@ -1004,7 +1003,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Shilling'
     },
-    'SRD': { // Surinam Dollar
+    'SRD': { 
         code: 'SRD',
         fraction: 2,
         symbol: {
@@ -1012,7 +1011,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dollar'
     },
-    'SSP': { // South Sudanese Pound
+    'SSP': { 
         code: 'SSP',
         fraction: 2,
         symbol: {
@@ -1020,7 +1019,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Pound'
     },
-    'STN': { // Dobra
+    'STN': { 
         code: 'STN',
         fraction: 2,
         symbol: {
@@ -1028,7 +1027,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dobra'
     },
-    'SVC': { // El Salvador Colon
+    'SVC': { 
         code: 'SVC',
         fraction: 2,
         symbol: {
@@ -1036,7 +1035,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Colon'
     },
-    'SYP': { // Syrian Pound
+    'SYP': { 
         code: 'SYP',
         fraction: 2,
         symbol: {
@@ -1044,7 +1043,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Pound'
     },
-    'SZL': { // Lilangeni
+    'SZL': { 
         code: 'SZL',
         fraction: 2,
         symbol: {
@@ -1052,7 +1051,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Lilangeni'
     },
-    'THB': { // Baht
+    'THB': { 
         code: 'THB',
         fraction: 2,
         symbol: {
@@ -1060,7 +1059,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Baht'
     },
-    'TJS': { // Somoni
+    'TJS': { 
         code: 'TJS',
         fraction: 2,
         symbol: {
@@ -1068,7 +1067,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Somoni'
     },
-    'TMT': { // Turkmenistan New Manat
+    'TMT': { 
         code: 'TMT',
         fraction: 2,
         symbol: {
@@ -1076,7 +1075,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Manat'
     },
-    'TND': { // Tunisian Dinar
+    'TND': { 
         code: 'TND',
         fraction: 3,
         symbol: {
@@ -1084,7 +1083,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dinar'
     },
-    'TOP': { // Pa’anga
+    'TOP': { 
         code: 'TOP',
         fraction: 2,
         symbol: {
@@ -1092,7 +1091,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Paanga'
     },
-    'TRY': { // Turkish Lira
+    'TRY': { 
         code: 'TRY',
         fraction: 2,
         symbol: {
@@ -1100,7 +1099,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Lira'
     },
-    'TTD': { // Trinidad and Tobago Dollar
+    'TTD': { 
         code: 'TTD',
         fraction: 2,
         symbol: {
@@ -1108,7 +1107,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dollar'
     },
-    'TWD': { // New Taiwan Dollar
+    'TWD': { 
         code: 'TWD',
         fraction: 2,
         symbol: {
@@ -1116,7 +1115,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dollar'
     },
-    'TZS': { // Tanzanian Shilling
+    'TZS': { 
         code: 'TZS',
         fraction: 2,
         symbol: {
@@ -1124,7 +1123,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Shilling'
     },
-    'UAH': { // Hryvnia
+    'UAH': { 
         code: 'UAH',
         fraction: 2,
         symbol: {
@@ -1132,7 +1131,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Hryvnia'
     },
-    'UGX': { // Uganda Shilling
+    'UGX': { 
         code: 'UGX',
         fraction: 0,
         symbol: {
@@ -1140,7 +1139,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Shilling'
     },
-    'USD': { // US Dollar
+    'USD': { 
         code: 'USD',
         fraction: 2,
         symbol: {
@@ -1148,7 +1147,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dollar'
     },
-    'UYU': { // Peso Uruguayo
+    'UYU': { 
         code: 'UYU',
         fraction: 2,
         symbol: {
@@ -1156,12 +1155,12 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Peso'
     },
-    'UZS': { // Uzbekistan Sum
+    'UZS': { 
         code: 'UZS',
         fraction: 2,
         unit: 'Sum'
     },
-    'VED': { // Bolívar Soberano
+    'VED': { 
         code: 'VED',
         fraction: 2,
         symbol: {
@@ -1169,7 +1168,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Bolivar'
     },
-    'VES': { // Bolívar Soberano
+    'VES': { 
         code: 'VES',
         fraction: 2,
         symbol: {
@@ -1177,7 +1176,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Bolivar'
     },
-    'VND': { // Dong
+    'VND': { 
         code: 'VND',
         fraction: 0,
         symbol: {
@@ -1185,7 +1184,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dong'
     },
-    'VUV': { // Vatu
+    'VUV': { 
         code: 'VUV',
         fraction: 0,
         symbol: {
@@ -1193,7 +1192,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Vatu'
     },
-    'WST': { // Tala
+    'WST': { 
         code: 'WST',
         fraction: 2,
         symbol: {
@@ -1201,7 +1200,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Tala'
     },
-    'XAF': { // CFA Franc BEAC
+    'XAF': { 
         code: 'XAF',
         fraction: 0,
         symbol: {
@@ -1209,7 +1208,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Franc'
     },
-    'XCD': { // East Caribbean Dollar
+    'XCD': { 
         code: 'XCD',
         fraction: 2,
         symbol: {
@@ -1217,7 +1216,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Dollar'
     },
-    'XOF': { // CFA Franc BCEAO
+    'XOF': { 
         code: 'XOF',
         fraction: 0,
         symbol: {
@@ -1225,7 +1224,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Franc'
     },
-    'XPF': { // CFP Franc
+    'XPF': { 
         code: 'XPF',
         fraction: 0,
         symbol: {
@@ -1233,14 +1232,14 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Franc'
     },
-    'XSU': { // Sucre
+    'XSU': { 
         code: 'XSU',
         symbol: {
             normal: 'S/.'
         },
         unit: 'Sucre'
     },
-    'YER': { // Yemeni Rial
+    'YER': { 
         code: 'YER',
         fraction: 2,
         symbol: {
@@ -1249,7 +1248,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Rial'
     },
-    'ZAR': { // Rand
+    'ZAR': { 
         code: 'ZAR',
         fraction: 2,
         symbol: {
@@ -1257,7 +1256,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Rand'
     },
-    'ZMW': { // Zambian Kwacha
+    'ZMW': { 
         code: 'ZMW',
         fraction: 2,
         symbol: {
@@ -1265,7 +1264,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'Kwacha'
     },
-    'ZWG': { // Zimbabwe Gold
+    'ZWG': { 
         code: 'ZWG',
         fraction: 2,
         symbol: {
@@ -1273,7 +1272,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         },
         unit: 'ZiG'
     },
-    'ZWL': { // Zimbabwe Dollar
+    'ZWL': { 
         code: 'ZWL',
         fraction: 2,
         symbol: {

@@ -1,4 +1,4 @@
-import type { TextualYearMonth, Year1BasedMonth, YearUnixTime, YearQuarterUnixTime, YearMonthUnixTime } from '@/core/datetime.ts';
+﻿import type { TextualYearMonth, Year1BasedMonth, YearUnixTime, YearQuarterUnixTime, YearMonthUnixTime } from '@/core/datetime.ts';
 import type { FiscalYearUnixTime } from '@/core/fiscalyear.ts';
 import { ChartSortingType, ChartDateAggregationType } from '@/core/statistics.ts';
 import type {
@@ -18,18 +18,18 @@ export function sortStatisticsItems<T extends SortableTransactionStatisticDataIt
         items.sort(function (data1, data2) {
             for (let i = 0; i < Math.min(data1.displayOrders.length, data2.displayOrders.length); i++) {
                 if (data1.displayOrders[i] !== data2.displayOrders[i]) {
-                    return (data1.displayOrders[i] as number) - (data2.displayOrders[i] as number); // asc
+                    return (data1.displayOrders[i] as number) - (data2.displayOrders[i] as number); 
                 }
             }
 
-            return data1.name.localeCompare(data2.name, undefined, { // asc
+            return data1.name.localeCompare(data2.name, undefined, { 
                 numeric: true,
                 sensitivity: 'base'
             });
         });
     } else if (sortingType === ChartSortingType.Name.type) {
         items.sort(function (data1, data2) {
-            return data1.name.localeCompare(data2.name, undefined, { // asc
+            return data1.name.localeCompare(data2.name, undefined, { 
                 numeric: true,
                 sensitivity: 'base'
             });
@@ -37,10 +37,10 @@ export function sortStatisticsItems<T extends SortableTransactionStatisticDataIt
     } else {
         items.sort(function (data1, data2) {
             if (data1.totalAmount !== data2.totalAmount) {
-                return data2.totalAmount - data1.totalAmount; // desc
+                return data2.totalAmount - data1.totalAmount; 
             }
 
-            return data1.name.localeCompare(data2.name, undefined, { // asc
+            return data1.name.localeCompare(data2.name, undefined, { 
                 numeric: true,
                 sensitivity: 'base'
             });
@@ -84,7 +84,7 @@ export function getAllDateRangesByYearMonthRange(startYearMonth: Year1BasedMonth
         return getAllFiscalYearsStartAndEndUnixTimes(startYearMonth, endYearMonth, fiscalYearStart);
     } else if (dateAggregationType === ChartDateAggregationType.Quarter.type) {
         return getAllQuartersStartAndEndUnixTimes(startYearMonth, endYearMonth);
-    } else { // if (dateAggregationType === ChartDateAggregationType.Month.type) {
+    } else { 
         return getAllMonthsStartAndEndUnixTimes(startYearMonth, endYearMonth);
     }
 }

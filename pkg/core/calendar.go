@@ -1,11 +1,11 @@
-package core
+﻿package core
 
 import "fmt"
 
-// CalendarDisplayType represents calendar display type
+
 type CalendarDisplayType byte
 
-// Calendar Display Type
+
 const (
 	CALENDAR_DISPLAY_TYPE_DEFAULT                CalendarDisplayType = 0
 	CALENDAR_DISPLAY_TYPE_GREGORAIN              CalendarDisplayType = 1
@@ -15,7 +15,7 @@ const (
 	CALENDAR_DISPLAY_TYPE_INVALID                CalendarDisplayType = 255
 )
 
-// String returns a textual representation of the calendar display type enum
+
 func (f CalendarDisplayType) String() string {
 	switch f {
 	case CALENDAR_DISPLAY_TYPE_DEFAULT:
@@ -35,10 +35,10 @@ func (f CalendarDisplayType) String() string {
 	}
 }
 
-// DateDisplayType represents date display type
+
 type DateDisplayType byte
 
-// Date Display Type
+
 const (
 	DATE_DISPLAY_TYPE_DEFAULT   DateDisplayType = 0
 	DATE_DISPLAY_TYPE_GREGORAIN DateDisplayType = 1
@@ -47,7 +47,7 @@ const (
 	DATE_DISPLAY_TYPE_INVALID   DateDisplayType = 255
 )
 
-// String returns a textual representation of the date display type enum
+
 func (f DateDisplayType) String() string {
 	switch f {
 	case DATE_DISPLAY_TYPE_DEFAULT:

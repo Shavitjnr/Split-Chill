@@ -1,4 +1,4 @@
-package core
+﻿package core
 
-// ApplicationName represents the application name
-const ApplicationName = "ezBookkeeping"
+
+const ApplicationName = "Split Chill AI"

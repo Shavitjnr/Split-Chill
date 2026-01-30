@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 
 import { useI18n } from '@/locales/helpers.ts';
 
@@ -210,19 +210,19 @@ export function useCategoryFilterSettingPageBase(type?: CategoryFilterType, allo
     }
 
     return {
-        // states
+        
         loading,
         showHidden,
         filterContent,
         filterCategoryIds,
-        // computed states
+        
         title,
         applyText,
         allVisibleTransactionCategories,
         allVisibleTransactionCategoryMap,
         hasAnyAvailableCategory,
         hasAnyVisibleCategory,
-        // functions
+        
         isCategoryChecked,
         getCategoryTypeName,
         loadFilterCategoryIds,

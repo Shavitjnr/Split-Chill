@@ -1,9 +1,9 @@
-package uuid
+﻿package uuid
 
-// UuidType represents uuid type, the value of uuid type should should be from 0 to 15
+
 type UuidType uint8
 
-// Types of uuid
+
 const (
 	UUID_TYPE_DEFAULT     UuidType = 0
 	UUID_TYPE_USER        UuidType = 1

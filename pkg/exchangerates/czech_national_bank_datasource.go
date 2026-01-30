@@ -1,4 +1,4 @@
-package exchangerates
+﻿package exchangerates
 
 import (
 	"math"
@@ -6,12 +6,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
-	"github.com/mayswind/ezbookkeeping/pkg/validators"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/validators"
 )
 
 const czechNationalBankDailyExchangeRateUrl = "https://www.cnb.cz/en/financial-markets/foreign-exchange-market/central-bank-exchange-rate-fixing/central-bank-exchange-rate-fixing/daily.txt"
@@ -23,12 +23,12 @@ const czechNationalBankBaseCurrency = "CZK"
 const czechNationalBankDataUpdateDateFormat = "02 Jan 2006 15:04"
 const czechNationalBankDataUpdateDateTimezone = "Europe/Prague"
 
-// CzechNationalBankDataSource defines the structure of exchange rates data source of Czech National Bank
+
 type CzechNationalBankDataSource struct {
 	HttpExchangeRatesDataSource
 }
 
-// BuildRequests returns the Czech National Bank exchange rates http requests
+
 func (e *CzechNationalBankDataSource) BuildRequests() ([]*http.Request, error) {
 	monthlyReq, err := http.NewRequest("GET", czechNationalBankMonthlyOtherExchangeRateUrl, nil)
 
@@ -45,7 +45,7 @@ func (e *CzechNationalBankDataSource) BuildRequests() ([]*http.Request, error) {
 	return []*http.Request{monthlyReq, dailyReq}, nil
 }
 
-// Parse returns the common response entity according to the czech nation bank data source raw response
+
 func (e *CzechNationalBankDataSource) Parse(c core.Context, content []byte) (*models.LatestExchangeRateResponse, error) {
 	lines := strings.Split(string(content), "\n")
 
@@ -109,7 +109,7 @@ func (e *CzechNationalBankDataSource) Parse(c core.Context, content []byte) (*mo
 		return nil, errs.ErrFailedToRequestRemoteApi
 	}
 
-	updateDateTime := updateDate + " 14:30" // Exchange rates of commonly traded currencies are declared every working day after 2.30 p.m.
+	updateDateTime := updateDate + " 14:30" 
 	updateTime, err := time.ParseInLocation(czechNationalBankDataUpdateDateFormat, updateDateTime, timezone)
 
 	if err != nil {

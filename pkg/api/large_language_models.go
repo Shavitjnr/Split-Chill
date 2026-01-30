@@ -1,4 +1,4 @@
-package api
+﻿package api
 
 import (
 	"bytes"
@@ -7,19 +7,19 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/llm"
-	"github.com/mayswind/ezbookkeeping/pkg/llm/data"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/services"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
-	"github.com/mayswind/ezbookkeeping/pkg/templates"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/llm"
+	"github.com/Shavitjnr/split-chill-ai/pkg/llm/data"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/services"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/templates"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
-// LargeLanguageModelsApi represents large language models api
+
 type LargeLanguageModelsApi struct {
 	ApiUsingConfig
 	transactionCategories *services.TransactionCategoryService
@@ -28,7 +28,7 @@ type LargeLanguageModelsApi struct {
 	users                 *services.UserService
 }
 
-// Initialize a large language models api singleton instance
+
 var (
 	LargeLanguageModels = &LargeLanguageModelsApi{
 		ApiUsingConfig: ApiUsingConfig{
@@ -41,7 +41,7 @@ var (
 	}
 )
 
-// RecognizeReceiptImageHandler returns the recognized receipt image result
+
 func (a *LargeLanguageModelsApi) RecognizeReceiptImageHandler(c *core.WebContext) (any, *errs.Error) {
 	if a.CurrentConfig().ReceiptImageRecognitionLLMConfig == nil || a.CurrentConfig().ReceiptImageRecognitionLLMConfig.LLMProvider == "" || !a.CurrentConfig().TransactionFromAIImageRecognition {
 		return nil, errs.ErrLargeLanguageModelProviderNotEnabled

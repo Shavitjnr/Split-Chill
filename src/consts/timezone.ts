@@ -1,24 +1,23 @@
-import type { TimezoneInfo } from '@/core/timezone.ts';
+﻿import type { TimezoneInfo } from '@/core/timezone.ts';
 
 export const UTC_TIMEZONE: TimezoneInfo = {
     displayName: 'Coordinated Universal Time',
     timezoneName: 'Etc/GMT'
 };
 
-// Reference: https://github.com/nodatime/nodatime/blob/main/data/cldr/windowsZones-45.xml
-// Reference: https://github.com/mattjohnsonpint/TimeZoneNames/blob/main/src/TimeZoneNames.DataBuilder/data/windows-displaynames.json
+
 export const ALL_TIMEZONES: TimezoneInfo[] = [
-    // UTC-12:00
+    
     {
         displayName: 'International Date Line West',
         timezoneName: 'Etc/GMT+12'
     },
-    // UTC-11:00
+    
     {
         displayName: 'Coordinated Universal Time-11',
         timezoneName: 'Etc/GMT+11'
     },
-    // UTC-10:00
+    
     {
         displayName: 'Aleutian Islands',
         timezoneName: 'America/Adak'
@@ -27,12 +26,12 @@ export const ALL_TIMEZONES: TimezoneInfo[] = [
         displayName: 'Hawaii',
         timezoneName: 'Pacific/Honolulu'
     },
-    // UTC-09:30
+    
     {
         displayName: 'Marquesas Islands',
         timezoneName: 'Pacific/Marquesas'
     },
-    // UTC-09:00
+    
     {
         displayName: 'Alaska',
         timezoneName: 'America/Anchorage'
@@ -41,7 +40,7 @@ export const ALL_TIMEZONES: TimezoneInfo[] = [
         displayName: 'Coordinated Universal Time-09',
         timezoneName: 'Etc/GMT+9'
     },
-    // UTC-08:00
+    
     {
         displayName: 'Baja California',
         timezoneName: 'America/Tijuana'
@@ -54,7 +53,7 @@ export const ALL_TIMEZONES: TimezoneInfo[] = [
         displayName: 'Pacific Time (US & Canada)',
         timezoneName: 'America/Los_Angeles'
     },
-    // UTC-07:00
+    
     {
         displayName: 'Arizona',
         timezoneName: 'America/Phoenix'
@@ -71,7 +70,7 @@ export const ALL_TIMEZONES: TimezoneInfo[] = [
         displayName: 'Yukon',
         timezoneName: 'America/Whitehorse'
     },
-    // UTC-06:00
+    
     {
         displayName: 'Central America',
         timezoneName: 'America/Guatemala'
@@ -92,7 +91,7 @@ export const ALL_TIMEZONES: TimezoneInfo[] = [
         displayName: 'Saskatchewan',
         timezoneName: 'America/Regina'
     },
-    // UTC-05:00
+    
     {
         displayName: 'Bogota, Lima, Quito, Rio Branco',
         timezoneName: 'America/Bogota'
@@ -121,7 +120,7 @@ export const ALL_TIMEZONES: TimezoneInfo[] = [
         displayName: 'Turks and Caicos',
         timezoneName: 'America/Grand_Turk'
     },
-    // UTC-04:00
+    
     {
         displayName: 'Asuncion',
         timezoneName: 'America/Asuncion'
@@ -146,12 +145,12 @@ export const ALL_TIMEZONES: TimezoneInfo[] = [
         displayName: 'Santiago',
         timezoneName: 'America/Santiago'
     },
-    // UTC-03:30
+    
     {
         displayName: 'Newfoundland',
         timezoneName: 'America/St_Johns'
     },
-    // UTC-03:00
+    
     {
         displayName: 'Araguaina',
         timezoneName: 'America/Araguaina'
@@ -184,7 +183,7 @@ export const ALL_TIMEZONES: TimezoneInfo[] = [
         displayName: 'Salvador',
         timezoneName: 'America/Bahia'
     },
-    // UTC-02:00
+    
     {
         displayName: 'Coordinated Universal Time-02',
         timezoneName: 'Etc/GMT+2'
@@ -193,7 +192,7 @@ export const ALL_TIMEZONES: TimezoneInfo[] = [
         displayName: 'Greenland',
         timezoneName: 'America/Godthab'
     },
-    // UTC-01:00
+    
     {
         displayName: 'Azores',
         timezoneName: 'Atlantic/Azores'
@@ -202,9 +201,9 @@ export const ALL_TIMEZONES: TimezoneInfo[] = [
         displayName: 'Cabo Verde Is',
         timezoneName: 'Atlantic/Cape_Verde'
     },
-    // UTC
+    
     UTC_TIMEZONE,
-    // UTC+00:00
+    
     {
         displayName: 'Dublin, Edinburgh, Lisbon, London',
         timezoneName: 'Europe/London'
@@ -217,7 +216,7 @@ export const ALL_TIMEZONES: TimezoneInfo[] = [
         displayName: 'Sao Tome',
         timezoneName: 'Africa/Sao_Tome'
     },
-    // UTC+01:00
+    
     {
         displayName: 'Casablanca',
         timezoneName: 'Africa/Casablanca'
@@ -242,7 +241,7 @@ export const ALL_TIMEZONES: TimezoneInfo[] = [
         displayName: 'West Central Africa',
         timezoneName: 'Africa/Lagos'
     },
-    // UTC+02:00
+    
     {
         displayName: 'Athens, Bucharest',
         timezoneName: 'Europe/Bucharest'
@@ -295,7 +294,7 @@ export const ALL_TIMEZONES: TimezoneInfo[] = [
         displayName: 'Windhoek',
         timezoneName: 'Africa/Windhoek'
     },
-    // UTC+03:00
+    
     {
         displayName: 'Amman',
         timezoneName: 'Asia/Amman'
@@ -336,7 +335,7 @@ export const ALL_TIMEZONES: TimezoneInfo[] = [
         displayName: 'Tehran',
         timezoneName: 'Asia/Tehran'
     },
-    // UTC+04:00
+    
     {
         displayName: 'Abu Dhabi, Muscat',
         timezoneName: 'Asia/Dubai'
@@ -369,12 +368,12 @@ export const ALL_TIMEZONES: TimezoneInfo[] = [
         displayName: 'Yerevan',
         timezoneName: 'Asia/Yerevan'
     },
-    // UTC+04:30
+    
     {
         displayName: 'Kabul',
         timezoneName: 'Asia/Kabul'
     },
-    // UTC+05:00
+    
     {
         displayName: 'Ashgabat, Tashkent',
         timezoneName: 'Asia/Tashkent'
@@ -391,7 +390,7 @@ export const ALL_TIMEZONES: TimezoneInfo[] = [
         displayName: 'Islamabad, Karachi',
         timezoneName: 'Asia/Karachi'
     },
-    // UTC+05:30
+    
     {
         displayName: 'Chennai, Kolkata, Mumbai, New Delhi',
         timezoneName: 'Asia/Calcutta'
@@ -400,12 +399,12 @@ export const ALL_TIMEZONES: TimezoneInfo[] = [
         displayName: 'Sri Jayawardenepura',
         timezoneName: 'Asia/Colombo'
     },
-    // UTC+05:45
+    
     {
         displayName: 'Kathmandu',
         timezoneName: 'Asia/Kathmandu'
     },
-    // UTC+06:00
+    
     {
         displayName: 'Bishkek',
         timezoneName: 'Asia/Bishkek'
@@ -418,12 +417,12 @@ export const ALL_TIMEZONES: TimezoneInfo[] = [
         displayName: 'Omsk',
         timezoneName: 'Asia/Omsk'
     },
-    // UTC+06:30
+    
     {
         displayName: 'Yangon (Rangoon)',
         timezoneName: 'Asia/Rangoon'
     },
-    // UTC+07:00
+    
     {
         displayName: 'Bangkok, Hanoi, Jakarta',
         timezoneName: 'Asia/Bangkok'
@@ -448,7 +447,7 @@ export const ALL_TIMEZONES: TimezoneInfo[] = [
         displayName: 'Tomsk',
         timezoneName: 'Asia/Tomsk'
     },
-    // UTC+08:00
+    
     {
         displayName: 'Beijing, Chongqing, Hong Kong SAR, Urumqi',
         timezoneName: 'Asia/Shanghai'
@@ -473,12 +472,12 @@ export const ALL_TIMEZONES: TimezoneInfo[] = [
         displayName: 'Ulaanbaatar',
         timezoneName: 'Asia/Ulaanbaatar'
     },
-    // UTC+08:45
+    
     {
         displayName: 'Eucla',
         timezoneName: 'Australia/Eucla'
     },
-    // UTC+09:00
+    
     {
         displayName: 'Chita',
         timezoneName: 'Asia/Chita'
@@ -499,7 +498,7 @@ export const ALL_TIMEZONES: TimezoneInfo[] = [
         displayName: 'Yakutsk',
         timezoneName: 'Asia/Yakutsk'
     },
-    // UTC+09:30
+    
     {
         displayName: 'Adelaide',
         timezoneName: 'Australia/Adelaide'
@@ -508,7 +507,7 @@ export const ALL_TIMEZONES: TimezoneInfo[] = [
         displayName: 'Darwin',
         timezoneName: 'Australia/Darwin'
     },
-    // UTC+10:00
+    
     {
         displayName: 'Brisbane',
         timezoneName: 'Australia/Brisbane'
@@ -529,12 +528,12 @@ export const ALL_TIMEZONES: TimezoneInfo[] = [
         displayName: 'Vladivostok',
         timezoneName: 'Asia/Vladivostok'
     },
-    // UTC+10:30
+    
     {
         displayName: 'Lord Howe Island',
         timezoneName: 'Australia/Lord_Howe'
     },
-    // UTC+11:00
+    
     {
         displayName: 'Bougainville Island',
         timezoneName: 'Pacific/Bougainville'
@@ -559,7 +558,7 @@ export const ALL_TIMEZONES: TimezoneInfo[] = [
         displayName: 'Solomon Is, New Caledonia',
         timezoneName: 'Pacific/Guadalcanal'
     },
-    // UTC+12:00
+    
     {
         displayName: 'Anadyr, Petropavlovsk-Kamchatsky',
         timezoneName: 'Asia/Kamchatka'
@@ -576,12 +575,12 @@ export const ALL_TIMEZONES: TimezoneInfo[] = [
         displayName: 'Fiji',
         timezoneName: 'Pacific/Fiji'
     },
-    // UTC+12:45
+    
     {
         displayName: 'Chatham Islands',
         timezoneName: 'Pacific/Chatham'
     },
-    // UTC+13:00
+    
     {
         displayName: 'Coordinated Universal Time+13',
         timezoneName: 'Etc/GMT-13'
@@ -594,7 +593,7 @@ export const ALL_TIMEZONES: TimezoneInfo[] = [
         displayName: 'Samoa',
         timezoneName: 'Pacific/Apia'
     },
-    // UTC+14:00
+    
     {
         displayName: 'Kiritimati Island',
         timezoneName: 'Pacific/Kiritimati'

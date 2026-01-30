@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 
 import { type BeforeResolveFunction, itemAndIndex } from '@/core/base.ts';
@@ -276,13 +276,13 @@ export const useExchangeRatesStore = defineStore('exchangeRates', () => {
     }
 
     return {
-        // states
+        
         latestExchangeRates,
-        // computed states
+        
         isUserCustomExchangeRates,
         exchangeRatesLastUpdateTime,
         latestExchangeRateMap,
-        // functions
+        
         resetLatestExchangeRates,
         getLatestExchangeRates,
         updateUserCustomExchangeRate,

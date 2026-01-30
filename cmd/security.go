@@ -1,18 +1,18 @@
-package cmd
+﻿package cmd
 
 import (
 	"fmt"
 
 	"github.com/urfave/cli/v3"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
-// SecurityUtils represents the security command
+
 var SecurityUtils = &cli.Command{
 	Name:  "security",
-	Usage: "ezBookkeeping security utilities",
+	Usage: "Split Chill AI security utilities",
 	Commands: []*cli.Command{
 		{
 			Name:   "gen-secret-key",

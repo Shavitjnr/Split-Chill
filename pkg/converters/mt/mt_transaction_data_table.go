@@ -1,14 +1,14 @@
-package mt
+﻿package mt
 
 import (
 	"strings"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/datatable"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/datatable"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 var mt940TransactionSupportedColumns = map[datatable.TransactionDataTableColumn]bool{
@@ -22,35 +22,35 @@ var mt940TransactionSupportedColumns = map[datatable.TransactionDataTableColumn]
 	datatable.TRANSACTION_DATA_TABLE_DESCRIPTION:          true,
 }
 
-// mt940TransactionDataTable represents the mt940 statement data dataTable
+
 type mt940TransactionDataTable struct {
 	data *mt940Data
 }
 
-// mt940TransactionDataRow represents a row in the mt940 statement data dataTable
+
 type mt940TransactionDataRow struct {
 	statement  *mtStatement
 	finalItems map[datatable.TransactionDataTableColumn]string
 }
 
-// mt940TransactionDataRowIterator represents an iterator for mt940 statement data rows
+
 type mt940TransactionDataRowIterator struct {
 	dataTable    *mt940TransactionDataTable
 	currentIndex int
 }
 
-// HasColumn implements TransactionDataTable.HasColumn
+
 func (t *mt940TransactionDataTable) HasColumn(column datatable.TransactionDataTableColumn) bool {
 	_, exists := mt940TransactionSupportedColumns[column]
 	return exists
 }
 
-// TransactionRowCount implements TransactionDataTable.TransactionRowCount
+
 func (t *mt940TransactionDataTable) TransactionRowCount() int {
 	return len(t.data.Statements)
 }
 
-// TransactionRowIterator implements TransactionDataTable.TransactionRowIterator
+
 func (t *mt940TransactionDataTable) TransactionRowIterator() datatable.TransactionDataRowIterator {
 	return &mt940TransactionDataRowIterator{
 		dataTable:    t,
@@ -58,12 +58,12 @@ func (t *mt940TransactionDataTable) TransactionRowIterator() datatable.Transacti
 	}
 }
 
-// IsValid implements TransactionDataRow.IsValid
+
 func (r *mt940TransactionDataRow) IsValid() bool {
 	return true
 }
 
-// GetData implements TransactionDataRow.GetData
+
 func (r *mt940TransactionDataRow) GetData(column datatable.TransactionDataTableColumn) string {
 	_, exists := mt940TransactionSupportedColumns[column]
 
@@ -74,12 +74,12 @@ func (r *mt940TransactionDataRow) GetData(column datatable.TransactionDataTableC
 	return ""
 }
 
-// HasNext implements TransactionDataRowIterator.HasNext
+
 func (t *mt940TransactionDataRowIterator) HasNext() bool {
 	return t.currentIndex+1 < len(t.dataTable.data.Statements)
 }
 
-// Next implements TransactionDataRowIterator.Next
+
 func (t *mt940TransactionDataRowIterator) Next(ctx core.Context, user *models.User) (datatable.TransactionDataRow, error) {
 	if t.currentIndex+1 >= len(t.dataTable.data.Statements) {
 		return nil, nil
@@ -126,7 +126,7 @@ func (t *mt940TransactionDataRowIterator) parseTransaction(ctx core.Context, use
 		return nil, errs.ErrAccountCurrencyInvalid
 	}
 
-	amountValue := strings.ReplaceAll(statement.Amount, ",", ".") // decimal separator is comma in mt data
+	amountValue := strings.ReplaceAll(statement.Amount, ",", ".") 
 
 	if len(amountValue) > 0 && amountValue[len(amountValue)-1] == '.' {
 		amountValue = amountValue[:len(amountValue)-1]
@@ -166,7 +166,7 @@ func (t *mt940TransactionDataRowIterator) parseTransaction(ctx core.Context, use
 	return data, nil
 }
 
-// createNewMT940TransactionDataTable creates a new mt940 statement data dataTable
+
 func createNewMT940TransactionDataTable(data *mt940Data) (*mt940TransactionDataTable, error) {
 	if data == nil || len(data.Statements) < 1 {
 		return nil, errs.ErrNotFoundTransactionDataInFile

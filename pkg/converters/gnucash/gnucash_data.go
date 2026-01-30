@@ -1,4 +1,4 @@
-package gnucash
+﻿package gnucash
 
 import "encoding/xml"
 
@@ -23,20 +23,20 @@ var gnucashAssetOrLiabilityAccountTypes = map[string]bool{
 	"STOCK":      true,
 }
 
-// gnucashDatabase represents the struct of gnucash database file
+
 type gnucashDatabase struct {
 	XMLName xml.Name            `xml:"gnc-v2"`
 	Counts  []*gnucashCountData `xml:"count-data"`
 	Books   []*gnucashBookData  `xml:"book"`
 }
 
-// gnucashCountData represents the struct of gnucash count data
+
 type gnucashCountData struct {
 	Key   string `xml:"type,attr"`
 	Value string `xml:",chardata"`
 }
 
-// gnucashBookData represents the struct of gnucash book data
+
 type gnucashBookData struct {
 	Id           string                    `xml:"id"`
 	Counts       []*gnucashCountData       `xml:"count-data"`
@@ -44,19 +44,19 @@ type gnucashBookData struct {
 	Transactions []*gnucashTransactionData `xml:"transaction"`
 }
 
-// gnucashCommodityData represents the struct of gnucash commodity data
+
 type gnucashCommodityData struct {
 	Space string `xml:"space"`
 	Id    string `xml:"id"`
 }
 
-// gnucashSlotData represents the struct of gnucash slot data
+
 type gnucashSlotData struct {
 	Key   string `xml:"key"`
 	Value string `xml:"value"`
 }
 
-// gnucashAccountData represents the struct of gnucash account data
+
 type gnucashAccountData struct {
 	Name        string                `xml:"name"`
 	Id          string                `xml:"id"`
@@ -67,7 +67,7 @@ type gnucashAccountData struct {
 	Slots       []*gnucashSlotData    `xml:"slots>slot"`
 }
 
-// gnucashTransactionData represents the struct of gnucash transaction data
+
 type gnucashTransactionData struct {
 	Id          string                         `xml:"id"`
 	Currency    *gnucashCommodityData          `xml:"currency"`
@@ -77,7 +77,7 @@ type gnucashTransactionData struct {
 	Splits      []*gnucashTransactionSplitData `xml:"splits>split"`
 }
 
-// gnucashTransactionSplitData represents the struct of gnucash transaction split data
+
 type gnucashTransactionSplitData struct {
 	Id              string `xml:"id"`
 	ReconciledState string `xml:"reconciled-state"`

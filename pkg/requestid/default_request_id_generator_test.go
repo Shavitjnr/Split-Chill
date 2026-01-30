@@ -1,12 +1,12 @@
-package requestid
+﻿package requestid
 
 import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
 func TestNewDefaultRequestIdGenerator_Http(t *testing.T) {
@@ -18,11 +18,11 @@ func TestNewDefaultRequestIdGenerator_Http(t *testing.T) {
 	requestId := generator.GenerateRequestId("127.0.0.1", 20000)
 	requestIdInfo := generator.parseRequestIdInfo(generator.parseRequestIdFromUuid(requestId))
 
-	expectedServerUniqId := uint16(0x2476) // crc32("123.234.123.234" + "_" + "secretkey") & 0xFFFF
+	expectedServerUniqId := uint16(0x2476) 
 	actualServerUniqId := requestIdInfo.ServerUniqId
 	assert.Equal(t, expectedServerUniqId, actualServerUniqId)
 
-	expectedInstanceUniqId := uint16(0x0e79) // crc32("8080" + "_" + "secretkey") & 0xFFFF
+	expectedInstanceUniqId := uint16(0x0e79) 
 	actualInstanceUniqId := requestIdInfo.InstanceUniqId
 	assert.Equal(t, expectedInstanceUniqId, actualInstanceUniqId)
 }
@@ -30,18 +30,18 @@ func TestNewDefaultRequestIdGenerator_Http(t *testing.T) {
 func TestNewDefaultRequestIdGenerator_UnixSocket(t *testing.T) {
 	generator, _ := NewDefaultRequestIdGenerator(core.NewNullContext(), &settings.Config{
 		HttpAddr:       "1.2.3.4",
-		UnixSocketPath: "/var/lib/ezbookkeeping/ezbookkeeping.sock",
+		UnixSocketPath: "/var/lib/Split Chill AI/Split Chill AI.sock",
 		Protocol:       "socket",
 		SecretKey:      "secretkey",
 	})
 	requestId := generator.GenerateRequestId("127.0.0.1", 20000)
 	requestIdInfo := generator.parseRequestIdInfo(generator.parseRequestIdFromUuid(requestId))
 
-	expectedServerUniqId := uint16(0x5bdb) // crc32("1.2.3.4" + "_" + "secretkey") & 0xFFFF
+	expectedServerUniqId := uint16(0x5bdb) 
 	actualServerUniqId := requestIdInfo.ServerUniqId
 	assert.Equal(t, expectedServerUniqId, actualServerUniqId)
 
-	expectedInstanceUniqId := uint16(0x2cc) // crc32("/var/lib/ezbookkeeping/ezbookkeeping.sock" + "_" + "secretkey") & 0xFFFF
+	expectedInstanceUniqId := uint16(0x2cc) 
 	actualInstanceUniqId := requestIdInfo.InstanceUniqId
 	assert.Equal(t, expectedInstanceUniqId, actualInstanceUniqId)
 }
@@ -49,14 +49,14 @@ func TestNewDefaultRequestIdGenerator_UnixSocket(t *testing.T) {
 func TestNewDefaultRequestIdGenerator_ClientIpv4(t *testing.T) {
 	generator, _ := NewDefaultRequestIdGenerator(core.NewNullContext(), &settings.Config{
 		HttpAddr:       "1.2.3.4",
-		UnixSocketPath: "/var/lib/ezbookkeeping/ezbookkeeping.sock",
+		UnixSocketPath: "/var/lib/Split Chill AI/Split Chill AI.sock",
 		Protocol:       "socket",
 		SecretKey:      "secretkey",
 	})
 	requestId := generator.GenerateRequestId("127.0.0.1", 20000)
 	requestIdInfo := generator.parseRequestIdInfo(generator.parseRequestIdFromUuid(requestId))
 
-	expectedClientIp := uint32(0x7f000001) // 127.0.0.1
+	expectedClientIp := uint32(0x7f000001) 
 	actualClientIp := requestIdInfo.ClientIp
 	assert.Equal(t, expectedClientIp, actualClientIp)
 
@@ -67,7 +67,7 @@ func TestNewDefaultRequestIdGenerator_ClientIpv4(t *testing.T) {
 	requestId = generator.GenerateRequestId("192.168.1.100", 20000)
 	requestIdInfo = generator.parseRequestIdInfo(generator.parseRequestIdFromUuid(requestId))
 
-	expectedClientIp = uint32(0xc0a80164) // 192.168.1.100
+	expectedClientIp = uint32(0xc0a80164) 
 	actualClientIp = requestIdInfo.ClientIp
 	assert.Equal(t, expectedClientIp, actualClientIp)
 
@@ -79,14 +79,14 @@ func TestNewDefaultRequestIdGenerator_ClientIpv4(t *testing.T) {
 func TestNewDefaultRequestIdGenerator_ClientIpv6(t *testing.T) {
 	generator, _ := NewDefaultRequestIdGenerator(core.NewNullContext(), &settings.Config{
 		HttpAddr:       "1.2.3.4",
-		UnixSocketPath: "/var/lib/ezbookkeeping/ezbookkeeping.sock",
+		UnixSocketPath: "/var/lib/Split Chill AI/Split Chill AI.sock",
 		Protocol:       "socket",
 		SecretKey:      "secretkey",
 	})
 	requestId := generator.GenerateRequestId("2001:abc:def:1234::1", 20000)
 	requestIdInfo := generator.parseRequestIdInfo(generator.parseRequestIdFromUuid(requestId))
 
-	expectedClientIp := uint32(0x76fe1b98) // crc32("2001:abc:def:1234::1")
+	expectedClientIp := uint32(0x76fe1b98) 
 	actualClientIp := requestIdInfo.ClientIp
 	assert.Equal(t, expectedClientIp, actualClientIp)
 
@@ -97,7 +97,7 @@ func TestNewDefaultRequestIdGenerator_ClientIpv6(t *testing.T) {
 	requestId = generator.GenerateRequestId("2400:abcd:1234:1:56ef:ab78:c90d:1e2f", 20000)
 	requestIdInfo = generator.parseRequestIdInfo(generator.parseRequestIdFromUuid(requestId))
 
-	expectedClientIp = uint32(0xa0a25faa) // crc32("2400:abcd:1234:1:56ef:ab78:c90d:1e2f")
+	expectedClientIp = uint32(0xa0a25faa) 
 	actualClientIp = requestIdInfo.ClientIp
 	assert.Equal(t, expectedClientIp, actualClientIp)
 
@@ -109,7 +109,7 @@ func TestNewDefaultRequestIdGenerator_ClientIpv6(t *testing.T) {
 func TestNewDefaultRequestIdGenerator_ClientPort(t *testing.T) {
 	generator, _ := NewDefaultRequestIdGenerator(core.NewNullContext(), &settings.Config{
 		HttpAddr:       "1.2.3.4",
-		UnixSocketPath: "/var/lib/ezbookkeeping/ezbookkeeping.sock",
+		UnixSocketPath: "/var/lib/Split Chill AI/Split Chill AI.sock",
 		Protocol:       "socket",
 		SecretKey:      "secretkey",
 	})

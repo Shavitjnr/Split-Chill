@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 
 import { useSettingsStore } from '@/stores/setting.ts';
 import { useAccountsStore } from '@/stores/account.ts';
@@ -196,12 +196,12 @@ export function useAccountFilterSettingPageBase(type?: AccountFilterType, select
     }
 
     return {
-        // states
+        
         loading,
         showHidden,
         filterContent,
         filterAccountIds,
-        // computed states
+        
         title,
         applyText,
         allowHiddenAccount,
@@ -210,7 +210,7 @@ export function useAccountFilterSettingPageBase(type?: AccountFilterType, select
         allVisibleAccountMap,
         hasAnyAvailableAccount,
         hasAnyVisibleAccount,
-        // functions
+        
         isAccountChecked,
         loadFilterAccountIds,
         saveFilterAccountIds

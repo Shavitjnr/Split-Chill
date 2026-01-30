@@ -1,28 +1,28 @@
-package exchangerates
+﻿package exchangerates
 
 import (
 	"io"
 	"net/http"
 	"sort"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/httpclient"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/httpclient"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
-// HttpExchangeRatesDataSource defines the structure of http exchange rates data source
+
 type HttpExchangeRatesDataSource interface {
-	// BuildRequests returns the http requests
+	
 	BuildRequests() ([]*http.Request, error)
 
-	// Parse returns the common response entity according to the data source raw response
+	
 	Parse(c core.Context, content []byte) (*models.LatestExchangeRateResponse, error)
 }
 
-// CommonHttpExchangeRatesDataProvider defines the structure of common http exchange rates data provider
+
 type CommonHttpExchangeRatesDataProvider struct {
 	ExchangeRatesDataProvider
 	dataSource HttpExchangeRatesDataSource

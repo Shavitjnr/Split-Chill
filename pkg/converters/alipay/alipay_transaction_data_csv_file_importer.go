@@ -1,4 +1,4 @@
-package alipay
+﻿package alipay
 
 import (
 	"bytes"
@@ -7,13 +7,13 @@ import (
 	"golang.org/x/text/encoding/simplifiedchinese"
 	"golang.org/x/text/transform"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/converter"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/csv"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/datatable"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/converter"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/csv"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/datatable"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
 )
 
 var alipayTransactionSupportedColumns = map[datatable.TransactionDataTableColumn]bool{
@@ -32,7 +32,7 @@ var alipayTransactionTypeNameMapping = map[models.TransactionType]string{
 	models.TRANSACTION_TYPE_TRANSFER: "不计收支",
 }
 
-// alipayTransactionColumnNames defines the structure of alipay transaction plain text header names
+
 type alipayTransactionColumnNames struct {
 	timeColumnName           string
 	categoryColumnName       string
@@ -45,7 +45,7 @@ type alipayTransactionColumnNames struct {
 	descriptionColumnName    string
 }
 
-// alipayTransactionDataCsvFileImporter defines the structure of alipay csv importer for transaction data
+
 type alipayTransactionDataCsvFileImporter struct {
 	fileHeaderLine         string
 	dataHeaderStartContent []string
@@ -53,7 +53,7 @@ type alipayTransactionDataCsvFileImporter struct {
 	originalColumnNames    alipayTransactionColumnNames
 }
 
-// ParseImportedData returns the imported data by parsing the alipay transaction csv data
+
 func (c *alipayTransactionDataCsvFileImporter) ParseImportedData(ctx core.Context, user *models.User, data []byte, defaultTimezone *time.Location, additionalOptions converter.TransactionDataImporterOptions, accountMap map[string]*models.Account, expenseCategoryMap map[string]map[string]*models.TransactionCategory, incomeCategoryMap map[string]map[string]*models.TransactionCategory, transferCategoryMap map[string]map[string]*models.TransactionCategory, tagMap map[string]*models.TransactionTag) (models.ImportedTransactionSlice, []*models.Account, []*models.TransactionCategory, []*models.TransactionCategory, []*models.TransactionCategory, []*models.TransactionTag, error) {
 	enc := simplifiedchinese.GB18030
 	reader := transform.NewReader(bytes.NewReader(data), enc.NewDecoder())

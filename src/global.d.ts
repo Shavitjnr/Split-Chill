@@ -1,10 +1,10 @@
-declare const __EZBOOKKEEPING_IS_PRODUCTION__: boolean;
-declare const __EZBOOKKEEPING_VERSION__: string;
-declare const __EZBOOKKEEPING_BUILD_UNIX_TIME__: string;
-declare const __EZBOOKKEEPING_BUILD_COMMIT_HASH__: string;
-declare const __EZBOOKKEEPING_LICENSE__: string;
-declare const __EZBOOKKEEPING_CONTRIBUTORS__: ContributorInfo;
-declare const __EZBOOKKEEPING_THIRD_PARTY_LICENSES__: LicenseInfo[];
+declare const __SPLITCHILL_AI_IS_PRODUCTION__: boolean;
+declare const __SPLITCHILL_AI_VERSION__: string;
+declare const __SPLITCHILL_AI_BUILD_UNIX_TIME__: string;
+declare const __SPLITCHILL_AI_BUILD_COMMIT_HASH__: string;
+declare const __SPLITCHILL_AI_LICENSE__: string;
+declare const __SPLITCHILL_AI_CONTRIBUTORS__: ContributorInfo;
+declare const __SPLITCHILL_AI_THIRD_PARTY_LICENSES__: LicenseInfo[];
 
 declare interface ContributorInfo {
     code: string[];
@@ -20,7 +20,7 @@ declare interface LicenseInfo {
 }
 
 interface Window {
-    EZBOOKKEEPING_SERVER_SETTINGS?: {
+    SPLITCHILL_AI_SERVER_SETTINGS?: {
         [key: string]: string | number | boolean | undefined | null;
     };
 }

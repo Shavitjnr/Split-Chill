@@ -1,25 +1,25 @@
-import type { TextualYearMonth, MonthDay, UnixTimeRange } from './datetime.ts';
+﻿import type { TextualYearMonth, MonthDay, UnixTimeRange } from './datetime.ts';
 
 export class FiscalYearStart {
     public static readonly JanuaryFirstDay = new FiscalYearStart(1, 1);
     public static readonly Default = FiscalYearStart.JanuaryFirstDay;
 
     private static readonly MONTH_MAX_DAYS: number[] = [
-        31, // January
-        28, // February (Disallow fiscal year start on leap day)
-        31, // March
-        30, // April
-        31, // May
-        30, // June
-        31, // July
-        31, // August
-        30, // September
-        31, // October
-        30, // November
-        31 // December
+        31, 
+        28, 
+        31, 
+        30, 
+        31, 
+        30, 
+        31, 
+        31, 
+        30, 
+        31, 
+        30, 
+        31 
     ];
 
-    public readonly month: number; // 1-based (1 = January, 12 = December)
+    public readonly month: number; 
     public readonly day: number;
     public readonly value: number;
 
@@ -37,27 +37,19 @@ export class FiscalYearStart {
         return new FiscalYearStart(month, day);
     }
 
-    /**
-     * Create a FiscalYearStart from a uint16 value (two bytes - month high, day low)
-     * @param value uint16 value (month in high byte, day in low byte)
-     * @returns FiscalYearStart instance or undefined if the value is out of range
-     */
+    
     public static valueOf(value: number): FiscalYearStart | undefined {
         if (value < 0x0101 || value > 0x0C1F) {
             return undefined;
         }
 
-        const month = (value >> 8) & 0xFF;  // high byte
-        const day = value & 0xFF;           // low byte
+        const month = (value >> 8) & 0xFF;  
+        const day = value & 0xFF;           
 
         return FiscalYearStart.of(month, day);
     }
 
-    /**
-     * Create a FiscalYearStart from a month/day string
-     * @param monthDay MM-dd string (e.g. "04-01" = 1 April)
-     * @returns FiscalYearStart instance or undefined if the monthDay is invalid
-     */
+    
     public static parse(monthDay: string): FiscalYearStart | undefined {
         if (!monthDay || !monthDay.includes('-')) {
             return undefined;

@@ -1,8 +1,8 @@
-package errs
+﻿package errs
 
 import "net/http"
 
-// Error codes related to settings
+
 var (
 	ErrInvalidServerMode                              = NewSystemError(SystemSubcategorySetting, 0, http.StatusInternalServerError, "invalid server mode")
 	ErrInvalidProtocol                                = NewSystemError(SystemSubcategorySetting, 1, http.StatusInternalServerError, "invalid server protocol")

@@ -1,4 +1,4 @@
-package exchangerates
+﻿package exchangerates
 
 import (
 	"encoding/json"
@@ -6,12 +6,12 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
-	"github.com/mayswind/ezbookkeeping/pkg/validators"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/validators"
 )
 
 const centralBankOfUzbekistanExchangeRateUrl = "https://cbu.uz/ru/arkhiv-kursov-valyut/json/"
@@ -22,15 +22,15 @@ const centralBankOfUzbekistanBaseCurrency = "UZS"
 const centralBankOfUzbekistanUpdateDateFormat = "02.01.2006"
 const centralBankOfUzbekistanUpdateDateTimezone = "Asia/Samarkand"
 
-// CentralBankOfUzbekistanDataSource defines the structure of exchange rates data source of the central bank of the Republic of Uzbekistan
+
 type CentralBankOfUzbekistanDataSource struct {
 	HttpExchangeRatesDataSource
 }
 
-// CentralBankOfUzbekistanExchangeRates represents the exchange rates data from the central bank of the Republic of Uzbekistan
+
 type CentralBankOfUzbekistanExchangeRates []*CentralBankOfUzbekistanExchangeRate
 
-// CentralBankOfUzbekistanExchangeRate represents the exchange rate data from the central bank of the Republic of Uzbekistan
+
 type CentralBankOfUzbekistanExchangeRate struct {
 	Currency string `json:"Ccy"`
 	Unit     string `json:"Nominal"`
@@ -38,7 +38,7 @@ type CentralBankOfUzbekistanExchangeRate struct {
 	Date     string `json:"Date"`
 }
 
-// ToLatestExchangeRateResponse returns a view-object according to original data from the central bank of the Republic of Uzbekistan
+
 func (e CentralBankOfUzbekistanExchangeRates) ToLatestExchangeRateResponse(c core.Context) *models.LatestExchangeRateResponse {
 	if len(e) < 1 {
 		log.Errorf(c, "[central_bank_of_uzbekistan_datasource.ToLatestExchangeRateResponse] exchange rates is empty")
@@ -93,7 +93,7 @@ func (e CentralBankOfUzbekistanExchangeRates) ToLatestExchangeRateResponse(c cor
 	return latestExchangeRateResp
 }
 
-// ToLatestExchangeRate returns a data pair according to original data from the central bank of the Republic of Uzbekistan
+
 func (e *CentralBankOfUzbekistanExchangeRate) ToLatestExchangeRate(c core.Context) *models.LatestExchangeRate {
 	rate, err := utils.StringToFloat64(e.Rate)
 
@@ -131,7 +131,7 @@ func (e *CentralBankOfUzbekistanExchangeRate) ToLatestExchangeRate(c core.Contex
 	}
 }
 
-// BuildRequests returns the the central bank of the Republic of Uzbekistan exchange rates http requests
+
 func (e *CentralBankOfUzbekistanDataSource) BuildRequests() ([]*http.Request, error) {
 	req, err := http.NewRequest("GET", centralBankOfUzbekistanExchangeRateUrl, nil)
 
@@ -142,7 +142,7 @@ func (e *CentralBankOfUzbekistanDataSource) BuildRequests() ([]*http.Request, er
 	return []*http.Request{req}, nil
 }
 
-// Parse returns the common response entity according to the the central bank of the Republic of Uzbekistan data source raw response
+
 func (e *CentralBankOfUzbekistanDataSource) Parse(c core.Context, content []byte) (*models.LatestExchangeRateResponse, error) {
 	centralBankOfUzbekistanData := &CentralBankOfUzbekistanExchangeRates{}
 	err := json.Unmarshal(content, centralBankOfUzbekistanData)

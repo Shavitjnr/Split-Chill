@@ -1,13 +1,13 @@
-package feidee
+﻿package feidee
 
 import (
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/converter"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/datatable"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/excel"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/converter"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/datatable"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/excel"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
 )
 
 var feideeMymoneyWebDataColumnNameMapping = map[datatable.TransactionDataTableColumn]string{
@@ -24,17 +24,17 @@ var feideeMymoneyWebDataColumnNameMapping = map[datatable.TransactionDataTableCo
 	datatable.TRANSACTION_DATA_TABLE_MERCHANT:             "商家",
 }
 
-// feideeMymoneyWebTransactionDataXlsFileImporter defines the structure of feidee mymoney (web) xls importer for transaction data
+
 type feideeMymoneyWebTransactionDataXlsFileImporter struct {
 	converter.DataTableTransactionDataImporter
 }
 
-// Initialize a feidee mymoney (web) transaction data xls file importer singleton instance
+
 var (
 	FeideeMymoneyWebTransactionDataXlsFileImporter = &feideeMymoneyWebTransactionDataXlsFileImporter{}
 )
 
-// ParseImportedData returns the imported data by parsing the feidee mymoney (web) transaction xls data
+
 func (c *feideeMymoneyWebTransactionDataXlsFileImporter) ParseImportedData(ctx core.Context, user *models.User, data []byte, defaultTimezone *time.Location, additionalOptions converter.TransactionDataImporterOptions, accountMap map[string]*models.Account, expenseCategoryMap map[string]map[string]*models.TransactionCategory, incomeCategoryMap map[string]map[string]*models.TransactionCategory, transferCategoryMap map[string]map[string]*models.TransactionCategory, tagMap map[string]*models.TransactionTag) (models.ImportedTransactionSlice, []*models.Account, []*models.TransactionCategory, []*models.TransactionCategory, []*models.TransactionCategory, []*models.TransactionTag, error) {
 	dataTable, err := excel.CreateNewExcelMSCFBFileBasicDataTable(data, true)
 

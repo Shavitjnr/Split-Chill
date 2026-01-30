@@ -1,4 +1,4 @@
-package templates
+﻿package templates
 
 import (
 	"fmt"
@@ -11,13 +11,13 @@ const templateFileExtension = "tmpl"
 
 var templateCache = make(map[KnownTemplate]*CachedTemplate)
 
-// CachedTemplate represents a cached template
+
 type CachedTemplate struct {
 	templateName    KnownTemplate
 	templateContent *template.Template
 }
 
-// GetTemplate returns a cached template instance according to the template name
+
 func GetTemplate(templateName KnownTemplate) (*template.Template, error) {
 	fullPath := filepath.Join(templateBasePath, fmt.Sprintf("%s.%s", templateName, templateFileExtension))
 

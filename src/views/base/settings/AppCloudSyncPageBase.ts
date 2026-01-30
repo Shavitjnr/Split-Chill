@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 
 import { useSettingsStore } from '@/stores/setting.ts';
 
@@ -246,18 +246,18 @@ export function useAppCloudSyncBase() {
     }
 
     return {
-        // constants
+        
         ALL_APPLICATION_CLOUD_SETTINGS,
-        // states
+        
         loading,
         enabling,
         disabling,
         enabledApplicationCloudSettings,
-        // computed states
+        
         isEnableCloudSync,
         hasEnabledApplicationCloudSettings,
         enabledApplicationCloudSettingKeys,
-        // functions
+        
         isAllSettingsSelected,
         hasSettingSelectedButNotAllChecked,
         updateSettingsSelected,

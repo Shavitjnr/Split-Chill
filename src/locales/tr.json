@@ -1,7 +1,7 @@
 {
     "global": {
         "app": {
-            "title": "ezBookkeeping"
+            "title": "Split Chill AI"
         }
     },
     "language": {
@@ -137,20 +137,20 @@
             "clearTransactionsInAccountTip": "Bu işlem GERİ ALINAMAZ. Bu, {account} hesabındaki işlem verilerinizi silecektir. Onaylamak için lütfen mevcut şifrenizi girin.",
             "accountActivationAndResendValidationEmailTip": "Hesap aktivasyon bağlantısı e-posta adresinize ({email}) gönderildi. Eğer e-postayı almadıysanız, lütfen şifrenizi tekrar girin ve doğrulama postasını yeniden göndermek için aşağıdaki butona tıklayın.",
             "resendValidationEmailTip": "Eğer e-postayı almadıysanız, lütfen şifrenizi tekrar girin ve doğrulama postasını şu adrese yeniden göndermek için aşağıdaki butona tıklayın: {email}",
-            "oauth2bindTip": "{providerName} kullanarak {userName} hesabına giriş yapıyorsunuz. Doğrulamak için lütfen ezBookkeeping şifrenizi girin."
+            "oauth2bindTip": "{providerName} kullanarak {userName} hesabına giriş yapıyorsunuz. Doğrulamak için lütfen Split Chill AI şifrenizi girin."
         }
     },
     "dataExport": {
-        "defaultExportFilename": "ezBookkeeping_disa_aktarim_verisi",
-        "exportFilename": "ezBookkeeping_{nickname}_disa_aktarim_verisi",
-        "defaultExportStatisticsFileName": "ezBookkeeping_istatistik_verisi",
-        "exportStatisticsFileName": "ezBookkeeping_{nickname}_istatistik_verisi",
-        "defaultExportReconciliationStatementsFileName": "ezBookkeeping_mutabakat_ekstreleri",
-        "exportReconciliationStatementsFileName": "ezBookkeeping_{nickname}_mutabakat_ekstreleri",
-        "defaultImportDataMappingFileName": "ezBookkeeping_ice_aktarim_eslemesi",
-        "defaultImportHandlingScript": "ezBookkeeping_isleme_betigi",
-        "defaultImportReplaceRuleFileName": "ezBookkeeping_ice_aktarim_degistirme_kurali",
-        "defaultImportCheckResultFileName": "ezBookkeeping_import_check_result"
+        "defaultExportFilename": "Split Chill AI_disa_aktarim_verisi",
+        "exportFilename": "Split Chill AI_{nickname}_disa_aktarim_verisi",
+        "defaultExportStatisticsFileName": "Split Chill AI_istatistik_verisi",
+        "exportStatisticsFileName": "Split Chill AI_{nickname}_istatistik_verisi",
+        "defaultExportReconciliationStatementsFileName": "Split Chill AI_mutabakat_ekstreleri",
+        "exportReconciliationStatementsFileName": "Split Chill AI_{nickname}_mutabakat_ekstreleri",
+        "defaultImportDataMappingFileName": "Split Chill AI_ice_aktarim_eslemesi",
+        "defaultImportHandlingScript": "Split Chill AI_isleme_betigi",
+        "defaultImportReplaceRuleFileName": "Split Chill AI_ice_aktarim_degistirme_kurali",
+        "defaultImportCheckResultFileName": "Split Chill AI_import_check_result"
     },
     "calendar": {
         "Gregorian": "Miladi",
@@ -1618,8 +1618,8 @@
     "Change Language": "Dili Değiştir",
     "Date is too early": "Tarih çok erken",
     "User Canceled": "Kullanıcı İptal Etti",
-    "Welcome to ezBookkeeping": "ezBookkeeping'e Hoş Geldiniz",
-    "Please log in with your ezBookkeeping account": "Lütfen ezBookkeeping hesabınızla giriş yapın",
+    "Welcome to Split Chill AI": "Split Chill AI'e Hoş Geldiniz",
+    "Please log in with your Split Chill AI account": "Lütfen Split Chill AI hesabınızla giriş yapın",
     "Unlock Application": "Uygulamanın Kilidini Aç",
     "Please enter your PIN code or use WebAuthn to unlock application": "Uygulamanın kilidini açmak için PIN kodunuzu girin veya WebAuthn kullanın",
     "Please enter your PIN code to unlock application": "Uygulamanın kilidini açmak için PIN kodunuzu girin",
@@ -1966,13 +1966,13 @@
     "Filter Description": "Açıklamayı Filtrele",
     "How to import this file?": "Bu dosya nasıl içe aktarılır?",
     "How to export this file?": "Bu dosya nasıl dışa aktarılır?",
-    "ezBookkeeping File Format": "ezBookkeeping Dosya Formatı",
+    "Split Chill AI File Format": "Split Chill AI Dosya Formatı",
     "Custom File Format": "Özel Dosya Formatı",
     "General Data Exchange Format": "Genel Veri Değişim Formatı",
     "General Bank Statement Format": "Genel Banka Ekstresi Formatı",
     "Other Bank/Payment App Statement File": "Diğer Banka/Ödeme Uygulaması Ekstre Dosyası",
     "Other Finance App File Format": "Diğer Finans Uygulaması Dosya Formatı",
-    "ezbookkeeping Data Export File": "ezBookkeeping Veri Dışa Aktarım Dosyası",
+    "Split Chill AI Data Export File": "Split Chill AI Veri Dışa Aktarım Dosyası",
     "Excel Workbook File": "Excel Çalışma Kitabı Dosyası",
     "Open Financial Exchange (OFX) File": "Open Financial Exchange (OFX) Dosyası",
     "Quicken Financial Exchange (QFX) File": "Quicken Financial Exchange (QFX) Dosyası",

@@ -1,10 +1,10 @@
-package feidee
+﻿package feidee
 
 import (
-	"github.com/mayswind/ezbookkeeping/pkg/converters/datatable"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/datatable"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 var feideeMymoneyTransactionTypeNameMapping = map[models.TransactionType]string{
@@ -16,16 +16,16 @@ var feideeMymoneyTransactionTypeNameMapping = map[models.TransactionType]string{
 
 var feideeMymoneyTransactionTypeModifyOutstandingBalanceName = "负债变更"
 
-// feideeMymoneyTransactionDataRowParser defines the structure of feidee mymoney transaction data row parser
+
 type feideeMymoneyTransactionDataRowParser struct {
 }
 
-// GetAddedColumns returns the added columns after converting the data row
+
 func (p *feideeMymoneyTransactionDataRowParser) GetAddedColumns() []datatable.TransactionDataTableColumn {
 	return nil
 }
 
-// Parse returns the converted transaction data row
+
 func (p *feideeMymoneyTransactionDataRowParser) Parse(data map[datatable.TransactionDataTableColumn]string) (rowData map[datatable.TransactionDataTableColumn]string, rowDataValid bool, err error) {
 	rowData = make(map[datatable.TransactionDataTableColumn]string, len(data))
 
@@ -44,7 +44,7 @@ func (p *feideeMymoneyTransactionDataRowParser) Parse(data map[datatable.Transac
 			return nil, false, errs.ErrAmountInvalid
 		}
 
-		// balance modification transaction in feidee mymoney app is not the opening balance transaction, it can be added many times
+		
 		if amount >= 0 {
 			rowData[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE] = feideeMymoneyTransactionTypeNameMapping[models.TRANSACTION_TYPE_INCOME]
 		} else {
@@ -58,7 +58,7 @@ func (p *feideeMymoneyTransactionDataRowParser) Parse(data map[datatable.Transac
 			return nil, false, errs.ErrAmountInvalid
 		}
 
-		// outstanding balance modification transaction in feidee mymoney app is not the opening balance transaction, it can be added many times
+		
 		if amount >= 0 {
 			rowData[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE] = feideeMymoneyTransactionTypeNameMapping[models.TRANSACTION_TYPE_EXPENSE]
 		} else {
@@ -70,7 +70,7 @@ func (p *feideeMymoneyTransactionDataRowParser) Parse(data map[datatable.Transac
 	return rowData, true, nil
 }
 
-// Parse returns the converted transaction data row
+
 func (p *feideeMymoneyTransactionDataRowParser) getLongDateTime(str string) string {
 	if utils.IsValidLongDateTimeFormat(str) {
 		return str
@@ -87,7 +87,7 @@ func (p *feideeMymoneyTransactionDataRowParser) getLongDateTime(str string) stri
 	return str
 }
 
-// createFeideeMymoneyTransactionDataRowParser returns feidee mymoney transaction data row parser
+
 func createFeideeMymoneyTransactionDataRowParser() datatable.TransactionDataRowParser {
 	return &feideeMymoneyTransactionDataRowParser{}
 }

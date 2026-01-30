@@ -1,4 +1,4 @@
-package api
+﻿package api
 
 import (
 	"strings"
@@ -6,19 +6,19 @@ import (
 
 	"github.com/gin-gonic/gin/binding"
 
-	"github.com/mayswind/ezbookkeeping/pkg/avatars"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/locales"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/services"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
-	"github.com/mayswind/ezbookkeeping/pkg/validators"
+	"github.com/Shavitjnr/split-chill-ai/pkg/avatars"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/locales"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/services"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/validators"
 )
 
-// UsersApi represents user api
+
 type UsersApi struct {
 	ApiUsingConfig
 	ApiWithUserInfo
@@ -27,7 +27,7 @@ type UsersApi struct {
 	accounts *services.AccountService
 }
 
-// Initialize a user api singleton instance
+
 var (
 	Users = &UsersApi{
 		ApiUsingConfig: ApiUsingConfig{
@@ -47,7 +47,7 @@ var (
 	}
 )
 
-// UserRegisterHandler saves a new user by request parameters
+
 func (a *UsersApi) UserRegisterHandler(c *core.WebContext) (any, *errs.Error) {
 	if !a.CurrentConfig().EnableUserRegister {
 		return nil, errs.ErrUserRegistrationNotAllowed
@@ -149,7 +149,7 @@ func (a *UsersApi) UserRegisterHandler(c *core.WebContext) (any, *errs.Error) {
 	return authResp, nil
 }
 
-// UserEmailVerifyHandler sets user email address verified
+
 func (a *UsersApi) UserEmailVerifyHandler(c *core.WebContext) (any, *errs.Error) {
 	var userVerifyEmailReq models.UserVerifyEmailRequest
 	err := c.ShouldBindJSON(&userVerifyEmailReq)
@@ -214,7 +214,7 @@ func (a *UsersApi) UserEmailVerifyHandler(c *core.WebContext) (any, *errs.Error)
 	return resp, nil
 }
 
-// UserProfileHandler returns user profile of current user
+
 func (a *UsersApi) UserProfileHandler(c *core.WebContext) (any, *errs.Error) {
 	uid := c.GetCurrentUid()
 	user, err := a.users.GetUserById(c, uid)
@@ -231,7 +231,7 @@ func (a *UsersApi) UserProfileHandler(c *core.WebContext) (any, *errs.Error) {
 	return userResp, nil
 }
 
-// UserUpdateProfileHandler saves user profile by request parameters for current user
+
 func (a *UsersApi) UserUpdateProfileHandler(c *core.WebContext) (any, *errs.Error) {
 	var userUpdateReq models.UserProfileUpdateRequest
 	err := c.ShouldBindJSON(&userUpdateReq)
@@ -600,7 +600,7 @@ func (a *UsersApi) UserUpdateProfileHandler(c *core.WebContext) (any, *errs.Erro
 	return resp, nil
 }
 
-// UserUpdateAvatarHandler saves user avatar by request parameters for current user
+
 func (a *UsersApi) UserUpdateAvatarHandler(c *core.WebContext) (any, *errs.Error) {
 	uid := c.GetCurrentUid()
 	user, err := a.users.GetUserById(c, uid)
@@ -667,7 +667,7 @@ func (a *UsersApi) UserUpdateAvatarHandler(c *core.WebContext) (any, *errs.Error
 	return userResp, nil
 }
 
-// UserRemoveAvatarHandler removes user avatar by request parameters for current user
+
 func (a *UsersApi) UserRemoveAvatarHandler(c *core.WebContext) (any, *errs.Error) {
 	uid := c.GetCurrentUid()
 	user, err := a.users.GetUserById(c, uid)
@@ -700,7 +700,7 @@ func (a *UsersApi) UserRemoveAvatarHandler(c *core.WebContext) (any, *errs.Error
 	return userResp, nil
 }
 
-// UserSendVerifyEmailByUnloginUserHandler sends unlogin user verify email
+
 func (a *UsersApi) UserSendVerifyEmailByUnloginUserHandler(c *core.WebContext) (any, *errs.Error) {
 	if !a.CurrentConfig().EnableUserVerifyEmail {
 		return nil, errs.ErrEmailValidationNotAllowed
@@ -756,7 +756,7 @@ func (a *UsersApi) UserSendVerifyEmailByUnloginUserHandler(c *core.WebContext) (
 	return true, nil
 }
 
-// UserSendVerifyEmailByLoginedUserHandler sends logined user verify email
+
 func (a *UsersApi) UserSendVerifyEmailByLoginedUserHandler(c *core.WebContext) (any, *errs.Error) {
 	if !a.CurrentConfig().EnableUserVerifyEmail {
 		return nil, errs.ErrEmailValidationNotAllowed
@@ -800,7 +800,7 @@ func (a *UsersApi) UserSendVerifyEmailByLoginedUserHandler(c *core.WebContext) (
 	return true, nil
 }
 
-// UserGetAvatarHandler returns user avatar data for current user
+
 func (a *UsersApi) UserGetAvatarHandler(c *core.WebContext) ([]byte, string, *errs.Error) {
 	fileName := c.Param("fileName")
 	fileExtension := utils.GetFileNameExtension(fileName)

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <f7-sheet swipe-to-close swipe-handler=".swipe-handler" class="numpad-sheet" style="height: auto"
               :opened="show" @sheet:open="onSheetOpen" @sheet:closed="onSheetClosed">
         <div class="swipe-handler"></div>
@@ -365,8 +365,8 @@ function paste(): void {
 
         currentValue.value = getStringValue(parsedAmount, false);
     }).catch(error => {
-        // Do not set pastingAmount to false here
-        // In iOS, system will show the paste context menu, if user click outside, the paste action should not be triggered again
+        
+        
         logger.error('failed to read clipboard text', error);
     });
 }

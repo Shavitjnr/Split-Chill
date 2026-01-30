@@ -1,4 +1,4 @@
-package exchangerates
+﻿package exchangerates
 
 import (
 	"encoding/json"
@@ -6,12 +6,12 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
-	"github.com/mayswind/ezbookkeeping/pkg/validators"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/validators"
 )
 
 const centralBankOfMyanmarExchangeRateUrl = "https://forex.cbm.gov.mm/api/latest"
@@ -28,18 +28,18 @@ var centralBankOfMyanmarSpecialCurrencyUnits = map[string]int32{
 	"VND": 100,
 }
 
-// CentralBankOfMyanmarDataSource defines the structure of exchange rates data source of central bank of Myanmar
+
 type CentralBankOfMyanmarDataSource struct {
 	HttpExchangeRatesDataSource
 }
 
-// CentralBankOfMyanmarExchangeRate represents the exchange rate data from central bank of Myanmar
+
 type CentralBankOfMyanmarExchangeRate struct {
 	Timestamp     string            `json:"timestamp"`
 	ExchangeRates map[string]string `json:"rates"`
 }
 
-// ToLatestExchangeRateResponse returns a view-object according to original data from central bank of Myanmar
+
 func (e *CentralBankOfMyanmarExchangeRate) ToLatestExchangeRateResponse(c core.Context) *models.LatestExchangeRateResponse {
 	exchangeRates := make(models.LatestExchangeRateSlice, 0, len(e.ExchangeRates))
 
@@ -75,7 +75,7 @@ func (e *CentralBankOfMyanmarExchangeRate) ToLatestExchangeRateResponse(c core.C
 	return latestExchangeRateResp
 }
 
-// BuildLatestExchangeRate returns a data pair according to original data from central bank of Myanmar
+
 func (e *CentralBankOfMyanmarExchangeRate) BuildLatestExchangeRate(c core.Context, currencyCode string, exchangeRate string) *models.LatestExchangeRate {
 	rate, err := utils.StringToFloat64(strings.ReplaceAll(exchangeRate, ",", ""))
 
@@ -107,7 +107,7 @@ func (e *CentralBankOfMyanmarExchangeRate) BuildLatestExchangeRate(c core.Contex
 	}
 }
 
-// BuildRequests returns the central bank of Myanmar exchange rates http requests
+
 func (e *CentralBankOfMyanmarDataSource) BuildRequests() ([]*http.Request, error) {
 	req, err := http.NewRequest("GET", centralBankOfMyanmarExchangeRateUrl, nil)
 
@@ -118,7 +118,7 @@ func (e *CentralBankOfMyanmarDataSource) BuildRequests() ([]*http.Request, error
 	return []*http.Request{req}, nil
 }
 
-// Parse returns the common response entity according to the central bank of Myanmar data source raw response
+
 func (e *CentralBankOfMyanmarDataSource) Parse(c core.Context, content []byte) (*models.LatestExchangeRateResponse, error) {
 	centralBankOfMyanmarData := &CentralBankOfMyanmarExchangeRate{}
 	err := json.Unmarshal(content, centralBankOfMyanmarData)

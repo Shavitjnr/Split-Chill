@@ -1,4 +1,4 @@
-import { useI18n as useVueI18n } from 'vue-i18n';
+﻿import { useI18n as useVueI18n } from 'vue-i18n';
 import moment from 'moment-timezone';
 
 import type { NameValue, TypeAndName, TypeAndDisplayName, LocalizedSwitchOption } from '@/core/base.ts';
@@ -301,7 +301,7 @@ export function useI18n() {
     const userStore = useUserStore();
     const exchangeRatesStore = useExchangeRatesStore();
 
-    // private functions
+    
     function getLanguageDisplayName(languageName: string): string {
         return t(`language.${languageName}`);
     }
@@ -317,12 +317,12 @@ export function useI18n() {
             return DEFAULT_LANGUAGE;
         }
 
-        // try to match the full browser language tag with full language tag in i18n file
+        
         if (ALL_LANGUAGES[browserLanguage]) {
             return browserLanguage;
         }
 
-        // try to match the full browser language tag with language alias tags in i18n file
+        
         let alternativeLanguage = getLanguageKeyFromLanguageAlias(browserLanguage);
 
         if (alternativeLanguage && ALL_LANGUAGES[alternativeLanguage]) {
@@ -331,17 +331,17 @@ export function useI18n() {
 
         const languageTagParts = browserLanguage.split('-');
 
-        // maybe browser language is language-script-region format
+        
         if (languageTagParts.length > 2) {
-            // fallback to use language tag with language-script / language-region format
+            
             browserLanguage = languageTagParts[0] + '-' + languageTagParts[1];
 
-            // try to match language tag in language-script / language-region format with full language tag in i18n file
+            
             if (ALL_LANGUAGES[browserLanguage]) {
                 return browserLanguage;
             }
 
-            // try to match language tag in language-script / language-region format with language alias tags in i18n file
+            
             alternativeLanguage = getLanguageKeyFromLanguageAlias(browserLanguage);
 
             if (alternativeLanguage && ALL_LANGUAGES[alternativeLanguage]) {
@@ -349,16 +349,16 @@ export function useI18n() {
             }
         }
 
-        // fallback to use marco language tag
+        
         if (languageTagParts.length > 1) {
             browserLanguage = languageTagParts[0] as string;
 
-            // try to match marco language tag with full language tag in i18n file
+            
             if (ALL_LANGUAGES[browserLanguage]) {
                 return browserLanguage;
             }
 
-            // try to match marco language tag with language alias tags in i18n file
+            
             alternativeLanguage = getLanguageKeyFromLanguageAlias(browserLanguage);
 
             if (alternativeLanguage && ALL_LANGUAGES[alternativeLanguage]) {
@@ -366,14 +366,14 @@ export function useI18n() {
             }
         }
 
-        // fallback to match marco language tag with marco language tag in i18n file
+        
         alternativeLanguage = getLanguageKeyFromMarcoLanguageTag(browserLanguage);
 
         if (alternativeLanguage && ALL_LANGUAGES[alternativeLanguage]) {
             return alternativeLanguage;
         }
 
-        // fallback to use the default language
+        
         return DEFAULT_LANGUAGE;
     }
 
@@ -855,7 +855,7 @@ export function useI18n() {
         return alternateDate;
     }
 
-    // public functions
+    
     function translateIf(text: string | undefined, isTranslate?: boolean): string {
         if (!isDefined(text)) {
             return '';
@@ -1325,7 +1325,7 @@ export function useI18n() {
 
         if (categoryType === CategoryType.Expense) {
             defaultAmountName = PresetAmountColor.DefaultExpenseColor.name;
-        } else if (categoryType === CategoryType.Income) { // income
+        } else if (categoryType === CategoryType.Income) { 
             defaultAmountName = PresetAmountColor.DefaultIncomeColor.name;
         }
 
@@ -2341,21 +2341,21 @@ export function useI18n() {
     }
 
     return {
-        // common functions
+        
         tt: t,
         ti: translateIf,
         te: translateError,
         joinMultiText,
         getServerMultiLanguageConfigContent,
-        // get current language info
+        
         getCurrentLanguageTag,
         getCurrentLanguageInfo,
         getCurrentLanguageDisplayName,
         getCurrentLanguageTextDirection,
-        // get localization default type
+        
         getDefaultCurrency,
         getDefaultFirstDayOfWeek,
-        // get all localized info of specified type
+        
         getAllLanguageOptions,
         getAllEnableDisableOptions,
         getAllCurrencies,
@@ -2406,7 +2406,7 @@ export function useI18n() {
         getAllTransactionExplorerDataDimensions: (operators?: TransactionExplorerDataDimension[]) => getLocalizedNameValue(operators ?? TransactionExplorerDataDimension.values()),
         getAllTransactionExplorerValueMetrics: (operators?: TransactionExplorerValueMetric[]) => getLocalizedNameValue(operators ?? TransactionExplorerValueMetric.values()),
         getAllTransactionExplorerChartTypes: (operators?: TransactionExplorerChartType[]) => getLocalizedNameValue(operators ?? TransactionExplorerChartType.values()),
-        // get localized info
+        
         getLanguageInfo,
         getMonthShortName,
         getMonthLongName,
@@ -2444,11 +2444,11 @@ export function useI18n() {
         isLongTimeHourTwoDigits,
         isLongTimeMinuteTwoDigits,
         isLongTimeSecondTwoDigits,
-        // format date time (by calendar display type) functions
+        
         getCalendarDisplayShortYearFromDateTime: (dateTime: DateTime, numeralSystem?: NumeralSystem) => formatDateTime(dateTime, getLocalizedShortYearFormat(), getDateTimeFormatOptions({ calendarType: getCurrentCalendarDisplayType().primaryCalendarType, numeralSystem: numeralSystem })),
         getCalendarDisplayShortMonthFromDateTime: (dateTime: DateTime, numeralSystem?: NumeralSystem) => formatDateTime(dateTime, 'MMM', getDateTimeFormatOptions({ calendarType: getCurrentCalendarDisplayType().primaryCalendarType, numeralSystem: numeralSystem })),
         getCalendarDisplayDayOfMonthFromDateTime: (dateTime: DateTime, numeralSystem?: NumeralSystem) => formatDateTime(dateTime, getLocalizedShortDayFormat(), getDateTimeFormatOptions({ calendarType: getCurrentCalendarDisplayType().primaryCalendarType, numeralSystem: numeralSystem })),
-        // format date time (by date display type) functions
+        
         parseDateTimeFromLongDateTime: (dateTime: string) => parseDateTimeFromString(dateTime, getLocalizedLongDateFormat() + ' ' + getLocalizedLongTimeFormat()),
         parseDateTimeFromShortDateTime: (dateTime: string) => parseDateTimeFromString(dateTime, getLocalizedShortDateFormat() + ' ' + getLocalizedShortTimeFormat()),
         formatDateTimeToLongDateTime: (dateTime: DateTime) => formatDateTime(dateTime, getLocalizedLongDateFormat() + ' ' + getLocalizedLongTimeFormat(), getDateTimeFormatOptions()),
@@ -2460,7 +2460,7 @@ export function useI18n() {
         formatDateTimeToLongTime: (dateTime: DateTime) => formatDateTime(dateTime, getLocalizedLongTimeFormat(), getDateTimeFormatOptions()),
         formatDateTimeToShortTime: (dateTime: DateTime) => formatDateTime(dateTime, getLocalizedShortTimeFormat(), getDateTimeFormatOptions()),
         formatGregorianTextualYearMonthDayToLongDate: (date: TextualYearMonthDay) => formatGregorianCalendarYearDashMonthDashDay(date, getLocalizedLongDateFormat(), getDateTimeFormatOptions()),
-        // format date time (Gregorian calendar and Gregorian-like calendar) functions
+        
         formatDateTimeToGregorianLikeLongYear: (dateTime: DateTime) => formatDateTime(dateTime, getLocalizedLongYearFormat(), getDateTimeFormatOptions({ calendarType: getGregorianLikeCalendarType() })),
         formatDateTimeToGregorianLikeShortYear: (dateTime: DateTime) => formatDateTime(dateTime, getLocalizedShortYearFormat(), getDateTimeFormatOptions({ calendarType: getGregorianLikeCalendarType() })),
         formatDateTimeToGregorianLikeLongYearMonth: (dateTime: DateTime) => formatDateTime(dateTime, getLocalizedLongYearMonthFormat(), getDateTimeFormatOptions({ calendarType: getGregorianLikeCalendarType() })),
@@ -2473,14 +2473,14 @@ export function useI18n() {
         formatDateTimeToGregorianLikeFiscalYear: (dateTime: DateTime) => formatUnixTimeToGregorianLikeFiscalYear(dateTime.getUnixTime()),
         formatGregorianYearToGregorianLikeFiscalYear,
         formatFiscalYearStartToGregorianLikeLongMonth,
-        // format date time (Gregorian calendar) functions
+        
         formatDateTimeToGregorianDefaultDateTime: (dateTime: DateTime) => formatDateTime(dateTime, KnownDateTimeFormat.DefaultDateTime.format, getDateTimeFormatOptions({ numeralSystem: NumeralSystem.WesternArabicNumerals, calendarType: CalendarType.Gregorian })),
-        // other format date time functions
+        
         formatDateRange,
         getTimezoneDifferenceDisplayText,
         getCalendarAlternateDates,
         getCalendarAlternateDate,
-        // format amount/number functions
+        
         parseAmountFromLocalizedNumerals: (value: string) => getParsedAmountNumber(value),
         parseAmountFromWesternArabicNumerals: (value: string) => getParsedAmountNumber(value, NumeralSystem.WesternArabicNumerals),
         formatAmountToLocalizedNumerals: (value: number, currencyCode?: string) => getFormattedAmount(value, undefined, undefined, currencyCode),
@@ -2498,11 +2498,11 @@ export function useI18n() {
         getAdaptiveAmountRate,
         getAmountPrependAndAppendText,
         getCategorizedAccountsWithDisplayBalance,
-        // other format functions
+        
         getLocalizedFileEncodingName,
         getLocalizedOAuth2ProviderName,
         getLocalizedOAuth2LoginText,
-        // localization setting functions
+        
         setLanguage,
         setTimeZone,
         initLocale

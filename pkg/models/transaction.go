@@ -1,21 +1,21 @@
-package models
+﻿package models
 
 import (
 	"fmt"
 	"strings"
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 const MaximumTagsCountOfTransaction = 10
 const MaximumPicturesCountOfTransaction = 10
 
-// TransactionType represents transaction type
+
 type TransactionType byte
 
-// Transaction types
+
 const (
 	TRANSACTION_TYPE_MODIFY_BALANCE TransactionType = 1
 	TRANSACTION_TYPE_INCOME         TransactionType = 2
@@ -23,7 +23,7 @@ const (
 	TRANSACTION_TYPE_TRANSFER       TransactionType = 4
 )
 
-// ToTransactionDbType returns the transaction db type for this enum
+
 func (t TransactionType) ToTransactionDbType() (TransactionDbType, error) {
 	if t == TRANSACTION_TYPE_MODIFY_BALANCE {
 		return TRANSACTION_DB_TYPE_MODIFY_BALANCE, nil
@@ -38,19 +38,19 @@ func (t TransactionType) ToTransactionDbType() (TransactionDbType, error) {
 	}
 }
 
-// TransactionRelatedAccountType represents related account type in transaction
+
 type TransactionRelatedAccountType byte
 
-// Transaction relation types
+
 const (
 	TRANSACTION_RELATED_ACCOUNT_TYPE_TRANSFER_FROM TransactionRelatedAccountType = 1
 	TRANSACTION_RELATED_ACCOUNT_TYPE_TRANSFER_TO   TransactionRelatedAccountType = 2
 )
 
-// TransactionDbType represents transaction type in database
+
 type TransactionDbType byte
 
-// Transaction db types
+
 const (
 	TRANSACTION_DB_TYPE_MODIFY_BALANCE TransactionDbType = 1
 	TRANSACTION_DB_TYPE_INCOME         TransactionDbType = 2
@@ -59,7 +59,7 @@ const (
 	TRANSACTION_DB_TYPE_TRANSFER_IN    TransactionDbType = 5
 )
 
-// String returns a textual representation of the transaction types for db enum
+
 func (t TransactionDbType) String() string {
 	switch t {
 	case TRANSACTION_DB_TYPE_MODIFY_BALANCE:
@@ -77,7 +77,7 @@ func (t TransactionDbType) String() string {
 	}
 }
 
-// ToTransactionType returns the transaction type for this db enum
+
 func (t TransactionDbType) ToTransactionType() (TransactionType, error) {
 	if t == TRANSACTION_DB_TYPE_MODIFY_BALANCE {
 		return TRANSACTION_TYPE_MODIFY_BALANCE, nil
@@ -94,7 +94,7 @@ func (t TransactionDbType) ToTransactionType() (TransactionType, error) {
 	}
 }
 
-// ToTransactionRelatedAccountType returns the related account type for this db enum
+
 func (t TransactionDbType) ToTransactionRelatedAccountType() (TransactionRelatedAccountType, error) {
 	if t == TRANSACTION_DB_TYPE_TRANSFER_OUT {
 		return TRANSACTION_RELATED_ACCOUNT_TYPE_TRANSFER_TO, nil
@@ -105,13 +105,13 @@ func (t TransactionDbType) ToTransactionRelatedAccountType() (TransactionRelated
 	}
 }
 
-// TransactionTagFilterValue represents transaction tag filter value for no tag
+
 const TransactionNoTagFilterValue = "none"
 
-// TransactionTagFilterType represents transaction tag filter type
+
 type TransactionTagFilterType byte
 
-// Transaction tag filter types
+
 const (
 	TRANSACTION_TAG_FILTER_HAS_ANY     TransactionTagFilterType = 0
 	TRANSACTION_TAG_FILTER_HAS_ALL     TransactionTagFilterType = 1
@@ -119,7 +119,7 @@ const (
 	TRANSACTION_TAG_FILTER_NOT_HAS_ALL TransactionTagFilterType = 3
 )
 
-// Transaction represents transaction data stored in database
+
 type Transaction struct {
 	TransactionId        int64             `xorm:"PK"`
 	Uid                  int64             `xorm:"UNIQUE(UQE_transaction_uid_time) INDEX(IDX_transaction_uid_deleted_time) INDEX(IDX_transaction_uid_deleted_type_time) INDEX(IDX_transaction_uid_deleted_type_account_id_time) INDEX(IDX_transaction_uid_deleted_category_id_time) INDEX(IDX_transaction_uid_deleted_account_id_time) INDEX(IDX_transaction_uid_deleted_time_longitude_latitude) NOT NULL"`
@@ -144,20 +144,20 @@ type Transaction struct {
 	DeletedUnixTime      int64
 }
 
-// TransactionWithAccountBalance represents a transaction item with account balance
+
 type TransactionWithAccountBalance struct {
 	*Transaction
 	AccountOpeningBalance int64
 	AccountClosingBalance int64
 }
 
-// TransactionGeoLocationRequest represents all parameters of transaction geographic location info update request
+
 type TransactionGeoLocationRequest struct {
 	Latitude  float64 `json:"latitude" binding:"required"`
 	Longitude float64 `json:"longitude" binding:"required"`
 }
 
-// TransactionCreateRequest represents all parameters of transaction creation request
+
 type TransactionCreateRequest struct {
 	Type                 TransactionType                `json:"type" binding:"required"`
 	CategoryId           int64                          `json:"categoryId,string"`
@@ -175,7 +175,7 @@ type TransactionCreateRequest struct {
 	ClientSessionId      string                         `json:"clientSessionId"`
 }
 
-// TransactionModifyRequest represents all parameters of transaction modification request
+
 type TransactionModifyRequest struct {
 	Id                   int64                          `json:"id,string" binding:"required,min=1"`
 	CategoryId           int64                          `json:"categoryId,string"`
@@ -192,13 +192,13 @@ type TransactionModifyRequest struct {
 	GeoLocation          *TransactionGeoLocationRequest `json:"geoLocation" binding:"omitempty"`
 }
 
-// TransactionImportRequest represents all parameters of transaction import request
+
 type TransactionImportRequest struct {
 	Transactions    []*TransactionCreateRequest `json:"transactions"`
 	ClientSessionId string                      `json:"clientSessionId"`
 }
 
-// TransactionImportProcessRequest represents all parameters of transaction import process request
+
 type TransactionImportProcessRequest struct {
 	ClientSessionId string `form:"client_session_id"`
 }
@@ -208,7 +208,7 @@ type TransactionTagFilter struct {
 	Type   TransactionTagFilterType
 }
 
-// TransactionCountRequest represents transaction count request
+
 type TransactionCountRequest struct {
 	Type         TransactionType `form:"type" binding:"min=0,max=4"`
 	CategoryIds  string          `form:"category_ids"`
@@ -216,11 +216,11 @@ type TransactionCountRequest struct {
 	TagFilter    string          `form:"tag_filter" binding:"validTagFilter"`
 	AmountFilter string          `form:"amount_filter" binding:"validAmountFilter"`
 	Keyword      string          `form:"keyword"`
-	MaxTime      int64           `form:"max_time" binding:"min=0"` // Transaction time sequence id
-	MinTime      int64           `form:"min_time" binding:"min=0"` // Transaction time sequence id
+	MaxTime      int64           `form:"max_time" binding:"min=0"` 
+	MinTime      int64           `form:"min_time" binding:"min=0"` 
 }
 
-// TransactionListByMaxTimeRequest represents all parameters of transaction listing by max time request
+
 type TransactionListByMaxTimeRequest struct {
 	Type         TransactionType `form:"type" binding:"min=0,max=4"`
 	CategoryIds  string          `form:"category_ids"`
@@ -228,8 +228,8 @@ type TransactionListByMaxTimeRequest struct {
 	TagFilter    string          `form:"tag_filter" binding:"validTagFilter"`
 	AmountFilter string          `form:"amount_filter" binding:"validAmountFilter"`
 	Keyword      string          `form:"keyword"`
-	MaxTime      int64           `form:"max_time" binding:"min=0"` // Transaction time sequence id
-	MinTime      int64           `form:"min_time" binding:"min=0"` // Transaction time sequence id
+	MaxTime      int64           `form:"max_time" binding:"min=0"` 
+	MinTime      int64           `form:"min_time" binding:"min=0"` 
 	Page         int32           `form:"page" binding:"min=0"`
 	Count        int32           `form:"count" binding:"required,min=1,max=50"`
 	WithCount    bool            `form:"with_count"`
@@ -239,7 +239,7 @@ type TransactionListByMaxTimeRequest struct {
 	TrimTag      bool            `form:"trim_tag"`
 }
 
-// TransactionListInMonthByPageRequest represents all parameters of transaction listing by month request
+
 type TransactionListInMonthByPageRequest struct {
 	Year         int32           `form:"year" binding:"required,min=1"`
 	Month        int32           `form:"month" binding:"required,min=1"`
@@ -255,7 +255,7 @@ type TransactionListInMonthByPageRequest struct {
 	TrimTag      bool            `form:"trim_tag"`
 }
 
-// TransactionAllListRequest represents all parameters of all transaction listing request
+
 type TransactionAllListRequest struct {
 	Type         TransactionType `form:"type" binding:"min=0,max=4"`
 	CategoryIds  string          `form:"category_ids"`
@@ -271,14 +271,14 @@ type TransactionAllListRequest struct {
 	TrimTag      bool            `form:"trim_tag"`
 }
 
-// TransactionReconciliationStatementRequest represents all parameters of transaction reconciliation statement request
+
 type TransactionReconciliationStatementRequest struct {
 	AccountId int64 `form:"account_id,string" binding:"required,min=1"`
 	StartTime int64 `form:"start_time"`
 	EndTime   int64 `form:"end_time"`
 }
 
-// TransactionStatisticRequest represents all parameters of transaction statistic request
+
 type TransactionStatisticRequest struct {
 	StartTime              int64  `form:"start_time" binding:"min=0"`
 	EndTime                int64  `form:"end_time" binding:"min=0"`
@@ -287,7 +287,7 @@ type TransactionStatisticRequest struct {
 	UseTransactionTimezone bool   `form:"use_transaction_timezone"`
 }
 
-// TransactionStatisticTrendsRequest represents all parameters of transaction statistic trends request
+
 type TransactionStatisticTrendsRequest struct {
 	YearMonthRangeRequest
 	TagFilter              string `form:"tag_filter" binding:"validTagFilter"`
@@ -295,13 +295,13 @@ type TransactionStatisticTrendsRequest struct {
 	UseTransactionTimezone bool   `form:"use_transaction_timezone"`
 }
 
-// TransactionStatisticAssetTrendsRequest represents all parameters of transaction statistic asset trends request
+
 type TransactionStatisticAssetTrendsRequest struct {
 	StartTime int64 `form:"start_time"`
 	EndTime   int64 `form:"end_time"`
 }
 
-// TransactionAmountsRequest represents all parameters of transaction amounts request
+
 type TransactionAmountsRequest struct {
 	Query                  string `form:"query"`
 	ExcludeAccountIds      string `form:"exclude_account_ids"`
@@ -309,14 +309,14 @@ type TransactionAmountsRequest struct {
 	UseTransactionTimezone bool   `form:"use_transaction_timezone"`
 }
 
-// TransactionAmountsRequestItem represents an item of transaction amounts request
+
 type TransactionAmountsRequestItem struct {
 	Name      string
 	StartTime int64
 	EndTime   int64
 }
 
-// TransactionGetRequest represents all parameters of transaction getting request
+
 type TransactionGetRequest struct {
 	Id           int64 `form:"id,string" binding:"required,min=1"`
 	WithPictures bool  `form:"with_pictures"`
@@ -325,30 +325,30 @@ type TransactionGetRequest struct {
 	TrimTag      bool  `form:"trim_tag"`
 }
 
-// TransactionMoveBetweenAccountsRequest represents all parameters of moving all transactions between accounts request
+
 type TransactionMoveBetweenAccountsRequest struct {
 	FromAccountId int64 `json:"fromAccountId,string" binding:"required,min=1"`
 	ToAccountId   int64 `json:"toAccountId,string" binding:"required,min=1"`
 }
 
-// TransactionDeleteRequest represents all parameters of transaction deleting request
+
 type TransactionDeleteRequest struct {
 	Id int64 `json:"id,string" binding:"required,min=1"`
 }
 
-// YearMonthRangeRequest represents all parameters of a request with year and month range
+
 type YearMonthRangeRequest struct {
 	StartYearMonth string `form:"start_year_month"`
 	EndYearMonth   string `form:"end_year_month"`
 }
 
-// TransactionGeoLocationResponse represents a view-object of transaction geographic location info
+
 type TransactionGeoLocationResponse struct {
 	Latitude  float64 `json:"latitude"`
 	Longitude float64 `json:"longitude"`
 }
 
-// TransactionInfoResponse represents a view-object of transaction
+
 type TransactionInfoResponse struct {
 	Id                   int64                                    `json:"id,string"`
 	TimeSequenceId       int64                                    `json:"timeSequenceId,string"`
@@ -372,32 +372,32 @@ type TransactionInfoResponse struct {
 	Editable             bool                                     `json:"editable"`
 }
 
-// TransactionCountResponse represents transaction count response
+
 type TransactionCountResponse struct {
 	TotalCount int64 `json:"totalCount"`
 }
 
-// TransactionInfoPageWrapperResponse represents a response of transaction which contains items and next id
+
 type TransactionInfoPageWrapperResponse struct {
 	Items              TransactionInfoResponseSlice `json:"items"`
 	NextTimeSequenceId *int64                       `json:"nextTimeSequenceId,string"`
 	TotalCount         *int64                       `json:"totalCount,omitempty"`
 }
 
-// TransactionInfoPageWrapperResponse2 represents a response of transaction which contains items and count
+
 type TransactionInfoPageWrapperResponse2 struct {
 	Items      TransactionInfoResponseSlice `json:"items"`
 	TotalCount int64                        `json:"totalCount"`
 }
 
-// TransactionReconciliationStatementResponseItem represents a transaction reconciliation statement response
+
 type TransactionReconciliationStatementResponseItem struct {
 	*TransactionInfoResponse
 	AccountOpeningBalance int64 `json:"accountOpeningBalance"`
 	AccountClosingBalance int64 `json:"accountClosingBalance"`
 }
 
-// TransactionReconciliationStatementResponse represents the response of all transaction reconciliation statement response
+
 type TransactionReconciliationStatementResponse struct {
 	Transactions   []*TransactionReconciliationStatementResponseItem `json:"transactions"`
 	TotalInflows   int64                                             `json:"totalInflows"`
@@ -406,14 +406,14 @@ type TransactionReconciliationStatementResponse struct {
 	ClosingBalance int64                                             `json:"closingBalance"`
 }
 
-// TransactionStatisticResponse represents transaction statistic response
+
 type TransactionStatisticResponse struct {
 	StartTime int64                               `json:"startTime"`
 	EndTime   int64                               `json:"endTime"`
 	Items     []*TransactionStatisticResponseItem `json:"items"`
 }
 
-// TransactionStatisticResponseItem represents total amount item for a response
+
 type TransactionStatisticResponseItem struct {
 	CategoryId         int64                         `json:"categoryId,string"`
 	AccountId          int64                         `json:"accountId,string"`
@@ -422,14 +422,14 @@ type TransactionStatisticResponseItem struct {
 	TotalAmount        int64                         `json:"amount"`
 }
 
-// TransactionStatisticTrendsResponseItem represents the data within each statistic interval
+
 type TransactionStatisticTrendsResponseItem struct {
 	Year  int32                               `json:"year"`
 	Month int32                               `json:"month"`
 	Items []*TransactionStatisticResponseItem `json:"items"`
 }
 
-// TransactionStatisticAssetTrendsResponseItem represents the data within each statistic interval
+
 type TransactionStatisticAssetTrendsResponseItem struct {
 	Year  int32                                              `json:"year"`
 	Month int32                                              `json:"month"`
@@ -437,35 +437,35 @@ type TransactionStatisticAssetTrendsResponseItem struct {
 	Items []*TransactionStatisticAssetTrendsResponseDataItem `json:"items"`
 }
 
-// TransactionStatisticAssetTrendsResponseDataItem represents an asset trends data item
+
 type TransactionStatisticAssetTrendsResponseDataItem struct {
 	AccountId             int64 `json:"accountId,string"`
 	AccountOpeningBalance int64 `json:"accountOpeningBalance"`
 	AccountClosingBalance int64 `json:"accountClosingBalance"`
 }
 
-// TransactionAmountsResponseItem represents an item of transaction amounts
+
 type TransactionAmountsResponseItem struct {
 	StartTime int64                                       `json:"startTime"`
 	EndTime   int64                                       `json:"endTime"`
 	Amounts   []*TransactionAmountsResponseItemAmountInfo `json:"amounts"`
 }
 
-// TransactionMonthAmountsResponseItem represents an item of transaction month amounts
+
 type TransactionMonthAmountsResponseItem struct {
 	Year    int32                                       `json:"year"`
 	Month   int32                                       `json:"month"`
 	Amounts []*TransactionAmountsResponseItemAmountInfo `json:"amounts"`
 }
 
-// TransactionAmountsResponseItemAmountInfo represents amount info for a response item
+
 type TransactionAmountsResponseItemAmountInfo struct {
 	Currency      string `json:"currency"`
 	IncomeAmount  int64  `json:"incomeAmount"`
 	ExpenseAmount int64  `json:"expenseAmount"`
 }
 
-// ParseTransactionTagFilter parses transaction tag filter from string
+
 func ParseTransactionTagFilter(tagFilterStr string) ([]*TransactionTagFilter, error) {
 	if tagFilterStr == "" || tagFilterStr == TransactionNoTagFilterValue {
 		return []*TransactionTagFilter{}, nil
@@ -511,7 +511,7 @@ func ParseTransactionTagFilter(tagFilterStr string) ([]*TransactionTagFilter, er
 	return transactionTagFilters, nil
 }
 
-// IsEditable returns whether this transaction can be edited
+
 func (t *Transaction) IsEditable(currentUser *User, clientTimezone *time.Location, account *Account, relatedAccount *Account) bool {
 	if currentUser == nil || !currentUser.CanEditTransactionByTransactionTime(t.TransactionTime, clientTimezone) {
 		return false
@@ -530,7 +530,7 @@ func (t *Transaction) IsEditable(currentUser *User, clientTimezone *time.Locatio
 	return true
 }
 
-// ToTransactionInfoResponse returns a view-object according to database model
+
 func (t *Transaction) ToTransactionInfoResponse(tagIds []int64, editable bool) *TransactionInfoResponse {
 	transactionType, err := t.Type.ToTransactionType()
 
@@ -583,7 +583,7 @@ func (t *Transaction) ToTransactionInfoResponse(tagIds []int64, editable bool) *
 	}
 }
 
-// GetTransactionAmountsRequestItems returns request items by query parameters
+
 func (t *TransactionAmountsRequest) GetTransactionAmountsRequestItems() ([]*TransactionAmountsRequestItem, error) {
 	items := strings.Split(t.Query, "|")
 	requestItems := make([]*TransactionAmountsRequestItem, 0, len(items))
@@ -619,7 +619,7 @@ func (t *TransactionAmountsRequest) GetTransactionAmountsRequestItems() ([]*Tran
 	return requestItems, nil
 }
 
-// GetNumericYearMonthRange returns numeric start year, start month, end year and end month
+
 func (t *YearMonthRangeRequest) GetNumericYearMonthRange() (int32, int32, int32, int32, error) {
 	var startYear, startMonth, endYear, endMonth int32
 	var err error
@@ -643,20 +643,20 @@ func (t *YearMonthRangeRequest) GetNumericYearMonthRange() (int32, int32, int32,
 	return startYear, startMonth, endYear, endMonth, nil
 }
 
-// TransactionInfoResponseSlice represents the slice data structure of TransactionInfoResponse
+
 type TransactionInfoResponseSlice []*TransactionInfoResponse
 
-// Len returns the count of items
+
 func (s TransactionInfoResponseSlice) Len() int {
 	return len(s)
 }
 
-// Swap swaps two items
+
 func (s TransactionInfoResponseSlice) Swap(i, j int) {
 	s[i], s[j] = s[j], s[i]
 }
 
-// Less reports whether the first item is less than the second one
+
 func (s TransactionInfoResponseSlice) Less(i, j int) bool {
 	if s[i].Time != s[j].Time {
 		return s[i].Time > s[j].Time
@@ -665,20 +665,20 @@ func (s TransactionInfoResponseSlice) Less(i, j int) bool {
 	return s[i].Id > s[j].Id
 }
 
-// TransactionStatisticTrendsResponseItemSlice represents the slice data structure of TransactionStatisticTrendsResponseItem
+
 type TransactionStatisticTrendsResponseItemSlice []*TransactionStatisticTrendsResponseItem
 
-// Len returns the count of items
+
 func (s TransactionStatisticTrendsResponseItemSlice) Len() int {
 	return len(s)
 }
 
-// Swap swaps two items
+
 func (s TransactionStatisticTrendsResponseItemSlice) Swap(i, j int) {
 	s[i], s[j] = s[j], s[i]
 }
 
-// Less reports whether the first item is less than the second one
+
 func (s TransactionStatisticTrendsResponseItemSlice) Less(i, j int) bool {
 	if s[i].Year != s[j].Year {
 		return s[i].Year < s[j].Year
@@ -687,20 +687,20 @@ func (s TransactionStatisticTrendsResponseItemSlice) Less(i, j int) bool {
 	return s[i].Month < s[j].Month
 }
 
-// TransactionStatisticAssetTrendsResponseItemSlice represents the slice data structure of TransactionStatisticAssetTrendsResponseItem
+
 type TransactionStatisticAssetTrendsResponseItemSlice []*TransactionStatisticAssetTrendsResponseItem
 
-// Len returns the count of items
+
 func (s TransactionStatisticAssetTrendsResponseItemSlice) Len() int {
 	return len(s)
 }
 
-// Swap swaps two items
+
 func (s TransactionStatisticAssetTrendsResponseItemSlice) Swap(i, j int) {
 	s[i], s[j] = s[j], s[i]
 }
 
-// Less reports whether the first item is less than the second one
+
 func (s TransactionStatisticAssetTrendsResponseItemSlice) Less(i, j int) bool {
 	if s[i].Year != s[j].Year {
 		return s[i].Year < s[j].Year
@@ -713,20 +713,20 @@ func (s TransactionStatisticAssetTrendsResponseItemSlice) Less(i, j int) bool {
 	return s[i].Day < s[j].Day
 }
 
-// TransactionAmountsResponseItemAmountInfoSlice represents the slice data structure of TransactionAmountsResponseItemAmountInfo
+
 type TransactionAmountsResponseItemAmountInfoSlice []*TransactionAmountsResponseItemAmountInfo
 
-// Len returns the count of items
+
 func (s TransactionAmountsResponseItemAmountInfoSlice) Len() int {
 	return len(s)
 }
 
-// Swap swaps two items
+
 func (s TransactionAmountsResponseItemAmountInfoSlice) Swap(i, j int) {
 	s[i], s[j] = s[j], s[i]
 }
 
-// Less reports whether the first item is less than the second one
+
 func (s TransactionAmountsResponseItemAmountInfoSlice) Less(i, j int) bool {
 	return strings.Compare(s[i].Currency, s[j].Currency) < 0
 }

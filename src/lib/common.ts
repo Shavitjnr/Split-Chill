@@ -1,7 +1,7 @@
-import { keys, keysIfValueEquals, values } from '@/core/base.ts';
+﻿import { keys, keysIfValueEquals, values } from '@/core/base.ts';
 import type { NameValue, TypeAndName, TypeAndDisplayName} from '@/core/base.ts';
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+
 export function isFunction(val: unknown): val is Function {
     return typeof(val) === 'function';
 }
@@ -176,7 +176,7 @@ export function getObjectOwnFieldCount(object: object): number {
         return count;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    
     for (const _ of keys(object)) {
         count++;
     }
@@ -185,9 +185,9 @@ export function getObjectOwnFieldCount(object: object): number {
 }
 
 export function replaceAll(value: string, originalValue: string, targetValue: string): string {
-    // Escape special characters in originalValue to safely use it in a regex pattern.
-    // This ensures that characters like . (dot), * (asterisk), +, ?, etc. are treated literally,
-    // rather than as special regex symbols.
+    
+    
+    
     const escapedOriginalValue = originalValue.replace(/([.*+?^=!:${}()|\-/\\])/g, '\\$1');
 
     return value.replace(new RegExp(escapedOriginalValue, 'g'), targetValue);

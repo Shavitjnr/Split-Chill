@@ -1,27 +1,27 @@
-package converters
+﻿package converters
 
 import (
-	"github.com/mayswind/ezbookkeeping/pkg/converters/alipay"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/beancount"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/camt"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/converter"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/datatable"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/default"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/dsv"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/feidee"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/fireflyIII"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/gnucash"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/iif"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/jdcom"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/mt"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/ofx"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/qif"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/wechat"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/alipay"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/beancount"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/camt"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/converter"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/datatable"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/default"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/dsv"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/feidee"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/fireflyIII"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/gnucash"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/iif"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/jdcom"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/mt"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/ofx"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/qif"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/wechat"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
 )
 
-// GetTransactionDataExporter returns the transaction data exporter according to the file type
+
 func GetTransactionDataExporter(fileType string) converter.TransactionDataExporter {
 	if fileType == "csv" {
 		return _default.DefaultTransactionDataCSVFileConverter
@@ -32,13 +32,13 @@ func GetTransactionDataExporter(fileType string) converter.TransactionDataExport
 	}
 }
 
-// GetTransactionDataImporter returns the transaction data importer according to the file type
+
 func GetTransactionDataImporter(fileType string) (converter.TransactionDataImporter, error) {
-	if fileType == "ezbookkeeping_csv" {
+	if fileType == "Split Chill AI_csv" {
 		return _default.DefaultTransactionDataCSVFileConverter, nil
-	} else if fileType == "ezbookkeeping_tsv" {
+	} else if fileType == "Split Chill AI_tsv" {
 		return _default.DefaultTransactionDataTSVFileConverter, nil
-	} else if fileType == "ezbookkeeping_json" {
+	} else if fileType == "Split Chill AI_json" {
 		return _default.DefaultTransactionDataJsonFileImporter, nil
 	} else if fileType == "ofx" {
 		return ofx.OFXTransactionDataImporter, nil
@@ -85,17 +85,17 @@ func GetTransactionDataImporter(fileType string) (converter.TransactionDataImpor
 	}
 }
 
-// IsCustomDelimiterSeparatedValuesFileType returns whether the file type is the delimiter-separated values file type
+
 func IsCustomDelimiterSeparatedValuesFileType(fileType string) bool {
 	return dsv.IsDelimiterSeparatedValuesFileType(fileType)
 }
 
-// CreateNewDelimiterSeparatedValuesDataParser returns a new delimiter-separated values data parser according to the file type and encoding
+
 func CreateNewDelimiterSeparatedValuesDataParser(fileType string, fileEncoding string) (dsv.CustomTransactionDataDsvFileParser, error) {
 	return dsv.CreateNewCustomTransactionDataDsvFileParser(fileType, fileEncoding)
 }
 
-// CreateNewDelimiterSeparatedValuesDataImporter returns a new delimiter-separated values data importer according to the file type and encoding
+
 func CreateNewDelimiterSeparatedValuesDataImporter(fileType string, fileEncoding string, columnIndexMapping map[datatable.TransactionDataTableColumn]int, transactionTypeNameMapping map[string]models.TransactionType, hasHeaderLine bool, timeFormat string, timezoneFormat string, amountDecimalSeparator string, amountDigitGroupingSymbol string, geoLocationSeparator string, geoLocationOrder string, transactionTagSeparator string) (converter.TransactionDataImporter, error) {
 	return dsv.CreateNewCustomTransactionDataDsvFileImporter(fileType, fileEncoding, columnIndexMapping, transactionTypeNameMapping, hasHeaderLine, timeFormat, timezoneFormat, amountDecimalSeparator, amountDigitGroupingSymbol, geoLocationSeparator, geoLocationOrder, transactionTagSeparator)
 }

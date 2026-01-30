@@ -1,11 +1,11 @@
-package core
+﻿package core
 
 import "fmt"
 
-// WeekDay represents week day
+
 type WeekDay byte
 
-// Week days
+
 const (
 	WEEKDAY_SUNDAY    WeekDay = 0
 	WEEKDAY_MONDAY    WeekDay = 1
@@ -17,7 +17,7 @@ const (
 	WEEKDAY_INVALID   WeekDay = 255
 )
 
-// String returns a textual representation of the week day enum
+
 func (d WeekDay) String() string {
 	switch d {
 	case WEEKDAY_SUNDAY:
@@ -41,10 +41,10 @@ func (d WeekDay) String() string {
 	}
 }
 
-// LongDateFormat represents long date format
+
 type LongDateFormat byte
 
-// Long Date Format
+
 const (
 	LONG_DATE_FORMAT_DEFAULT  LongDateFormat = 0
 	LONG_DATE_FORMAT_YYYY_M_D LongDateFormat = 1
@@ -53,7 +53,7 @@ const (
 	LONG_DATE_FORMAT_INVALID  LongDateFormat = 255
 )
 
-// String returns a textual representation of the long date format enum
+
 func (f LongDateFormat) String() string {
 	switch f {
 	case LONG_DATE_FORMAT_DEFAULT:
@@ -71,10 +71,10 @@ func (f LongDateFormat) String() string {
 	}
 }
 
-// ShortDateFormat represents short date format
+
 type ShortDateFormat byte
 
-// Short Date Format
+
 const (
 	SHORT_DATE_FORMAT_DEFAULT  ShortDateFormat = 0
 	SHORT_DATE_FORMAT_YYYY_M_D ShortDateFormat = 1
@@ -83,7 +83,7 @@ const (
 	SHORT_DATE_FORMAT_INVALID  ShortDateFormat = 255
 )
 
-// String returns a textual representation of the short date format enum
+
 func (f ShortDateFormat) String() string {
 	switch f {
 	case SHORT_DATE_FORMAT_DEFAULT:
@@ -101,10 +101,10 @@ func (f ShortDateFormat) String() string {
 	}
 }
 
-// LongTimeFormat represents long time format
+
 type LongTimeFormat byte
 
-// Long Time Format
+
 const (
 	LONG_TIME_FORMAT_DEFAULT    LongTimeFormat = 0
 	LONG_TIME_FORMAT_HH_MM_SS   LongTimeFormat = 1
@@ -113,7 +113,7 @@ const (
 	LONG_TIME_FORMAT_INVALID    LongTimeFormat = 255
 )
 
-// String returns a textual representation of the long time format enum
+
 func (f LongTimeFormat) String() string {
 	switch f {
 	case LONG_TIME_FORMAT_DEFAULT:
@@ -131,10 +131,10 @@ func (f LongTimeFormat) String() string {
 	}
 }
 
-// ShortTimeFormat represents short time format
+
 type ShortTimeFormat byte
 
-// Short Time Format
+
 const (
 	SHORT_TIME_FORMAT_DEFAULT ShortTimeFormat = 0
 	SHORT_TIME_FORMAT_HH_MM   ShortTimeFormat = 1
@@ -143,7 +143,7 @@ const (
 	SHORT_TIME_FORMAT_INVALID ShortTimeFormat = 255
 )
 
-// String returns a textual representation of the short time format enum
+
 func (f ShortTimeFormat) String() string {
 	switch f {
 	case SHORT_TIME_FORMAT_DEFAULT:

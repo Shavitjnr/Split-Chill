@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 
 import { useI18n } from '@/locales/helpers.ts';
 
@@ -47,12 +47,12 @@ export function useMoveAllTransactionsPageBase() {
     });
 
     return {
-        // states
+        
         moving,
         fromAccount,
         toAccountId,
         toAccountName,
-        // computed states
+        
         allAccounts,
         allVisibleAccounts,
         allVisibleCategorizedAccounts,

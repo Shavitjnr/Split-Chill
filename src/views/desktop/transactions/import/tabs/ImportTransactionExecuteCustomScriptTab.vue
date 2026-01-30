@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <v-row>
         <v-col cols="12" md="6">
             <div class="d-flex w-100 mb-2">
@@ -127,40 +127,35 @@ const currentTimezoneName = computed<string>(() => settingsStore.appSettings.tim
 const numeralSystem = computed<NumeralSystem>(() => getCurrentNumeralSystemType());
 const previewCounts = computed<NameNumeralValue[]>(() => getTablePageOptions(previewResult.value?.length));
 
-const sampleScript = computed<string>(() => `// ${tt('sample.importTransactionCustomScript.headerComment')}
-/**
- * ${tt('sample.importTransactionCustomScript.functionDescription')}
- * @param {array} row - ${tt('sample.importTransactionCustomScript.functionParamRowDescription')}
- * @param {number} index - ${tt('sample.importTransactionCustomScript.functionParamIndexDescription')}
- * @returns {object|null} ${tt('sample.importTransactionCustomScript.functionReturnDescription')}
- */
+const sampleScript = computed<string>(() => `
+
 function parse(row, index) {
     if (index < 1) {
         return null;
     }
 
     return {
-        // ${tt('sample.importTransactionCustomScript.fieldTimeDescription')}
+        
         time: row[0],
-        // ${tt('sample.importTransactionCustomScript.fieldUtcOffsetDescription')}
+        
         utcOffset: ${currentTimezoneName.value ? 'parseUtcOffset(\'' + currentTimezoneName.value + '\')' : '\'' + getTimezoneOffsetMinutes(getCurrentUnixTime()) + '\''},
-        // ${tt('sample.importTransactionCustomScript.fieldTypeDescription')}
+        
         type: TransactionType.Expense,
-        // ${tt('sample.importTransactionCustomScript.fieldCategoryNameDescription')}
+        
         categoryName: row[4],
-        // ${tt('sample.importTransactionCustomScript.fieldSourceAccountNameDescription')}
+        
         sourceAccountName: row[5],
-        // ${tt('sample.importTransactionCustomScript.fieldDestinationAccountNameDescription')}
+        
         destinationAccountName: row[8],
-        // ${tt('sample.importTransactionCustomScript.fieldSourceAmountDescription')}
+        
         sourceAmount: row[7],
-        // ${tt('sample.importTransactionCustomScript.fieldDestinationAmountDescription')}
+        
         destinationAmount: row[10],
-        // ${tt('sample.importTransactionCustomScript.fieldGeoLocationDescription')}
+        
         geoLocation: undefined,
-        // ${tt('sample.importTransactionCustomScript.fieldTagNamesDescription')}
+        
         tagNames: '',
-        // ${tt('sample.importTransactionCustomScript.fieldCommentDescription')}
+        
         description: row[13]
     };
 }`);
@@ -349,12 +344,12 @@ function onMessage(event: MessageEvent<SandboxResponse>): void {
     if (data.knownError) {
         snackbar.value?.showError(data.knownError);
         previewResult.value = undefined;
-        executionError.value = `// ${tt(data.knownError)}`;
+        executionError.value = `
     } else if (data.error) {
         logger.error('Failed to execute custom script: ' + data.error);
         snackbar.value?.showError('Failed to execute custom script');
         previewResult.value = undefined;
-        executionError.value = `// ${data.error}`;
+        executionError.value = `
     } else if (data.result) {
         const originalResult = JSON.parse(data.result) as Record<string, unknown>[];
         const finalResult: ImportTransactionRequestItem[] = [];
@@ -385,7 +380,7 @@ function onMessage(event: MessageEvent<SandboxResponse>): void {
                     logger.error('Failed to parse time "' + originalDateTime + '" with custom format "' + format + '"');
                     snackbar.value?.showError('Failed to parse time');
                     previewResult.value = undefined;
-                    executionError.value = `// ${tt('Failed to parse time')} "${originalDateTime}"`;
+                    executionError.value = `
                     return;
                 }
             }
@@ -394,7 +389,7 @@ function onMessage(event: MessageEvent<SandboxResponse>): void {
                 logger.error('Failed to parse time "' + item['time'] + '"');
                 snackbar.value?.showError('Failed to parse time');
                 previewResult.value = undefined;
-                executionError.value = `// ${tt('Failed to parse time')} "${item['time']}"`;
+                executionError.value = `
                 return;
             }
 

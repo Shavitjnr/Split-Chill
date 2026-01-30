@@ -29,7 +29,7 @@ function Check-Dependency {
 }
 
 function Show-Help {
-    Write-Host "ezBookkeeping build script for Windows PowerShell"
+    Write-Host "splitchill-ai build script for Windows PowerShell"
     Write-Host ""
     Write-Host "Usage:"
     Write-Host "    build.ps1 type [options]"
@@ -130,7 +130,7 @@ function Build-Backend {
     Write-Host "Building backend binary file ($ReleaseType)..."
 
     $env:CGO_ENABLED = 1
-    go build -a -v -trimpath -tags timetzdata -ldflags "-w -s -linkmode external -extldflags '-static' $backend_build_extra_arguments" -o ezbookkeeping.exe ezbookkeeping.go
+    go build -a -v -trimpath -tags timetzdata -ldflags "-w -s -linkmode external -extldflags '-static' $backend_build_extra_arguments" -o splitchill-ai.exe splitchill-ai.go
 
     Remove-Item Env:\CGO_ENABLED -ErrorAction SilentlyContinue
 }
@@ -172,7 +172,7 @@ function Build-Frontend {
 }
 
 function Build-Package {
-    $packageFileName = "ezbookkeeping-$Version"
+    $packageFileName = "splitchill-ai-$Version"
 
     if (-not $Release) {
         $packageFileName = "$packageFileName-$BuildDate"
@@ -195,7 +195,7 @@ function Build-Package {
     New-Item -ItemType Directory -Path "package\storage"
     New-Item -ItemType Directory -Path "package\log"
 
-    Copy-Item ezbookkeeping.exe package\
+    Copy-Item splitchill-ai.exe package\
     Copy-Item dist package\public -Recurse
     Copy-Item conf package\conf -Recurse
     Copy-Item templates package\templates -Recurse

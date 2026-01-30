@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 
 import { useI18n } from '@/locales/helpers.ts';
 
@@ -46,7 +46,7 @@ export function useFiscalYearStartSelectionBase(props: CommonFiscalYearStartSele
     const { getCurrentNumeralSystemType, formatGregorianTextualMonthDayToGregorianLikeLongMonthDay } = useI18n();
 
     const disabledDates = (date: Date) => {
-        // Disable February 29 (leap day)
+        
         return date.getMonth() === 1 && date.getDate() === 29;
     };
 
@@ -92,11 +92,11 @@ export function useFiscalYearStartSelectionBase(props: CommonFiscalYearStartSele
     const allowedMaxDate = computed<Date>(() => getLocalDatetimeFromUnixTime(getThisYearLastUnixTime()));
 
     return {
-        // constants
+        
         disabledDates,
-        // states,
+        
         selectedFiscalYearStart,
-        // computed states
+        
         selectedFiscalYearStartValue,
         displayFiscalYearStartDate,
         allowedMinDate,

@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 
 import { useI18n } from '@/locales/helpers.ts';
 
@@ -201,14 +201,14 @@ export function useUserProfilePageBase() {
     }
 
     return {
-        // states
+        
         newProfile,
         oldProfile,
         emailVerified,
         loading,
         resending,
         saving,
-        // computed states
+        
         allAccounts,
         allVisibleAccounts,
         allVisibleCategorizedAccounts,
@@ -239,7 +239,7 @@ export function useUserProfilePageBase() {
         inputIsInvalid,
         langAndRegionInputIsInvalid,
         extendInputIsInvalid,
-        // functions
+        
         setCurrentUserProfile,
         reset,
         doAfterProfileUpdate

@@ -1,4 +1,4 @@
-package utils
+﻿package utils
 
 import (
 	"encoding/json"
@@ -8,11 +8,11 @@ import (
 
 	"github.com/go-playground/validator/v10"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
 )
 
-// GetDisplayErrorMessage returns the display error message for given error
+
 func GetDisplayErrorMessage(err *errs.Error) string {
 	if err.Code() == errs.ErrIncompleteOrIncorrectSubmission.Code() && len(err.BaseError) > 0 {
 		var validationErrors validator.ValidationErrors
@@ -28,7 +28,7 @@ func GetDisplayErrorMessage(err *errs.Error) string {
 	return err.Error()
 }
 
-// GetJsonErrorResult returns error response in json format
+
 func GetJsonErrorResult(err *errs.Error, path string) map[string]any {
 	return core.O{
 		"success":      false,
@@ -38,7 +38,7 @@ func GetJsonErrorResult(err *errs.Error, path string) map[string]any {
 	}
 }
 
-// PrintJsonSuccessResult writes success response in json format to current http context
+
 func PrintJsonSuccessResult(c *core.WebContext, result any) {
 	c.JSON(http.StatusOK, core.O{
 		"success": true,
@@ -46,7 +46,7 @@ func PrintJsonSuccessResult(c *core.WebContext, result any) {
 	})
 }
 
-// PrintDataSuccessResult writes success response in custom content type to current http context
+
 func PrintDataSuccessResult(c *core.WebContext, contentType string, fileName string, result []byte) {
 	if fileName != "" {
 		c.Header("Content-Disposition", "attachment;filename="+fileName)
@@ -55,7 +55,7 @@ func PrintDataSuccessResult(c *core.WebContext, contentType string, fileName str
 	c.Data(http.StatusOK, contentType, result)
 }
 
-// PrintJsonErrorResult writes error response in json format to current http context
+
 func PrintJsonErrorResult(c *core.WebContext, err *errs.Error) {
 	c.SetResponseError(err)
 
@@ -68,12 +68,12 @@ func PrintJsonErrorResult(c *core.WebContext, err *errs.Error) {
 	c.AbortWithStatusJSON(err.HttpStatusCode, result)
 }
 
-// PrintJSONRPCSuccessResult writes success response in JSON-RPC format to current http context
+
 func PrintJSONRPCSuccessResult(c *core.WebContext, jsonRPCRequest *core.JSONRPCRequest, result any) {
 	c.JSON(http.StatusOK, core.NewJSONRPCResponse(jsonRPCRequest.ID, result))
 }
 
-// PrintJSONRPCErrorResult writes error response in JSON-RPC format to current http context
+
 func PrintJSONRPCErrorResult(c *core.WebContext, jsonRPCRequest *core.JSONRPCRequest, err *errs.Error) {
 	c.SetResponseError(err)
 
@@ -96,14 +96,14 @@ func PrintJSONRPCErrorResult(c *core.WebContext, jsonRPCRequest *core.JSONRPCReq
 	c.AbortWithStatusJSON(err.HttpStatusCode, core.NewJSONRPCErrorResponseWithCause(id, jsonRPCError, GetDisplayErrorMessage(err)))
 }
 
-// PrintDataErrorResult writes error response in custom content type to current http context
+
 func PrintDataErrorResult(c *core.WebContext, contentType string, err *errs.Error) {
 	c.SetResponseError(err)
 	c.Data(err.HttpStatusCode, contentType, []byte(GetDisplayErrorMessage(err)))
 	c.Abort()
 }
 
-// SetEventStreamHeader sets the headers for event stream response
+
 func SetEventStreamHeader(c *core.WebContext) {
 	c.Writer.Header().Set("Content-Type", "text/event-stream")
 	c.Writer.Header().Set("Cache-Control", "no-cache")

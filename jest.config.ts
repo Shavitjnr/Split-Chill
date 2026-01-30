@@ -1,4 +1,4 @@
-import { type JestConfigWithTsJest, createDefaultEsmPreset } from 'ts-jest';
+﻿import { type JestConfigWithTsJest, createDefaultEsmPreset } from 'ts-jest';
 
 const presetConfig = createDefaultEsmPreset({
     tsconfig: '<rootDir>/tsconfig.jest.json'
@@ -13,7 +13,7 @@ const config: JestConfigWithTsJest = {
     },
     testEnvironment: "node",
     testMatch: [
-        "**/__tests__/**/*.[jt]s?(x)",
+        "**/__tests__*.[jt]s?(x)",
         "!**/__tests__/*_gen.[jt]s?(x)"
     ]
 };

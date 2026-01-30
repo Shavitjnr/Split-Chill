@@ -1,4 +1,4 @@
-package services
+﻿package services
 
 import (
 	"bytes"
@@ -11,23 +11,23 @@ import (
 
 	"xorm.io/xorm"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/datastore"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/locales"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/mail"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
-	"github.com/mayswind/ezbookkeeping/pkg/storage"
-	"github.com/mayswind/ezbookkeeping/pkg/templates"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
-	"github.com/mayswind/ezbookkeeping/pkg/uuid"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/datastore"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/locales"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/mail"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/storage"
+	"github.com/Shavitjnr/split-chill-ai/pkg/templates"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/uuid"
 )
 
 const verifyEmailUrlFormat = "%sdesktop#/verify_email?token=%s"
 
-// UserService represents user service
+
 type UserService struct {
 	ServiceUsingDB
 	ServiceUsingConfig
@@ -36,7 +36,7 @@ type UserService struct {
 	ServiceUsingStorage
 }
 
-// Initialize a user service singleton instance
+
 var (
 	Users = &UserService{
 		ServiceUsingDB: ServiceUsingDB{
@@ -57,7 +57,7 @@ var (
 	}
 )
 
-// GetUserByUsernameOrEmailAndPassword returns the user model according to login name and password
+
 func (s *UserService) GetUserByUsernameOrEmailAndPassword(c core.Context, loginname string, password string) (*models.User, int64, error) {
 	var user *models.User
 	var err error
@@ -85,7 +85,7 @@ func (s *UserService) GetUserByUsernameOrEmailAndPassword(c core.Context, loginn
 	return user, user.Uid, nil
 }
 
-// GetUserById returns the user model according to user uid
+
 func (s *UserService) GetUserById(c core.Context, uid int64) (*models.User, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -103,7 +103,7 @@ func (s *UserService) GetUserById(c core.Context, uid int64) (*models.User, erro
 	return user, nil
 }
 
-// GetUserByUsername returns the user model according to user name
+
 func (s *UserService) GetUserByUsername(c core.Context, username string) (*models.User, error) {
 	if username == "" {
 		return nil, errs.ErrUsernameIsEmpty
@@ -121,7 +121,7 @@ func (s *UserService) GetUserByUsername(c core.Context, username string) (*model
 	return user, nil
 }
 
-// GetUserByEmail returns the user model according to user email
+
 func (s *UserService) GetUserByEmail(c core.Context, email string) (*models.User, error) {
 	if email == "" {
 		return nil, errs.ErrEmailIsEmpty
@@ -139,7 +139,7 @@ func (s *UserService) GetUserByEmail(c core.Context, email string) (*models.User
 	return user, nil
 }
 
-// GetUserAvatar returns the user avatar image data according to user uid
+
 func (s *UserService) GetUserAvatar(c core.Context, uid int64, fileExtension string) ([]byte, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -183,7 +183,7 @@ func (s *UserService) GetUserAvatar(c core.Context, uid int64, fileExtension str
 	return avatarData, nil
 }
 
-// CreateUser saves a new user model to database
+
 func (s *UserService) CreateUser(c core.Context, user *models.User, noPassword bool) error {
 	exists, err := s.ExistsUsername(c, user.Username)
 
@@ -233,7 +233,7 @@ func (s *UserService) CreateUser(c core.Context, user *models.User, noPassword b
 	})
 }
 
-// UpdateUser saves an existed user model to database
+
 func (s *UserService) UpdateUser(c core.Context, user *models.User, modifyUserLanguage bool) (keyProfileUpdated bool, emailSetToUnverified bool, err error) {
 	if user.Uid <= 0 {
 		return false, false, errs.ErrUserIdInvalid
@@ -379,7 +379,7 @@ func (s *UserService) UpdateUser(c core.Context, user *models.User, modifyUserLa
 	return keyProfileUpdated, emailSetToUnverified, nil
 }
 
-// UpdateUserAvatar updates the custom avatar type of specified user
+
 func (s *UserService) UpdateUserAvatar(c core.Context, uid int64, avatarFile multipart.File, fileExtension string, oldFileExtension string) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -420,7 +420,7 @@ func (s *UserService) UpdateUserAvatar(c core.Context, uid int64, avatarFile mul
 	return nil
 }
 
-// RemoveUserAvatar removes the custom avatar type of specified user
+
 func (s *UserService) RemoveUserAvatar(c core.Context, uid int64, fileExtension string) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -445,7 +445,7 @@ func (s *UserService) RemoveUserAvatar(c core.Context, uid int64, fileExtension 
 	})
 }
 
-// UpdateUserLastLoginTime updates the last login time field
+
 func (s *UserService) UpdateUserLastLoginTime(c core.Context, uid int64) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -457,7 +457,7 @@ func (s *UserService) UpdateUserLastLoginTime(c core.Context, uid int64) error {
 	})
 }
 
-// EnableUser sets user enabled
+
 func (s *UserService) EnableUser(c core.Context, username string) error {
 	if username == "" {
 		return errs.ErrUsernameIsEmpty
@@ -480,7 +480,7 @@ func (s *UserService) EnableUser(c core.Context, username string) error {
 	return nil
 }
 
-// DisableUser sets user disabled
+
 func (s *UserService) DisableUser(c core.Context, username string) error {
 	if username == "" {
 		return errs.ErrUsernameIsEmpty
@@ -503,7 +503,7 @@ func (s *UserService) DisableUser(c core.Context, username string) error {
 	return nil
 }
 
-// UpdateUserFeatureRestriction sets user user feature restrictions
+
 func (s *UserService) UpdateUserFeatureRestriction(c core.Context, username string, featureRestriction core.UserFeatureRestrictions) error {
 	if username == "" {
 		return errs.ErrUsernameIsEmpty
@@ -526,7 +526,7 @@ func (s *UserService) UpdateUserFeatureRestriction(c core.Context, username stri
 	return nil
 }
 
-// AddUserFeatureRestriction adds user user feature restrictions
+
 func (s *UserService) AddUserFeatureRestriction(c core.Context, username string, featureRestriction core.UserFeatureRestrictions) error {
 	if username == "" {
 		return errs.ErrUsernameIsEmpty
@@ -549,7 +549,7 @@ func (s *UserService) AddUserFeatureRestriction(c core.Context, username string,
 	return nil
 }
 
-// RemoveUserFeatureRestriction removes user user feature restrictions
+
 func (s *UserService) RemoveUserFeatureRestriction(c core.Context, username string, featureRestriction core.UserFeatureRestrictions) error {
 	if username == "" {
 		return errs.ErrUsernameIsEmpty
@@ -572,7 +572,7 @@ func (s *UserService) RemoveUserFeatureRestriction(c core.Context, username stri
 	return nil
 }
 
-// SetUserEmailVerified sets user email address verified
+
 func (s *UserService) SetUserEmailVerified(c core.Context, username string) error {
 	if username == "" {
 		return errs.ErrUsernameIsEmpty
@@ -595,7 +595,7 @@ func (s *UserService) SetUserEmailVerified(c core.Context, username string) erro
 	return nil
 }
 
-// SetUserEmailUnverified sets user email address unverified
+
 func (s *UserService) SetUserEmailUnverified(c core.Context, username string) error {
 	if username == "" {
 		return errs.ErrUsernameIsEmpty
@@ -618,7 +618,7 @@ func (s *UserService) SetUserEmailUnverified(c core.Context, username string) er
 	return nil
 }
 
-// DeleteUser deletes an existed user from database
+
 func (s *UserService) DeleteUser(c core.Context, username string) error {
 	if username == "" {
 		return errs.ErrUsernameIsEmpty
@@ -641,7 +641,7 @@ func (s *UserService) DeleteUser(c core.Context, username string) error {
 	return nil
 }
 
-// ExistsUsername returns whether the given user name exists
+
 func (s *UserService) ExistsUsername(c core.Context, username string) (bool, error) {
 	if username == "" {
 		return false, errs.ErrUsernameIsEmpty
@@ -650,7 +650,7 @@ func (s *UserService) ExistsUsername(c core.Context, username string) (bool, err
 	return s.UserDB().NewSession(c).Cols("username").Where("username=? AND deleted=?", username, false).Exist(&models.User{})
 }
 
-// ExistsEmail returns whether the given user email exists
+
 func (s *UserService) ExistsEmail(c core.Context, email string) (bool, error) {
 	if email == "" {
 		return false, errs.ErrEmailIsEmpty
@@ -659,7 +659,7 @@ func (s *UserService) ExistsEmail(c core.Context, email string) (bool, error) {
 	return s.UserDB().NewSession(c).Cols("email").Where("email=? AND deleted=?", email, false).Exist(&models.User{})
 }
 
-// SendVerifyEmail sends verify email according to specified parameters
+
 func (s *UserService) SendVerifyEmail(user *models.User, verifyEmailToken string, backupLocale string) error {
 	if !s.CurrentConfig().EnableSMTP {
 		return errs.ErrSMTPServerNotEnabled
@@ -713,7 +713,7 @@ func (s *UserService) SendVerifyEmail(user *models.User, verifyEmailToken string
 	return err
 }
 
-// IsPasswordEqualsUserPassword returns whether the given password is correct
+
 func (s *UserService) IsPasswordEqualsUserPassword(password string, user *models.User) bool {
 	return user.Password == utils.EncodePassword(password, user.Salt)
 }

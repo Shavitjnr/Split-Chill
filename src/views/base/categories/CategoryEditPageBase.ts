@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 
 import { useTransactionCategoriesStore } from '@/stores/transactionCategory.ts';
 
@@ -49,13 +49,13 @@ export function useCategoryEditPageBase(type?: CategoryType, parentId?: string) 
     const inputIsEmpty = computed<boolean>(() => !!inputEmptyProblemMessage.value);
 
     return {
-        // states
+        
         editCategoryId,
         clientSessionId,
         loading,
         submitting,
         category,
-        // computed states
+        
         allAvailableCategories,
         title,
         saveButtonTitle,

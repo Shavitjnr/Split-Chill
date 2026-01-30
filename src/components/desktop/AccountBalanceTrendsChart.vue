@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <v-chart autoresize class="account-balance-trends-chart-container" :class="{ 'transition-in': skeleton }" :option="chartOptions"/>
 </template>
 
@@ -117,9 +117,9 @@ const yAxisWidth = computed<number>(() => {
             let value: number;
 
             if (isArray(data)) {
-                value = data[1] as number; // for candlestick, use closing balance
+                value = data[1] as number; 
             } else {
-                value = data as number; // for line or bar chart
+                value = data as number; 
             }
 
             if (value > maxValue) {

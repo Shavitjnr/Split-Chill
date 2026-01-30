@@ -1,5 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+﻿
+
 import type { Coordinate } from '@/core/coordinate.ts';
 
 import { type LeafletTileSource, type LeafletTileSourceExtraParam, LEAFLET_TILE_SOURCES } from '@/consts/map.ts';
@@ -21,7 +21,7 @@ import {
 import services from '@/lib/services.ts';
 
 export class LeafletMapProvider implements MapProvider {
-    // https://leafletjs.com/reference.html#pan-options
+    
     public static Leaflet: unknown = null;
     private readonly mapProvider: string;
 
@@ -43,7 +43,7 @@ export class LeafletMapProvider implements MapProvider {
         return true;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    
     public asyncLoadAssets(language?: string): Promise<unknown> {
         return Promise.all([
             import('leaflet/dist/leaflet.css'),

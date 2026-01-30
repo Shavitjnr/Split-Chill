@@ -1,15 +1,15 @@
-package wechat
+﻿package wechat
 
 import (
 	"strings"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/datatable"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/locales"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/datatable"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/locales"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 const wechatPayTransactionDataCsvFileHeader = "微信支付账单明细"
@@ -46,12 +46,12 @@ var wechatPayTransactionTypeNameMapping = map[models.TransactionType]string{
 	models.TRANSACTION_TYPE_TRANSFER: "/",
 }
 
-// weChatPayTransactionDataRowParser defines the structure of wechat pay transaction data row parser
+
 type weChatPayTransactionDataRowParser struct {
 	existedOriginalDataColumns map[string]bool
 }
 
-// Parse returns the converted transaction data row
+
 func (p *weChatPayTransactionDataRowParser) Parse(ctx core.Context, user *models.User, dataRow datatable.CommonDataTableRow, rowId string) (rowData map[datatable.TransactionDataTableColumn]string, rowDataValid bool, err error) {
 	if dataRow.GetData(wechatPayTransactionTypeColumnName) != wechatPayTransactionTypeNameMapping[models.TRANSACTION_TYPE_INCOME] &&
 		dataRow.GetData(wechatPayTransactionTypeColumnName) != wechatPayTransactionTypeNameMapping[models.TRANSACTION_TYPE_EXPENSE] &&
@@ -158,7 +158,7 @@ func (p *weChatPayTransactionDataRowParser) hasOriginalColumn(columnName string)
 	return exists
 }
 
-// createWeChatPayTransactionDataRowParser returns wechat pay transaction data row parser
+
 func createWeChatPayTransactionDataRowParser(headerColumnNames []string) datatable.CommonTransactionDataRowParser {
 	existedOriginalDataColumns := make(map[string]bool, len(headerColumnNames))
 

@@ -1,4 +1,4 @@
-package beancount
+﻿package beancount
 
 import (
 	"testing"
@@ -6,11 +6,11 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/converter"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/converter"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 func TestBeancountTransactionDataFileParseImportedData_MinimumValidData(t *testing.T) {
@@ -330,28 +330,28 @@ func TestBeancountTransactionDataFileParseImportedData_MissingTransactionRequire
 		DefaultCurrency: "CNY",
 	}
 
-	// Missing Transaction Time
+	
 	_, _, _, _, _, _, err := importer.ParseImportedData(context, user, []byte(
 		"* \"narration\"\n"+
 			"  Equity:Opening-Balances -123.45 CNY\n"+
 			"  Assets:TestAccount 123.45 CNY\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrNotFoundTransactionDataInFile.Message)
 
-	// Missing Account Name
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		"2024-09-01 * \"narration\"\n"+
 			"  Equity:Opening-Balances -123.45 CNY\n"+
 			"   123.45 CNY\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrInvalidBeancountFile.Message)
 
-	// Missing Amount
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		"2024-09-01 * \"narration\"\n"+
 			"  Equity:Opening-Balances\n"+
 			"  Assets:TestAccount\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrInvalidBeancountFile.Message)
 
-	// Missing Commodity
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		"2024-09-01 * \"narration\"\n"+
 			"  Equity:Opening-Balances -123.45\n"+

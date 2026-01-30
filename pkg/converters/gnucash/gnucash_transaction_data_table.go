@@ -1,14 +1,14 @@
-package gnucash
+﻿package gnucash
 
 import (
 	"strings"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/datatable"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/datatable"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 var gnucashTransactionSupportedColumns = map[datatable.TransactionDataTableColumn]bool{
@@ -26,13 +26,13 @@ var gnucashTransactionSupportedColumns = map[datatable.TransactionDataTableColum
 	datatable.TRANSACTION_DATA_TABLE_DESCRIPTION:              true,
 }
 
-// gnucashTransactionDataTable defines the structure of gnucash transaction data table
+
 type gnucashTransactionDataTable struct {
 	allData    []*gnucashTransactionData
 	accountMap map[string]*gnucashAccountData
 }
 
-// gnucashTransactionDataRow defines the structure of gnucash transaction data row
+
 type gnucashTransactionDataRow struct {
 	dataTable  *gnucashTransactionDataTable
 	data       *gnucashTransactionData
@@ -40,24 +40,24 @@ type gnucashTransactionDataRow struct {
 	isValid    bool
 }
 
-// gnucashTransactionDataRowIterator defines the structure of gnucash transaction data row iterator
+
 type gnucashTransactionDataRowIterator struct {
 	dataTable    *gnucashTransactionDataTable
 	currentIndex int
 }
 
-// HasColumn returns whether the transaction data table has specified column
+
 func (t *gnucashTransactionDataTable) HasColumn(column datatable.TransactionDataTableColumn) bool {
 	_, exists := gnucashTransactionSupportedColumns[column]
 	return exists
 }
 
-// TransactionRowCount returns the total count of transaction data row
+
 func (t *gnucashTransactionDataTable) TransactionRowCount() int {
 	return len(t.allData)
 }
 
-// TransactionRowIterator returns the iterator of transaction data row
+
 func (t *gnucashTransactionDataTable) TransactionRowIterator() datatable.TransactionDataRowIterator {
 	return &gnucashTransactionDataRowIterator{
 		dataTable:    t,
@@ -65,12 +65,12 @@ func (t *gnucashTransactionDataTable) TransactionRowIterator() datatable.Transac
 	}
 }
 
-// IsValid returns whether this row is valid data for importing
+
 func (r *gnucashTransactionDataRow) IsValid() bool {
 	return r.isValid
 }
 
-// GetData returns the data in the specified column type
+
 func (r *gnucashTransactionDataRow) GetData(column datatable.TransactionDataTableColumn) string {
 	_, exists := gnucashTransactionSupportedColumns[column]
 
@@ -81,12 +81,12 @@ func (r *gnucashTransactionDataRow) GetData(column datatable.TransactionDataTabl
 	return ""
 }
 
-// HasNext returns whether the iterator does not reach the end
+
 func (t *gnucashTransactionDataRowIterator) HasNext() bool {
 	return t.currentIndex+1 < len(t.dataTable.allData)
 }
 
-// Next returns the next transaction data row
+
 func (t *gnucashTransactionDataRowIterator) Next(ctx core.Context, user *models.User) (daraRow datatable.TransactionDataRow, err error) {
 	if t.currentIndex+1 >= len(t.dataTable.allData) {
 		return nil, nil
@@ -154,7 +154,7 @@ func (t *gnucashTransactionDataRowIterator) parseTransaction(ctx core.Context, u
 		}
 
 		if ((account1.AccountType == gnucashEquityAccountType || account1.AccountType == gnucashIncomeAccountType) && gnucashAssetOrLiabilityAccountTypes[account2.AccountType]) ||
-			((account2.AccountType == gnucashEquityAccountType || account2.AccountType == gnucashIncomeAccountType) && gnucashAssetOrLiabilityAccountTypes[account1.AccountType]) { // income
+			((account2.AccountType == gnucashEquityAccountType || account2.AccountType == gnucashIncomeAccountType) && gnucashAssetOrLiabilityAccountTypes[account1.AccountType]) { 
 			fromAccount := account1
 			toAccount := account2
 			toAmount := amount2
@@ -183,7 +183,7 @@ func (t *gnucashTransactionDataRowIterator) parseTransaction(ctx core.Context, u
 
 			data[datatable.TRANSACTION_DATA_TABLE_AMOUNT] = toAmount
 		} else if (account1.AccountType == gnucashExpenseAccountType && gnucashAssetOrLiabilityAccountTypes[account2.AccountType]) ||
-			(account2.AccountType == gnucashExpenseAccountType && gnucashAssetOrLiabilityAccountTypes[account1.AccountType]) { // expense
+			(account2.AccountType == gnucashExpenseAccountType && gnucashAssetOrLiabilityAccountTypes[account1.AccountType]) { 
 			fromAccount := account1
 			fromAmount := amount1
 			toAccount := account2

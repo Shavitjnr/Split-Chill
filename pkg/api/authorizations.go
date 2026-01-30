@@ -1,4 +1,4 @@
-package api
+﻿package api
 
 import (
 	"encoding/json"
@@ -6,17 +6,17 @@ import (
 
 	"github.com/pquerna/otp/totp"
 
-	"github.com/mayswind/ezbookkeeping/pkg/avatars"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/duplicatechecker"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/services"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/avatars"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/duplicatechecker"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/services"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
-// AuthorizationsApi represents authorization api
+
 type AuthorizationsApi struct {
 	ApiUsingConfig
 	ApiUsingDuplicateChecker
@@ -28,7 +28,7 @@ type AuthorizationsApi struct {
 	userExternalAuths       *services.UserExternalAuthService
 }
 
-// Initialize a authorization api singleton instance
+
 var (
 	Authorizations = &AuthorizationsApi{
 		ApiUsingConfig: ApiUsingConfig{
@@ -56,7 +56,7 @@ var (
 	}
 )
 
-// AuthorizeHandler verifies and authorizes current login request
+
 func (a *AuthorizationsApi) AuthorizeHandler(c *core.WebContext) (any, *errs.Error) {
 	if !a.CurrentConfig().EnableInternalAuth {
 		return nil, errs.ErrCannotLoginByPassword
@@ -167,7 +167,7 @@ func (a *AuthorizationsApi) AuthorizeHandler(c *core.WebContext) (any, *errs.Err
 	return authResp, nil
 }
 
-// TwoFactorAuthorizeHandler verifies and authorizes current 2fa login by passcode
+
 func (a *AuthorizationsApi) TwoFactorAuthorizeHandler(c *core.WebContext) (any, *errs.Error) {
 	if !a.CurrentConfig().EnableInternalAuth {
 		return nil, errs.ErrCannotLoginByPassword
@@ -259,7 +259,7 @@ func (a *AuthorizationsApi) TwoFactorAuthorizeHandler(c *core.WebContext) (any, 
 	return authResp, nil
 }
 
-// TwoFactorAuthorizeByRecoveryCodeHandler verifies and authorizes current 2fa login by recovery code
+
 func (a *AuthorizationsApi) TwoFactorAuthorizeByRecoveryCodeHandler(c *core.WebContext) (any, *errs.Error) {
 	if !a.CurrentConfig().EnableInternalAuth {
 		return nil, errs.ErrCannotLoginByPassword
@@ -358,7 +358,7 @@ func (a *AuthorizationsApi) TwoFactorAuthorizeByRecoveryCodeHandler(c *core.WebC
 	return authResp, nil
 }
 
-// OAuth2CallbackAuthorizeHandler verifies and authorizes current OAuth 2.0 callback login
+
 func (a *AuthorizationsApi) OAuth2CallbackAuthorizeHandler(c *core.WebContext) (any, *errs.Error) {
 	if !a.CurrentConfig().EnableOAuth2Login {
 		return nil, errs.ErrOAuth2NotEnabled

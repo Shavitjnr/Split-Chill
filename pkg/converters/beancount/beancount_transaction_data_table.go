@@ -1,14 +1,14 @@
-package beancount
+﻿package beancount
 
 import (
 	"strings"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/datatable"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/datatable"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 var beancountTransactionSupportedColumns = map[datatable.TransactionDataTableColumn]bool{
@@ -26,37 +26,37 @@ var beancountTransactionSupportedColumns = map[datatable.TransactionDataTableCol
 
 var BEANCOUNT_TRANSACTION_TAG_SEPARATOR = "#"
 
-// beancountTransactionDataTable defines the structure of Beancount transaction data table
+
 type beancountTransactionDataTable struct {
 	allData    []*beancountTransactionEntry
 	accountMap map[string]*beancountAccount
 }
 
-// beancountTransactionDataRow defines the structure of Beancount transaction data row
+
 type beancountTransactionDataRow struct {
 	dataTable  *beancountTransactionDataTable
 	data       *beancountTransactionEntry
 	finalItems map[datatable.TransactionDataTableColumn]string
 }
 
-// beancountTransactionDataRowIterator defines the structure of Beancount transaction data row iterator
+
 type beancountTransactionDataRowIterator struct {
 	dataTable    *beancountTransactionDataTable
 	currentIndex int
 }
 
-// HasColumn returns whether the transaction data table has specified column
+
 func (t *beancountTransactionDataTable) HasColumn(column datatable.TransactionDataTableColumn) bool {
 	_, exists := beancountTransactionSupportedColumns[column]
 	return exists
 }
 
-// TransactionRowCount returns the total count of transaction data row
+
 func (t *beancountTransactionDataTable) TransactionRowCount() int {
 	return len(t.allData)
 }
 
-// TransactionRowIterator returns the iterator of transaction data row
+
 func (t *beancountTransactionDataTable) TransactionRowIterator() datatable.TransactionDataRowIterator {
 	return &beancountTransactionDataRowIterator{
 		dataTable:    t,
@@ -64,12 +64,12 @@ func (t *beancountTransactionDataTable) TransactionRowIterator() datatable.Trans
 	}
 }
 
-// IsValid returns whether this row is valid data for importing
+
 func (r *beancountTransactionDataRow) IsValid() bool {
 	return true
 }
 
-// GetData returns the data in the specified column type
+
 func (r *beancountTransactionDataRow) GetData(column datatable.TransactionDataTableColumn) string {
 	_, exists := beancountTransactionSupportedColumns[column]
 
@@ -80,12 +80,12 @@ func (r *beancountTransactionDataRow) GetData(column datatable.TransactionDataTa
 	return ""
 }
 
-// HasNext returns whether the iterator does not reach the end
+
 func (t *beancountTransactionDataRowIterator) HasNext() bool {
 	return t.currentIndex+1 < len(t.dataTable.allData)
 }
 
-// Next returns the next transaction data row
+
 func (t *beancountTransactionDataRowIterator) Next(ctx core.Context, user *models.User) (daraRow datatable.TransactionDataRow, err error) {
 	if t.currentIndex+1 >= len(t.dataTable.allData) {
 		return nil, nil
@@ -114,7 +114,7 @@ func (t *beancountTransactionDataRowIterator) parseTransaction(ctx core.Context,
 		return nil, errs.ErrMissingTransactionTime
 	}
 
-	// Beancount supports the international ISO 8601 standard format for dates, with dashes or the same ordering with slashes
+	
 	data[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TIME] = strings.ReplaceAll(beancountEntry.Date, "/", "-") + " 00:00:00"
 
 	if len(beancountEntry.Postings) == 2 {
@@ -143,7 +143,7 @@ func (t *beancountTransactionDataRowIterator) parseTransaction(ctx core.Context,
 		}
 
 		if ((account1.AccountType == beancountEquityAccountType || account1.AccountType == beancountIncomeAccountType) && (account2.AccountType == beancountAssetsAccountType || account2.AccountType == beancountLiabilitiesAccountType)) ||
-			((account2.AccountType == beancountEquityAccountType || account2.AccountType == beancountIncomeAccountType) && (account1.AccountType == beancountAssetsAccountType || account1.AccountType == beancountLiabilitiesAccountType)) { // income
+			((account2.AccountType == beancountEquityAccountType || account2.AccountType == beancountIncomeAccountType) && (account1.AccountType == beancountAssetsAccountType || account1.AccountType == beancountLiabilitiesAccountType)) { 
 			fromAccount := account1
 			toAccount := account2
 			toCurrency := splitData2.Commodity
@@ -167,7 +167,7 @@ func (t *beancountTransactionDataRowIterator) parseTransaction(ctx core.Context,
 			data[datatable.TRANSACTION_DATA_TABLE_ACCOUNT_CURRENCY] = toCurrency
 			data[datatable.TRANSACTION_DATA_TABLE_AMOUNT] = utils.FormatAmount(toAmount)
 		} else if account1.AccountType == beancountExpensesAccountType && (account2.AccountType == beancountAssetsAccountType || account2.AccountType == beancountLiabilitiesAccountType) ||
-			(account2.AccountType == beancountExpensesAccountType && (account1.AccountType == beancountAssetsAccountType || account1.AccountType == beancountLiabilitiesAccountType)) { // expense
+			(account2.AccountType == beancountExpensesAccountType && (account1.AccountType == beancountAssetsAccountType || account1.AccountType == beancountLiabilitiesAccountType)) { 
 			fromAccount := account1
 			fromCurrency := splitData1.Commodity
 			fromAmount := amount1

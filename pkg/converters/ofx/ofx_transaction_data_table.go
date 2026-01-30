@@ -1,15 +1,15 @@
-package ofx
+﻿package ofx
 
 import (
 	"fmt"
 	"strings"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/datatable"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/datatable"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 var ofxTransactionSupportedColumns = map[datatable.TransactionDataTableColumn]bool{
@@ -26,7 +26,7 @@ var ofxTransactionSupportedColumns = map[datatable.TransactionDataTableColumn]bo
 	datatable.TRANSACTION_DATA_TABLE_DESCRIPTION:              true,
 }
 
-// ofxTransactionData defines the structure of open financial exchange (ofx) transaction data
+
 type ofxTransactionData struct {
 	ofxBaseStatementTransaction
 	DefaultCurrency   string
@@ -35,36 +35,36 @@ type ofxTransactionData struct {
 	ToAccountId       string
 }
 
-// ofxTransactionDataTable defines the structure of open financial exchange (ofx) transaction data table
+
 type ofxTransactionDataTable struct {
 	allData []*ofxTransactionData
 }
 
-// ofxTransactionDataRow defines the structure of open financial exchange (ofx) transaction data row
+
 type ofxTransactionDataRow struct {
 	dataTable  *ofxTransactionDataTable
 	data       *ofxTransactionData
 	finalItems map[datatable.TransactionDataTableColumn]string
 }
 
-// ofxTransactionDataRowIterator defines the structure of open financial exchange (ofx) transaction data row iterator
+
 type ofxTransactionDataRowIterator struct {
 	dataTable    *ofxTransactionDataTable
 	currentIndex int
 }
 
-// HasColumn returns whether the transaction data table has specified column
+
 func (t *ofxTransactionDataTable) HasColumn(column datatable.TransactionDataTableColumn) bool {
 	_, exists := ofxTransactionSupportedColumns[column]
 	return exists
 }
 
-// TransactionRowCount returns the total count of transaction data row
+
 func (t *ofxTransactionDataTable) TransactionRowCount() int {
 	return len(t.allData)
 }
 
-// TransactionRowIterator returns the iterator of transaction data row
+
 func (t *ofxTransactionDataTable) TransactionRowIterator() datatable.TransactionDataRowIterator {
 	return &ofxTransactionDataRowIterator{
 		dataTable:    t,
@@ -72,12 +72,12 @@ func (t *ofxTransactionDataTable) TransactionRowIterator() datatable.Transaction
 	}
 }
 
-// IsValid returns whether this row is valid data for importing
+
 func (r *ofxTransactionDataRow) IsValid() bool {
 	return true
 }
 
-// GetData returns the data in the specified column type
+
 func (r *ofxTransactionDataRow) GetData(column datatable.TransactionDataTableColumn) string {
 	_, exists := ofxTransactionSupportedColumns[column]
 
@@ -88,12 +88,12 @@ func (r *ofxTransactionDataRow) GetData(column datatable.TransactionDataTableCol
 	return ""
 }
 
-// HasNext returns whether the iterator does not reach the end
+
 func (t *ofxTransactionDataRowIterator) HasNext() bool {
 	return t.currentIndex+1 < len(t.dataTable.allData)
 }
 
-// Next returns the next transaction data row
+
 func (t *ofxTransactionDataRowIterator) Next(ctx core.Context, user *models.User) (daraRow datatable.TransactionDataRow, err error) {
 	if t.currentIndex+1 >= len(t.dataTable.allData) {
 		return nil, nil
@@ -156,39 +156,39 @@ func (t *ofxTransactionDataRowIterator) parseTransaction(ctx core.Context, user 
 		return nil, errs.ErrAmountInvalid
 	}
 
-	amount, err := utils.ParseAmount(utils.TrimTrailingZerosInDecimal(strings.ReplaceAll(ofxTransaction.Amount, ",", "."))) // ofx supports decimal point or comma to indicate the start of the fractional amount
+	amount, err := utils.ParseAmount(utils.TrimTrailingZerosInDecimal(strings.ReplaceAll(ofxTransaction.Amount, ",", "."))) 
 
 	if err != nil {
 		log.Errorf(ctx, "[ofx_transaction_table.parseTransaction] cannot parsing transaction amount \"%s\", because %s", ofxTransaction.Amount, err.Error())
 		return nil, errs.ErrAmountInvalid
 	}
 
-	if transactionType, exists := ofxTransactionTypeMapping[ofxTransaction.TransactionType]; exists { // known transaction type
+	if transactionType, exists := ofxTransactionTypeMapping[ofxTransaction.TransactionType]; exists { 
 		data[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE] = utils.IntToString(int(transactionType))
 
-		if data[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE] == ofxTransactionTypeNameMapping[models.TRANSACTION_TYPE_INCOME] { // income
+		if data[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE] == ofxTransactionTypeNameMapping[models.TRANSACTION_TYPE_INCOME] { 
 			data[datatable.TRANSACTION_DATA_TABLE_AMOUNT] = utils.FormatAmount(amount)
-		} else if data[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE] == ofxTransactionTypeNameMapping[models.TRANSACTION_TYPE_EXPENSE] { // expense
+		} else if data[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE] == ofxTransactionTypeNameMapping[models.TRANSACTION_TYPE_EXPENSE] { 
 			data[datatable.TRANSACTION_DATA_TABLE_AMOUNT] = utils.FormatAmount(-amount)
-		} else { // transfer
-			if amount >= 0 { // transfer in
+		} else { 
+			if amount >= 0 { 
 				data[datatable.TRANSACTION_DATA_TABLE_AMOUNT] = utils.FormatAmount(amount)
 				data[datatable.TRANSACTION_DATA_TABLE_RELATED_ACCOUNT_NAME] = data[datatable.TRANSACTION_DATA_TABLE_ACCOUNT_NAME]
 				data[datatable.TRANSACTION_DATA_TABLE_RELATED_ACCOUNT_CURRENCY] = data[datatable.TRANSACTION_DATA_TABLE_ACCOUNT_CURRENCY]
 				data[datatable.TRANSACTION_DATA_TABLE_RELATED_AMOUNT] = data[datatable.TRANSACTION_DATA_TABLE_AMOUNT]
 				data[datatable.TRANSACTION_DATA_TABLE_ACCOUNT_NAME] = ""
-			} else { // transfer out
+			} else { 
 				data[datatable.TRANSACTION_DATA_TABLE_AMOUNT] = utils.FormatAmount(-amount)
 				data[datatable.TRANSACTION_DATA_TABLE_RELATED_ACCOUNT_NAME] = ofxTransaction.ToAccountId
 				data[datatable.TRANSACTION_DATA_TABLE_RELATED_ACCOUNT_CURRENCY] = data[datatable.TRANSACTION_DATA_TABLE_ACCOUNT_CURRENCY]
 				data[datatable.TRANSACTION_DATA_TABLE_RELATED_AMOUNT] = data[datatable.TRANSACTION_DATA_TABLE_AMOUNT]
 			}
 		}
-	} else { // transaction type depends on signage of amount
-		if amount >= 0 { // income
+	} else { 
+		if amount >= 0 { 
 			data[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE] = ofxTransactionTypeNameMapping[models.TRANSACTION_TYPE_INCOME]
 			data[datatable.TRANSACTION_DATA_TABLE_AMOUNT] = utils.FormatAmount(amount)
-		} else { // expense
+		} else { 
 			data[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE] = ofxTransactionTypeNameMapping[models.TRANSACTION_TYPE_EXPENSE]
 			data[datatable.TRANSACTION_DATA_TABLE_AMOUNT] = utils.FormatAmount(-amount)
 		}
@@ -196,14 +196,14 @@ func (t *ofxTransactionDataRowIterator) parseTransaction(ctx core.Context, user 
 
 	if data[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE] != ofxTransactionTypeNameMapping[models.TRANSACTION_TYPE_TRANSFER] {
 		if ofxTransaction.FromCreditAccount || ofxTransaction.TransactionType == ofxGenericCreditTransaction {
-			if amount >= 0 { // payment
+			if amount >= 0 { 
 				data[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE] = ofxTransactionTypeNameMapping[models.TRANSACTION_TYPE_TRANSFER]
 				data[datatable.TRANSACTION_DATA_TABLE_AMOUNT] = utils.FormatAmount(amount)
 				data[datatable.TRANSACTION_DATA_TABLE_RELATED_ACCOUNT_NAME] = data[datatable.TRANSACTION_DATA_TABLE_ACCOUNT_NAME]
 				data[datatable.TRANSACTION_DATA_TABLE_RELATED_ACCOUNT_CURRENCY] = data[datatable.TRANSACTION_DATA_TABLE_ACCOUNT_CURRENCY]
 				data[datatable.TRANSACTION_DATA_TABLE_RELATED_AMOUNT] = data[datatable.TRANSACTION_DATA_TABLE_AMOUNT]
 				data[datatable.TRANSACTION_DATA_TABLE_ACCOUNT_NAME] = ""
-			} else { // purchase
+			} else { 
 				data[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE] = ofxTransactionTypeNameMapping[models.TRANSACTION_TYPE_EXPENSE]
 				data[datatable.TRANSACTION_DATA_TABLE_AMOUNT] = utils.FormatAmount(-amount)
 			}
@@ -235,7 +235,7 @@ func (t *ofxTransactionDataRowIterator) parseTransactionTimeAndTimeZone(ctx core
 	second := "00"
 	tzOffset := ofxDefaultTimezoneOffset
 
-	if len(datetime) >= 8 { // YYYYMMDD
+	if len(datetime) >= 8 { 
 		if !utils.IsStringOnlyContainsDigits(datetime[0:8]) {
 			log.Errorf(ctx, "[ofx_transaction_table.parseTransactionTimeAndTimeZone] cannot parse time \"%s\", because contains non-digit character", datetime)
 			return "", "", errs.ErrTransactionTimeInvalid
@@ -246,7 +246,7 @@ func (t *ofxTransactionDataRowIterator) parseTransactionTimeAndTimeZone(ctx core
 		day = datetime[6:8]
 	}
 
-	if len(datetime) >= 14 { // YYYYMMDDHHMMSS
+	if len(datetime) >= 14 { 
 		if !utils.IsStringOnlyContainsDigits(datetime[8:14]) {
 			log.Errorf(ctx, "[ofx_transaction_table.parseTransactionTimeAndTimeZone] cannot parse time \"%s\", because contains non-digit character", datetime)
 			return "", "", errs.ErrTransactionTimeInvalid
@@ -259,7 +259,7 @@ func (t *ofxTransactionDataRowIterator) parseTransactionTimeAndTimeZone(ctx core
 
 	squareBracketStartIndex := strings.Index(datetime, "[")
 
-	if squareBracketStartIndex > 0 { // YYYYMMDDHHMMSS.XXX [gmt offset[:tz name]]
+	if squareBracketStartIndex > 0 { 
 		timezoneInfo := datetime[squareBracketStartIndex+1 : len(datetime)-1]
 		timezoneItems := strings.Split(timezoneInfo, ":")
 		tzOffset, err = utils.FormatTimezoneOffsetFromHoursOffset(timezoneItems[0])

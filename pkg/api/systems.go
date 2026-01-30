@@ -1,20 +1,20 @@
-package api
+﻿package api
 
 import (
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
-// SystemsApi represents system api
+
 type SystemsApi struct{}
 
-// Initialize a system api singleton instance
+
 var (
 	Systems = &SystemsApi{}
 )
 
-// VersionHandler returns the server version and commit hash
+
 func (a *SystemsApi) VersionHandler(c *core.WebContext) (any, *errs.Error) {
 	result := make(map[string]string)
 

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <f7-page :ptr="!sortable" @ptr:refresh="reload" @page:afterin="onPageAfterIn">
         <f7-navbar>
             <f7-nav-left :class="{ 'disabled': loading }" :back-link="tt('Back')" v-if="!sortable"></f7-nav-left>
@@ -199,7 +199,7 @@ function parseCategoryIdFromDomId(domId: string): string | null {
         return null;
     }
 
-    return domId.substring(9); // category_
+    return domId.substring(9); 
 }
 
 function init(): void {

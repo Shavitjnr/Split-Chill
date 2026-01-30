@@ -1,25 +1,25 @@
-package _default
+﻿package _default
 
 import (
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/converter"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/datatable"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/converter"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/datatable"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
 )
 
-// defaultTransactionDataPlainTextConverter defines the structure of ezbookkeeping default plain text converter for transaction data
+
 type defaultTransactionDataPlainTextConverter struct {
 	columnSeparator string
 }
 
-const ezbookkeepingLineSeparator = "\n"
-const ezbookkeepingGeoLocationSeparator = " "
-const ezbookkeepingGeoLocationOrder = converter.TRANSACTION_GEO_LOCATION_ORDER_LONGITUDE_LATITUDE
-const ezbookkeepingTagSeparator = ";"
+const SplitChillAILineSeparator = "\n"
+const SplitChillAIGeoLocationSeparator = " "
+const SplitChillAIGeoLocationOrder = converter.TRANSACTION_GEO_LOCATION_ORDER_LONGITUDE_LATITUDE
+const SplitChillAITagSeparator = ";"
 
-var ezbookkeepingDataColumnNameMapping = map[datatable.TransactionDataTableColumn]string{
+var SplitChillAIDataColumnNameMapping = map[datatable.TransactionDataTableColumn]string{
 	datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TIME:         "Time",
 	datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TIMEZONE:     "Timezone",
 	datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE:         "Type",
@@ -36,14 +36,14 @@ var ezbookkeepingDataColumnNameMapping = map[datatable.TransactionDataTableColum
 	datatable.TRANSACTION_DATA_TABLE_DESCRIPTION:              "Description",
 }
 
-var ezbookkeepingTransactionTypeNameMapping = map[models.TransactionType]string{
+var SplitChillAITransactionTypeNameMapping = map[models.TransactionType]string{
 	models.TRANSACTION_TYPE_MODIFY_BALANCE: "Balance Modification",
 	models.TRANSACTION_TYPE_INCOME:         "Income",
 	models.TRANSACTION_TYPE_EXPENSE:        "Expense",
 	models.TRANSACTION_TYPE_TRANSFER:       "Transfer",
 }
 
-var ezbookkeepingDataColumns = []datatable.TransactionDataTableColumn{
+var SplitChillAIDataColumns = []datatable.TransactionDataTableColumn{
 	datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TIME,
 	datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TIMEZONE,
 	datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE,
@@ -60,20 +60,20 @@ var ezbookkeepingDataColumns = []datatable.TransactionDataTableColumn{
 	datatable.TRANSACTION_DATA_TABLE_DESCRIPTION,
 }
 
-// ToExportedContent returns the exported transaction plain text data
+
 func (c *defaultTransactionDataPlainTextConverter) ToExportedContent(ctx core.Context, uid int64, transactions []*models.Transaction, accountMap map[int64]*models.Account, categoryMap map[int64]*models.TransactionCategory, tagMap map[int64]*models.TransactionTag, allTagIndexes map[int64][]int64) ([]byte, error) {
 	dataTableBuilder := createNewDefaultTransactionPlainTextDataTableBuilder(
 		len(transactions),
-		ezbookkeepingDataColumns,
-		ezbookkeepingDataColumnNameMapping,
+		SplitChillAIDataColumns,
+		SplitChillAIDataColumnNameMapping,
 		c.columnSeparator,
-		ezbookkeepingLineSeparator,
+		SplitChillAILineSeparator,
 	)
 
 	dataTableExporter := converter.CreateNewExporter(
-		ezbookkeepingTransactionTypeNameMapping,
-		ezbookkeepingGeoLocationSeparator,
-		ezbookkeepingTagSeparator,
+		SplitChillAITransactionTypeNameMapping,
+		SplitChillAIGeoLocationSeparator,
+		SplitChillAITagSeparator,
 	)
 
 	err := dataTableExporter.BuildExportedContent(ctx, dataTableBuilder, uid, transactions, accountMap, categoryMap, tagMap, allTagIndexes)
@@ -85,25 +85,25 @@ func (c *defaultTransactionDataPlainTextConverter) ToExportedContent(ctx core.Co
 	return []byte(dataTableBuilder.String()), nil
 }
 
-// ParseImportedData returns the imported data by parsing the transaction plain text data
+
 func (c *defaultTransactionDataPlainTextConverter) ParseImportedData(ctx core.Context, user *models.User, data []byte, defaultTimezone *time.Location, additionalOptions converter.TransactionDataImporterOptions, accountMap map[string]*models.Account, expenseCategoryMap map[string]map[string]*models.TransactionCategory, incomeCategoryMap map[string]map[string]*models.TransactionCategory, transferCategoryMap map[string]map[string]*models.TransactionCategory, tagMap map[string]*models.TransactionTag) (models.ImportedTransactionSlice, []*models.Account, []*models.TransactionCategory, []*models.TransactionCategory, []*models.TransactionCategory, []*models.TransactionTag, error) {
 	dataTable, err := createNewDefaultPlainTextDataTable(
 		string(data),
 		c.columnSeparator,
-		ezbookkeepingLineSeparator,
+		SplitChillAILineSeparator,
 	)
 
 	if err != nil {
 		return nil, nil, nil, nil, nil, nil, err
 	}
 
-	transactionDataTable := datatable.CreateNewTransactionDataTableFromBasicDataTable(dataTable, ezbookkeepingDataColumnNameMapping)
+	transactionDataTable := datatable.CreateNewTransactionDataTableFromBasicDataTable(dataTable, SplitChillAIDataColumnNameMapping)
 
 	dataTableImporter := converter.CreateNewImporterWithTypeNameMapping(
-		ezbookkeepingTransactionTypeNameMapping,
-		ezbookkeepingGeoLocationSeparator,
-		ezbookkeepingGeoLocationOrder,
-		ezbookkeepingTagSeparator,
+		SplitChillAITransactionTypeNameMapping,
+		SplitChillAIGeoLocationSeparator,
+		SplitChillAIGeoLocationOrder,
+		SplitChillAITagSeparator,
 	)
 
 	return dataTableImporter.ParseImportedData(ctx, user, transactionDataTable, defaultTimezone, additionalOptions, accountMap, expenseCategoryMap, incomeCategoryMap, transferCategoryMap, tagMap)

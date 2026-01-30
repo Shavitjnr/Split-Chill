@@ -1,4 +1,4 @@
-package exchangerates
+﻿package exchangerates
 
 import (
 	"encoding/json"
@@ -6,12 +6,12 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
-	"github.com/mayswind/ezbookkeeping/pkg/validators"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/validators"
 )
 
 const nationalBankOfGeorgiaExchangeRateUrl = "https://nbg.gov.ge/gw/api/ct/monetarypolicy/currencies/en/json"
@@ -21,18 +21,18 @@ const nationalBankOfGeorgiaBaseCurrency = "GEL"
 
 const nationalBankOfGeorgiaUpdateDateFormat = "2006-01-02T15:04:05.999Z"
 
-// NationalBankOfGeorgiaDataSource defines the structure of exchange rates data source of national bank of Georgia
+
 type NationalBankOfGeorgiaDataSource struct {
 	HttpExchangeRatesDataSource
 }
 
-// NationalBankOfGeorgiaExchangeRates represents the exchange rates data from national bank of Georgia
+
 type NationalBankOfGeorgiaExchangeRates struct {
 	Date          string                               `json:"date"`
 	ExchangeRates []*NationalBankOfGeorgiaExchangeRate `json:"currencies"`
 }
 
-// NationalBankOfGeorgiaExchangeRate represents the exchange rate data from national bank of Georgia
+
 type NationalBankOfGeorgiaExchangeRate struct {
 	Currency string  `json:"code"`
 	Quantity float64 `json:"quantity"`
@@ -40,7 +40,7 @@ type NationalBankOfGeorgiaExchangeRate struct {
 	Date     string  `json:"date"`
 }
 
-// ToLatestExchangeRateResponse returns a view-object according to original data from national bank of Georgia
+
 func (e *NationalBankOfGeorgiaExchangeRates) ToLatestExchangeRateResponse(c core.Context) *models.LatestExchangeRateResponse {
 	if len(e.ExchangeRates) < 1 {
 		log.Errorf(c, "[national_bank_of_georgia_datasource.ToLatestExchangeRateResponse] exchange rates is empty")
@@ -88,7 +88,7 @@ func (e *NationalBankOfGeorgiaExchangeRates) ToLatestExchangeRateResponse(c core
 	return latestExchangeRateResp
 }
 
-// ToLatestExchangeRate returns a data pair according to original data from national bank of Georgia
+
 func (e *NationalBankOfGeorgiaExchangeRate) ToLatestExchangeRate(c core.Context) *models.LatestExchangeRate {
 	if e.Rate <= 0 {
 		log.Warnf(c, "[national_bank_of_georgia_datasource.ToLatestExchangeRate] rate is invalid, currency is %s, rate is %f", e.Currency, e.Rate)
@@ -112,7 +112,7 @@ func (e *NationalBankOfGeorgiaExchangeRate) ToLatestExchangeRate(c core.Context)
 	}
 }
 
-// BuildRequests returns the national bank of Georgia exchange rates http requests
+
 func (e *NationalBankOfGeorgiaDataSource) BuildRequests() ([]*http.Request, error) {
 	req, err := http.NewRequest("GET", nationalBankOfGeorgiaExchangeRateUrl, nil)
 
@@ -123,7 +123,7 @@ func (e *NationalBankOfGeorgiaDataSource) BuildRequests() ([]*http.Request, erro
 	return []*http.Request{req}, nil
 }
 
-// Parse returns the common response entity according to the national bank of Georgia data source raw response
+
 func (e *NationalBankOfGeorgiaDataSource) Parse(c core.Context, content []byte) (*models.LatestExchangeRateResponse, error) {
 	nationalBankOfGeorgiaData := &[]*NationalBankOfGeorgiaExchangeRates{}
 	err := json.Unmarshal(content, nationalBankOfGeorgiaData)

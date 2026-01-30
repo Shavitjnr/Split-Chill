@@ -1,18 +1,18 @@
-package api
+﻿package api
 
 import (
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/duplicatechecker"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/services"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/duplicatechecker"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/services"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
-// ForgetPasswordsApi represents user forget password api
+
 type ForgetPasswordsApi struct {
 	ApiUsingConfig
 	ApiUsingDuplicateChecker
@@ -21,7 +21,7 @@ type ForgetPasswordsApi struct {
 	forgetPasswords *services.ForgetPasswordService
 }
 
-// Initialize a user api singleton instance
+
 var (
 	ForgetPasswords = &ForgetPasswordsApi{
 		ApiUsingConfig: ApiUsingConfig{
@@ -39,7 +39,7 @@ var (
 	}
 )
 
-// UserForgetPasswordRequestHandler generates password reset link and send user an email with this link
+
 func (a *ForgetPasswordsApi) UserForgetPasswordRequestHandler(c *core.WebContext) (any, *errs.Error) {
 	var request models.ForgetPasswordRequest
 	err := c.ShouldBindJSON(&request)
@@ -109,7 +109,7 @@ func (a *ForgetPasswordsApi) UserForgetPasswordRequestHandler(c *core.WebContext
 	return true, nil
 }
 
-// UserResetPasswordHandler resets user password by request parameters
+
 func (a *ForgetPasswordsApi) UserResetPasswordHandler(c *core.WebContext) (any, *errs.Error) {
 	var request models.PasswordResetRequest
 	err := c.ShouldBindJSON(&request)

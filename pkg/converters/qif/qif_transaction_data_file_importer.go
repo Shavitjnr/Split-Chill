@@ -1,12 +1,12 @@
-package qif
+﻿package qif
 
 import (
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/converter"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/converter"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 var qifTransactionTypeNameMapping = map[models.TransactionType]string{
@@ -16,12 +16,12 @@ var qifTransactionTypeNameMapping = map[models.TransactionType]string{
 	models.TRANSACTION_TYPE_TRANSFER:       utils.IntToString(int(models.TRANSACTION_TYPE_TRANSFER)),
 }
 
-// qifTransactionDataImporter defines the structure of quicken interchange format (qif) importer for transaction data
+
 type qifTransactionDataImporter struct {
 	dateFormatType qifDateFormatType
 }
 
-// Initialize a quicken interchange format (qif) transaction data importer singleton instance
+
 var (
 	QifYearMonthDayTransactionDataImporter = &qifTransactionDataImporter{
 		dateFormatType: qifYearMonthDayDateFormat,
@@ -36,7 +36,7 @@ var (
 	}
 )
 
-// ParseImportedData returns the imported data by parsing the quicken interchange format (qif) transaction data
+
 func (c *qifTransactionDataImporter) ParseImportedData(ctx core.Context, user *models.User, data []byte, defaultTimezone *time.Location, additionalOptions converter.TransactionDataImporterOptions, accountMap map[string]*models.Account, expenseCategoryMap map[string]map[string]*models.TransactionCategory, incomeCategoryMap map[string]map[string]*models.TransactionCategory, transferCategoryMap map[string]map[string]*models.TransactionCategory, tagMap map[string]*models.TransactionTag) (models.ImportedTransactionSlice, []*models.Account, []*models.TransactionCategory, []*models.TransactionCategory, []*models.TransactionCategory, []*models.TransactionTag, error) {
 	qifDataReader := createNewQifDataReader(data)
 	qifData, err := qifDataReader.read(ctx)

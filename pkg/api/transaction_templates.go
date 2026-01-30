@@ -1,30 +1,30 @@
-package api
+﻿package api
 
 import (
 	"sort"
 	"strings"
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/duplicatechecker"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/services"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/duplicatechecker"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/services"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 const maximumTagsCountOfTemplate = 10
 
-// TransactionTemplatesApi represents transaction template api
+
 type TransactionTemplatesApi struct {
 	ApiUsingConfig
 	ApiUsingDuplicateChecker
 	templates *services.TransactionTemplateService
 }
 
-// Initialize a transaction template api singleton instance
+
 var (
 	TransactionTemplates = &TransactionTemplatesApi{
 		ApiUsingConfig: ApiUsingConfig{
@@ -40,7 +40,7 @@ var (
 	}
 )
 
-// TemplateListHandler returns transaction template list of current user
+
 func (a *TransactionTemplatesApi) TemplateListHandler(c *core.WebContext) (any, *errs.Error) {
 	var templateListReq models.TransactionTemplateListRequest
 	err := c.ShouldBindQuery(&templateListReq)
@@ -79,7 +79,7 @@ func (a *TransactionTemplatesApi) TemplateListHandler(c *core.WebContext) (any, 
 	return templateResps, nil
 }
 
-// TemplateGetHandler returns one specific transaction template of current user
+
 func (a *TransactionTemplatesApi) TemplateGetHandler(c *core.WebContext) (any, *errs.Error) {
 	var templateGetReq models.TransactionTemplateGetRequest
 	err := c.ShouldBindQuery(&templateGetReq)
@@ -107,7 +107,7 @@ func (a *TransactionTemplatesApi) TemplateGetHandler(c *core.WebContext) (any, *
 	return templateResp, nil
 }
 
-// TemplateCreateHandler saves a new transaction template by request parameters for current user
+
 func (a *TransactionTemplatesApi) TemplateCreateHandler(c *core.WebContext) (any, *errs.Error) {
 	var templateCreateReq models.TransactionTemplateCreateRequest
 	err := c.ShouldBindJSON(&templateCreateReq)
@@ -203,7 +203,7 @@ func (a *TransactionTemplatesApi) TemplateCreateHandler(c *core.WebContext) (any
 	return templateResp, nil
 }
 
-// TemplateModifyHandler saves an existed transaction template by request parameters for current user
+
 func (a *TransactionTemplatesApi) TemplateModifyHandler(c *core.WebContext) (any, *errs.Error) {
 	var templateModifyReq models.TransactionTemplateModifyRequest
 	err := c.ShouldBindJSON(&templateModifyReq)
@@ -340,7 +340,7 @@ func (a *TransactionTemplatesApi) TemplateModifyHandler(c *core.WebContext) (any
 	return templateResp, nil
 }
 
-// TemplateHideHandler hides a transaction template by request parameters for current user
+
 func (a *TransactionTemplatesApi) TemplateHideHandler(c *core.WebContext) (any, *errs.Error) {
 	var templateHideReq models.TransactionTemplateHideRequest
 	err := c.ShouldBindJSON(&templateHideReq)
@@ -374,7 +374,7 @@ func (a *TransactionTemplatesApi) TemplateHideHandler(c *core.WebContext) (any, 
 	return true, nil
 }
 
-// TemplateMoveHandler moves display order of existed transaction templates by request parameters for current user
+
 func (a *TransactionTemplatesApi) TemplateMoveHandler(c *core.WebContext) (any, *errs.Error) {
 	var templateMoveReq models.TransactionTemplateMoveRequest
 	err := c.ShouldBindJSON(&templateMoveReq)
@@ -423,7 +423,7 @@ func (a *TransactionTemplatesApi) TemplateMoveHandler(c *core.WebContext) (any, 
 	return true, nil
 }
 
-// TemplateDeleteHandler deletes an existed transaction template by request parameters for current user
+
 func (a *TransactionTemplatesApi) TemplateDeleteHandler(c *core.WebContext) (any, *errs.Error) {
 	var templateDeleteReq models.TransactionTemplateDeleteRequest
 	err := c.ShouldBindJSON(&templateDeleteReq)

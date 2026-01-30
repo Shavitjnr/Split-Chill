@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 
 import { useI18n } from '@/locales/helpers.ts';
 
@@ -87,11 +87,11 @@ export function useAccountListPageBase() {
     }
 
     return {
-        // states
+        
         loading,
         showHidden,
         displayOrderModified,
-        // computed states
+        
         showAccountBalance,
         customAccountCategoryOrder,
         defaultAccountCategory,
@@ -104,7 +104,7 @@ export function useAccountListPageBase() {
         netAssets,
         totalAssets,
         totalLiabilities,
-        // functions
+        
         accountCategoryTotalBalance,
         accountBalance
     };

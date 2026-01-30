@@ -1,4 +1,4 @@
-import { computed, watch } from 'vue';
+﻿import { computed, watch } from 'vue';
 
 import { useI18n } from '@/locales/helpers.ts';
 import {
@@ -148,9 +148,9 @@ export function useNumberInputBase(props: NumberInputProps, emit: CommonNumberIn
     });
 
     return {
-        // states
+        
         currentValue,
-        // functions
+        
         onKeyUpDown,
         onPaste
     }

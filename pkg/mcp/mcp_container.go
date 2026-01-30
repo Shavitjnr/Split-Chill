@@ -1,16 +1,16 @@
-package mcp
+﻿package mcp
 
 import (
 	"github.com/invopop/jsonschema"
 	orderedmap "github.com/wk8/go-ordered-map/v2"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
-// MCPContainer contains the all mcp handlers
+
 type MCPContainer struct {
 	mcpTextContentTools      *orderedmap.OrderedMap[string, MCPToolHandler[MCPTextContent]]
 	mcpImageContentTools     *orderedmap.OrderedMap[string, MCPToolHandler[MCPImageContent]]
@@ -20,12 +20,12 @@ type MCPContainer struct {
 	mcpTools                 []*MCPTool
 }
 
-// Initialize a mcp handler container singleton instance
+
 var (
 	Container = &MCPContainer{}
 )
 
-// GetMCPTools returns the registered MCP tools
+
 func (c *MCPContainer) GetMCPTools() []*MCPTool {
 	if len(c.mcpTools) == 0 {
 		return nil
@@ -34,7 +34,7 @@ func (c *MCPContainer) GetMCPTools() []*MCPTool {
 	return c.mcpTools
 }
 
-// HandleTool returns the result of the MCP tool handler based on the tool name
+
 func (c *MCPContainer) HandleTool(ctx *core.WebContext, callToolReq *MCPCallToolRequest, user *models.User, currentConfig *settings.Config, services MCPAvailableServices) (any, error) {
 	if handler, exists := c.mcpTextContentTools.Get(callToolReq.Name); exists {
 		return handleTool(ctx, handler, currentConfig, services, callToolReq, user)
@@ -59,7 +59,7 @@ func (c *MCPContainer) HandleTool(ctx *core.WebContext, callToolReq *MCPCallTool
 	return nil, errs.ErrApiNotFound
 }
 
-// InitializeMCPHandlers initializes the all mcp handlers according to the config
+
 func InitializeMCPHandlers(config *settings.Config) error {
 	container := &MCPContainer{
 		mcpTextContentTools:      orderedmap.New[string, MCPToolHandler[MCPTextContent]](),

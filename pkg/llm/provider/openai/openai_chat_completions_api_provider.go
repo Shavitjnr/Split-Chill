@@ -1,14 +1,14 @@
-package openai
+﻿package openai
 
 import (
 	"net/http"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/llm/provider"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/llm/provider"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
-// OpenAIOfficialChatCompletionsAPIProvider defines the structure of OpenAI official chat completions API provider
+
 type OpenAIOfficialChatCompletionsAPIProvider struct {
 	OpenAIChatCompletionsAPIProvider
 	OpenAIAPIKey  string
@@ -17,7 +17,7 @@ type OpenAIOfficialChatCompletionsAPIProvider struct {
 
 const openAIChatCompletionsUrl = "https://api.openai.com/v1/chat/completions"
 
-// BuildChatCompletionsHttpRequest returns the chat completions http request by OpenAI official chat completions API provider
+
 func (p *OpenAIOfficialChatCompletionsAPIProvider) BuildChatCompletionsHttpRequest(c core.Context, uid int64) (*http.Request, error) {
 	req, err := http.NewRequest("POST", openAIChatCompletionsUrl, nil)
 
@@ -30,12 +30,12 @@ func (p *OpenAIOfficialChatCompletionsAPIProvider) BuildChatCompletionsHttpReque
 	return req, nil
 }
 
-// GetModelID returns the model id of OpenAI official chat completions API provider
+
 func (p *OpenAIOfficialChatCompletionsAPIProvider) GetModelID() string {
 	return p.OpenAIModelID
 }
 
-// NewOpenAILargeLanguageModelProvider creates a new OpenAI large language model provider instance
+
 func NewOpenAILargeLanguageModelProvider(llmConfig *settings.LLMConfig, enableResponseLog bool) provider.LargeLanguageModelProvider {
 	return newCommonOpenAIChatCompletionsAPILargeLanguageModelAdapter(llmConfig, enableResponseLog, &OpenAIOfficialChatCompletionsAPIProvider{
 		OpenAIAPIKey:  llmConfig.OpenAIAPIKey,

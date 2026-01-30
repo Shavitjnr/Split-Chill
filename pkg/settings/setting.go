@@ -1,4 +1,4 @@
-package settings
+﻿package settings
 
 import (
 	"fmt"
@@ -10,43 +10,43 @@ import (
 
 	"gopkg.in/ini.v1"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/locales"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/locales"
 )
 
 const (
 	ebkWorkDirEnvName                  = "EBK_WORK_DIR"
 	ebkConfigItemValueEnvNamePrefix    = "EBK"
 	ebkConfigItemFilePathEnvNamePrefix = "EBKCFP"
-	defaultConfigPath                  = "/conf/ezbookkeeping.ini"
+	defaultConfigPath                  = "/conf/splitchill-ai.ini"
 	defaultRootUrl                     = "%(protocol)s://%(domain)s:%(http_port)s/"
 	defaultStaticRootPath              = "public"
 )
 
-// SystemMode represents running mode of system
+
 type SystemMode string
 
-// System running modes
+
 const (
 	MODE_DEVELOPMENT SystemMode = "development"
 	MODE_PRODUCTION  SystemMode = "production"
 )
 
-// Scheme represents how the web backend service exposes
+
 type Scheme string
 
-// Scheme types
+
 const (
 	SCHEME_HTTP   Scheme = "http"
 	SCHEME_HTTPS  Scheme = "https"
 	SCHEME_SOCKET Scheme = "socket"
 )
 
-// Level represents log level
+
 type Level string
 
-// Log levels
+
 const (
 	LOGLEVEL_DEBUG Level = "debug"
 	LOGLEVEL_INFO  Level = "info"
@@ -54,14 +54,14 @@ const (
 	LOGLEVEL_ERROR Level = "error"
 )
 
-// Database types
+
 const (
 	MySqlDbType    string = "mysql"
 	PostgresDbType string = "postgres"
 	Sqlite3DbType  string = "sqlite3"
 )
 
-// Object Storage types
+
 const (
 	LocalFileSystemObjectStorageType string = "local_filesystem"
 	MinIOStorageType                 string = "minio"
@@ -76,23 +76,23 @@ const (
 	GoogleAILLMProvider         string = "google_ai"
 )
 
-// Uuid generator types
+
 const (
 	InternalUuidGeneratorType string = "internal"
 )
 
-// Duplicate checker types
+
 const (
 	InMemoryDuplicateCheckerType string = "in_memory"
 )
 
-// OAuth 2.0 user identifier types
+
 const (
 	OAuth2UserIdentifierEmail    string = "email"
 	OAuth2UserIdentifierUsername string = "username"
 )
 
-// OAuth 2.0 provider types
+
 const (
 	OAuth2ProviderOIDC      string = "oidc"
 	OAuth2ProviderNextcloud string = "nextcloud"
@@ -100,7 +100,7 @@ const (
 	OAuth2ProviderGithub    string = "github"
 )
 
-// Map provider types
+
 const (
 	OpenStreetMapProvider                  string = "openstreetmap"
 	OpenStreetMapHumanitarianStyleProvider string = "openstreetmap_humanitarian"
@@ -116,14 +116,14 @@ const (
 	CustomProvider                         string = "custom"
 )
 
-// Amap security verification method
+
 const (
 	AmapSecurityVerificationInternalProxyMethod string = "internal_proxy"
 	AmapSecurityVerificationExternalProxyMethod string = "external_proxy"
 	AmapSecurityVerificationPlainTextMethod     string = "plain_text"
 )
 
-// Exchange rates data source types
+
 const (
 	ReserveBankOfAustraliaDataSource  string = "reserve_bank_of_australia"
 	BankOfCanadaDataSource            string = "bank_of_canada"
@@ -150,44 +150,44 @@ const (
 	defaultDomain   string = "localhost"
 
 	defaultDatabaseHost            string = "127.0.0.1:3306"
-	defaultDatabaseName            string = "ezbookkeeping"
+	defaultDatabaseName            string = "Split Chill AI"
 	defaultDatabaseMaxIdleConn     uint16 = 2
 	defaultDatabaseMaxOpenConn     uint16 = 0
 	defaultDatabaseConnMaxLifetime uint32 = 14400
 
 	defaultLogMode        string = "console"
-	defaultLogFileMaxSize uint32 = 104857600 // 100 MB
-	defaultLogFileMaxDays uint32 = 7         // days
+	defaultLogFileMaxSize uint32 = 104857600 
+	defaultLogFileMaxDays uint32 = 7         
 
-	defaultWebDAVRequestTimeout uint32 = 10000 // 10 seconds
+	defaultWebDAVRequestTimeout uint32 = 10000 
 
-	defaultAIRecognitionPictureMaxSize         uint32 = 10485760 // 10MB
-	defaultLargeLanguageModelAPIRequestTimeout uint32 = 60000    // 60 seconds
+	defaultAIRecognitionPictureMaxSize         uint32 = 10485760 
+	defaultLargeLanguageModelAPIRequestTimeout uint32 = 60000    
 
-	defaultInMemoryDuplicateCheckerCleanupInterval uint32 = 60  // 1 minutes
-	defaultDuplicateSubmissionsInterval            uint32 = 300 // 5 minutes
+	defaultInMemoryDuplicateCheckerCleanupInterval uint32 = 60  
+	defaultDuplicateSubmissionsInterval            uint32 = 300 
 
-	defaultSecretKey                     string = "ezbookkeeping"
-	defaultTokenExpiredTime              uint32 = 2592000 // 30 days
-	defaultTokenMinRefreshInterval       uint32 = 86400   // 1 day
-	defaultTemporaryTokenExpiredTime     uint32 = 300     // 5 minutes
-	defaultEmailVerifyTokenExpiredTime   uint32 = 3600    // 60 minutes
-	defaultPasswordResetTokenExpiredTime uint32 = 3600    // 60 minutes
+	defaultSecretKey                     string = "Split Chill AI"
+	defaultTokenExpiredTime              uint32 = 2592000 
+	defaultTokenMinRefreshInterval       uint32 = 86400   
+	defaultTemporaryTokenExpiredTime     uint32 = 300     
+	defaultEmailVerifyTokenExpiredTime   uint32 = 3600    
+	defaultPasswordResetTokenExpiredTime uint32 = 3600    
 	defaultMaxFailuresPerIpPerMinute     uint32 = 5
 	defaultMaxFailuresPerUserPerMinute   uint32 = 5
 
-	defaultOAuth2StateExpiredTime uint32 = 300   // 5 minutes
-	defaultOAuth2RequestTimeout   uint32 = 10000 // 10 seconds
+	defaultOAuth2StateExpiredTime uint32 = 300   
+	defaultOAuth2RequestTimeout   uint32 = 10000 
 
-	defaultTransactionPictureFileMaxSize uint32 = 10485760 // 10MB
-	defaultUserAvatarFileMaxSize         uint32 = 1048576  // 1MB
+	defaultTransactionPictureFileMaxSize uint32 = 10485760 
+	defaultUserAvatarFileMaxSize         uint32 = 1048576  
 
-	defaultImportFileMaxSize uint32 = 10485760 // 10MB
+	defaultImportFileMaxSize uint32 = 10485760 
 
-	defaultExchangeRatesDataRequestTimeout uint32 = 10000 // 10 seconds
+	defaultExchangeRatesDataRequestTimeout uint32 = 10000 
 )
 
-// DatabaseConfig represents the database setting config
+
 type DatabaseConfig struct {
 	DatabaseType     string
 	DatabaseHost     string
@@ -204,7 +204,7 @@ type DatabaseConfig struct {
 	ConnectionMaxLifeTime uint32
 }
 
-// SMTPConfig represents the SMTP setting config
+
 type SMTPConfig struct {
 	SMTPHost          string
 	SMTPUser          string
@@ -213,7 +213,7 @@ type SMTPConfig struct {
 	FromAddress       string
 }
 
-// MinIOConfig represents the MinIO setting config
+
 type MinIOConfig struct {
 	Endpoint        string
 	Location        string
@@ -225,7 +225,7 @@ type MinIOConfig struct {
 	RootPath        string
 }
 
-// WebDAVConfig represents the WebDAV setting config
+
 type WebDAVConfig struct {
 	Url            string
 	Username       string
@@ -236,7 +236,7 @@ type WebDAVConfig struct {
 	SkipTLSVerify  bool
 }
 
-// LLMConfig represents the Large Language Model setting config
+
 type LLMConfig struct {
 	LLMProvider                         string
 	OpenAIAPIKey                        string
@@ -255,20 +255,20 @@ type LLMConfig struct {
 	LargeLanguageModelAPISkipTLSVerify  bool
 }
 
-// MultiLanguageContentConfig represents a multi-language content setting config
+
 type MultiLanguageContentConfig struct {
 	Enabled              bool
 	DefaultContent       string
 	MultiLanguageContent map[string]string
 }
 
-// Config represents the global setting config
+
 type Config struct {
-	// Global
+	
 	Mode        SystemMode
 	WorkingPath string
 
-	// Server
+	
 	Protocol Scheme
 	HttpAddr string
 	HttpPort uint16
@@ -287,20 +287,20 @@ type Config struct {
 	EnableRequestLog      bool
 	EnableRequestIdHeader bool
 
-	// MCP
+	
 	EnableMCPServer     bool
 	MCPAllowedRemoteIPs []*core.IPPattern
 
-	// Database
+	
 	DatabaseConfig     *DatabaseConfig
 	EnableQueryLog     bool
 	AutoUpdateDatabase bool
 
-	// Mail
+	
 	EnableSMTP bool
 	SMTPConfig *SMTPConfig
 
-	// Log
+	
 	LogModes         []string
 	EnableConsoleLog bool
 	EnableFileLog    bool
@@ -314,24 +314,24 @@ type Config struct {
 	LogFileMaxSize     uint32
 	LogFileMaxDays     uint32
 
-	// Storage
+	
 	StorageType         string
 	LocalFileSystemPath string
 	MinIOConfig         *MinIOConfig
 	WebDAVConfig        *WebDAVConfig
 
-	// Large Language Model
+	
 	TransactionFromAIImageRecognition bool
 	MaxAIRecognitionPictureFileSize   uint32
 
-	// Large Language Model for Receipt Image Recognition
+	
 	ReceiptImageRecognitionLLMConfig *LLMConfig
 
-	// Uuid
+	
 	UuidGeneratorType string
 	UuidServerId      uint8
 
-	// Duplicate Checker
+	
 	DuplicateCheckerType                            string
 	InMemoryDuplicateCheckerCleanupInterval         uint32
 	InMemoryDuplicateCheckerCleanupIntervalDuration time.Duration
@@ -339,11 +339,11 @@ type Config struct {
 	DuplicateSubmissionsInterval                    uint32
 	DuplicateSubmissionsIntervalDuration            time.Duration
 
-	// Cron
+	
 	EnableRemoveExpiredTokens        bool
 	EnableCreateScheduledTransaction bool
 
-	// Secret
+	
 	SecretKeyNoSet                        bool
 	SecretKey                             string
 	TokenExpiredTime                      uint32
@@ -359,7 +359,7 @@ type Config struct {
 	MaxFailuresPerIpPerMinute             uint32
 	MaxFailuresPerUserPerMinute           uint32
 
-	// Auth
+	
 	EnableInternalAuth                bool
 	EnableOAuth2Login                 bool
 	EnableTwoFactor                   bool
@@ -382,7 +382,7 @@ type Config struct {
 	OAuth2NextcloudBaseUrl            string
 	OAuth2GiteaBaseUrl                string
 
-	// User
+	
 	EnableUserRegister            bool
 	EnableUserVerifyEmail         bool
 	EnableUserForceVerifyEmail    bool
@@ -393,20 +393,20 @@ type Config struct {
 	MaxAvatarFileSize             uint32
 	DefaultFeatureRestrictions    core.UserFeatureRestrictions
 
-	// Data
+	
 	EnableDataExport  bool
 	EnableDataImport  bool
 	MaxImportFileSize uint32
 
-	// Tip
+	
 	LoginPageTips MultiLanguageContentConfig
 
-	// Notification
+	
 	AfterRegisterNotification MultiLanguageContentConfig
 	AfterLoginNotification    MultiLanguageContentConfig
 	AfterOpenNotification     MultiLanguageContentConfig
 
-	// Map
+	
 	MapProvider                           string
 	EnableMapDataFetchProxy               bool
 	MapProxy                              string
@@ -424,7 +424,7 @@ type Config struct {
 	CustomMapTileServerMaxZoomLevel       uint8
 	CustomMapTileServerDefaultZoomLevel   uint8
 
-	// Exchange Rates
+	
 	ExchangeRatesDataSource                       string
 	ExchangeRatesRequestTimeout                   uint32
 	ExchangeRatesRequestTimeoutExceedDefaultValue bool
@@ -432,7 +432,7 @@ type Config struct {
 	ExchangeRatesSkipTLSVerify                    bool
 }
 
-// LoadConfiguration loads setting config from given config file path
+
 func LoadConfiguration(configFilePath string) (*Config, error) {
 	var err error
 
@@ -574,7 +574,7 @@ func LoadConfiguration(configFilePath string) (*Config, error) {
 	return config, nil
 }
 
-// GetDefaultConfigFilePath returns the defaule config file path
+
 func GetDefaultConfigFilePath() (string, error) {
 	workingPath, err := getWorkingPath()
 

@@ -1,4 +1,4 @@
-package core
+﻿package core
 
 import (
 	"net"
@@ -8,7 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
 )
 
 const webContextRequestIdFieldKey = "REQUEST_ID"
@@ -17,16 +17,16 @@ const webContextTokenClaimsFieldKey = "TOKEN_CLAIMS"
 const webContextTokenContextFieldKey = "TOKEN_CONTEXT"
 const webContextResponseErrorFieldKey = "RESPONSE_ERROR"
 
-// AcceptLanguageHeaderName represents the header name of accept language
+
 const AcceptLanguageHeaderName = "Accept-Language"
 
-// RemoteClientPortHeader represents the header name of remote client source port
+
 const RemoteClientPortHeader = "X-Real-Port"
 
-// ClientTimezoneOffsetHeaderName represents the header name of client timezone offset
+
 const ClientTimezoneOffsetHeaderName = "X-Timezone-Offset"
 
-// ClientTimezoneNameHeaderName represents the header name of client timezone name
+
 const ClientTimezoneNameHeaderName = "X-Timezone-Name"
 
 const tokenHeaderName = "Authorization"
@@ -34,10 +34,10 @@ const tokenHeaderValuePrefix = "bearer "
 const tokenQueryStringParam = "token"
 const tokenCookieParam = "ebk_auth_token"
 
-// WebContext represents the request and response context
+
 type WebContext struct {
 	*gin.Context
-	// DO NOT ADD ANY FIELD IN THIS CONTEXT, THIS CONTEXT IS JUST A WRAPPER
+	
 }
 
 func (c *WebContext) ClientPort() uint16 {
@@ -70,12 +70,12 @@ func (c *WebContext) ClientPort() uint16 {
 	return uint16(remotePortNum)
 }
 
-// SetContextId sets the given request id to context
+
 func (c *WebContext) SetContextId(requestId string) {
 	c.Set(webContextRequestIdFieldKey, requestId)
 }
 
-// GetContextId returns the current request id
+
 func (c *WebContext) GetContextId() string {
 	requestId, exists := c.Get(webContextRequestIdFieldKey)
 
@@ -86,12 +86,12 @@ func (c *WebContext) GetContextId() string {
 	return requestId.(string)
 }
 
-// SetTextualToken sets the given user token to context
+
 func (c *WebContext) SetTextualToken(token string) {
 	c.Set(webContextTextualTokenFieldKey, token)
 }
 
-// GetTextualToken returns the current user textual token
+
 func (c *WebContext) GetTextualToken() string {
 	token, exists := c.Get(webContextTextualTokenFieldKey)
 
@@ -102,12 +102,12 @@ func (c *WebContext) GetTextualToken() string {
 	return token.(string)
 }
 
-// SetTokenClaims sets the given user token to context
+
 func (c *WebContext) SetTokenClaims(claims *UserTokenClaims) {
 	c.Set(webContextTokenClaimsFieldKey, claims)
 }
 
-// GetTokenClaims returns the current user token
+
 func (c *WebContext) GetTokenClaims() *UserTokenClaims {
 	claims, exists := c.Get(webContextTokenClaimsFieldKey)
 
@@ -118,12 +118,12 @@ func (c *WebContext) GetTokenClaims() *UserTokenClaims {
 	return claims.(*UserTokenClaims)
 }
 
-// SetTokenContext sets the given user token context to context
+
 func (c *WebContext) SetTokenContext(context string) {
 	c.Set(webContextTokenContextFieldKey, context)
 }
 
-// GetTokenContext returns the current user token context
+
 func (c *WebContext) GetTokenContext() string {
 	context, exists := c.Get(webContextTokenContextFieldKey)
 
@@ -134,7 +134,7 @@ func (c *WebContext) GetTokenContext() string {
 	return context.(string)
 }
 
-// GetCurrentUid returns the current user uid by the current user token
+
 func (c *WebContext) GetCurrentUid() int64 {
 	claims := c.GetTokenClaims()
 
@@ -145,7 +145,7 @@ func (c *WebContext) GetCurrentUid() int64 {
 	return claims.Uid
 }
 
-// GetTokenStringFromHeader returns the token string from the request header
+
 func (c *WebContext) GetTokenStringFromHeader() string {
 	tokenHeader := c.GetHeader(tokenHeaderName)
 
@@ -156,12 +156,12 @@ func (c *WebContext) GetTokenStringFromHeader() string {
 	return tokenHeader[7:]
 }
 
-// GetTokenStringFromQueryString returns the token string from the request query string
+
 func (c *WebContext) GetTokenStringFromQueryString() string {
 	return c.Query(tokenQueryStringParam)
 }
 
-// GetTokenStringFromCookie returns the token string from the request cookie
+
 func (c *WebContext) GetTokenStringFromCookie() string {
 	tokenCookie, err := c.Cookie(tokenCookieParam)
 
@@ -180,7 +180,7 @@ func (c *WebContext) SetTokenStringToCookie(token string, tokenExpiredTime int, 
 	}
 }
 
-// GetClientLocale returns the client locale name
+
 func (c *WebContext) GetClientLocale() string {
 	value := c.GetHeader(AcceptLanguageHeaderName)
 
@@ -207,12 +207,12 @@ func (c *WebContext) GetClientTimezone() (*time.Location, error) {
 	return time.FixedZone("Client Fixed Timezone", int(utcOffset)*60), nil
 }
 
-// SetResponseError sets the response error
+
 func (c *WebContext) SetResponseError(error *errs.Error) {
 	c.Set(webContextResponseErrorFieldKey, error)
 }
 
-// GetResponseError returns the response error
+
 func (c *WebContext) GetResponseError() *errs.Error {
 	err, exists := c.Get(webContextResponseErrorFieldKey)
 
@@ -223,7 +223,7 @@ func (c *WebContext) GetResponseError() *errs.Error {
 	return err.(*errs.Error)
 }
 
-// GetClientTimezoneOffset returns the client timezone offset
+
 func (c *WebContext) getClientTimezoneOffset() (int16, error) {
 	value := c.GetHeader(ClientTimezoneOffsetHeaderName)
 	offset, err := strconv.Atoi(value)
@@ -235,14 +235,14 @@ func (c *WebContext) getClientTimezoneOffset() (int16, error) {
 	return int16(offset), nil
 }
 
-// GetClientTimezoneName returns the client timezone name
+
 func (c *WebContext) getClientTimezoneName() string {
 	value := c.GetHeader(ClientTimezoneNameHeaderName)
 
 	return value
 }
 
-// WrapWebContext returns a context wrapped by this file
+
 func WrapWebContext(ginCtx *gin.Context) *WebContext {
 	return &WebContext{
 		Context: ginCtx,

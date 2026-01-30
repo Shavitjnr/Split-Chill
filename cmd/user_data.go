@@ -1,4 +1,4 @@
-package cmd
+﻿package cmd
 
 import (
 	"fmt"
@@ -6,18 +6,18 @@ import (
 
 	"github.com/urfave/cli/v3"
 
-	clis "github.com/mayswind/ezbookkeeping/pkg/cli"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	clis "github.com/Shavitjnr/split-chill-ai/pkg/cli"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
-// UserData represents the data command
+
 var UserData = &cli.Command{
 	Name:  "userdata",
-	Usage: "ezBookkeeping user data maintenance",
+	Usage: "Split Chill AI user data maintenance",
 	Commands: []*cli.Command{
 		{
 			Name:   "user-add",
@@ -360,7 +360,7 @@ var UserData = &cli.Command{
 					Name:     "type",
 					Aliases:  []string{"t"},
 					Required: true,
-					Usage:    "Import file type (supports \"ezbookkeeping_csv\", \"ezbookkeeping_tsv\")",
+					Usage:    "Import file type (supports \"Split Chill AI_csv\", \"Split Chill AI_tsv\")",
 				},
 			},
 		},
@@ -919,7 +919,7 @@ func importUserTransaction(c *core.CliContext) error {
 		return os.ErrExist
 	}
 
-	if filetype != "ezbookkeeping_csv" && filetype != "ezbookkeeping_tsv" {
+	if filetype != "Split Chill AI_csv" && filetype != "Split Chill AI_tsv" {
 		log.CliErrorf(c, "[user_data.importUserTransaction] unknown file type \"%s\"", filetype)
 		return errs.ErrImportFileTypeNotSupported
 	}

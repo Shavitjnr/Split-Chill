@@ -1,0 +1,16 @@
+[Unit]
+Description=Split Chill AI, a lightweight, self-hosted personal finance app with a user-friendly interface and powerful bookkeeping features.
+After=syslog.target
+After=network.target
+After=mariadb.service mysqld.service postgresql.service
+
+[Service]
+Type=simple
+User=Split Chill AI
+Group=Split Chill AI
+WorkingDirectory=/usr/local/bin/Split Chill AI
+ExecStart=/usr/local/bin/Split Chill AI/Split Chill AI server run
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

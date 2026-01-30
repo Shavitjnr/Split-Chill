@@ -1,16 +1,16 @@
-package mcp
+﻿package mcp
 
 import (
 	"encoding/json"
 	"reflect"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
-// MCPQueryAllTransactionCategoriesResponse represents the response structure for querying transaction categories
+
 type MCPQueryAllTransactionCategoriesResponse struct {
 	IncomeCategories   map[string][]string `json:"incomeCategories" jsonschema_description:"List of income categories, field key is the primary category name, field value is the list of secondary category names"`
 	ExpenseCategories  map[string][]string `json:"expenseCategories" jsonschema_description:"List of expense categories, field key is the primary category name, field value is the list of secondary category names"`
@@ -21,27 +21,27 @@ type mcpQueryAllTransactionCategoriesToolHandler struct{}
 
 var MCPQueryAllTransactionCategoriesToolHandler = &mcpQueryAllTransactionCategoriesToolHandler{}
 
-// Name returns the name of the MCP tool
+
 func (h *mcpQueryAllTransactionCategoriesToolHandler) Name() string {
 	return "query_all_transaction_categories"
 }
 
-// Description returns the description of the MCP tool
+
 func (h *mcpQueryAllTransactionCategoriesToolHandler) Description() string {
-	return "Query all transaction categories for the current user in ezBookkeeping."
+	return "Query all transaction categories for the current user in Split Chill AI."
 }
 
-// InputType returns the input type for the MCP tool request
+
 func (h *mcpQueryAllTransactionCategoriesToolHandler) InputType() reflect.Type {
 	return nil
 }
 
-// OutputType returns the output type for the MCP tool response
+
 func (h *mcpQueryAllTransactionCategoriesToolHandler) OutputType() reflect.Type {
 	return reflect.TypeOf(&MCPQueryAllTransactionCategoriesResponse{})
 }
 
-// Handle processes the MCP call tool request and returns the response
+
 func (h *mcpQueryAllTransactionCategoriesToolHandler) Handle(c *core.WebContext, callToolReq *MCPCallToolRequest, user *models.User, currentConfig *settings.Config, services MCPAvailableServices) (any, []*MCPTextContent, error) {
 	uid := user.Uid
 	categories, err := services.GetTransactionCategoryService().GetAllCategoriesByUid(c, uid, 0, -1)

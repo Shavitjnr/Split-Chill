@@ -1,8 +1,8 @@
-package utils
+﻿package utils
 
 import "sort"
 
-// Int64SliceEquals returns whether specific two int64 arrays equal
+
 func Int64SliceEquals(s1, s2 []int64) bool {
 	if (s1 == nil) != (s2 == nil) {
 		return false
@@ -21,7 +21,7 @@ func Int64SliceEquals(s1, s2 []int64) bool {
 	return true
 }
 
-// Int64SliceMinus returns a int64 array which contains items in s1 but not in s2
+
 func Int64SliceMinus(s1, s2 []int64) []int64 {
 	if s1 == nil {
 		return nil
@@ -43,7 +43,7 @@ func Int64SliceMinus(s1, s2 []int64) []int64 {
 	return ret
 }
 
-// ToUniqueInt64Slice returns a int64 array which does not have duplicated items
+
 func ToUniqueInt64Slice(items []int64) []int64 {
 	uniqueItems := make([]int64, 0, len(items))
 	itemExistMap := make(map[int64]bool)
@@ -60,14 +60,14 @@ func ToUniqueInt64Slice(items []int64) []int64 {
 	return uniqueItems
 }
 
-// Int64Sort sorts the specified array with int64 items
+
 func Int64Sort(items []int64) {
 	sort.Slice(items, func(i, j int) bool {
 		return items[i] < items[j]
 	})
 }
 
-// ToSet returns a map where the keys are the items in the specified array
+
 func ToSet(items []int64) map[int64]bool {
 	itemExistMap := make(map[int64]bool)
 

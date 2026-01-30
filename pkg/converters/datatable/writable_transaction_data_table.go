@@ -1,12 +1,12 @@
-package datatable
+﻿package datatable
 
 import (
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
 )
 
-// WritableTransactionDataTable defines the structure of writable transaction data table
+
 type WritableTransactionDataTable struct {
 	allData          []map[TransactionDataTableColumn]string
 	supportedColumns map[TransactionDataTableColumn]bool
@@ -14,20 +14,20 @@ type WritableTransactionDataTable struct {
 	addedColumns     map[TransactionDataTableColumn]bool
 }
 
-// WritableTransactionDataRow defines the structure of transaction data row of writable data table
+
 type WritableTransactionDataRow struct {
 	dataTable    *WritableTransactionDataTable
 	rowData      map[TransactionDataTableColumn]string
 	rowDataValid bool
 }
 
-// WritableTransactionDataRowIterator defines the structure of transaction data row iterator of writable data table
+
 type WritableTransactionDataRowIterator struct {
 	dataTable *WritableTransactionDataTable
 	nextIndex int
 }
 
-// Add appends a new record to data table
+
 func (t *WritableTransactionDataTable) Add(data map[TransactionDataTableColumn]string) {
 	finalData := make(map[TransactionDataTableColumn]string, len(data))
 
@@ -42,7 +42,7 @@ func (t *WritableTransactionDataTable) Add(data map[TransactionDataTableColumn]s
 	t.allData = append(t.allData, finalData)
 }
 
-// Get returns the record in the specified index
+
 func (t *WritableTransactionDataTable) Get(index int) (*WritableTransactionDataRow, error) {
 	if index >= len(t.allData) {
 		return nil, nil
@@ -67,7 +67,7 @@ func (t *WritableTransactionDataTable) Get(index int) (*WritableTransactionDataR
 	}, nil
 }
 
-// HasColumn returns whether the data table has specified column
+
 func (t *WritableTransactionDataTable) HasColumn(column TransactionDataTableColumn) bool {
 	_, exists := t.supportedColumns[column]
 
@@ -86,12 +86,12 @@ func (t *WritableTransactionDataTable) HasColumn(column TransactionDataTableColu
 	return false
 }
 
-// TransactionRowCount returns the total count of transaction data row
+
 func (t *WritableTransactionDataTable) TransactionRowCount() int {
 	return len(t.allData)
 }
 
-// TransactionRowIterator returns the iterator of transaction data row
+
 func (t *WritableTransactionDataTable) TransactionRowIterator() TransactionDataRowIterator {
 	return &WritableTransactionDataRowIterator{
 		dataTable: t,
@@ -99,7 +99,7 @@ func (t *WritableTransactionDataTable) TransactionRowIterator() TransactionDataR
 	}
 }
 
-// ColumnCount returns the total count of column in this data row
+
 func (r *WritableTransactionDataRow) ColumnCount() int {
 	if !r.rowDataValid {
 		return 0
@@ -116,12 +116,12 @@ func (r *WritableTransactionDataRow) ColumnCount() int {
 	return columnCount
 }
 
-// IsValid returns whether this row is valid data for importing
+
 func (r *WritableTransactionDataRow) IsValid() bool {
 	return r.rowDataValid
 }
 
-// GetData returns the data in the specified column type
+
 func (r *WritableTransactionDataRow) GetData(column TransactionDataTableColumn) string {
 	if !r.rowDataValid {
 		return ""
@@ -144,12 +144,12 @@ func (r *WritableTransactionDataRow) GetData(column TransactionDataTableColumn) 
 	return ""
 }
 
-// HasNext returns whether the iterator does not reach the end
+
 func (t *WritableTransactionDataRowIterator) HasNext() bool {
 	return t.nextIndex < len(t.dataTable.allData)
 }
 
-// Next returns the next transaction data row
+
 func (t *WritableTransactionDataRowIterator) Next(ctx core.Context, user *models.User) (daraRow TransactionDataRow, err error) {
 	if t.nextIndex >= len(t.dataTable.allData) {
 		return nil, nil
@@ -176,12 +176,12 @@ func (t *WritableTransactionDataRowIterator) Next(ctx core.Context, user *models
 	}, nil
 }
 
-// CreateNewWritableTransactionDataTable returns a new writable transaction data table according to the specified columns
+
 func CreateNewWritableTransactionDataTable(columns []TransactionDataTableColumn) *WritableTransactionDataTable {
 	return CreateNewWritableTransactionDataTableWithRowParser(columns, nil)
 }
 
-// CreateNewWritableTransactionDataTableWithRowParser returns a new writable transaction data table according to the specified columns
+
 func CreateNewWritableTransactionDataTableWithRowParser(columns []TransactionDataTableColumn, rowParser TransactionDataRowParser) *WritableTransactionDataTable {
 	supportedColumns := make(map[TransactionDataTableColumn]bool, len(columns))
 

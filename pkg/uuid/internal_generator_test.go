@@ -1,4 +1,4 @@
-package uuid
+﻿package uuid
 
 import (
 	"fmt"
@@ -8,7 +8,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
 func TestGenerateUuid(t *testing.T) {
@@ -165,7 +165,7 @@ func TestGenerateUuid_1000000TimesConcurrent(t *testing.T) {
 
 		go func(currentRoutineIndex int) {
 			for cycle := 0; cycle < 100000; cycle++ {
-				if cycle%50000 == 0 { // each server can only generate 500,000 (10 * 50000) uuids in one second
+				if cycle%50000 == 0 { 
 					time.Sleep(1000 * time.Millisecond)
 				}
 
@@ -349,7 +349,7 @@ func TestGenerateUuids_1000000TimesConcurrent(t *testing.T) {
 
 		go func(currentRoutineIndex int) {
 			for cycle := 0; cycle < 400; cycle++ {
-				if cycle%200 == 0 { // each server can only generate 500,000 (10 * 250 * 200) uuids in one second
+				if cycle%200 == 0 { 
 					time.Sleep(1000 * time.Millisecond)
 				}
 
@@ -394,7 +394,7 @@ func TestGenerateUuid_Over524287Times(t *testing.T) {
 	onceGenerateCount := uint16(255)
 	generationStartUnixTime := time.Now().Unix()
 
-	for i := 0; i < 2057; i++ { // 2056*255=524280, 2057*255=524,535 (only can generates 524,287 uuids per second)
+	for i := 0; i < 2057; i++ { 
 		uuids := generator.GenerateUuids(UUID_TYPE_USER, onceGenerateCount)
 
 		if i < 2056 {

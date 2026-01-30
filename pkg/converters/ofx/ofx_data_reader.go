@@ -1,4 +1,4 @@
-package ofx
+﻿package ofx
 
 import (
 	"bufio"
@@ -14,41 +14,40 @@ import (
 	"golang.org/x/text/encoding/unicode"
 	"golang.org/x/text/transform"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/sgml"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/sgml"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 const ofx1USAsciiEncoding = "usascii"
 const ofx1UnicodeEncoding = "unicode"
-const ofx1UTF8Encoding = "utf-8" // non-standard ofx 1.x encoding, used by some banks (https://github.com/mayswind/ezbookkeeping/issues/48)
+const ofx1UTF8Encoding = "utf-8" 
 const ofx1SGMLDataFormat = "OFXSGML"
 
 var ofx2HeaderPattern = regexp.MustCompile("<\\?OFX( +[A-Z]+=\"[^=]*\")* *\\?>")
 var ofx2HeaderAttributePattern = regexp.MustCompile(" +([A-Z]+)=\"([^=]*)\"")
 
-// ofxFileReader defines the structure of open financial exchange (ofx) file reader
+
 type ofxFileReader interface {
-	// read returns the imported open financial exchange (ofx) file
+	
 	read(ctx core.Context) (*ofxFile, error)
 }
 
-// ofxVersion1FileReader defines the structure of open financial exchange (ofx) declaration version 1.x file reader
+
 type ofxVersion1FileReader struct {
 	fileHeader  *ofxFileHeader
 	sgmlDecoder *sgml.Decoder
 }
 
-// ofxVersion2FileReader defines the structure of open financial exchange (ofx) declaration version 2.x file reader
+
 type ofxVersion2FileReader struct {
 	fileHeader *ofxFileHeader
 	xmlDecoder *xml.Decoder
 }
 
-// read returns the imported open financial exchange (ofx) file
-// Reference: https://www.financialdataexchange.org/FDX/FDX/About/OFX-Work-Group.aspx?a315d1c24e44=2
+
 func (r *ofxVersion1FileReader) read(ctx core.Context) (*ofxFile, error) {
 	file := &ofxFile{}
 
@@ -64,7 +63,7 @@ func (r *ofxVersion1FileReader) read(ctx core.Context) (*ofxFile, error) {
 	return file, nil
 }
 
-// read returns the imported open financial exchange (ofx) file
+
 func (r *ofxVersion2FileReader) read(ctx core.Context) (*ofxFile, error) {
 	file := &ofxFile{}
 
@@ -90,11 +89,11 @@ func createNewOFXFileReader(ctx core.Context, data []byte) (ofxFileReader, error
 		}
 	}
 
-	if len(data) > 5 && string(data[firstNonCrLfIndex:firstNonCrLfIndex+5]) == "<?xml" { // ofx 2.x starts with <?xml
+	if len(data) > 5 && string(data[firstNonCrLfIndex:firstNonCrLfIndex+5]) == "<?xml" { 
 		return createNewOFX2FileReader(ctx, data, true)
-	} else if len(data) > 10 && string(data[firstNonCrLfIndex:firstNonCrLfIndex+10]) == "OFXHEADER:" { // ofx 1.x starts with OFXHEADER:
+	} else if len(data) > 10 && string(data[firstNonCrLfIndex:firstNonCrLfIndex+10]) == "OFXHEADER:" { 
 		return createNewOFX1FileReader(ctx, data)
-	} else if len(data) > 5 && string(data[firstNonCrLfIndex:firstNonCrLfIndex+5]) == "<OFX>" { // no ofx header
+	} else if len(data) > 5 && string(data[firstNonCrLfIndex:firstNonCrLfIndex+5]) == "<OFX>" { 
 		return createNewOFX2FileReader(ctx, data, false)
 	}
 
@@ -223,7 +222,7 @@ func readOFX1FileHeader(ctx core.Context, data []byte) (fileHeader *ofxFileHeade
 		} else if key == "CHARSET" {
 			fileCharset = strings.ToLower(value)
 		} else if key == "COMPRESSION" {
-			continue // ignore
+			continue 
 		} else if key == "OLDFILEUID" {
 			fileHeader.OldFileUid = value
 		} else if key == "NEWFILEUID" {

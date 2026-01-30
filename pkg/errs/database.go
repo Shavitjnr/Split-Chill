@@ -1,10 +1,10 @@
-package errs
+﻿package errs
 
 import (
 	"net/http"
 )
 
-// Error codes related to database
+
 var (
 	ErrDatabaseTypeInvalid     = NewSystemError(SystemSubcategoryDatabase, 0, http.StatusInternalServerError, "database type is invalid")
 	ErrDatabaseHostInvalid     = NewSystemError(SystemSubcategoryDatabase, 1, http.StatusInternalServerError, "database host is invalid")

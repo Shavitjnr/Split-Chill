@@ -1,4 +1,4 @@
-import { ref, computed, watch } from 'vue';
+﻿import { ref, computed, watch } from 'vue';
 
 import { useI18n } from '@/locales/helpers.ts';
 
@@ -99,9 +99,9 @@ export function usePieChartBase(props: CommonPieChartProps) {
     });
 
     return {
-        // states
+        
         selectedIndex,
-        // computed states
+        
         validItems
     };
 }

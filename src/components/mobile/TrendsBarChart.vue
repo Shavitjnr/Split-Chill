@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <f7-list class="skeleton-text" v-if="loading">
         <f7-list-item class="statistics-list-item" link="#" :key="itemIdx" v-for="itemIdx in [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ]">
             <template #media>
@@ -265,7 +265,7 @@ const allDisplayDataItems = computed<TrendsBarChartData>(() => {
                     dateRangeKey = `${dataItem.year}-${Math.floor((dataItem.month - 1) / 3) + 1}`;
                 } else if (props.dateAggregationType === ChartDateAggregationType.Month.type) {
                     dateRangeKey = `${dataItem.year}-${dataItem.month}`;
-                } else { // if (props.dateAggregationType === ChartDateAggregationType.Day.type) {
+                } else { 
                     dateRangeKey = `${dataItem.year}-${dataItem.month}-${dataItem.day}`;
                 }
             } else if (props.chartMode === 'monthly' && 'month1base' in dataItem) {
@@ -279,7 +279,7 @@ const allDisplayDataItems = computed<TrendsBarChartData>(() => {
                     dateRangeKey = fiscalYear.toString();
                 } else if (props.dateAggregationType === ChartDateAggregationType.Quarter.type) {
                     dateRangeKey = `${dataItem.year}-${Math.floor((dataItem.month1base - 1) / 3) + 1}`;
-                } else { // if (props.dateAggregationType === ChartDateAggregationType.Month.type) {
+                } else { 
                     dateRangeKey = `${dataItem.year}-${dataItem.month1base}`;
                 }
             }

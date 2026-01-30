@@ -1,4 +1,4 @@
-package services
+﻿package services
 
 import (
 	"errors"
@@ -11,33 +11,33 @@ import (
 	"github.com/golang-jwt/jwt/v5/request"
 	"xorm.io/xorm"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/datastore"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/datastore"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
-// TokenUserAgentCreatedViaCli is the user agent of token created via cli
+
 const TokenUserAgentCreatedViaCli = core.ApplicationName + " Cli"
 
-// TokenUserAgentForAPI is the user agent for API token
+
 const TokenUserAgentForAPI = core.ApplicationName + " API"
 
-// TokenUserAgentForMCP is the user agent for MCP token
+
 const TokenUserAgentForMCP = core.ApplicationName + " MCP"
 
-const tokenMaxExpiredAtUnixTime = int64(253402300799) // 9999-12-31 23:59:59 UTC
+const tokenMaxExpiredAtUnixTime = int64(253402300799) 
 
-// TokenService represents user token service
+
 type TokenService struct {
 	ServiceUsingDB
 	ServiceUsingConfig
 }
 
-// Initialize a user token service singleton instance
+
 var (
 	Tokens = &TokenService{
 		ServiceUsingDB: ServiceUsingDB{
@@ -49,7 +49,7 @@ var (
 	}
 )
 
-// GetAllTokensByUid returns all token models of given user
+
 func (s *TokenService) GetAllTokensByUid(c core.Context, uid int64) ([]*models.TokenRecord, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -61,7 +61,7 @@ func (s *TokenService) GetAllTokensByUid(c core.Context, uid int64) ([]*models.T
 	return tokenRecords, err
 }
 
-// GetAllUnexpiredNormalAndMCPTokensByUid returns all available token models of given user
+
 func (s *TokenService) GetAllUnexpiredNormalAndMCPTokensByUid(c core.Context, uid int64) ([]*models.TokenRecord, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -75,48 +75,48 @@ func (s *TokenService) GetAllUnexpiredNormalAndMCPTokensByUid(c core.Context, ui
 	return tokenRecords, err
 }
 
-// ParseToken returns the token model according to token content
+
 func (s *TokenService) ParseToken(c core.Context, token string) (*jwt.Token, *core.UserTokenClaims, string, error) {
 	return s.parseToken(c, token)
 }
 
-// CreateToken generates a new normal token and saves to database
+
 func (s *TokenService) CreateToken(c *core.WebContext, user *models.User) (string, *core.UserTokenClaims, error) {
 	token, claims, _, err := s.createToken(c, user, core.USER_TOKEN_TYPE_NORMAL, s.getUserAgent(c), "", s.CurrentConfig().TokenExpiredTimeDuration)
 	return token, claims, err
 }
 
-// CreateRequire2FAToken generates a new token requiring user to verify 2fa passcode and saves to database
+
 func (s *TokenService) CreateRequire2FAToken(c *core.WebContext, user *models.User) (string, *core.UserTokenClaims, error) {
 	token, claims, _, err := s.createToken(c, user, core.USER_TOKEN_TYPE_REQUIRE_2FA, s.getUserAgent(c), "", s.CurrentConfig().TemporaryTokenExpiredTimeDuration)
 	return token, claims, err
 }
 
-// CreateEmailVerifyToken generates a new email verify token and saves to database
+
 func (s *TokenService) CreateEmailVerifyToken(c *core.WebContext, user *models.User) (string, *core.UserTokenClaims, error) {
 	token, claims, _, err := s.createToken(c, user, core.USER_TOKEN_TYPE_EMAIL_VERIFY, s.getUserAgent(c), "", s.CurrentConfig().EmailVerifyTokenExpiredTimeDuration)
 	return token, claims, err
 }
 
-// CreateEmailVerifyTokenWithoutUserAgent generates a new email verify token and saves to database
+
 func (s *TokenService) CreateEmailVerifyTokenWithoutUserAgent(c core.Context, user *models.User) (string, *core.UserTokenClaims, error) {
 	token, claims, _, err := s.createToken(c, user, core.USER_TOKEN_TYPE_EMAIL_VERIFY, "", "", s.CurrentConfig().EmailVerifyTokenExpiredTimeDuration)
 	return token, claims, err
 }
 
-// CreatePasswordResetToken generates a new password reset token and saves to database
+
 func (s *TokenService) CreatePasswordResetToken(c *core.WebContext, user *models.User) (string, *core.UserTokenClaims, error) {
 	token, claims, _, err := s.createToken(c, user, core.USER_TOKEN_TYPE_PASSWORD_RESET, s.getUserAgent(c), "", s.CurrentConfig().PasswordResetTokenExpiredTimeDuration)
 	return token, claims, err
 }
 
-// CreatePasswordResetTokenWithoutUserAgent generates a new password reset token and saves to database
+
 func (s *TokenService) CreatePasswordResetTokenWithoutUserAgent(c core.Context, user *models.User) (string, *core.UserTokenClaims, error) {
 	token, claims, _, err := s.createToken(c, user, core.USER_TOKEN_TYPE_PASSWORD_RESET, "", "", s.CurrentConfig().PasswordResetTokenExpiredTimeDuration)
 	return token, claims, err
 }
 
-// CreateAPIToken generates a new API token and saves to database
+
 func (s *TokenService) CreateAPIToken(c *core.WebContext, user *models.User, expiresInSeconds int64) (string, *core.UserTokenClaims, error) {
 	var tokenExpiredTimeDuration time.Duration
 
@@ -130,7 +130,7 @@ func (s *TokenService) CreateAPIToken(c *core.WebContext, user *models.User, exp
 	return token, claims, err
 }
 
-// CreateAPITokenViaCli generates a new API token and saves to database
+
 func (s *TokenService) CreateAPITokenViaCli(c *core.CliContext, user *models.User, expiresInSeconds int64) (string, *models.TokenRecord, error) {
 	var tokenExpiredTimeDuration time.Duration
 
@@ -144,7 +144,7 @@ func (s *TokenService) CreateAPITokenViaCli(c *core.CliContext, user *models.Use
 	return token, tokenRecord, err
 }
 
-// CreateMCPToken generates a new MCP token and saves to database
+
 func (s *TokenService) CreateMCPToken(c *core.WebContext, user *models.User, expiresInSeconds int64) (string, *core.UserTokenClaims, error) {
 	var tokenExpiredTimeDuration time.Duration
 
@@ -158,7 +158,7 @@ func (s *TokenService) CreateMCPToken(c *core.WebContext, user *models.User, exp
 	return token, claims, err
 }
 
-// CreateMCPTokenViaCli generates a new MCP token and saves to database
+
 func (s *TokenService) CreateMCPTokenViaCli(c *core.CliContext, user *models.User, expiresInSeconds int64) (string, *models.TokenRecord, error) {
 	var tokenExpiredTimeDuration time.Duration
 
@@ -172,19 +172,19 @@ func (s *TokenService) CreateMCPTokenViaCli(c *core.CliContext, user *models.Use
 	return token, tokenRecord, err
 }
 
-// CreateOAuth2CallbackRequireVerifyToken generates a new OAuth 2.0 callback token requiring user to verify and saves to database
+
 func (s *TokenService) CreateOAuth2CallbackRequireVerifyToken(c *core.WebContext, user *models.User, context string) (string, *core.UserTokenClaims, error) {
 	token, claims, _, err := s.createToken(c, user, core.USER_TOKEN_TYPE_OAUTH2_CALLBACK_REQUIRE_VERIFY, s.getUserAgent(c), context, s.CurrentConfig().TemporaryTokenExpiredTimeDuration)
 	return token, claims, err
 }
 
-// CreateOAuth2CallbackToken generates a new OAuth 2.0 callback token and saves to database
+
 func (s *TokenService) CreateOAuth2CallbackToken(c *core.WebContext, user *models.User, context string) (string, *core.UserTokenClaims, error) {
 	token, claims, _, err := s.createToken(c, user, core.USER_TOKEN_TYPE_OAUTH2_CALLBACK, s.getUserAgent(c), context, s.CurrentConfig().TemporaryTokenExpiredTimeDuration)
 	return token, claims, err
 }
 
-// UpdateTokenLastSeen updates the last seen time of specified token
+
 func (s *TokenService) UpdateTokenLastSeen(c core.Context, tokenRecord *models.TokenRecord) error {
 	if tokenRecord.Uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -209,7 +209,7 @@ func (s *TokenService) UpdateTokenLastSeen(c core.Context, tokenRecord *models.T
 	})
 }
 
-// DeleteToken deletes given token from database
+
 func (s *TokenService) DeleteToken(c core.Context, tokenRecord *models.TokenRecord) error {
 	if tokenRecord.Uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -232,7 +232,7 @@ func (s *TokenService) DeleteToken(c core.Context, tokenRecord *models.TokenReco
 	})
 }
 
-// DeleteTokens deletes given tokens from database
+
 func (s *TokenService) DeleteTokens(c core.Context, uid int64, tokenRecords []*models.TokenRecord) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -254,7 +254,7 @@ func (s *TokenService) DeleteTokens(c core.Context, uid int64, tokenRecords []*m
 	})
 }
 
-// DeleteTokenByClaims deletes given token from database
+
 func (s *TokenService) DeleteTokenByClaims(c core.Context, claims *core.UserTokenClaims) error {
 	userTokenId, err := utils.StringToInt64(claims.UserTokenId)
 
@@ -269,7 +269,7 @@ func (s *TokenService) DeleteTokenByClaims(c core.Context, claims *core.UserToke
 	})
 }
 
-// DeleteTokensBeforeTime deletes tokens that is created before specific time
+
 func (s *TokenService) DeleteTokensBeforeTime(c core.Context, uid int64, createTime int64) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -281,7 +281,7 @@ func (s *TokenService) DeleteTokensBeforeTime(c core.Context, uid int64, createT
 	})
 }
 
-// DeleteTokensByType deletes specified type tokens
+
 func (s *TokenService) DeleteTokensByType(c core.Context, uid int64, tokenType core.TokenType) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -293,7 +293,7 @@ func (s *TokenService) DeleteTokensByType(c core.Context, uid int64, tokenType c
 	})
 }
 
-// DeleteAllExpiredTokens deletes all expired tokens
+
 func (s *TokenService) DeleteAllExpiredTokens(c core.Context) error {
 	var errors []error
 	totalCount := int64(0)
@@ -319,7 +319,7 @@ func (s *TokenService) DeleteAllExpiredTokens(c core.Context) error {
 	return errs.NewMultiErrorOrNil(errors...)
 }
 
-// ExistsValidTokenByType returns whether the given token type exists
+
 func (s *TokenService) ExistsValidTokenByType(c core.Context, uid int64, tokenType core.TokenType) (bool, error) {
 	if uid <= 0 {
 		return false, errs.ErrUserIdInvalid
@@ -330,7 +330,7 @@ func (s *TokenService) ExistsValidTokenByType(c core.Context, uid int64, tokenTy
 	return s.TokenDB(uid).NewSession(c).Cols("uid", "user_token_id", "expired_unix_time").Where("uid=? AND token_type=? AND expired_unix_time>?", uid, tokenType, now).Exist(&models.TokenRecord{})
 }
 
-// ParseFromTokenId returns token model according to token id
+
 func (s *TokenService) ParseFromTokenId(tokenId string) (*models.TokenRecord, error) {
 	pairs := strings.Split(tokenId, ":")
 
@@ -365,7 +365,7 @@ func (s *TokenService) ParseFromTokenId(tokenId string) (*models.TokenRecord, er
 	return tokenRecord, nil
 }
 
-// GenerateTokenId generates token id according to token model
+
 func (s *TokenService) GenerateTokenId(tokenRecord *models.TokenRecord) string {
 	return fmt.Sprintf("%d:%d:%d", tokenRecord.Uid, tokenRecord.CreatedUnixTime, tokenRecord.UserTokenId)
 }

@@ -5,7 +5,7 @@ import (
 
 	"github.com/urfave/cli/v3"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
 )
 
 func bindAction(fn core.CliHandlerFunc) cli.ActionFunc {

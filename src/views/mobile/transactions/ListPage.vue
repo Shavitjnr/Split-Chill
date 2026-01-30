@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <f7-page ptr
              infinite
              :infinite-preloader="loadingMore"
@@ -1064,7 +1064,7 @@ function changePageType(type: number): void {
 }
 
 function changeDateFilter(dateType: number): void {
-    if (dateType === DateRange.Custom.type) { // Custom
+    if (dateType === DateRange.Custom.type) { 
         if (!query.value.minTime || !query.value.maxTime) {
             customMaxDatetime.value = getCurrentUnixTime();
             customMinDatetime.value = getDayFirstDateTimeBySpecifiedUnixTime(customMaxDatetime.value).getUnixTime();

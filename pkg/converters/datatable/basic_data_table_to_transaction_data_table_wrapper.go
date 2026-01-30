@@ -1,13 +1,13 @@
-package datatable
+﻿package datatable
 
 import (
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
 )
 
-// basicDataTableToTransactionDataTableWrapper defines the structure of basic data table to transaction data table wrapper
+
 type basicDataTableToTransactionDataTableWrapper struct {
 	innerDataTable    BasicDataTable
 	dataColumnMapping map[TransactionDataTableColumn]string
@@ -16,20 +16,20 @@ type basicDataTableToTransactionDataTableWrapper struct {
 	addedColumns      map[TransactionDataTableColumn]bool
 }
 
-// basicDataTableToTransactionDataTableWrapperRow defines the data row structure of basic data table to transaction data table wrapper
+
 type basicDataTableToTransactionDataTableWrapperRow struct {
 	transactionDataTable *basicDataTableToTransactionDataTableWrapper
 	rowData              map[TransactionDataTableColumn]string
 	rowDataValid         bool
 }
 
-// basicDataTableToTransactionDataTableWrapperRowIterator defines the data row iterator structure of basic data table to transaction data table wrapper
+
 type basicDataTableToTransactionDataTableWrapperRowIterator struct {
 	transactionDataTable *basicDataTableToTransactionDataTableWrapper
 	innerIterator        BasicDataTableRowIterator
 }
 
-// HasColumn returns whether the data table has specified column
+
 func (t *basicDataTableToTransactionDataTableWrapper) HasColumn(column TransactionDataTableColumn) bool {
 	index, exists := t.dataColumnIndexes[column]
 
@@ -48,12 +48,12 @@ func (t *basicDataTableToTransactionDataTableWrapper) HasColumn(column Transacti
 	return false
 }
 
-// TransactionRowCount returns the total count of transaction data row
+
 func (t *basicDataTableToTransactionDataTableWrapper) TransactionRowCount() int {
 	return t.innerDataTable.DataRowCount()
 }
 
-// TransactionRowIterator returns the iterator of transaction data row
+
 func (t *basicDataTableToTransactionDataTableWrapper) TransactionRowIterator() TransactionDataRowIterator {
 	return &basicDataTableToTransactionDataTableWrapperRowIterator{
 		transactionDataTable: t,
@@ -61,12 +61,12 @@ func (t *basicDataTableToTransactionDataTableWrapper) TransactionRowIterator() T
 	}
 }
 
-// IsValid returns whether this row is valid data for importing
+
 func (r *basicDataTableToTransactionDataTableWrapperRow) IsValid() bool {
 	return r.rowDataValid
 }
 
-// GetData returns the data in the specified column type
+
 func (r *basicDataTableToTransactionDataTableWrapperRow) GetData(column TransactionDataTableColumn) string {
 	if !r.rowDataValid {
 		return ""
@@ -89,12 +89,12 @@ func (r *basicDataTableToTransactionDataTableWrapperRow) GetData(column Transact
 	return ""
 }
 
-// HasNext returns whether the iterator does not reach the end
+
 func (t *basicDataTableToTransactionDataTableWrapperRowIterator) HasNext() bool {
 	return t.innerIterator.HasNext()
 }
 
-// Next returns the next transaction data row
+
 func (t *basicDataTableToTransactionDataTableWrapperRowIterator) Next(ctx core.Context, user *models.User) (daraRow TransactionDataRow, err error) {
 	basicDataRow := t.innerIterator.Next()
 
@@ -143,12 +143,12 @@ func (t *basicDataTableToTransactionDataTableWrapperRowIterator) Next(ctx core.C
 	}, nil
 }
 
-// CreateNewTransactionDataTableFromBasicDataTable returns transaction data table from basic data table
+
 func CreateNewTransactionDataTableFromBasicDataTable(dataTable BasicDataTable, dataColumnMapping map[TransactionDataTableColumn]string) TransactionDataTable {
 	return CreateNewTransactionDataTableFromBasicDataTableWithRowParser(dataTable, dataColumnMapping, nil)
 }
 
-// CreateNewTransactionDataTableFromBasicDataTableWithRowParser returns transaction data table from basic data table
+
 func CreateNewTransactionDataTableFromBasicDataTableWithRowParser(dataTable BasicDataTable, dataColumnMapping map[TransactionDataTableColumn]string, rowParser TransactionDataRowParser) TransactionDataTable {
 	headerLineItems := dataTable.HeaderColumnNames()
 	headerItemMap := make(map[string]int, len(headerLineItems))

@@ -1,4 +1,4 @@
-package httpclient
+﻿package httpclient
 
 import (
 	"bytes"
@@ -44,7 +44,7 @@ func (t *defaultTransport) RoundTrip(req *http.Request) (*http.Response, error) 
 	return resp, err
 }
 
-// NewHttpClient creates and returns a new http client with specified settings
+
 func NewHttpClient(requestTimeout uint32, proxy string, skipTLSVerify bool, defaultUserAgent string, enableHttpResponseLog bool) *http.Client {
 	baseTransport := http.DefaultTransport.(*http.Transport).Clone()
 	SetProxyUrl(baseTransport, proxy)
@@ -65,7 +65,7 @@ func NewHttpClient(requestTimeout uint32, proxy string, skipTLSVerify bool, defa
 	}
 }
 
-// SetProxyUrl sets proxy url to http transport according to specified proxy setting
+
 func SetProxyUrl(transport *http.Transport, proxy string) {
 	if proxy == "none" {
 		transport.Proxy = nil

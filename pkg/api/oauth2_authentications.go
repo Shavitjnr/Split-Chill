@@ -1,4 +1,4 @@
-package api
+﻿package api
 
 import (
 	"encoding/json"
@@ -7,17 +7,17 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/mayswind/ezbookkeeping/pkg/auth/oauth2"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/duplicatechecker"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/locales"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/services"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
-	"github.com/mayswind/ezbookkeeping/pkg/validators"
+	"github.com/Shavitjnr/split-chill-ai/pkg/auth/oauth2"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/duplicatechecker"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/locales"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/services"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/validators"
 )
 
 const oauth2CallbackPageUrlSuccessFormat = "%sdesktop#/oauth2_callback?platform=%s&provider=%s&token=%s"
@@ -25,7 +25,7 @@ const oauth2CallbackPageUrlNeedVerifyFormat = "%sdesktop#/oauth2_callback?platfo
 const oauth2CallbackPageUrlFailedFormat = "%sdesktop#/oauth2_callback?errorCode=%d&errorMessage=%s"
 const oauth2CallbackPageUrlErrorMessageFormat = "%sdesktop#/oauth2_callback?errorMessage=%s"
 
-// OAuth2AuthenticationApi represents OAuth 2.0 authorization api
+
 type OAuth2AuthenticationApi struct {
 	ApiUsingConfig
 	ApiUsingDuplicateChecker
@@ -34,7 +34,7 @@ type OAuth2AuthenticationApi struct {
 	userExternalAuths *services.UserExternalAuthService
 }
 
-// Initialize a OAuth 2.0 authentication api singleton instance
+
 var (
 	OAuth2Authentications = &OAuth2AuthenticationApi{
 		ApiUsingConfig: ApiUsingConfig{
@@ -52,7 +52,7 @@ var (
 	}
 )
 
-// LoginHandler handles user login request via OAuth 2.0
+
 func (a *OAuth2AuthenticationApi) LoginHandler(c *core.WebContext) (string, *errs.Error) {
 	var oauth2LoginReq models.OAuth2LoginRequest
 	err := c.ShouldBindQuery(&oauth2LoginReq)
@@ -118,7 +118,7 @@ func (a *OAuth2AuthenticationApi) LoginHandler(c *core.WebContext) (string, *err
 	return redirectUrl, nil
 }
 
-// CallbackHandler handles OAuth 2.0 callback request
+
 func (a *OAuth2AuthenticationApi) CallbackHandler(c *core.WebContext) (string, *errs.Error) {
 	var oauth2CallbackReq models.OAuth2CallbackRequest
 	err := c.ShouldBindQuery(&oauth2CallbackReq)
@@ -247,14 +247,14 @@ func (a *OAuth2AuthenticationApi) CallbackHandler(c *core.WebContext) (string, *
 
 	var user *models.User
 
-	if err == nil { // user already bound to external auth, redirect to success page
+	if err == nil { 
 		user, err = a.users.GetUserById(c, userExternalAuth.Uid)
 
 		if err != nil {
 			log.Errorf(c, "[oauth2_authentications.CallbackHandler] failed to get user by id %d, because %s", userExternalAuth.Uid, err.Error())
 			return a.redirectToFailedCallbackPage(c, errs.Or(err, errs.ErrOperationFailed))
 		}
-	} else { // errors.Is(err, errs.ErrUserExternalAuthNotFound) // user not bound to external auth, try to bind or register new user
+	} else { 
 		if uid != 0 {
 			user, err = a.users.GetUserById(c, uid)
 

@@ -1,4 +1,4 @@
-package dsv
+﻿package dsv
 
 import (
 	"testing"
@@ -6,12 +6,12 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/converter"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/datatable"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/converter"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/datatable"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 func TestIsDelimiterSeparatedValuesFileType(t *testing.T) {
@@ -916,7 +916,7 @@ func TestCustomTransactionDataDsvFileImporter_ParseAmountWithSpaceDigitGroupingS
 		DefaultCurrency: "CNY",
 	}
 
-	// normal space
+	
 	allNewTransactions, _, _, _, _, _, err := importer.ParseImportedData(context, user, []byte(
 		"2024-09-01 00:00:00,E,1 234,\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 
@@ -925,7 +925,7 @@ func TestCustomTransactionDataDsvFileImporter_ParseAmountWithSpaceDigitGroupingS
 	assert.Equal(t, 1, len(allNewTransactions))
 	assert.Equal(t, int64(123400), allNewTransactions[0].Amount)
 
-	// no-break space (NBSP)
+	
 	allNewTransactions, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		"2024-09-01 00:00:00,E,1 234,\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 
@@ -934,7 +934,7 @@ func TestCustomTransactionDataDsvFileImporter_ParseAmountWithSpaceDigitGroupingS
 	assert.Equal(t, 1, len(allNewTransactions))
 	assert.Equal(t, int64(123400), allNewTransactions[0].Amount)
 
-	// narrow no-break space (NNBSP)
+	
 	allNewTransactions, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		"2024-09-01 00:00:00,E,1 234,\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 
@@ -943,7 +943,7 @@ func TestCustomTransactionDataDsvFileImporter_ParseAmountWithSpaceDigitGroupingS
 	assert.Equal(t, 1, len(allNewTransactions))
 	assert.Equal(t, int64(123400), allNewTransactions[0].Amount)
 
-	// figure space
+	
 	allNewTransactions, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		"2024-09-01 00:00:00,E,1 234,\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 
@@ -1213,7 +1213,7 @@ func TestCustomTransactionDataDsvFileImporter_MissingRequiredColumn(t *testing.T
 		"B": models.TRANSACTION_TYPE_MODIFY_BALANCE,
 	}
 
-	// Missing Time Column
+	
 	columnIndexMapping := map[datatable.TransactionDataTableColumn]int{
 		datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE: 0,
 		datatable.TRANSACTION_DATA_TABLE_AMOUNT:           1,
@@ -1221,7 +1221,7 @@ func TestCustomTransactionDataDsvFileImporter_MissingRequiredColumn(t *testing.T
 	_, err := CreateNewCustomTransactionDataDsvFileImporter("custom_csv", "utf-8", columnIndexMapping, transactionTypeMapping, false, "YYYY-MM-DD HH:mm:ss", "", ".", "", "", "", "")
 	assert.EqualError(t, err, errs.ErrMissingRequiredFieldInHeaderRow.Message)
 
-	// Missing Type Column
+	
 	columnIndexMapping = map[datatable.TransactionDataTableColumn]int{
 		datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TIME: 0,
 		datatable.TRANSACTION_DATA_TABLE_AMOUNT:           1,
@@ -1229,7 +1229,7 @@ func TestCustomTransactionDataDsvFileImporter_MissingRequiredColumn(t *testing.T
 	_, err = CreateNewCustomTransactionDataDsvFileImporter("custom_csv", "utf-8", columnIndexMapping, transactionTypeMapping, false, "YYYY-MM-DD HH:mm:ss", "", ".", "", "", "", "")
 	assert.EqualError(t, err, errs.ErrMissingRequiredFieldInHeaderRow.Message)
 
-	// Missing Amount Column
+	
 	columnIndexMapping = map[datatable.TransactionDataTableColumn]int{
 		datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TIME: 0,
 		datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE: 1,

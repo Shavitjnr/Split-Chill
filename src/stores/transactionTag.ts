@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 
 import { type BeforeResolveFunction, itemAndIndex, values } from '@/core/base.ts';
@@ -93,7 +93,7 @@ export const useTransactionTagsStore = defineStore('transactionTags', () => {
     }
 
     function updateTagInTransactionTagList(currentTag: TransactionTag, oldTagGroupId?: string): void {
-        // update in the main list
+        
         for (const [transactionTag, index] of itemAndIndex(allTransactionTags.value)) {
             if (transactionTag.id === currentTag.id) {
                 if (oldTagGroupId && oldTagGroupId !== currentTag.groupId) {
@@ -118,10 +118,10 @@ export const useTransactionTagsStore = defineStore('transactionTags', () => {
             allTransactionTags.value.splice(insertIndex, 0, currentTag);
         }
 
-        // update in the map
+        
         allTransactionTagsMap.value[currentTag.id] = currentTag;
 
-        // update in the group list
+        
         for (const tags of values(allTransactionTagsByGroupMap.value)) {
             for (const [transactionTag, index] of itemAndIndex(tags)) {
                 if (transactionTag.id === currentTag.id) {
@@ -152,7 +152,7 @@ export const useTransactionTagsStore = defineStore('transactionTags', () => {
     }
 
     function updateTagDisplayOrderInTransactionTagList({ groupId, from, to }: { groupId: string, from: number, to: number }): void {
-        // update in the group list
+        
         const tagsInGroup = allTransactionTagsByGroupMap.value[groupId];
 
         if (!tagsInGroup) {
@@ -173,7 +173,7 @@ export const useTransactionTagsStore = defineStore('transactionTags', () => {
 
         tagsInGroup.splice(to, 0, tagsInGroup.splice(from, 1)[0] as TransactionTag);
 
-        // update in the main list
+        
         let mainListFromIndex = -1;
         let mainListToIndex = -1;
 
@@ -747,16 +747,16 @@ export const useTransactionTagsStore = defineStore('transactionTags', () => {
     }
 
     return {
-        // states
+        
         allTransactionTagGroups,
         allTransactionTagGroupsMap,
         allTransactionTagsMap,
         allTransactionTagsByGroupMap,
         transactionTagGroupListStateInvalid,
         transactionTagListStateInvalid,
-        // computed states
+        
         allAvailableTagsCount,
-        // functions
+        
         updateTransactionTagListInvalidState,
         resetTransactionTags,
         loadAllTagGroups,

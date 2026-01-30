@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <v-dialog width="1000" :persistent="isTransactionModified" v-model="showState">
         <v-card class="pa-sm-1 pa-md-2">
             <template #title>
@@ -644,7 +644,6 @@ const sourceAmountColor = computed<string | undefined>(() => {
 
     return undefined;
 });
-
 
 
 const isTransactionModified = computed<boolean>(() => {

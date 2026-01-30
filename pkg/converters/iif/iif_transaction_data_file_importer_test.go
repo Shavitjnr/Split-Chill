@@ -1,4 +1,4 @@
-package iif
+﻿package iif
 
 import (
 	"testing"
@@ -6,11 +6,11 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/converter"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/converter"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 func TestIIFTransactionDataFileParseImportedData_MinimumValidData(t *testing.T) {
@@ -701,7 +701,7 @@ func TestIIFTransactionDataFileParseImportedData_NotSupportedSplitTransaction(t 
 		DefaultCurrency: "CNY",
 	}
 
-	// Opening balance transaction
+	
 	_, _, _, _, _, _, err := importer.ParseImportedData(context, user, []byte(
 		"!TRNS\tTRNSTYPE\tDATE\tACCNT\tAMOUNT\n"+
 			"!SPL\tTRNSTYPE\tDATE\tACCNT\tAMOUNT\n"+
@@ -712,7 +712,7 @@ func TestIIFTransactionDataFileParseImportedData_NotSupportedSplitTransaction(t 
 			"ENDTRNS\t\t\t\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrNotSupportedSplitTransactions.Message)
 
-	// Transaction with invalid amount
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		"!TRNS\tDATE\tACCNT\tAMOUNT\n"+
 			"!SPL\tDATE\tACCNT\tAMOUNT\n"+
@@ -723,7 +723,7 @@ func TestIIFTransactionDataFileParseImportedData_NotSupportedSplitTransaction(t 
 			"ENDTRNS\t\t\t\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrAmountInvalid.Message)
 
-	// Transaction split data with invalid amount
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		"!TRNS\tDATE\tACCNT\tAMOUNT\n"+
 			"!SPL\tDATE\tACCNT\tAMOUNT\n"+
@@ -734,7 +734,7 @@ func TestIIFTransactionDataFileParseImportedData_NotSupportedSplitTransaction(t 
 			"ENDTRNS\t\t\t\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrAmountInvalid.Message)
 
-	// Transaction amount not equal to sum of split data amount
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		"!TRNS\tDATE\tACCNT\tAMOUNT\n"+
 			"!SPL\tDATE\tACCNT\tAMOUNT\n"+
@@ -755,7 +755,7 @@ func TestIIFTransactionDataFileParseImportedData_InvalidDataLines(t *testing.T) 
 		DefaultCurrency: "CNY",
 	}
 
-	//Missing Transaction Line
+	
 	_, _, _, _, _, _, err := importer.ParseImportedData(context, user, []byte(
 		"!TRNS\tDATE\tACCNT\tAMOUNT\n"+
 			"!SPL\tDATE\tACCNT\tAMOUNT\n"+
@@ -764,7 +764,7 @@ func TestIIFTransactionDataFileParseImportedData_InvalidDataLines(t *testing.T) 
 			"ENDTRNS\t\t\t\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrInvalidIIFFile.Message)
 
-	// Missing Transaction And Split Line
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		"!TRNS\tDATE\tACCNT\tAMOUNT\n"+
 			"!SPL\tDATE\tACCNT\tAMOUNT\n"+
@@ -772,7 +772,7 @@ func TestIIFTransactionDataFileParseImportedData_InvalidDataLines(t *testing.T) 
 			"ENDTRNS\t\t\t\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrInvalidIIFFile.Message)
 
-	// Missing Split Line
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		"!TRNS\tDATE\tACCNT\tAMOUNT\n"+
 			"!SPL\tDATE\tACCNT\tAMOUNT\n"+
@@ -781,7 +781,7 @@ func TestIIFTransactionDataFileParseImportedData_InvalidDataLines(t *testing.T) 
 			"ENDTRNS\t\t\t\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrInvalidIIFFile.Message)
 
-	// Missing Transaction End Line
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		"!TRNS\tDATE\tACCNT\tAMOUNT\n"+
 			"!SPL\tDATE\tACCNT\tAMOUNT\n"+
@@ -790,7 +790,7 @@ func TestIIFTransactionDataFileParseImportedData_InvalidDataLines(t *testing.T) 
 			"SPL\t09/01/2024\tTest Account2\t-123.45\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrInvalidIIFFile.Message)
 
-	// Missing Transaction End Line (following is another header)
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		"!TRNS\tDATE\tACCNT\tAMOUNT\n"+
 			"!SPL\tDATE\tACCNT\tAMOUNT\n"+
@@ -801,7 +801,7 @@ func TestIIFTransactionDataFileParseImportedData_InvalidDataLines(t *testing.T) 
 			"ACCNT\tTest Account\tBANK\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrInvalidIIFFile.Message)
 
-	// Invalid Line
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		"!TRNS\tDATE\tACCNT\tAMOUNT\n"+
 			"!SPL\tDATE\tACCNT\tAMOUNT\n"+
@@ -812,7 +812,7 @@ func TestIIFTransactionDataFileParseImportedData_InvalidDataLines(t *testing.T) 
 			"ENDTRNS\t\t\t\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrInvalidIIFFile.Message)
 
-	// Repeat Transaction Line
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		"!TRNS\tDATE\tACCNT\tAMOUNT\n"+
 			"!SPL\tDATE\tACCNT\tAMOUNT\n"+
@@ -823,7 +823,7 @@ func TestIIFTransactionDataFileParseImportedData_InvalidDataLines(t *testing.T) 
 			"ENDTRNS\t\t\t\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrInvalidIIFFile.Message)
 
-	// Repeat Transaction End Line
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		"!TRNS\tDATE\tACCNT\tAMOUNT\t\n"+
 			"!SPL\tDATE\tACCNT\tAMOUNT\t\n"+
@@ -845,32 +845,32 @@ func TestIIFTransactionDataFileParseImportedData_InvalidHeaderLines(t *testing.T
 		DefaultCurrency: "CNY",
 	}
 
-	// Missing All Sample Lines
+	
 	_, _, _, _, _, _, err := importer.ParseImportedData(context, user, []byte(
 		"TRNS\t09/01/2024\tTest Account\t123.45\n"+
 			"SPL\t09/01/2024\tTest Account2\t-123.45\n"+
 			"ENDTRNS\t\t\t\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrInvalidIIFFile.Message)
 
-	// Missing Transaction Sample Line
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		"!SPL\tDATE\tACCNT\tAMOUNT\n"+
 			"!ENDTRNS\t\t\t\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrInvalidIIFFile.Message)
 
-	// Missing Split Sample Line
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		"!TRNS\tDATE\tACCNT\tAMOUNT\n"+
 			"!ENDTRNS\t\t\t\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrInvalidIIFFile.Message)
 
-	// Missing Transaction End Sample Line
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		"!TRNS\tDATE\tACCNT\tAMOUNT\n"+
 			"!SPL\tDATE\tACCNT\tAMOUNT\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrInvalidIIFFile.Message)
 
-	// Missing Transaction End Sample Line (following is data line)
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		"!TRNS\tDATE\tACCNT\tAMOUNT\n"+
 			"!SPL\tDATE\tACCNT\tAMOUNT\n"+
@@ -879,7 +879,7 @@ func TestIIFTransactionDataFileParseImportedData_InvalidHeaderLines(t *testing.T
 			"ENDTRNS\t\t\t\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrInvalidIIFFile.Message)
 
-	// Invalid Sample Line
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		"!TRNS\tDATE\tACCNT\tAMOUNT\n"+
 			"!TEST\tDATE\tACCNT\tAMOUNT\n"+
@@ -896,7 +896,7 @@ func TestIIFTransactionDataFileParseImportedData_MissingRequiredColumn(t *testin
 		DefaultCurrency: "CNY",
 	}
 
-	// Missing Date Column
+	
 	_, _, _, _, _, _, err := importer.ParseImportedData(context, user, []byte(
 		"!TRNS\tACCNT\tAMOUNT\t\n"+
 			"!SPL\tACCNT\tAMOUNT\t\n"+
@@ -906,7 +906,7 @@ func TestIIFTransactionDataFileParseImportedData_MissingRequiredColumn(t *testin
 			"ENDTRNS\t\t\t\t\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingRequiredFieldInHeaderRow.Message)
 
-	// Missing Account Column
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		"!TRNS\tDATE\tAMOUNT\t\n"+
 			"!SPL\tDATE\tAMOUNT\t\n"+
@@ -916,7 +916,7 @@ func TestIIFTransactionDataFileParseImportedData_MissingRequiredColumn(t *testin
 			"ENDTRNS\t\t\t\t\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingRequiredFieldInHeaderRow.Message)
 
-	// Missing Amount Column
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		"!TRNS\tDATE\tACCNT\t\n"+
 			"!SPL\tDATE\tACCNT\t\n"+

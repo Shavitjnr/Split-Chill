@@ -1,4 +1,4 @@
-package api
+﻿package api
 
 import (
 	"net/http"
@@ -7,30 +7,30 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/httpclient"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/httpclient"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
-const openStreetMapTileImageUrlFormat = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"                                                                                                                              // https://tile.openstreetmap.org/{z}/{x}/{y}.png
-const openStreetMapHumanitarianStyleTileImageUrlFormat = "https://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"                                                                                                        // https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png
-const openTopoMapTileImageUrlFormat = "https://tile.opentopomap.org/{z}/{x}/{y}.png"                                                                                                                                  // https://tile.opentopomap.org/{z}/{x}/{y}.png
-const opnvKarteMapTileImageUrlFormat = "https://tileserver.memomaps.de/tilegen/{z}/{x}/{y}.png"                                                                                                                       // https://tileserver.memomaps.de/tilegen/{z}/{x}/{y}.png
-const cyclOSMMapTileImageUrlFormat = "https://a.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png"                                                                                                                // https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png
-const cartoDBMapTileImageUrlFormat = "https://a.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{scale}.png"                                                                                                     // https://{s}.basemaps.cartocdn.com/{style}/{z}/{x}/{y}{scale}.png
-const tomtomMapTileImageUrlFormat = "https://api.tomtom.com/map/1/tile/basic/main/{z}/{x}/{y}.png"                                                                                                                    // https://api.tomtom.com/map/{versionNumber}/tile/{layer}/{style}/{z}/{x}/{y}.png?key={key}&language={language}
-const tianDiTuMapTileImageUrlFormat = "https://t0.tianditu.gov.cn/vec_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=vec&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}"  // https://t{s}.tianditu.gov.cn/vec_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=vec&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&tk={key}
-const tianDiTuMapAnnotationUrlFormat = "https://t0.tianditu.gov.cn/cva_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=cva&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}" // https://t{s}.tianditu.gov.cn/cva_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=cva&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&tk={key}
+const openStreetMapTileImageUrlFormat = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"                                                                                                                              
+const openStreetMapHumanitarianStyleTileImageUrlFormat = "https://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"                                                                                                        
+const openTopoMapTileImageUrlFormat = "https://tile.opentopomap.org/{z}/{x}/{y}.png"                                                                                                                                  
+const opnvKarteMapTileImageUrlFormat = "https://tileserver.memomaps.de/tilegen/{z}/{x}/{y}.png"                                                                                                                       
+const cyclOSMMapTileImageUrlFormat = "https://a.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png"                                                                                                                
+const cartoDBMapTileImageUrlFormat = "https://a.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{scale}.png"                                                                                                     
+const tomtomMapTileImageUrlFormat = "https://api.tomtom.com/map/1/tile/basic/main/{z}/{x}/{y}.png"                                                                                                                    
+const tianDiTuMapTileImageUrlFormat = "https://t0.tianditu.gov.cn/vec_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=vec&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}"  
+const tianDiTuMapAnnotationUrlFormat = "https://t0.tianditu.gov.cn/cva_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=cva&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}" 
 
-// MapImageProxy represents map image proxy
+
 type MapImageProxy struct {
 	ApiUsingConfig
 	mutex     sync.Mutex
 	transport *http.Transport
 }
 
-// Initialize a map image proxy singleton instance
+
 var (
 	MapImages = &MapImageProxy{
 		ApiUsingConfig: ApiUsingConfig{
@@ -51,7 +51,7 @@ func (p *MapImageProxy) initializeHttpTransport() {
 	httpclient.SetProxyUrl(p.transport, p.CurrentConfig().MapProxy)
 }
 
-// MapTileImageProxyHandler returns map tile image
+
 func (p *MapImageProxy) MapTileImageProxyHandler(c *core.WebContext) (*httputil.ReverseProxy, *errs.Error) {
 	return p.mapImageProxyHandler(c, func(c *core.WebContext, mapProvider string) (string, *errs.Error) {
 		if mapProvider == settings.OpenStreetMapProvider {
@@ -85,7 +85,7 @@ func (p *MapImageProxy) MapTileImageProxyHandler(c *core.WebContext) (*httputil.
 	})
 }
 
-// MapAnnotationImageProxyHandler returns map annotation image
+
 func (p *MapImageProxy) MapAnnotationImageProxyHandler(c *core.WebContext) (*httputil.ReverseProxy, *errs.Error) {
 	return p.mapImageProxyHandler(c, func(c *core.WebContext, mapProvider string) (string, *errs.Error) {
 		if mapProvider == settings.TianDiTuProvider {

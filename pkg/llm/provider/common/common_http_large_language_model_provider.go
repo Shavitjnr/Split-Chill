@@ -1,36 +1,36 @@
-package common
+﻿package common
 
 import (
 	"io"
 	"net/http"
 	"strings"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/httpclient"
-	"github.com/mayswind/ezbookkeeping/pkg/llm/data"
-	"github.com/mayswind/ezbookkeeping/pkg/llm/provider"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/httpclient"
+	"github.com/Shavitjnr/split-chill-ai/pkg/llm/data"
+	"github.com/Shavitjnr/split-chill-ai/pkg/llm/provider"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
-// HttpLargeLanguageModelAdapter defines the structure of http large language model adapter
+
 type HttpLargeLanguageModelAdapter interface {
-	// BuildTextualRequest returns the http request by the provider api definition
+	
 	BuildTextualRequest(c core.Context, uid int64, request *data.LargeLanguageModelRequest, responseType data.LargeLanguageModelResponseFormat) (*http.Request, error)
 
-	// ParseTextualResponse returns the textual response entity by the provider api definition
+	
 	ParseTextualResponse(c core.Context, uid int64, body []byte, responseType data.LargeLanguageModelResponseFormat) (*data.LargeLanguageModelTextualResponse, error)
 }
 
-// CommonHttpLargeLanguageModelProvider defines the structure of common http large language model provider
+
 type CommonHttpLargeLanguageModelProvider struct {
 	provider.LargeLanguageModelProvider
 	adapter    HttpLargeLanguageModelAdapter
 	httpClient *http.Client
 }
 
-// GetJsonResponse returns the json response from common http large language model provider
+
 func (p *CommonHttpLargeLanguageModelProvider) GetJsonResponse(c core.Context, uid int64, currentLLMConfig *settings.LLMConfig, request *data.LargeLanguageModelRequest) (*data.LargeLanguageModelTextualResponse, error) {
 	response, err := p.getTextualResponse(c, uid, currentLLMConfig, request, data.LARGE_LANGUAGE_MODEL_RESPONSE_FORMAT_JSON)
 
@@ -79,7 +79,7 @@ func (p *CommonHttpLargeLanguageModelProvider) getTextualResponse(c core.Context
 	return p.adapter.ParseTextualResponse(c, uid, body, responseType)
 }
 
-// NewCommonHttpLargeLanguageModelProvider creates a http adapter based large language model provider instance
+
 func NewCommonHttpLargeLanguageModelProvider(llmConfig *settings.LLMConfig, enableResponseLog bool, adapter HttpLargeLanguageModelAdapter) *CommonHttpLargeLanguageModelProvider {
 	return &CommonHttpLargeLanguageModelProvider{
 		adapter:    adapter,

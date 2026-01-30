@@ -1,4 +1,4 @@
-import { computed } from 'vue';
+﻿import { computed } from 'vue';
 
 import type { LanguageOption } from '@/locales/index.ts';
 import { useI18n } from '@/locales/helpers.ts';
@@ -62,11 +62,11 @@ export function useLanguageSelectButtonBase(props: LanguageSelectBaseProps, emit
     }
 
     return {
-        // computed states
+        
         allLanguages,
         currentLocale,
         currentLanguageName,
-        // functions
+        
         updateLanguage,
         isLanguageSelected
     }

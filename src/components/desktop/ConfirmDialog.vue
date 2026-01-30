@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <v-dialog persistent min-width="320" width="auto" v-model="showState">
         <v-card>
             <v-toolbar :color="finalColor">
@@ -45,7 +45,7 @@ let rejectFunc: ((reason?: unknown) => void) | null = null;
 function open(titleOrText: string, textOrOptions?: string | Record<string, unknown>, options?: Record<string, unknown>): Promise<unknown> {
     showState.value = true;
 
-    if (!textOrOptions || isObject(textOrOptions)) { // only one parameter or second parameter is options
+    if (!textOrOptions || isObject(textOrOptions)) { 
         titleContent.value = tt('global.app.title');
 
         if (!textOrOptions) {
@@ -54,7 +54,7 @@ function open(titleOrText: string, textOrOptions?: string | Record<string, unkno
             const actualOptions = textOrOptions as Record<string, unknown>;
             textContent.value = tt(titleOrText, actualOptions);
         }
-    } else if (isString(textOrOptions)) { // second parameter is text
+    } else if (isString(textOrOptions)) { 
         if (!options) {
             titleContent.value = tt(titleOrText);
             textContent.value = tt(textOrOptions);

@@ -1,5 +1,4 @@
-/** Materio Template Vuetify styles **/
-/** https://github.com/themeselection/materio-vuetify-vuejs-admin-template-free **/
+﻿
 
 @use "@/styles/desktop/configured-variables/template" as variables;
 
@@ -25,7 +24,7 @@
         }
     }
 
-    /* stylelint-disable-next-line no-descending-specificity */
+    
     &.v-badge--bordered.v-badge--dot .v-badge__badge {
         border-radius: 10px;
         block-size: 12px;

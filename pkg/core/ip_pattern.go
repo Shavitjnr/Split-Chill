@@ -1,20 +1,20 @@
-package core
+﻿package core
 
 import (
 	"regexp"
 	"strconv"
 	"strings"
 
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
 )
 
-// IPPattern represents a pattern for matching IP addresses, either IPv4 or IPv6
+
 type IPPattern struct {
 	Pattern string
 	regex   *regexp.Regexp
 }
 
-// Match returns if the given IP address matches the pattern
+
 func (p *IPPattern) Match(ip string) bool {
 	if p.regex == nil {
 		return false
@@ -23,12 +23,12 @@ func (p *IPPattern) Match(ip string) bool {
 	return p.regex.MatchString(ip)
 }
 
-// GobEncode returns the encoded data for this IP pattern
+
 func (p *IPPattern) GobEncode() ([]byte, error) {
 	return []byte(p.Pattern), nil
 }
 
-// GobDecode decodes the data into the IP pattern
+
 func (p *IPPattern) GobDecode(data []byte) error {
 	pattern := string(data)
 
@@ -49,7 +49,7 @@ func (p *IPPattern) GobDecode(data []byte) error {
 	return nil
 }
 
-// ParseIPPattern parses the given IP address pattern and returns an IPPattern object
+
 func ParseIPPattern(ipPattern string) (*IPPattern, error) {
 	if ipPattern == "" {
 		return nil, nil
@@ -61,12 +61,12 @@ func ParseIPPattern(ipPattern string) (*IPPattern, error) {
 	for i := 0; i < len(ipPattern); i++ {
 		ch := rune(ipPattern[i])
 
-		if ch == '.' { // may be IPv4
+		if ch == '.' { 
 			if hasSemicolon {
 				return nil, errs.ErrInvalidIpAddressPattern
 			}
 			hasDot = true
-		} else if ch == ':' { // may be IPv6
+		} else if ch == ':' { 
 			if hasDot {
 				return nil, errs.ErrInvalidIpAddressPattern
 			}
@@ -83,7 +83,7 @@ func ParseIPPattern(ipPattern string) (*IPPattern, error) {
 	}
 }
 
-// ParseIPv4Pattern parses the given IPv4 address pattern and returns an IPPattern object
+
 func ParseIPv4Pattern(ipPattern string) (*IPPattern, error) {
 	items := strings.Split(ipPattern, ".")
 
@@ -130,7 +130,7 @@ func ParseIPv4Pattern(ipPattern string) (*IPPattern, error) {
 	}, nil
 }
 
-// ParseIPv6Pattern parses the given IPv6 address pattern and returns an IPPattern object
+
 func ParseIPv6Pattern(ipPattern string) (*IPPattern, error) {
 	items := strings.Split(ipPattern, ":")
 
@@ -147,7 +147,7 @@ func ParseIPv6Pattern(ipPattern string) (*IPPattern, error) {
 		if item == "*" {
 			regexBuilder.WriteString("[0-9a-fA-F]{1,4}")
 		} else if i < len(items)-1 && item == "" {
-			// Do Nothing
+			
 		} else {
 			num, err := strconv.ParseInt(item, 16, 32)
 

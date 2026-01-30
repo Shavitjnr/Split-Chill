@@ -1,16 +1,16 @@
-package mcp
+﻿package mcp
 
 import (
 	"encoding/json"
 	"reflect"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
-// MCPQueryAllAccountsResponse represents the response structure for querying accounts
+
 type MCPQueryAllAccountsResponse struct {
 	CashAccounts                 []string `json:"cashAccounts,omitempty" jsonschema_description:"List of cash account names"`
 	CheckingAccounts             []string `json:"checkingAccounts,omitempty" jsonschema_description:"List of checking account names"`
@@ -27,27 +27,27 @@ type mcpQueryAllAccountsToolHandler struct{}
 
 var MCPQueryAllAccountsToolHandler = &mcpQueryAllAccountsToolHandler{}
 
-// Name returns the name of the MCP tool
+
 func (h *mcpQueryAllAccountsToolHandler) Name() string {
 	return "query_all_accounts"
 }
 
-// Description returns the description of the MCP tool
+
 func (h *mcpQueryAllAccountsToolHandler) Description() string {
-	return "Query all accounts for the current user in ezBookkeeping."
+	return "Query all accounts for the current user in Split Chill AI."
 }
 
-// InputType returns the input type for the MCP tool request
+
 func (h *mcpQueryAllAccountsToolHandler) InputType() reflect.Type {
 	return nil
 }
 
-// OutputType returns the output type for the MCP tool response
+
 func (h *mcpQueryAllAccountsToolHandler) OutputType() reflect.Type {
 	return reflect.TypeOf(&MCPQueryAllAccountsResponse{})
 }
 
-// Handle processes the MCP call tool request and returns the response
+
 func (h *mcpQueryAllAccountsToolHandler) Handle(c *core.WebContext, callToolReq *MCPCallToolRequest, user *models.User, currentConfig *settings.Config, services MCPAvailableServices) (any, []*MCPTextContent, error) {
 	uid := user.Uid
 	accounts, err := services.GetAccountService().GetAllAccountsByUid(c, uid)

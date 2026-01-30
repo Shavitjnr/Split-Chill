@@ -1,32 +1,32 @@
-package models
+﻿package models
 
 import (
 	"strings"
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
-// TransactionTemplateType represents transaction template type in database
+
 type TransactionTemplateType byte
 
-// Transaction template types
+
 const (
 	TRANSACTION_TEMPLATE_TYPE_NORMAL   TransactionTemplateType = 1
 	TRANSACTION_TEMPLATE_TYPE_SCHEDULE TransactionTemplateType = 2
 )
 
-// TransactionScheduleFrequencyType represents transaction template schedule frequency type
+
 type TransactionScheduleFrequencyType byte
 
-// Transaction template schedule frequency types
+
 const (
 	TRANSACTION_SCHEDULE_FREQUENCY_TYPE_DISABLED TransactionScheduleFrequencyType = 0
 	TRANSACTION_SCHEDULE_FREQUENCY_TYPE_WEEKLY   TransactionScheduleFrequencyType = 1
 	TRANSACTION_SCHEDULE_FREQUENCY_TYPE_MONTHLY  TransactionScheduleFrequencyType = 2
 )
 
-// TransactionTemplate represents transaction template stored in database
+
 type TransactionTemplate struct {
 	TemplateId                 int64                            `xorm:"PK"`
 	Uid                        int64                            `xorm:"INDEX(IDX_transaction_template_uid_deleted_template_type_order) NOT NULL"`
@@ -55,17 +55,17 @@ type TransactionTemplate struct {
 	DeletedUnixTime            int64
 }
 
-// TransactionTemplateListRequest represents all parameters of transaction template list request
+
 type TransactionTemplateListRequest struct {
 	TemplateType TransactionTemplateType `form:"templateType"`
 }
 
-// TransactionTemplateGetRequest represents all parameters of transaction template getting request
+
 type TransactionTemplateGetRequest struct {
 	Id int64 `form:"id,string" binding:"required,min=1"`
 }
 
-// TransactionTemplateCreateRequest represents all parameters of transaction template creation request
+
 type TransactionTemplateCreateRequest struct {
 	TemplateType               TransactionTemplateType           `json:"templateType"`
 	Name                       string                            `json:"name" binding:"required,notBlank,max=64"`
@@ -86,13 +86,13 @@ type TransactionTemplateCreateRequest struct {
 	ClientSessionId            string                            `json:"clientSessionId"`
 }
 
-// TransactionTemplateModifyNameRequest represents all parameters of transaction template name modification request
+
 type TransactionTemplateModifyNameRequest struct {
 	Id   int64  `json:"id,string" binding:"required,min=1"`
 	Name string `json:"name" binding:"required,notBlank,max=64"`
 }
 
-// TransactionTemplateModifyRequest represents all parameters of transaction template modification request
+
 type TransactionTemplateModifyRequest struct {
 	Id                         int64                             `json:"id,string" binding:"required,min=1"`
 	Name                       string                            `json:"name" binding:"required,notBlank,max=64"`
@@ -112,24 +112,24 @@ type TransactionTemplateModifyRequest struct {
 	ScheduledTimezoneUtcOffset *int16                            `json:"utcOffset" binding:"omitempty,min=-720,max=840"`
 }
 
-// TransactionTemplateHideRequest represents all parameters of transaction template hiding request
+
 type TransactionTemplateHideRequest struct {
 	Id     int64 `json:"id,string" binding:"required,min=1"`
 	Hidden bool  `json:"hidden"`
 }
 
-// TransactionTemplateMoveRequest represents all parameters of transaction template moving request
+
 type TransactionTemplateMoveRequest struct {
 	NewDisplayOrders []*TransactionTemplateNewDisplayOrderRequest `json:"newDisplayOrders" binding:"required,min=1"`
 }
 
-// TransactionTemplateNewDisplayOrderRequest represents a data pair of id and display order
+
 type TransactionTemplateNewDisplayOrderRequest struct {
 	Id           int64 `json:"id,string" binding:"required,min=1"`
 	DisplayOrder int32 `json:"displayOrder"`
 }
 
-// TransactionTemplateDeleteRequest represents all parameters of transaction template deleting request
+
 type TransactionTemplateDeleteRequest struct {
 	Id int64 `json:"id,string" binding:"required,min=1"`
 }
@@ -147,7 +147,7 @@ type TransactionTemplateInfoResponse struct {
 	Hidden                 bool                              `json:"hidden"`
 }
 
-// GetTagIds returns all tag ids of the transaction template
+
 func (t *TransactionTemplate) GetTagIds() []int64 {
 	tagIds := make([]string, 0)
 
@@ -160,7 +160,7 @@ func (t *TransactionTemplate) GetTagIds() []int64 {
 	return result
 }
 
-// ToTransactionTemplateInfoResponse returns a view-object according to database model
+
 func (t *TransactionTemplate) ToTransactionTemplateInfoResponse(serverUtcOffset int16) *TransactionTemplateInfoResponse {
 	utcOffset := serverUtcOffset
 
@@ -223,20 +223,20 @@ func (t *TransactionTemplate) toTransactionInfoResponse(utcOffset int16) *Transa
 	}
 }
 
-// TransactionTemplateInfoResponseSlice represents the slice data structure of TransactionTemplateInfoResponse
+
 type TransactionTemplateInfoResponseSlice []*TransactionTemplateInfoResponse
 
-// Len returns the count of items
+
 func (s TransactionTemplateInfoResponseSlice) Len() int {
 	return len(s)
 }
 
-// Swap swaps two items
+
 func (s TransactionTemplateInfoResponseSlice) Swap(i, j int) {
 	s[i], s[j] = s[j], s[i]
 }
 
-// Less reports whether the first item is less than the second one
+
 func (s TransactionTemplateInfoResponseSlice) Less(i, j int) bool {
 	return s[i].DisplayOrder < s[j].DisplayOrder
 }

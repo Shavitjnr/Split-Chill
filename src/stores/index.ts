@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+﻿import { ref } from 'vue';
 import { defineStore } from 'pinia';
 
 import { useSettingsStore } from './setting.ts';
@@ -643,9 +643,9 @@ export const useRootStore = defineStore('root', () => {
     }
 
     return {
-        // states
+        
         currentNotification,
-        // functions
+        
         setNotificationContent,
         generateOAuth2LoginUrl,
         generateOAuth2LinkUrl,

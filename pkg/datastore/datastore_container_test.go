@@ -1,11 +1,11 @@
-package datastore
+﻿package datastore
 
 import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
 func TestGetMysqlConnectionString_TCP(t *testing.T) {
@@ -52,7 +52,7 @@ func TestGetPostgreSQLConnectionString_TCP(t *testing.T) {
 }
 
 func TestGetPostgreSQLConnectionString_UnixSocket(t *testing.T) {
-	expectedValue := "postgres:///dbname?sslmode=disable&host=/path/to/postgres.sock&user=username&password=password"
+	expectedValue := "postgres:/
 	actualValue, err := getPostgresConnectionString(&settings.DatabaseConfig{
 		DatabaseType:     "postgres",
 		DatabaseHost:     "/path/to/postgres.sock",

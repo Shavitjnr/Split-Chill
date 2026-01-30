@@ -1,4 +1,4 @@
-package openai
+﻿package openai
 
 import (
 	"bytes"
@@ -8,49 +8,49 @@ import (
 	"net/http"
 
 	"github.com/invopop/jsonschema"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/llm/data"
-	"github.com/mayswind/ezbookkeeping/pkg/llm/provider"
-	"github.com/mayswind/ezbookkeeping/pkg/llm/provider/common"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/llm/data"
+	"github.com/Shavitjnr/split-chill-ai/pkg/llm/provider"
+	"github.com/Shavitjnr/split-chill-ai/pkg/llm/provider/common"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
-// OpenAIChatCompletionsAPIProvider defines the structure of OpenAI chat completions API provider
+
 type OpenAIChatCompletionsAPIProvider interface {
-	// BuildChatCompletionsHttpRequest returns the chat completions http request
+	
 	BuildChatCompletionsHttpRequest(c core.Context, uid int64) (*http.Request, error)
 
-	// GetModelID returns the model id if supported, otherwise returns empty string
+	
 	GetModelID() string
 }
 
-// CommonOpenAIChatCompletionsAPILargeLanguageModelAdapter defines the structure of OpenAI common compatible large language model adapter based on chat completions api
+
 type CommonOpenAIChatCompletionsAPILargeLanguageModelAdapter struct {
 	common.HttpLargeLanguageModelAdapter
 	apiProvider OpenAIChatCompletionsAPIProvider
 }
 
-// OpenAIMessageRole defines the role of OpenAI chat completions message
+
 type OpenAIMessageRole string
 
-// OpenAI Message Roles
+
 const (
 	OpenAIMessageRoleSystem OpenAIMessageRole = "system"
 	OpenAIMessageRoleUser   OpenAIMessageRole = "user"
 )
 
-// OpenAIChatCompletionsRequestResponseFormatType defines the type of OpenAI chat completions request response format
+
 type OpenAIChatCompletionsRequestResponseFormatType string
 
-// OpenAI Chat Completions Request Response Format Types
+
 const (
 	OpenAIChatCompletionsRequestResponseFormatTypeJsonObject OpenAIChatCompletionsRequestResponseFormatType = "json_object"
 	OpenAIChatCompletionsRequestResponseFormatTypeJsonSchema OpenAIChatCompletionsRequestResponseFormatType = "json_schema"
 )
 
-// OpenAIChatCompletionsRequest defines the structure of OpenAI chat completions request
+
 type OpenAIChatCompletionsRequest struct {
 	Model          string                                      `json:"model"`
 	Stream         bool                                        `json:"stream"`
@@ -58,45 +58,45 @@ type OpenAIChatCompletionsRequest struct {
 	ResponseFormat *OpenAIChatCompletionsRequestResponseFormat `json:"response_format,omitempty"`
 }
 
-// OpenAIChatCompletionsRequestMessage defines the structure of OpenAI chat completions request message
+
 type OpenAIChatCompletionsRequestMessage[T string | []*OpenAIChatCompletionsRequestImageContent] struct {
 	Role    OpenAIMessageRole `json:"role"`
 	Content T                 `json:"content"`
 }
 
-// OpenAIChatCompletionsRequestImageContent defines the structure of OpenAI chat completions request image content
+
 type OpenAIChatCompletionsRequestImageContent struct {
 	Type     string                                `json:"type"`
 	ImageURL *OpenAIChatCompletionsRequestImageUrl `json:"image_url"`
 }
 
-// OpenAIChatCompletionsRequestResponseFormat defines the structure of OpenAI chat completions request response format
+
 type OpenAIChatCompletionsRequestResponseFormat struct {
 	Type       OpenAIChatCompletionsRequestResponseFormatType `json:"type"`
 	JsonSchema *jsonschema.Schema                             `json:"json_schema,omitempty"`
 }
 
-// OpenAIChatCompletionsRequestImageUrl defines the structure of OpenAI image url
+
 type OpenAIChatCompletionsRequestImageUrl struct {
 	Url string `json:"url"`
 }
 
-// OpenAIChatCompletionsResponse defines the structure of OpenAI chat completions response
+
 type OpenAIChatCompletionsResponse struct {
 	Choices []*OpenAIChatCompletionsResponseChoice `json:"choices"`
 }
 
-// OpenAIChatCompletionsResponseChoice defines the structure of OpenAI chat completions response choice
+
 type OpenAIChatCompletionsResponseChoice struct {
 	Message *OpenAIChatCompletionsResponseMessage `json:"message"`
 }
 
-// OpenAIChatCompletionsResponseMessage defines the structure of OpenAI chat completions response message
+
 type OpenAIChatCompletionsResponseMessage struct {
 	Content *string `json:"content"`
 }
 
-// BuildTextualRequest returns the http request by OpenAI common compatible adapter
+
 func (p *CommonOpenAIChatCompletionsAPILargeLanguageModelAdapter) BuildTextualRequest(c core.Context, uid int64, request *data.LargeLanguageModelRequest, responseType data.LargeLanguageModelResponseFormat) (*http.Request, error) {
 	requestBody, err := p.buildJsonRequestBody(c, uid, request, responseType)
 
@@ -116,7 +116,7 @@ func (p *CommonOpenAIChatCompletionsAPILargeLanguageModelAdapter) BuildTextualRe
 	return httpRequest, nil
 }
 
-// ParseTextualResponse returns the textual response by OpenAI common compatible adapter
+
 func (p *CommonOpenAIChatCompletionsAPILargeLanguageModelAdapter) ParseTextualResponse(c core.Context, uid int64, body []byte, responseType data.LargeLanguageModelResponseFormat) (*data.LargeLanguageModelTextualResponse, error) {
 	chatCompletionsResponse := &OpenAIChatCompletionsResponse{}
 	err := json.Unmarshal(body, &chatCompletionsResponse)

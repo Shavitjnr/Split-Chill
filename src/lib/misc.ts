@@ -1,4 +1,4 @@
-import CryptoJS from 'crypto-js';
+﻿import CryptoJS from 'crypto-js';
 
 import { base64encode } from './common.ts';
 
@@ -101,7 +101,7 @@ export function generateRandomString(): string {
 export function generateRandomUUID(): string {
     const randomString = generateRandomString();
 
-    // convert hash string to UUID Version 8
+    
     const uuid = randomString.substring(0, 8) + '-'
         + randomString.substring(8, 12) + '-'
         + '8' + randomString.substring(13, 16) + '-'

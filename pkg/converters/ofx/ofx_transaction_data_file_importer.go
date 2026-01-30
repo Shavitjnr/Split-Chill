@@ -1,12 +1,12 @@
-package ofx
+﻿package ofx
 
 import (
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/converter"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/converter"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 var ofxTransactionTypeNameMapping = map[models.TransactionType]string{
@@ -15,16 +15,16 @@ var ofxTransactionTypeNameMapping = map[models.TransactionType]string{
 	models.TRANSACTION_TYPE_TRANSFER: utils.IntToString(int(models.TRANSACTION_TYPE_TRANSFER)),
 }
 
-// ofxTransactionDataImporter defines the structure of open financial exchange (ofx) file importer for transaction data
+
 type ofxTransactionDataImporter struct {
 }
 
-// Initialize a open financial exchange (ofx) transaction data importer singleton instance
+
 var (
 	OFXTransactionDataImporter = &ofxTransactionDataImporter{}
 )
 
-// ParseImportedData returns the imported data by parsing the open financial exchange (ofx) file transaction data
+
 func (c *ofxTransactionDataImporter) ParseImportedData(ctx core.Context, user *models.User, data []byte, defaultTimezone *time.Location, additionalOptions converter.TransactionDataImporterOptions, accountMap map[string]*models.Account, expenseCategoryMap map[string]map[string]*models.TransactionCategory, incomeCategoryMap map[string]map[string]*models.TransactionCategory, transferCategoryMap map[string]map[string]*models.TransactionCategory, tagMap map[string]*models.TransactionTag) (models.ImportedTransactionSlice, []*models.Account, []*models.TransactionCategory, []*models.TransactionCategory, []*models.TransactionCategory, []*models.TransactionTag, error) {
 	ofxDataReader, err := createNewOFXFileReader(ctx, data)
 

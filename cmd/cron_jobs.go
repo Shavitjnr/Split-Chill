@@ -1,19 +1,19 @@
-package cmd
+﻿package cmd
 
 import (
 	"fmt"
 
 	"github.com/urfave/cli/v3"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/cron"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/cron"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
 )
 
-// CronJobs represents the cron command
+
 var CronJobs = &cli.Command{
 	Name:  "cron",
-	Usage: "ezBookkeeping cron job utilities",
+	Usage: "Split Chill AI cron job utilities",
 	Commands: []*cli.Command{
 		{
 			Name:   "list",

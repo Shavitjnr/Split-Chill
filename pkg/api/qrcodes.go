@@ -1,4 +1,4 @@
-package api
+﻿package api
 
 import (
 	"bytes"
@@ -7,9 +7,9 @@ import (
 	"github.com/boombuler/barcode"
 	"github.com/boombuler/barcode/qr"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
 const (
@@ -17,12 +17,12 @@ const (
 	qrCodeDefaultHeight int = 320
 )
 
-// QrCodesApi represents qrcode generator api
+
 type QrCodesApi struct {
 	ApiUsingConfig
 }
 
-// Initialize a qrcode generator api singleton instance
+
 var (
 	QrCodes = &QrCodesApi{
 		ApiUsingConfig: ApiUsingConfig{
@@ -31,7 +31,7 @@ var (
 	}
 )
 
-// MobileUrlQrCodeHandler returns a mobile url qr code image
+
 func (a *QrCodesApi) MobileUrlQrCodeHandler(c *core.WebContext) ([]byte, string, *errs.Error) {
 	fullUrl := a.CurrentConfig().RootUrl + "mobile"
 	data, err := a.generateUrlQrCode(c, fullUrl)

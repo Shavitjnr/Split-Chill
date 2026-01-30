@@ -1,4 +1,4 @@
-package cmd
+﻿package cmd
 
 import (
 	"encoding/binary"
@@ -7,17 +7,17 @@ import (
 
 	"github.com/urfave/cli/v3"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/mail"
-	"github.com/mayswind/ezbookkeeping/pkg/requestid"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/mail"
+	"github.com/Shavitjnr/split-chill-ai/pkg/requestid"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
-// Utilities represents the utilities command
+
 var Utilities = &cli.Command{
 	Name:  "utility",
-	Usage: "ezBookkeeping utilities",
+	Usage: "Split Chill AI utilities",
 	Commands: []*cli.Command{
 		{
 			Name:   "parse-default-request-id",
@@ -89,7 +89,7 @@ func sendTestMail(c *core.CliContext) error {
 
 	err = mail.Container.SendMail(&mail.MailMessage{
 		To:      toAddress,
-		Subject: "ezBookkeeping test e-mail",
+		Subject: "Split Chill AI test e-mail",
 		Body:    "This is a test e-mail",
 	})
 

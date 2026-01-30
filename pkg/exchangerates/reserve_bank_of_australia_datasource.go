@@ -1,4 +1,4 @@
-package exchangerates
+﻿package exchangerates
 
 import (
 	"bytes"
@@ -8,12 +8,12 @@ import (
 
 	"golang.org/x/net/html/charset"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
-	"github.com/mayswind/ezbookkeeping/pkg/validators"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/validators"
 )
 
 const reserveBankOfAustraliaExchangeRateUrl = "https://www.rba.gov.au/rss/rss-cb-exchange-rates.xml"
@@ -23,47 +23,47 @@ const reserveBankOfAustraliaBaseCurrency = "AUD"
 
 const reserveBankOfAustraliaDataUpdateDateFormat = "2006-01-02T15:04:05Z07:00"
 
-// ReserveBankOfAustraliaDataSource defines the structure of exchange rates data source of the reserve bank of Australia
+
 type ReserveBankOfAustraliaDataSource struct {
 	HttpExchangeRatesDataSource
 }
 
-// ReserveBankOfAustraliaData represents the whole data from the reserve bank of Australia
+
 type ReserveBankOfAustraliaData struct {
 	XMLName xml.Name                          `xml:"RDF"`
 	Channel *ReserveBankOfAustraliaRssChannel `xml:"channel"`
 	Items   []*ReserveBankOfAustraliaRssItem  `xml:"item"`
 }
 
-// ReserveBankOfAustraliaRssChannel represents the rss channel from the reserve bank of Australia
+
 type ReserveBankOfAustraliaRssChannel struct {
 	Date string `xml:"date"`
 }
 
-// ReserveBankOfAustraliaRssItem represents the rss item from the reserve bank of Australia
+
 type ReserveBankOfAustraliaRssItem struct {
 	Statistics *ReserveBankOfAustraliaItemStatistics `xml:"statistics"`
 }
 
-// ReserveBankOfAustraliaItemStatistics represents the item statistics from the reserve bank of Australia
+
 type ReserveBankOfAustraliaItemStatistics struct {
 	ExchangeRate *ReserveBankOfAustraliaExchangeRate `xml:"exchangeRate"`
 }
 
-// ReserveBankOfAustraliaExchangeRate represents the exchange rate from the reserve bank of Australia
+
 type ReserveBankOfAustraliaExchangeRate struct {
 	BaseCurrency   string                                         `xml:"baseCurrency"`
 	TargetCurrency string                                         `xml:"targetCurrency"`
 	Observation    *ReserveBankOfAustraliaExchangeRateObservation `xml:"observation"`
 }
 
-// ReserveBankOfAustraliaExchangeRateObservation represents the exchange rate data from the reserve bank of Australia
+
 type ReserveBankOfAustraliaExchangeRateObservation struct {
 	Value string `xml:"value"`
 	Unit  string `xml:"unit"`
 }
 
-// ToLatestExchangeRateResponse returns a view-object according to original data from the reserve bank of Australia
+
 func (e *ReserveBankOfAustraliaData) ToLatestExchangeRateResponse(c core.Context) *models.LatestExchangeRateResponse {
 	if e.Channel == nil {
 		log.Errorf(c, "[reserve_bank_of_australia_datasource.ToLatestExchangeRateResponse] rss channel does not exist")
@@ -118,7 +118,7 @@ func (e *ReserveBankOfAustraliaData) ToLatestExchangeRateResponse(c core.Context
 	return latestExchangeRateResp
 }
 
-// ToLatestExchangeRate returns a data pair according to original data from the reserve bank of Australia
+
 func (e *ReserveBankOfAustraliaExchangeRate) ToLatestExchangeRate() *models.LatestExchangeRate {
 	return &models.LatestExchangeRate{
 		Currency: e.TargetCurrency,
@@ -126,7 +126,7 @@ func (e *ReserveBankOfAustraliaExchangeRate) ToLatestExchangeRate() *models.Late
 	}
 }
 
-// BuildRequests returns the reserve bank of Australia exchange rates http requests
+
 func (e *ReserveBankOfAustraliaDataSource) BuildRequests() ([]*http.Request, error) {
 	req, err := http.NewRequest("GET", reserveBankOfAustraliaExchangeRateUrl, nil)
 
@@ -137,7 +137,7 @@ func (e *ReserveBankOfAustraliaDataSource) BuildRequests() ([]*http.Request, err
 	return []*http.Request{req}, nil
 }
 
-// Parse returns the common response entity according to the the reserve bank of Australia data source raw response
+
 func (e *ReserveBankOfAustraliaDataSource) Parse(c core.Context, content []byte) (*models.LatestExchangeRateResponse, error) {
 	xmlDecoder := xml.NewDecoder(bytes.NewReader(content))
 	xmlDecoder.CharsetReader = charset.NewReaderLabel

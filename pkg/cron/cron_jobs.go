@@ -1,13 +1,13 @@
-package cron
+﻿package cron
 
 import (
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/services"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/services"
 )
 
-// RemoveExpiredTokensJob represents the cron job which periodically remove expired user tokens from the database
+
 var RemoveExpiredTokensJob = &CronJob{
 	Name:        "RemoveExpiredTokens",
 	Description: "Periodically remove expired user tokens from the database.",
@@ -19,7 +19,7 @@ var RemoveExpiredTokensJob = &CronJob{
 	},
 }
 
-// CreateScheduledTransactionJob represents the cron job which periodically create transaction by scheduled transaction template
+
 var CreateScheduledTransactionJob = &CronJob{
 	Name:        "CreateScheduledTransaction",
 	Description: "Periodically create transaction by scheduled transaction template.",

@@ -1,4 +1,4 @@
-package services
+﻿package services
 
 import (
 	"strings"
@@ -6,23 +6,23 @@ import (
 
 	"xorm.io/xorm"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/datastore"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
-	"github.com/mayswind/ezbookkeeping/pkg/uuid"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/datastore"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/uuid"
 )
 
 const pageCountForLoadAllTransactionTagIndexes = 1000
 
-// TransactionTagService represents transaction tag service
+
 type TransactionTagService struct {
 	ServiceUsingDB
 	ServiceUsingUuid
 }
 
-// Initialize a transaction tag service singleton instance
+
 var (
 	TransactionTags = &TransactionTagService{
 		ServiceUsingDB: ServiceUsingDB{
@@ -34,7 +34,7 @@ var (
 	}
 )
 
-// GetTotalTagCountByUid returns total tag count of user
+
 func (s *TransactionTagService) GetTotalTagCountByUid(c core.Context, uid int64) (int64, error) {
 	if uid <= 0 {
 		return 0, errs.ErrUserIdInvalid
@@ -45,7 +45,7 @@ func (s *TransactionTagService) GetTotalTagCountByUid(c core.Context, uid int64)
 	return count, err
 }
 
-// GetAllTagsByUid returns all transaction tag models of user
+
 func (s *TransactionTagService) GetAllTagsByUid(c core.Context, uid int64) ([]*models.TransactionTag, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -57,7 +57,7 @@ func (s *TransactionTagService) GetAllTagsByUid(c core.Context, uid int64) ([]*m
 	return tags, err
 }
 
-// GetTagByTagId returns a transaction tag model according to transaction tag id
+
 func (s *TransactionTagService) GetTagByTagId(c core.Context, uid int64, tagId int64) (*models.TransactionTag, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -79,7 +79,7 @@ func (s *TransactionTagService) GetTagByTagId(c core.Context, uid int64, tagId i
 	return tag, nil
 }
 
-// GetTagsByTagIds returns transaction tag models according to transaction tag ids
+
 func (s *TransactionTagService) GetTagsByTagIds(c core.Context, uid int64, tagIds []int64) (map[int64]*models.TransactionTag, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -100,7 +100,7 @@ func (s *TransactionTagService) GetTagsByTagIds(c core.Context, uid int64, tagId
 	return tagMap, err
 }
 
-// GetMaxDisplayOrder returns the max display order
+
 func (s *TransactionTagService) GetMaxDisplayOrder(c core.Context, uid int64, tagGroupId int64) (int32, error) {
 	if uid <= 0 {
 		return 0, errs.ErrUserIdInvalid
@@ -120,7 +120,7 @@ func (s *TransactionTagService) GetMaxDisplayOrder(c core.Context, uid int64, ta
 	}
 }
 
-// GetAllTagIdsOfAllTransactions returns all transaction tag ids
+
 func (s *TransactionTagService) GetAllTagIdsOfAllTransactions(c core.Context, uid int64) ([]*models.TransactionTagIndex, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -166,7 +166,7 @@ func (s *TransactionTagService) GetAllTagIdsOfAllTransactions(c core.Context, ui
 	return allTransactionTagIndexes, nil
 }
 
-// GetAllTagIdsMapOfAllTransactions returns all transaction tag ids map grouped by transaction id
+
 func (s *TransactionTagService) GetAllTagIdsMapOfAllTransactions(c core.Context, uid int64) (map[int64][]int64, error) {
 	tagIndexes, err := s.GetAllTagIdsOfAllTransactions(c, uid)
 
@@ -179,7 +179,7 @@ func (s *TransactionTagService) GetAllTagIdsMapOfAllTransactions(c core.Context,
 	return allTransactionTagIds, err
 }
 
-// GetAllTagIdsOfTransactions returns transaction tag ids for given transactions
+
 func (s *TransactionTagService) GetAllTagIdsOfTransactions(c core.Context, uid int64, transactionIds []int64) (map[int64][]int64, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -193,7 +193,7 @@ func (s *TransactionTagService) GetAllTagIdsOfTransactions(c core.Context, uid i
 	return allTransactionTagIds, err
 }
 
-// CreateTag saves a new transaction tag model to database
+
 func (s *TransactionTagService) CreateTag(c core.Context, tag *models.TransactionTag) error {
 	if tag.Uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -223,7 +223,7 @@ func (s *TransactionTagService) CreateTag(c core.Context, tag *models.Transactio
 	})
 }
 
-// CreateTags saves a few transaction tag models to database
+
 func (s *TransactionTagService) CreateTags(c core.Context, uid int64, tags []*models.TransactionTag, skipExists bool) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -293,7 +293,7 @@ func (s *TransactionTagService) CreateTags(c core.Context, uid int64, tags []*mo
 	})
 }
 
-// ModifyTag saves an existed transaction tag model to database
+
 func (s *TransactionTagService) ModifyTag(c core.Context, tag *models.TransactionTag, tagNameChanged bool) error {
 	if tag.Uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -324,7 +324,7 @@ func (s *TransactionTagService) ModifyTag(c core.Context, tag *models.Transactio
 	})
 }
 
-// HideTag updates hidden field of given transaction tags
+
 func (s *TransactionTagService) HideTag(c core.Context, uid int64, ids []int64, hidden bool) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -350,7 +350,7 @@ func (s *TransactionTagService) HideTag(c core.Context, uid int64, ids []int64, 
 	})
 }
 
-// ModifyTagDisplayOrders updates display order of given transaction tags
+
 func (s *TransactionTagService) ModifyTagDisplayOrders(c core.Context, uid int64, tags []*models.TransactionTag) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -376,7 +376,7 @@ func (s *TransactionTagService) ModifyTagDisplayOrders(c core.Context, uid int64
 	})
 }
 
-// DeleteTag deletes an existed transaction tag from database
+
 func (s *TransactionTagService) DeleteTag(c core.Context, uid int64, tagId int64) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -432,7 +432,7 @@ func (s *TransactionTagService) DeleteTag(c core.Context, uid int64, tagId int64
 	})
 }
 
-// DeleteAllTags deletes all existed transaction tags from database
+
 func (s *TransactionTagService) DeleteAllTags(c core.Context, uid int64) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -464,7 +464,7 @@ func (s *TransactionTagService) DeleteAllTags(c core.Context, uid int64) error {
 	})
 }
 
-// ExistsTagName returns whether the given tag name exists
+
 func (s *TransactionTagService) ExistsTagName(c core.Context, uid int64, name string) (bool, error) {
 	if name == "" {
 		return false, errs.ErrTransactionTagNameIsEmpty
@@ -473,7 +473,7 @@ func (s *TransactionTagService) ExistsTagName(c core.Context, uid int64, name st
 	return s.UserDataDB(uid).NewSession(c).Cols("name").Where("uid=? AND deleted=? AND name=?", uid, false, name).Exist(&models.TransactionTag{})
 }
 
-// ModifyTagIndexTransactionTime updates transaction time of given transaction tag indexes
+
 func (s *TransactionTagService) ModifyTagIndexTransactionTime(c core.Context, uid int64, tagIndexes []*models.TransactionTagIndex) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -499,7 +499,7 @@ func (s *TransactionTagService) ModifyTagIndexTransactionTime(c core.Context, ui
 	})
 }
 
-// GetTagMapByList returns a transaction tag map by a list
+
 func (s *TransactionTagService) GetTagMapByList(tags []*models.TransactionTag) map[int64]*models.TransactionTag {
 	tagMap := make(map[int64]*models.TransactionTag)
 
@@ -510,7 +510,7 @@ func (s *TransactionTagService) GetTagMapByList(tags []*models.TransactionTag) m
 	return tagMap
 }
 
-// GetVisibleTagNameMapByList returns a visible transaction tag map by a list
+
 func (s *TransactionTagService) GetVisibleTagNameMapByList(tags []*models.TransactionTag) map[string]*models.TransactionTag {
 	tagMap := make(map[string]*models.TransactionTag)
 
@@ -527,7 +527,7 @@ func (s *TransactionTagService) GetVisibleTagNameMapByList(tags []*models.Transa
 	return tagMap
 }
 
-// GetTagNames returns a list with tag names from tag models list
+
 func (s *TransactionTagService) GetTagNames(tags []*models.TransactionTag) []string {
 	tagNames := make([]string, len(tags))
 
@@ -538,7 +538,7 @@ func (s *TransactionTagService) GetTagNames(tags []*models.TransactionTag) []str
 	return tagNames
 }
 
-// GetGroupedTransactionTagIds returns a map of transaction tag ids grouped by transaction id
+
 func (s *TransactionTagService) GetGroupedTransactionTagIds(tagIndexes []*models.TransactionTagIndex) map[int64][]int64 {
 	allTransactionTagIds := make(map[int64][]int64)
 
@@ -562,7 +562,7 @@ func (s *TransactionTagService) GetGroupedTransactionTagIds(tagIndexes []*models
 	return allTransactionTagIds
 }
 
-// GetTagIds converts a comma-separated string of tag ids into a slice of int64
+
 func (s *TransactionTagService) GetTagIds(tagIds string) ([]int64, error) {
 	if tagIds == "" || tagIds == "0" {
 		return nil, nil
@@ -577,7 +577,7 @@ func (s *TransactionTagService) GetTagIds(tagIds string) ([]int64, error) {
 	return requestTagIds, nil
 }
 
-// GetTransactionTagIds returns a slice of all transaction tag ids from a map of transaction tag ids grouped by transaction id
+
 func (s *TransactionTagService) GetTransactionTagIds(allTransactionTagIds map[int64][]int64) []int64 {
 	allTagIds := make([]int64, 0, len(allTransactionTagIds))
 

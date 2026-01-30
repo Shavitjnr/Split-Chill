@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+﻿import { defineStore } from 'pinia';
 
 import { useSettingsStore } from './setting.ts';
 import { useUserStore } from './user.ts';
@@ -161,7 +161,7 @@ export const useTokensStore = defineStore('tokens', () => {
     }
 
     return {
-        // functions
+        
         getAllTokens,
         refreshTokenAndRevokeOldToken,
         generateToken,

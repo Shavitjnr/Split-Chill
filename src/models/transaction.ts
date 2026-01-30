@@ -1,4 +1,4 @@
-import { type PartialRecord, itemAndIndex } from '@/core/base.ts';
+﻿import { type PartialRecord, itemAndIndex } from '@/core/base.ts';
 import type { TextualYearMonthDay, Year1BasedMonth, YearMonthDay, StartEndTime, WeekDay } from '@/core/datetime.ts';
 import { type Coordinate, getNormalizedCoordinate } from '@/core/coordinate.ts';
 import { TransactionType, TransactionTagFilterType } from '@/core/transaction.ts';
@@ -16,7 +16,7 @@ export class Transaction implements TransactionInfoResponse {
     public incomeCategoryId: string = '';
     public transferCategoryId: string = '';
     public time: number;
-    public timeZone?: string; // only in new transaction
+    public timeZone?: string; 
     public utcOffset: number;
     public sourceAccountId: string;
     public destinationAccountId: string;
@@ -30,14 +30,14 @@ export class Transaction implements TransactionInfoResponse {
     private _pictures?: TransactionPicture[];
     private _geoLocation?: TransactionGeoLocation;
 
-    private _category?: TransactionCategory; // only for displaying transaction
-    private _sourceAccount?: Account; // only for displaying transaction
-    private _destinationAccount?: Account; // only for displaying transaction
-    private _tags?: TransactionTag[]; // only for displaying transaction
+    private _category?: TransactionCategory; 
+    private _sourceAccount?: Account; 
+    private _destinationAccount?: Account; 
+    private _tags?: TransactionTag[]; 
 
-    private _gregorianCalendarYearDashMonthDashDay?: TextualYearMonthDay = undefined; // only for displaying transaction in transaction list
-    private _gregorianCalendarDayOfMonth?: number = undefined; // only for displaying transaction in transaction list
-    private _displayDayOfWeek?: WeekDay = undefined; // only for displaying transaction in transaction list
+    private _gregorianCalendarYearDashMonthDashDay?: TextualYearMonthDay = undefined; 
+    private _gregorianCalendarDayOfMonth?: number = undefined; 
+    private _displayDayOfWeek?: WeekDay = undefined; 
 
     protected constructor(id: string, timeSequenceId: string, type: number, categoryId: string, time: number, timeZone: string | undefined, utcOffset: number, sourceAccountId: string, destinationAccountId: string, sourceAmount: number, destinationAmount: number, hideAmount: boolean, tagIds: string[], comment: string, editable: boolean) {
         this.id = id;
@@ -292,21 +292,21 @@ export class Transaction implements TransactionInfoResponse {
 
     public static createNewTransaction(type: number, time: number, timeZone: string, utcOffset: number): Transaction {
         return new Transaction(
-            '', // id
-            '', // timeSequenceId
-            type, // type
-            '', // categoryId
-            time, // time
-            timeZone, // timeZone
-            utcOffset, // utcOffset
-            '', // sourceAccountId
-            '', // destinationAccountId
-            0, // sourceAmount
-            0, // destinationAmount
-            false, // hideAmount
-            [], // tagIds
-            '', // comment
-            true // editable
+            '', 
+            '', 
+            type, 
+            '', 
+            time, 
+            timeZone, 
+            utcOffset, 
+            '', 
+            '', 
+            0, 
+            0, 
+            false, 
+            [], 
+            '', 
+            true 
         );
     }
 
@@ -317,7 +317,7 @@ export class Transaction implements TransactionInfoResponse {
             transactionResponse.type,
             transactionResponse.categoryId,
             transactionResponse.time,
-            undefined, // only in new transaction
+            undefined, 
             transactionResponse.utcOffset,
             transactionResponse.sourceAccountId,
             transactionResponse.destinationAccountId,
@@ -384,21 +384,21 @@ export class Transaction implements TransactionInfoResponse {
         }
 
         const transaction: Transaction = new Transaction(
-            '', // id
-            '', // timeSequenceId
-            transactionDraft.type, // type
-            transactionDraft.categoryId ?? '', // categoryId
-            0, // time
-            undefined, // only in new transaction
-            0, // utcOffset
-            transactionDraft.sourceAccountId ?? '', // sourceAccountId
-            transactionDraft.destinationAccountId ?? '', // destinationAccountId
-            transactionDraft.sourceAmount ?? 0, // sourceAmount
-            transactionDraft.destinationAmount ?? 0, // destinationAmount
-            transactionDraft.hideAmount ?? false, // hideAmount
-            transactionDraft.tagIds ?? [], // tagIds
-            transactionDraft.comment ?? '', // comment
-            true // editable
+            '', 
+            '', 
+            transactionDraft.type, 
+            transactionDraft.categoryId ?? '', 
+            0, 
+            undefined, 
+            0, 
+            transactionDraft.sourceAccountId ?? '', 
+            transactionDraft.destinationAccountId ?? '', 
+            transactionDraft.sourceAmount ?? 0, 
+            transactionDraft.destinationAmount ?? 0, 
+            transactionDraft.hideAmount ?? false, 
+            transactionDraft.tagIds ?? [], 
+            transactionDraft.comment ?? '', 
+            true 
         );
 
         if (transactionDraft.pictures) {
@@ -588,7 +588,7 @@ export interface TransactionListByMaxTimeRequest {
 
 export interface TransactionListInMonthByPageRequest {
     readonly year: number;
-    readonly month: number; // 1-based (1 = January, 12 = December)
+    readonly month: number; 
     readonly type: number;
     readonly categoryIds: string;
     readonly accountIds: string;
@@ -799,13 +799,13 @@ export interface TransactionStatisticResponseItem {
 
 export interface TransactionStatisticTrendsResponseItem {
     readonly year: number;
-    readonly month: number; // 1-based (1 = January, 12 = December)
+    readonly month: number; 
     readonly items: TransactionStatisticResponseItem[];
 }
 
 export interface TransactionStatisticAssetTrendsResponseItem extends YearMonthDay {
     readonly year: number;
-    readonly month: number; // 1-based (1 = January, 12 = December)
+    readonly month: number; 
     readonly day: number;
     readonly items: TransactionStatisticAssetTrendsResponseDataItem[];
 }
@@ -857,13 +857,13 @@ export interface TransactionStatisticResponseWithInfo {
 
 export interface TransactionStatisticTrendsResponseItemWithInfo {
     readonly year: number;
-    readonly month: number; // 1-based (1 = January, 12 = December)
+    readonly month: number; 
     readonly items: TransactionStatisticResponseItemWithInfo[];
 }
 
 export interface TransactionStatisticAssetTrendsResponseItemWithInfo {
     readonly year: number;
-    readonly month: number; // 1-based (1 = January, 12 = December)
+    readonly month: number; 
     readonly day: number;
     readonly items: TransactionStatisticResponseItemWithInfo[];
 }

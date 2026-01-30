@@ -1,11 +1,11 @@
-package alipay
+﻿package alipay
 
-// alipayWebTransactionDataCsvFileImporter defines the structure of alipay (web) csv importer for transaction data
+
 type alipayWebTransactionDataCsvFileImporter struct {
 	alipayTransactionDataCsvFileImporter
 }
 
-// Initialize a alipay (web) transaction data csv file importer singleton instance
+
 var (
 	AlipayWebTransactionDataCsvFileImporter = &alipayWebTransactionDataCsvFileImporter{
 		alipayTransactionDataCsvFileImporter{

@@ -1,14 +1,14 @@
-package _default
+﻿package _default
 
 import (
 	"fmt"
 	"strings"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/datatable"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/datatable"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
 )
 
-// defaultPlainTextDataTable defines the structure of ezbookkeeping default plain text data table
+
 type defaultPlainTextDataTable struct {
 	columnSeparator       string
 	lineSeparator         string
@@ -16,18 +16,18 @@ type defaultPlainTextDataTable struct {
 	headerLineColumnNames []string
 }
 
-// defaultPlainTextDataRow defines the structure of ezbookkeeping default plain text data row
+
 type defaultPlainTextDataRow struct {
 	allItems []string
 }
 
-// defaultPlainTextDataRowIterator defines the structure of ezbookkeeping default plain text data row iterator
+
 type defaultPlainTextDataRowIterator struct {
 	dataTable    *defaultPlainTextDataTable
 	currentIndex int
 }
 
-// defaultTransactionPlainTextDataTableBuilder defines the structure of ezbookkeeping default transaction plain text data table builder
+
 type defaultTransactionPlainTextDataTableBuilder struct {
 	columnSeparator       string
 	lineSeparator         string
@@ -37,7 +37,7 @@ type defaultTransactionPlainTextDataTableBuilder struct {
 	builder               *strings.Builder
 }
 
-// DataRowCount returns the total count of data row
+
 func (t *defaultPlainTextDataTable) DataRowCount() int {
 	if len(t.allLines) < 1 {
 		return 0
@@ -46,12 +46,12 @@ func (t *defaultPlainTextDataTable) DataRowCount() int {
 	return len(t.allLines) - 1
 }
 
-// HeaderColumnNames returns the header column name list
+
 func (t *defaultPlainTextDataTable) HeaderColumnNames() []string {
 	return t.headerLineColumnNames
 }
 
-// DataRowIterator returns the iterator of data row
+
 func (t *defaultPlainTextDataTable) DataRowIterator() datatable.BasicDataTableRowIterator {
 	return &defaultPlainTextDataRowIterator{
 		dataTable:    t,
@@ -59,12 +59,12 @@ func (t *defaultPlainTextDataTable) DataRowIterator() datatable.BasicDataTableRo
 	}
 }
 
-// ColumnCount returns the total count of column in this data row
+
 func (r *defaultPlainTextDataRow) ColumnCount() int {
 	return len(r.allItems)
 }
 
-// GetData returns the data in the specified column index
+
 func (r *defaultPlainTextDataRow) GetData(columnIndex int) string {
 	if columnIndex >= len(r.allItems) {
 		return ""
@@ -73,17 +73,17 @@ func (r *defaultPlainTextDataRow) GetData(columnIndex int) string {
 	return r.allItems[columnIndex]
 }
 
-// HasNext returns whether the iterator does not reach the end
+
 func (t *defaultPlainTextDataRowIterator) HasNext() bool {
 	return t.currentIndex+1 < len(t.dataTable.allLines)
 }
 
-// CurrentRowId returns current index
+
 func (t *defaultPlainTextDataRowIterator) CurrentRowId() string {
 	return fmt.Sprintf("line#%d", t.currentIndex)
 }
 
-// Next returns the next basic data row
+
 func (t *defaultPlainTextDataRowIterator) Next() datatable.BasicDataTableRow {
 	if t.currentIndex+1 >= len(t.dataTable.allLines) {
 		return nil
@@ -99,7 +99,7 @@ func (t *defaultPlainTextDataRowIterator) Next() datatable.BasicDataTableRow {
 	}
 }
 
-// AppendTransaction appends the specified transaction to data builder
+
 func (b *defaultTransactionPlainTextDataTableBuilder) AppendTransaction(data map[datatable.TransactionDataTableColumn]string) {
 	dataRowParams := make([]any, len(b.columns))
 
@@ -110,7 +110,7 @@ func (b *defaultTransactionPlainTextDataTableBuilder) AppendTransaction(data map
 	b.builder.WriteString(fmt.Sprintf(b.dataLineFormat, dataRowParams...))
 }
 
-// ReplaceDelimiters returns the text after removing the delimiters
+
 func (b *defaultTransactionPlainTextDataTableBuilder) ReplaceDelimiters(text string) string {
 	text = strings.Replace(text, "\r\n", " ", -1)
 	text = strings.Replace(text, "\r", " ", -1)
@@ -121,7 +121,7 @@ func (b *defaultTransactionPlainTextDataTableBuilder) ReplaceDelimiters(text str
 	return text
 }
 
-// String returns the textual representation of this data
+
 func (b *defaultTransactionPlainTextDataTableBuilder) String() string {
 	return b.builder.String()
 }

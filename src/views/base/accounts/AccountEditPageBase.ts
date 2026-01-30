@@ -1,4 +1,4 @@
-import { ref, computed, watch } from 'vue';
+﻿import { ref, computed, watch } from 'vue';
 
 import { useI18n } from '@/locales/helpers.ts';
 
@@ -186,16 +186,16 @@ export function useAccountEditPageBase() {
     });
 
     return {
-        // constants
+        
         defaultAccountCategory,
-        // states
+        
         editAccountId,
         clientSessionId,
         loading,
         submitting,
         account,
         subAccounts,
-        // computed states
+        
         title,
         saveButtonTitle,
         inputEmptyProblemMessage,
@@ -204,7 +204,7 @@ export function useAccountEditPageBase() {
         allAccountTypes,
         allAvailableMonthDays,
         isAccountSupportCreditCardStatementDate,
-        // functions
+        
         getCurrentUnixTimeForNewAccount,
         getDefaultTimezoneOffsetMinutes,
         getAccountCreditCardStatementDate,

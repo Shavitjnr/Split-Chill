@@ -1,4 +1,4 @@
-import chardet, { type Match } from 'chardet';
+﻿import chardet, { type Match } from 'chardet';
 
 import type { ImportFileTypeAndExtensions } from '@/core/file.ts';
 
@@ -63,7 +63,7 @@ export function detectFileEncoding(file: File): Promise<string> {
             const mostPossibleEncoding: Match = possibleEncodings[0] as Match;
 
             if (!mostPossibleEncoding.name || mostPossibleEncoding.confidence < 50) {
-                // check whether all characters are ASCII
+                
                 let isAllAscii = true;
 
                 for (const byte of uint8Array) {

@@ -1,19 +1,19 @@
-package qif
+﻿package qif
 
-// qifTransactionClearedStatus represents the quicken interchange format (qif) transaction cleared status
+
 type qifTransactionClearedStatus string
 
-// Quicken interchange format transaction types
+
 const (
 	qifClearedStatusUnreconciled qifTransactionClearedStatus = ""
 	qifClearedStatusCleared      qifTransactionClearedStatus = "C"
 	qifClearedStatusReconciled   qifTransactionClearedStatus = "R"
 )
 
-// qifTransactionType represents the quicken interchange format (qif) transaction type
+
 type qifTransactionType string
 
-// Quicken interchange format transaction types
+
 const (
 	qifInvalidTransactionType         qifTransactionType = ""
 	qifCheckTransactionType           qifTransactionType = "KC"
@@ -23,16 +23,16 @@ const (
 	qifElectronicPayeeTransactionType qifTransactionType = "KE"
 )
 
-// qifCategoryType represents the quicken interchange format (qif) category type
+
 type qifCategoryType string
 
-// Quicken interchange format category types
+
 const (
 	qifIncomeTransaction  qifCategoryType = "I"
 	qifExpenseTransaction qifCategoryType = "E"
 )
 
-// qifData defines the structure of quicken interchange format (qif) data
+
 type qifData struct {
 	BankAccountTransactions       []*qifTransactionData
 	CashAccountTransactions       []*qifTransactionData
@@ -46,7 +46,7 @@ type qifData struct {
 	Classes                       []*qifClassData
 }
 
-// qifTransactionData defines the structure of quicken interchange format (qif) transaction data
+
 type qifTransactionData struct {
 	Date                   string
 	Amount                 string
@@ -62,7 +62,7 @@ type qifTransactionData struct {
 	Account                *qifAccountData
 }
 
-// qifInvestmentTransactionData defines the structure of quicken interchange format (qif) investment transaction data
+
 type qifInvestmentTransactionData struct {
 	Date               string
 	Action             string
@@ -79,14 +79,14 @@ type qifInvestmentTransactionData struct {
 	Account            *qifAccountData
 }
 
-// qifMemorizedTransactionData defines the structure of quicken interchange format (qif) memorized transaction data
+
 type qifMemorizedTransactionData struct {
 	qifTransactionData
 	TransactionType qifTransactionType
 	Amortization    qifMemorizedTransactionAmortizationData
 }
 
-// qifMemorizedTransactionAmortizationData defines the structure of quicken interchange format (qif) memorized transaction amortization data
+
 type qifMemorizedTransactionAmortizationData struct {
 	FirstPaymentDate       string
 	TotalYearsForLoan      string
@@ -97,7 +97,7 @@ type qifMemorizedTransactionAmortizationData struct {
 	OriginalLoanAmount     string
 }
 
-// qifAccountData defines the structure of quicken interchange format (qif) account data
+
 type qifAccountData struct {
 	Name                   string
 	AccountType            string
@@ -107,7 +107,7 @@ type qifAccountData struct {
 	StatementBalanceAmount string
 }
 
-// qifCategoryData defines the structure of quicken interchange format (qif) category data
+
 type qifCategoryData struct {
 	Name                   string
 	Description            string
@@ -117,7 +117,7 @@ type qifCategoryData struct {
 	TaxScheduleInformation string
 }
 
-// qifClassData defines the structure of quicken interchange format (qif) class data
+
 type qifClassData struct {
 	Name        string
 	Description string

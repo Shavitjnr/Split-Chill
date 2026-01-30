@@ -1,42 +1,42 @@
-package middlewares
+﻿package middlewares
 
 import (
 	"github.com/golang-jwt/jwt/v5"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/services"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/services"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
-// TokenSourceType represents token source
+
 type TokenSourceType byte
 
-// Token source types
+
 const (
 	TOKEN_SOURCE_TYPE_HEADER   TokenSourceType = 1
 	TOKEN_SOURCE_TYPE_ARGUMENT TokenSourceType = 2
 	TOKEN_SOURCE_TYPE_COOKIE   TokenSourceType = 3
 )
 
-// JWTAuthorization verifies whether current request is valid by jwt token in header
+
 func JWTAuthorization(config *settings.Config) core.MiddlewareHandlerFunc {
 	return jwtAuthorization(config, TOKEN_SOURCE_TYPE_HEADER)
 }
 
-// JWTAuthorizationByQueryString verifies whether current request is valid by jwt token in query string
+
 func JWTAuthorizationByQueryString(config *settings.Config) core.MiddlewareHandlerFunc {
 	return jwtAuthorization(config, TOKEN_SOURCE_TYPE_ARGUMENT)
 }
 
-// JWTAuthorizationByCookie verifies whether current request is valid by jwt token in cookie
+
 func JWTAuthorizationByCookie(config *settings.Config) core.MiddlewareHandlerFunc {
 	return jwtAuthorization(config, TOKEN_SOURCE_TYPE_COOKIE)
 }
 
-// JWTTwoFactorAuthorization verifies whether current request is valid by 2fa passcode
+
 func JWTTwoFactorAuthorization(config *settings.Config) core.MiddlewareHandlerFunc {
 	return func(c *core.WebContext) {
 		claims, tokenContext, err := getTokenClaims(c, TOKEN_SOURCE_TYPE_HEADER)
@@ -58,7 +58,7 @@ func JWTTwoFactorAuthorization(config *settings.Config) core.MiddlewareHandlerFu
 	}
 }
 
-// JWTEmailVerifyAuthorization verifies whether current request is email verification
+
 func JWTEmailVerifyAuthorization(config *settings.Config) core.MiddlewareHandlerFunc {
 	return func(c *core.WebContext) {
 		claims, tokenContext, err := getTokenClaims(c, TOKEN_SOURCE_TYPE_ARGUMENT)
@@ -80,7 +80,7 @@ func JWTEmailVerifyAuthorization(config *settings.Config) core.MiddlewareHandler
 	}
 }
 
-// JWTResetPasswordAuthorization verifies whether current request is password reset
+
 func JWTResetPasswordAuthorization(config *settings.Config) core.MiddlewareHandlerFunc {
 	return func(c *core.WebContext) {
 		claims, tokenContext, err := getTokenClaims(c, TOKEN_SOURCE_TYPE_ARGUMENT)
@@ -102,7 +102,7 @@ func JWTResetPasswordAuthorization(config *settings.Config) core.MiddlewareHandl
 	}
 }
 
-// JWTMCPAuthorization verifies whether current request is valid by jwt mcp token in header
+
 func JWTMCPAuthorization(config *settings.Config) core.MiddlewareHandlerFunc {
 	return func(c *core.WebContext) {
 		claims, tokenContext, err := getTokenClaims(c, TOKEN_SOURCE_TYPE_HEADER)
@@ -124,7 +124,7 @@ func JWTMCPAuthorization(config *settings.Config) core.MiddlewareHandlerFunc {
 	}
 }
 
-// JWTOAuth2CallbackAuthorization verifies whether current request is OAuth 2.0 callback
+
 func JWTOAuth2CallbackAuthorization(config *settings.Config) core.MiddlewareHandlerFunc {
 	return func(c *core.WebContext) {
 		claims, tokenContext, err := getTokenClaims(c, TOKEN_SOURCE_TYPE_HEADER)
@@ -207,7 +207,7 @@ func parseToken(c *core.WebContext, source TokenSourceType) (*jwt.Token, *core.U
 		tokenString = c.GetTokenStringFromQueryString()
 	} else if source == TOKEN_SOURCE_TYPE_COOKIE {
 		tokenString = c.GetTokenStringFromCookie()
-	} else { // if source == TOKEN_SOURCE_TYPE_HEADER
+	} else { 
 		tokenString = c.GetTokenStringFromHeader()
 	}
 

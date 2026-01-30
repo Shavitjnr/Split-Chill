@@ -1,19 +1,19 @@
-package models
+﻿package models
 
-// LevelOneTransactionCategoryParentId represents the parent id of level-one transaction category
+
 const LevelOneTransactionCategoryParentId = 0
 
-// TransactionCategoryType represents transaction category type
+
 type TransactionCategoryType byte
 
-// Transaction category types
+
 const (
 	CATEGORY_TYPE_INCOME   TransactionCategoryType = 1
 	CATEGORY_TYPE_EXPENSE  TransactionCategoryType = 2
 	CATEGORY_TYPE_TRANSFER TransactionCategoryType = 3
 )
 
-// TransactionCategory represents transaction category data stored in database
+
 type TransactionCategory struct {
 	CategoryId       int64                   `xorm:"PK"`
 	Uid              int64                   `xorm:"INDEX(IDX_category_uid_deleted_type_parent_category_id_order) NOT NULL"`
@@ -31,18 +31,18 @@ type TransactionCategory struct {
 	DeletedUnixTime  int64
 }
 
-// TransactionCategoryListRequest represents all parameters of transaction category listing request
+
 type TransactionCategoryListRequest struct {
 	Type     TransactionCategoryType `form:"type" binding:"min=0"`
 	ParentId int64                   `form:"parent_id,string,default=-1" binding:"min=-1"`
 }
 
-// TransactionCategoryGetRequest represents all parameters of transaction category getting request
+
 type TransactionCategoryGetRequest struct {
 	Id int64 `form:"id,string" binding:"required,min=1"`
 }
 
-// TransactionCategoryCreateRequest represents all parameters of single transaction category creation request
+
 type TransactionCategoryCreateRequest struct {
 	Name            string                  `json:"name" binding:"required,notBlank,max=64"`
 	Type            TransactionCategoryType `json:"type" binding:"required"`
@@ -53,12 +53,12 @@ type TransactionCategoryCreateRequest struct {
 	ClientSessionId string                  `json:"clientSessionId"`
 }
 
-// TransactionCategoryCreateBatchRequest represents all parameters of transaction category batch creation request
+
 type TransactionCategoryCreateBatchRequest struct {
 	Categories []*TransactionCategoryCreateWithSubCategories `json:"categories" binding:"required"`
 }
 
-// TransactionCategoryCreateWithSubCategories represents all parameters of multi transaction categories creation request
+
 type TransactionCategoryCreateWithSubCategories struct {
 	Name          string                              `json:"name" binding:"required,notBlank,max=64"`
 	Type          TransactionCategoryType             `json:"type" binding:"required"`
@@ -68,7 +68,7 @@ type TransactionCategoryCreateWithSubCategories struct {
 	SubCategories []*TransactionCategoryCreateRequest `json:"subCategories" binding:"required"`
 }
 
-// TransactionCategoryModifyRequest represents all parameters of transaction category modification request
+
 type TransactionCategoryModifyRequest struct {
 	Id       int64  `json:"id,string" binding:"required,min=1"`
 	Name     string `json:"name" binding:"required,notBlank,max=64"`
@@ -79,29 +79,29 @@ type TransactionCategoryModifyRequest struct {
 	Hidden   bool   `json:"hidden"`
 }
 
-// TransactionCategoryHideRequest represents all parameters of transaction category hiding request
+
 type TransactionCategoryHideRequest struct {
 	Id     int64 `json:"id,string" binding:"required,min=1"`
 	Hidden bool  `json:"hidden"`
 }
 
-// TransactionCategoryMoveRequest represents all parameters of transaction category moving request
+
 type TransactionCategoryMoveRequest struct {
 	NewDisplayOrders []*TransactionCategoryNewDisplayOrderRequest `json:"newDisplayOrders" binding:"required,min=1"`
 }
 
-// TransactionCategoryNewDisplayOrderRequest represents a data pair of id and display order
+
 type TransactionCategoryNewDisplayOrderRequest struct {
 	Id           int64 `json:"id,string" binding:"required,min=1"`
 	DisplayOrder int32 `json:"displayOrder"`
 }
 
-// TransactionCategoryDeleteRequest represents all parameters of transaction category deleting request
+
 type TransactionCategoryDeleteRequest struct {
 	Id int64 `json:"id,string" binding:"required,min=1"`
 }
 
-// TransactionCategoryInfoResponse represents a view-object of transaction category
+
 type TransactionCategoryInfoResponse struct {
 	Id            int64                                `json:"id,string"`
 	Name          string                               `json:"name"`
@@ -115,7 +115,7 @@ type TransactionCategoryInfoResponse struct {
 	SubCategories TransactionCategoryInfoResponseSlice `json:"subCategories,omitempty"`
 }
 
-// ToTransactionCategoryInfoResponse returns a view-object according to database model
+
 func (c *TransactionCategory) ToTransactionCategoryInfoResponse() *TransactionCategoryInfoResponse {
 	return &TransactionCategoryInfoResponse{
 		Id:           c.CategoryId,
@@ -130,20 +130,20 @@ func (c *TransactionCategory) ToTransactionCategoryInfoResponse() *TransactionCa
 	}
 }
 
-// TransactionCategoryInfoResponseSlice represents the slice data structure of TransactionCategoryInfoResponse
+
 type TransactionCategoryInfoResponseSlice []*TransactionCategoryInfoResponse
 
-// Len returns the count of items
+
 func (s TransactionCategoryInfoResponseSlice) Len() int {
 	return len(s)
 }
 
-// Swap swaps two items
+
 func (s TransactionCategoryInfoResponseSlice) Swap(i, j int) {
 	s[i], s[j] = s[j], s[i]
 }
 
-// Less reports whether the first item is less than the second one
+
 func (s TransactionCategoryInfoResponseSlice) Less(i, j int) bool {
 	return s[i].DisplayOrder < s[j].DisplayOrder
 }

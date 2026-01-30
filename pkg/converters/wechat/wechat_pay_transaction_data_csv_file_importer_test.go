@@ -1,4 +1,4 @@
-package wechat
+﻿package wechat
 
 import (
 	"testing"
@@ -6,11 +6,11 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/converter"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/converter"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 func TestWeChatPayCsvFileImporterParseImportedData_MinimumValidData(t *testing.T) {
@@ -199,7 +199,7 @@ func TestWeChatPayCsvFileImporterParseImportedData_ParseAccountName(t *testing.T
 		DefaultCurrency: "CNY",
 	}
 
-	// income to wechat wallet without related account name
+	
 	data1 := "微信支付账单明细,,,,\n" +
 		"微信昵称：[xxx],,,,\n" +
 		"起始时间：[2024-01-01 00:00:00] 终止时间：[2024-09-01 23:59:59],,,,\n" +
@@ -213,7 +213,7 @@ func TestWeChatPayCsvFileImporterParseImportedData_ParseAccountName(t *testing.T
 	assert.Equal(t, 1, len(allNewTransactions))
 	assert.Equal(t, "Wallet", allNewTransactions[0].OriginalSourceAccountName)
 
-	// refund to other account
+	
 	data2 := "微信支付账单明细,,,,\n" +
 		"微信昵称：[xxx],,,,\n" +
 		"起始时间：[2024-01-01 00:00:00] 终止时间：[2024-09-01 23:59:59],,,,\n" +
@@ -229,7 +229,7 @@ func TestWeChatPayCsvFileImporterParseImportedData_ParseAccountName(t *testing.T
 	assert.Equal(t, 1, len(allNewTransactions))
 	assert.Equal(t, "test", allNewTransactions[0].OriginalSourceAccountName)
 
-	// transfer to wechat wallet
+	
 	data3 := "微信支付账单明细,,,,\n" +
 		"微信昵称：[xxx],,,,\n" +
 		"起始时间：[2024-01-01 00:00:00] 终止时间：[2024-09-01 23:59:59],,,,\n" +
@@ -246,7 +246,7 @@ func TestWeChatPayCsvFileImporterParseImportedData_ParseAccountName(t *testing.T
 	assert.Equal(t, "test", allNewTransactions[0].OriginalSourceAccountName)
 	assert.Equal(t, "Wallet", allNewTransactions[0].OriginalDestinationAccountName)
 
-	// transfer from wechat wallet
+	
 	data4 := "微信支付账单明细,,,,\n" +
 		"微信昵称：[xxx],,,,\n" +
 		"起始时间：[2024-01-01 00:00:00] 终止时间：[2024-09-01 23:59:59],,,,\n" +
@@ -263,7 +263,7 @@ func TestWeChatPayCsvFileImporterParseImportedData_ParseAccountName(t *testing.T
 	assert.Equal(t, "Wallet", allNewTransactions[0].OriginalSourceAccountName)
 	assert.Equal(t, "test", allNewTransactions[0].OriginalDestinationAccountName)
 
-	// transfer from wechat wallet
+	
 	data5 := "微信支付账单明细,,,,\n" +
 		"微信昵称：[xxx],,,,\n" +
 		"起始时间：[2024-01-01 00:00:00] 终止时间：[2024-09-01 23:59:59],,,,\n" +
@@ -373,7 +373,7 @@ func TestWeChatPayCsvFileImporterParseImportedData_MissingRequiredColumn(t *test
 		DefaultCurrency: "CNY",
 	}
 
-	// Missing Time Column
+	
 	data1 := "微信支付账单明细,,,,\n" +
 		"微信昵称：[xxx],,,,\n" +
 		"起始时间：[2024-01-01 00:00:00] 终止时间：[2024-09-01 23:59:59],,,,\n" +
@@ -384,7 +384,7 @@ func TestWeChatPayCsvFileImporterParseImportedData_MissingRequiredColumn(t *test
 	_, _, _, _, _, _, err := importer.ParseImportedData(context, user, []byte(data1), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingRequiredFieldInHeaderRow.Message)
 
-	// Missing Category Column
+	
 	data2 := "微信支付账单明细,,,,\n" +
 		"微信昵称：[xxx],,,,\n" +
 		"起始时间：[2024-01-01 00:00:00] 终止时间：[2024-09-01 23:59:59],,,,\n" +
@@ -395,7 +395,7 @@ func TestWeChatPayCsvFileImporterParseImportedData_MissingRequiredColumn(t *test
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(data2), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingRequiredFieldInHeaderRow.Message)
 
-	// Missing Type Column
+	
 	data3 := "微信支付账单明细,,,,\n" +
 		"微信昵称：[xxx],,,,\n" +
 		"起始时间：[2024-01-01 00:00:00] 终止时间：[2024-09-01 23:59:59],,,,\n" +
@@ -406,7 +406,7 @@ func TestWeChatPayCsvFileImporterParseImportedData_MissingRequiredColumn(t *test
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(data3), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingRequiredFieldInHeaderRow.Message)
 
-	// Missing Amount Column
+	
 	data4 := "微信支付账单明细,,,,\n" +
 		"微信昵称：[xxx],,,,\n" +
 		"起始时间：[2024-01-01 00:00:00] 终止时间：[2024-09-01 23:59:59],,,,\n" +
@@ -417,7 +417,7 @@ func TestWeChatPayCsvFileImporterParseImportedData_MissingRequiredColumn(t *test
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(data4), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingRequiredFieldInHeaderRow.Message)
 
-	// Missing Status Column
+	
 	data5 := "微信支付账单明细,,,,\n" +
 		"微信昵称：[xxx],,,,\n" +
 		"起始时间：[2024-01-01 00:00:00] 终止时间：[2024-09-01 23:59:59],,,,\n" +

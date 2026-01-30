@@ -1,4 +1,4 @@
-package datatable
+﻿package datatable
 
 import (
 	"testing"
@@ -6,23 +6,23 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
-// testDataRowParser defines the structure of test transaction data row parser
+
 type testDataRowParser struct {
 }
 
-// GetAddedColumns returns the added columns after converting the data row
+
 func (p *testDataRowParser) GetAddedColumns() []TransactionDataTableColumn {
 	return []TransactionDataTableColumn{
 		TRANSACTION_DATA_TABLE_DESCRIPTION,
 	}
 }
 
-// Parse returns the converted transaction data row
+
 func (p *testDataRowParser) Parse(data map[TransactionDataTableColumn]string) (rowData map[TransactionDataTableColumn]string, rowDataValid bool, err error) {
 	rowData = make(map[TransactionDataTableColumn]string, len(data))
 
@@ -275,7 +275,7 @@ func TestWritableDataTableWithRowParser(t *testing.T) {
 	})
 	assert.Equal(t, 1, writableDataTable.TransactionRowCount())
 
-	// first row
+	
 	dataRow, err := writableDataTable.Get(0)
 	assert.Nil(t, err)
 	assert.True(t, dataRow.IsValid())
@@ -298,7 +298,7 @@ func TestWritableDataTableWithRowParser(t *testing.T) {
 	})
 	assert.Equal(t, 2, writableDataTable.TransactionRowCount())
 
-	// second row
+	
 	dataRow, err = writableDataTable.Get(1)
 	assert.Nil(t, err)
 	assert.False(t, dataRow.IsValid())
@@ -346,7 +346,7 @@ func TestWritableDataTableDataRowIteratorWithRowParser(t *testing.T) {
 	iterator := writableDataTable.TransactionRowIterator()
 	assert.True(t, iterator.HasNext())
 
-	// first row
+	
 	dataRow, err := iterator.Next(core.NewNullContext(), &models.User{})
 	assert.Nil(t, err)
 	assert.True(t, dataRow.IsValid())
@@ -362,7 +362,7 @@ func TestWritableDataTableDataRowIteratorWithRowParser(t *testing.T) {
 
 	assert.True(t, iterator.HasNext())
 
-	// second row
+	
 	dataRow, err = iterator.Next(core.NewNullContext(), &models.User{})
 	assert.Nil(t, err)
 	assert.False(t, dataRow.IsValid())

@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 
 import { useI18n } from '@/locales/helpers.ts';
 
@@ -220,10 +220,10 @@ export function useAppSettingPageBase() {
     }
 
     return {
-        // states
+        
         loadingAccounts,
         loadingTransactionCategories,
-        // computed states
+        
         allThemes,
         allTimezones,
         allTimezoneTypesUsedForStatistics,

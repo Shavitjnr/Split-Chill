@@ -1,14 +1,13 @@
-/** Materio Template base classes **/
-/** https://github.com/themeselection/materio-vuetify-vuejs-admin-template-free **/
+﻿
 
 @use "sass:map";
 
-/* 👉 Shadow opacities */
+
 $shadow-key-umbra-opacity-custom: var(--v-shadow-key-umbra-opacity);
 $shadow-key-penumbra-opacity-custom: var(--v-shadow-key-penumbra-opacity);
 $shadow-key-ambient-opacity-custom: var(--v-shadow-key-ambient-opacity);
 
-/* 👉 Card transition properties */
+
 $card-transition-property-custom: box-shadow, opacity;
 
 @forward "vuetify/settings" with (

@@ -1,4 +1,4 @@
-package exchangerates
+﻿package exchangerates
 
 import (
 	"bytes"
@@ -9,12 +9,12 @@ import (
 
 	"golang.org/x/net/html/charset"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
-	"github.com/mayswind/ezbookkeeping/pkg/validators"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/validators"
 )
 
 const danmarksNationalbankExchangeRateUrl = "https://www.nationalbanken.dk/api/currencyratesxml?lang=en"
@@ -24,31 +24,31 @@ const danmarksNationalbankDataSource = "Danmarks Nationalbank"
 const danmarksNationalbankDataUpdateDateFormat = "2006-01-02 15"
 const danmarksNationalbankDataUpdateDateTimezone = "Europe/Copenhagen"
 
-// DanmarksNationalbankDataSource defines the structure of exchange rates data source of Danmarks Nationalbank
+
 type DanmarksNationalbankDataSource struct {
 	HttpExchangeRatesDataSource
 }
 
-// DanmarksNationalbankExchangeRateData represents the whole data from Danmarks Nationalbank
+
 type DanmarksNationalbankExchangeRateData struct {
 	XMLName            xml.Name                                  `xml:"exchangerates"`
 	DailyExchangeRates []*DanmarksNationalbankDailyExchangeRates `xml:"dailyrates"`
 	BaseCurrency       string                                    `xml:"refcur,attr"`
 }
 
-// DanmarksNationalbankDailyExchangeRates represents the exchange rates data from Danmarks Nationalbank
+
 type DanmarksNationalbankDailyExchangeRates struct {
 	Date          string                              `xml:"id,attr"`
 	ExchangeRates []*DanmarksNationalbankExchangeRate `xml:"currency"`
 }
 
-// DanmarksNationalbankExchangeRate represents the exchange rate data from Danmarks Nationalbank
+
 type DanmarksNationalbankExchangeRate struct {
 	Currency string `xml:"code,attr"`
 	Rate     string `xml:"rate,attr"`
 }
 
-// ToLatestExchangeRateResponse returns a view-object according to original data from Danmarks Nationalbank
+
 func (e *DanmarksNationalbankExchangeRateData) ToLatestExchangeRateResponse(c core.Context) *models.LatestExchangeRateResponse {
 	if len(e.DailyExchangeRates) < 1 {
 		log.Errorf(c, "[danmarks_national_bank_datasource.ToLatestExchangeRateResponse] daily exchange rates is empty")
@@ -87,7 +87,7 @@ func (e *DanmarksNationalbankExchangeRateData) ToLatestExchangeRateResponse(c co
 		return nil
 	}
 
-	updateDateTime := latestDanmarksNationalbankExchangeRate.Date + " 16" // ECB publishes the reference rates determined at the concertation at 16:00 and shortly after Danmarks Nationalbank publishes the prices in Danish kroner
+	updateDateTime := latestDanmarksNationalbankExchangeRate.Date + " 16" 
 	updateTime, err := time.ParseInLocation(danmarksNationalbankDataUpdateDateFormat, updateDateTime, timezone)
 
 	if err != nil {
@@ -106,7 +106,7 @@ func (e *DanmarksNationalbankExchangeRateData) ToLatestExchangeRateResponse(c co
 	return latestExchangeRateResp
 }
 
-// ToLatestExchangeRate returns a data pair according to original data from Danmarks Nationalbank
+
 func (e *DanmarksNationalbankExchangeRate) ToLatestExchangeRate(c core.Context) *models.LatestExchangeRate {
 	rate, err := utils.StringToFloat64(e.Rate)
 
@@ -120,7 +120,7 @@ func (e *DanmarksNationalbankExchangeRate) ToLatestExchangeRate(c core.Context) 
 		return nil
 	}
 
-	finalRate := 100 / rate // the latest exchange rates listed as the price in Danish kroner for 100 units of foreign currency
+	finalRate := 100 / rate 
 
 	if math.IsInf(finalRate, 0) {
 		return nil
@@ -132,7 +132,7 @@ func (e *DanmarksNationalbankExchangeRate) ToLatestExchangeRate(c core.Context) 
 	}
 }
 
-// BuildRequests returns the Danmarks Nationalbank exchange rates http requests
+
 func (e *DanmarksNationalbankDataSource) BuildRequests() ([]*http.Request, error) {
 	req, err := http.NewRequest("GET", danmarksNationalbankExchangeRateUrl, nil)
 
@@ -143,7 +143,7 @@ func (e *DanmarksNationalbankDataSource) BuildRequests() ([]*http.Request, error
 	return []*http.Request{req}, nil
 }
 
-// Parse returns the common response entity according to the Danmarks Nationalbank data source raw response
+
 func (e *DanmarksNationalbankDataSource) Parse(c core.Context, content []byte) (*models.LatestExchangeRateResponse, error) {
 	xmlDecoder := xml.NewDecoder(bytes.NewReader(content))
 	xmlDecoder.CharsetReader = charset.NewReaderLabel

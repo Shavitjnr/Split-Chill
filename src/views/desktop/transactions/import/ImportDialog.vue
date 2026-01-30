@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <v-dialog :persistent="!!persistent" v-model="showState">
         <v-card class="pa-sm-1 pa-md-2">
             <template #title>
@@ -395,8 +395,8 @@ const additionalOptionsMenuState = ref<boolean>(false);
 const clientSessionId = ref<string>('');
 const currentStep = ref<ImportTransactionDialogStep>('uploadFile');
 const importProcess = ref<number>(0);
-const fileType = ref<string>('ezbookkeeping');
-const fileSubType = ref<string>('ezbookkeeping_csv');
+const fileType = ref<string>('Split Chill AI');
+const fileSubType = ref<string>('Split Chill AI_csv');
 const fileEncoding = ref<string>('auto');
 const detectingFileEncoding = ref<boolean>(false);
 const autoDetectedFileEncoding = ref<string | undefined>(undefined);
@@ -548,7 +548,7 @@ const exportFileGuideDocumentUrl = computed<string | undefined>(() => {
 
     const language = document.language ? document.language + '/' : '';
     const anchor = document.anchor ? '#' + document.anchor : '';
-    return `https://ezbookkeeping.mayswind.net/${language}export_and_import${anchor}`;
+    return `https://splitchill-ai.shavitjnr.net/${language}export_and_import${anchor}`;
 });
 
 const exportFileGuideDocumentLanguageName = computed<string | undefined>(() => allSupportedImportFileTypesMap.value[fileType.value]?.document?.displayLanguageName);
@@ -598,8 +598,8 @@ function loadInitFileTypeFromSettings(): void {
 }
 
 function open(): Promise<void> {
-    fileType.value = 'ezbookkeeping';
-    fileSubType.value = 'ezbookkeeping_csv';
+    fileType.value = 'Split Chill AI';
+    fileSubType.value = 'Split Chill AI_csv';
 
     if (settingsStore.appSettings.rememberLastSelectedFileTypeInImportTransactionDialog && settingsStore.appSettings.lastSelectedFileTypeInImportTransactionDialog) {
         loadInitFileTypeFromSettings();
@@ -701,13 +701,13 @@ function reloadBasisData(): void {
             && results[1].status === 'rejected' && results[1].reason?.isUpToDate
             && results[2].status === 'rejected' && results[2].reason?.isUpToDate;
 
-        // show info if all up to date
+        
         if (isAllUpToDate) {
             snackbar.value?.showMessage('Data is up to date');
             return;
         }
 
-        // show error if any
+        
         for (const result of results) {
             if (result.status === 'rejected' && !result.reason?.isUpToDate) {
                 snackbar.value?.showError(result.reason);
@@ -715,7 +715,7 @@ function reloadBasisData(): void {
             }
         }
 
-        // show info if one of them updated
+        
         for (const result of results) {
             if (result.status === 'fulfilled') {
                 snackbar.value?.showMessage('Data has been updated');
@@ -775,7 +775,7 @@ function parseData(): void {
         }
 
         encoding = UTF_8;
-    } else { // should not happen, but ts would check whether uploadFile has been assigned a value
+    } else { 
         snackbar.value?.showMessage('An error occurred');
         return;
     }
@@ -849,7 +849,7 @@ function parseData(): void {
                 return;
             }
 
-            type = 'ezbookkeeping_json';
+            type = 'splitchill_ai_json';
             encoding = undefined;
             uploadFile = KnownFileType.JSON.createFile(executeCustomScriptResult, 'import');
         }
@@ -939,7 +939,7 @@ function submit(): void {
                     return;
                 }
 
-                // @ts-expect-error the return value of setInterval is number, but lint shows it as NodeJS.Timer
+                
                 showProcessTimer = setInterval(() => {
                     if (submitting.value) {
                         transactionsStore.getImportTransactionsProcess({

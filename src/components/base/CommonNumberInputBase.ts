@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 
 import { useI18n } from '@/locales/helpers.ts';
 
@@ -209,9 +209,9 @@ export function useCommonNumberInputBase(props: CommonNumberInputProps, emit: Co
     }
 
     return {
-        // states
+        
         currentValue,
-        // functions
+        
         onKeyUpDown,
         onPaste
     };

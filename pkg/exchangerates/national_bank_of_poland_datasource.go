@@ -1,4 +1,4 @@
-package exchangerates
+﻿package exchangerates
 
 import (
 	"bytes"
@@ -9,12 +9,12 @@ import (
 
 	"golang.org/x/net/html/charset"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
-	"github.com/mayswind/ezbookkeeping/pkg/validators"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/validators"
 )
 
 const nationalBankOfPolandDailyExchangeRateUrl = "https://api.nbp.pl/api/exchangerates/tables/A?format=xml"
@@ -26,25 +26,25 @@ const nationalBankOfPolandBaseCurrency = "PLN"
 const nationalBankOfPolandDataUpdateDateFormat = "2006-01-02 15:04"
 const nationalBankOfPolandDataUpdateDateTimezone = "Europe/Warsaw"
 
-// NationalBankOfPolandDataSource defines the structure of exchange rates data source of National Bank of Poland
+
 type NationalBankOfPolandDataSource struct {
 	HttpExchangeRatesDataSource
 }
 
-// NationalBankOfPolandExchangeRateData represents the whole data from National Bank of Poland
+
 type NationalBankOfPolandExchangeRateData struct {
 	XMLName          xml.Name                            `xml:"ArrayOfExchangeRatesTable"`
 	Date             string                              `xml:"ExchangeRatesTable>EffectiveDate"`
 	AllExchangeRates []*NationalBankOfPolandExchangeRate `xml:"ExchangeRatesTable>Rates>Rate"`
 }
 
-// NationalBankOfPolandExchangeRate represents the exchange rate data from National Bank of Poland
+
 type NationalBankOfPolandExchangeRate struct {
 	Currency string `xml:"Code"`
 	Rate     string `xml:"Mid"`
 }
 
-// ToLatestExchangeRateResponse returns a view-object according to original data from National Bank of Poland
+
 func (e *NationalBankOfPolandExchangeRateData) ToLatestExchangeRateResponse(c core.Context) *models.LatestExchangeRateResponse {
 	if len(e.AllExchangeRates) < 1 {
 		log.Errorf(c, "[national_bank_of_poland_datasource.ToLatestExchangeRateResponse] all exchange rates is empty")
@@ -76,7 +76,7 @@ func (e *NationalBankOfPolandExchangeRateData) ToLatestExchangeRateResponse(c co
 		return nil
 	}
 
-	updateDateTime := e.Date + " 12:15" // Table A of the average foreign currency exchange rates is published (updated) on the NBP website on business days, between 11:45 a.m. and 12:15 p.m.
+	updateDateTime := e.Date + " 12:15" 
 	updateTime, err := time.ParseInLocation(nationalBankOfPolandDataUpdateDateFormat, updateDateTime, timezone)
 
 	if err != nil {
@@ -95,7 +95,7 @@ func (e *NationalBankOfPolandExchangeRateData) ToLatestExchangeRateResponse(c co
 	return latestExchangeRateResp
 }
 
-// ToLatestExchangeRate returns a data pair according to original data from National Bank of Poland
+
 func (e *NationalBankOfPolandExchangeRate) ToLatestExchangeRate(c core.Context) *models.LatestExchangeRate {
 	rate, err := utils.StringToFloat64(e.Rate)
 
@@ -121,12 +121,12 @@ func (e *NationalBankOfPolandExchangeRate) ToLatestExchangeRate(c core.Context) 
 	}
 }
 
-// GetRequestUrls returns the National Bank of Poland data source urls
+
 func (e *NationalBankOfPolandDataSource) GetRequestUrls() []string {
 	return []string{nationalBankOfPolandInconvertibleCurrencyExchangeRateUrl, nationalBankOfPolandDailyExchangeRateUrl}
 }
 
-// BuildRequests returns the national bank of Poland exchange rates http requests
+
 func (e *NationalBankOfPolandDataSource) BuildRequests() ([]*http.Request, error) {
 	inconvertibleCurrencyReq, err := http.NewRequest("GET", nationalBankOfPolandInconvertibleCurrencyExchangeRateUrl, nil)
 
@@ -143,7 +143,7 @@ func (e *NationalBankOfPolandDataSource) BuildRequests() ([]*http.Request, error
 	return []*http.Request{inconvertibleCurrencyReq, dailyReq}, nil
 }
 
-// Parse returns the common response entity according to the National Bank of Poland data source raw response
+
 func (e *NationalBankOfPolandDataSource) Parse(c core.Context, content []byte) (*models.LatestExchangeRateResponse, error) {
 	xmlDecoder := xml.NewDecoder(bytes.NewReader(content))
 	xmlDecoder.CharsetReader = charset.NewReaderLabel

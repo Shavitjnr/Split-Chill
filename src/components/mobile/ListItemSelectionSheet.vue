@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <f7-sheet swipe-to-close swipe-handler=".swipe-handler"
               :class="heightClass" :opened="show"
               @sheet:open="onSheetOpen" @sheet:closed="onSheetClosed">
@@ -41,9 +41,9 @@ import { type Framework7Dom } from '@/lib/ui/mobile.ts';
 
 const props = defineProps<{
     modelValue: unknown;
-    valueType: string; // item or index
-    keyField?: string; // for value type == item
-    valueField?: string; // for value type == item
+    valueType: string; 
+    keyField?: string; 
+    valueField?: string; 
     titleField: string;
     titleI18n?: boolean;
     afterField?: string;

@@ -1,4 +1,4 @@
-package exchangerates
+﻿package exchangerates
 
 import (
 	"encoding/json"
@@ -6,12 +6,12 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
-	"github.com/mayswind/ezbookkeeping/pkg/validators"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/validators"
 )
 
 const nationalBankOfUkraineExchangeRateUrl = "https://bank.gov.ua/NBU_Exchange/exchange?json"
@@ -21,15 +21,15 @@ const nationalBankOfUkraineBaseCurrency = "UAH"
 
 const nationalBankOfUkraineUpdateDateFormat = "02.01.2006"
 
-// NationalBankOfUkraineDataSource defines the structure of exchange rates data source of National Bank of Ukraine
+
 type NationalBankOfUkraineDataSource struct {
 	HttpExchangeRatesDataSource
 }
 
-// NationalBankOfUkraineExchangeRates  represents the exchange rates data from National Bank of Ukraine
+
 type NationalBankOfUkraineExchangeRates []NaionalBankOfUkraineExchangeRate
 
-// NaionalBankOfUkraineExchangeRate represents the exchange rate data from National Bank of Ukraine
+
 type NaionalBankOfUkraineExchangeRate struct {
 	Currency string  `json:"CurrencyCodeL"`
 	Quantity float64 `json:"Units"`
@@ -37,7 +37,7 @@ type NaionalBankOfUkraineExchangeRate struct {
 	Date     string  `json:"StartDate"`
 }
 
-// ToLatestExchangeRateResponse returns a view-object according to original data from National Bank of Ukraine
+
 func (e *NationalBankOfUkraineExchangeRates) ToLatestExchangeRateResponse(c core.Context) *models.LatestExchangeRateResponse {
 	exchangeRates := make(models.LatestExchangeRateSlice, 0, len(*e))
 	latestUpdateTime := int64(0)
@@ -78,7 +78,7 @@ func (e *NationalBankOfUkraineExchangeRates) ToLatestExchangeRateResponse(c core
 	return latestExchangeRateResp
 }
 
-// ToLatestExchangeRate returns a data pair according to original data from National Bank of Ukraine
+
 func (e *NaionalBankOfUkraineExchangeRate) ToLatestExchangeRate(c core.Context) *models.LatestExchangeRate {
 	if e.Rate <= 0 {
 		log.Warnf(c, "[national_bank_of_ukraine_datasource.ToLatestExchangeRate] rate is invalid, currency is %s, rate is %f", e.Currency, e.Rate)
@@ -102,7 +102,7 @@ func (e *NaionalBankOfUkraineExchangeRate) ToLatestExchangeRate(c core.Context) 
 	}
 }
 
-// BuildRequests returns the National Bank of Ukraine exchange rates http requests
+
 func (e *NationalBankOfUkraineDataSource) BuildRequests() ([]*http.Request, error) {
 	req, err := http.NewRequest("GET", nationalBankOfUkraineExchangeRateUrl, nil)
 
@@ -113,7 +113,7 @@ func (e *NationalBankOfUkraineDataSource) BuildRequests() ([]*http.Request, erro
 	return []*http.Request{req}, nil
 }
 
-// Parse returns the common response entity according to the National Bank of Ukraine data source raw response
+
 func (e *NationalBankOfUkraineDataSource) Parse(c core.Context, content []byte) (*models.LatestExchangeRateResponse, error) {
 	var nationalBankOfUkraineData NationalBankOfUkraineExchangeRates
 	err := json.Unmarshal(content, &nationalBankOfUkraineData)

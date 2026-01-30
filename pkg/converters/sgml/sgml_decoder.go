@@ -1,4 +1,4 @@
-package sgml
+﻿package sgml
 
 import (
 	"encoding/xml"
@@ -6,18 +6,18 @@ import (
 	"reflect"
 	"sync"
 
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
 )
 
 const sgmlTagName = "sgml"
 const sgmlNameFieldName = "SGMLName"
-const xmlTagName = "xml"           // reuse xml tag
-const xmlNameFieldName = "XMLName" // reuse xml tag
+const xmlTagName = "xml"           
+const xmlNameFieldName = "XMLName" 
 
-// sgmlFieldType represents SGML field type
+
 type sgmlFieldType byte
 
-// Transaction template types
+
 const (
 	sgmlNotSupportedField sgmlFieldType = 0
 	sgmlTextualField      sgmlFieldType = 1
@@ -25,12 +25,12 @@ const (
 	sgmlStructSliceField  sgmlFieldType = 3
 )
 
-// sgmlTypeInfo represents the struct of SGML type reflection info
+
 type sgmlTypeInfo struct {
 	supportedFields map[string]*sgmlFieldInfo
 }
 
-// sgmlFieldInfo represents the struct of SGML field info
+
 type sgmlFieldInfo struct {
 	sgmlFieldName   string
 	sgmlFieldType   sgmlFieldType
@@ -41,9 +41,9 @@ type Decoder struct {
 	xmlDecoder *xml.Decoder
 }
 
-var sgmlTypeInfoMap sync.Map // map[reflect.Type]*typeInfo
+var sgmlTypeInfoMap sync.Map 
 
-// Decode unmarshal the specified struct instance and returns whether error occurs
+
 func (d *Decoder) Decode(v any) error {
 	value := reflect.ValueOf(v).Elem()
 	finalValue := value
@@ -308,7 +308,7 @@ func (d *Decoder) getActualFieldValue(fieldName string, fieldValue string, textu
 	return fieldValue
 }
 
-// NewDecoder creates a new SGML parser reading from specified io reader
+
 func NewDecoder(reader io.Reader) *Decoder {
 	xmlDecoder := xml.NewDecoder(reader)
 	xmlDecoder.CharsetReader = func(charset string, input io.Reader) (io.Reader, error) {

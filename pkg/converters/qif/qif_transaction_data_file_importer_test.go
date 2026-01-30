@@ -1,4 +1,4 @@
-package qif
+﻿package qif
 
 import (
 	"testing"
@@ -6,11 +6,11 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/converter"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/converter"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 func TestQIFTransactionDataFileParseImportedData_MinimumValidData(t *testing.T) {
@@ -545,14 +545,14 @@ func TestQIFTransactionDataFileParseImportedData_MissingRequiredFields(t *testin
 		DefaultCurrency: "CNY",
 	}
 
-	// Missing Time Field
+	
 	_, _, _, _, _, _, err := importer.ParseImportedData(context, user, []byte(
 		"!Type:Bank\n"+
 			"T-123.45\n"+
 			"^\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingTransactionTime.Message)
 
-	// Missing Amount Field
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		"!Type:Bank\n"+
 			"D2024-09-01\n"+

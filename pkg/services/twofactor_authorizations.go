@@ -1,4 +1,4 @@
-package services
+﻿package services
 
 import (
 	"time"
@@ -7,31 +7,31 @@ import (
 	"github.com/pquerna/otp/totp"
 	"xorm.io/xorm"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/datastore"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/locales"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
-	"github.com/mayswind/ezbookkeeping/pkg/uuid"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/datastore"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/locales"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/uuid"
 )
 
 const (
-	twoFactorPeriod             uint = 30 // seconds
-	twoFactorSecretSize         uint = 20 // bytes
+	twoFactorPeriod             uint = 30 
+	twoFactorSecretSize         uint = 20 
 	twoFactorRecoveryCodeCount  int  = 10
-	twoFactorRecoveryCodeLength int  = 10 // bytes
+	twoFactorRecoveryCodeLength int  = 10 
 )
 
-// TwoFactorAuthorizationService represents 2fa service
+
 type TwoFactorAuthorizationService struct {
 	ServiceUsingDB
 	ServiceUsingConfig
 	ServiceUsingUuid
 }
 
-// Initialize a 2fa service singleton instance
+
 var (
 	TwoFactorAuthorizations = &TwoFactorAuthorizationService{
 		ServiceUsingDB: ServiceUsingDB{
@@ -46,7 +46,7 @@ var (
 	}
 )
 
-// GetUserTwoFactorSettingByUid returns the 2fa setting model according to user uid
+
 func (s *TwoFactorAuthorizationService) GetUserTwoFactorSettingByUid(c core.Context, uid int64) (*models.TwoFactor, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -70,7 +70,7 @@ func (s *TwoFactorAuthorizationService) GetUserTwoFactorSettingByUid(c core.Cont
 	return twoFactor, nil
 }
 
-// GenerateTwoFactorSecret generates a new 2fa secret
+
 func (s *TwoFactorAuthorizationService) GenerateTwoFactorSecret(c core.Context, user *models.User, backupLocale string) (*otp.Key, error) {
 	if user == nil {
 		return nil, errs.ErrUserNotFound
@@ -94,7 +94,7 @@ func (s *TwoFactorAuthorizationService) GenerateTwoFactorSecret(c core.Context, 
 	return key, err
 }
 
-// CreateTwoFactorSetting saves a new 2fa setting to database
+
 func (s *TwoFactorAuthorizationService) CreateTwoFactorSetting(c core.Context, twoFactor *models.TwoFactor) error {
 	if twoFactor.Uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -115,7 +115,7 @@ func (s *TwoFactorAuthorizationService) CreateTwoFactorSetting(c core.Context, t
 	})
 }
 
-// DeleteTwoFactorSetting deletes an existed 2fa setting from database
+
 func (s *TwoFactorAuthorizationService) DeleteTwoFactorSetting(c core.Context, uid int64) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -134,7 +134,7 @@ func (s *TwoFactorAuthorizationService) DeleteTwoFactorSetting(c core.Context, u
 	})
 }
 
-// ExistsTwoFactorSetting returns whether the given user has existed 2fa setting
+
 func (s *TwoFactorAuthorizationService) ExistsTwoFactorSetting(c core.Context, uid int64) (bool, error) {
 	if uid <= 0 {
 		return false, errs.ErrUserIdInvalid
@@ -143,7 +143,7 @@ func (s *TwoFactorAuthorizationService) ExistsTwoFactorSetting(c core.Context, u
 	return s.UserDB().NewSession(c).Cols("uid").Where("uid=?", uid).Exist(&models.TwoFactor{})
 }
 
-// GetAndUseUserTwoFactorRecoveryCode checks whether the given 2fa recovery code exists and marks it used
+
 func (s *TwoFactorAuthorizationService) GetAndUseUserTwoFactorRecoveryCode(c core.Context, uid int64, recoveryCode string, salt string) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -164,7 +164,7 @@ func (s *TwoFactorAuthorizationService) GetAndUseUserTwoFactorRecoveryCode(c cor
 	})
 }
 
-// GenerateTwoFactorRecoveryCodes generates new 2fa recovery codes
+
 func (s *TwoFactorAuthorizationService) GenerateTwoFactorRecoveryCodes() ([]string, error) {
 	recoveryCodes := make([]string, twoFactorRecoveryCodeCount)
 
@@ -181,7 +181,7 @@ func (s *TwoFactorAuthorizationService) GenerateTwoFactorRecoveryCodes() ([]stri
 	return recoveryCodes, nil
 }
 
-// CreateTwoFactorRecoveryCodes saves new 2fa recovery codes to database
+
 func (s *TwoFactorAuthorizationService) CreateTwoFactorRecoveryCodes(c core.Context, uid int64, recoveryCodes []string, salt string) error {
 	twoFactorRecoveryCodes := make([]*models.TwoFactorRecoveryCode, len(recoveryCodes))
 
@@ -214,7 +214,7 @@ func (s *TwoFactorAuthorizationService) CreateTwoFactorRecoveryCodes(c core.Cont
 	})
 }
 
-// DeleteTwoFactorRecoveryCodes deletes existed 2fa recovery codes from database
+
 func (s *TwoFactorAuthorizationService) DeleteTwoFactorRecoveryCodes(c core.Context, uid int64) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid

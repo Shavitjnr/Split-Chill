@@ -1,8 +1,8 @@
-package avatars
+﻿package avatars
 
-import "github.com/mayswind/ezbookkeeping/pkg/models"
+import "github.com/Shavitjnr/split-chill-ai/pkg/models"
 
-// AvatarProvider is user avatar provider interface
+
 type AvatarProvider interface {
 	GetAvatarUrl(user *models.User) string
 }

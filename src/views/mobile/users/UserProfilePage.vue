@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <f7-page @page:afterin="onPageAfterIn">
         <f7-navbar>
             <f7-nav-left :class="{ 'disabled': loading }" :back-link="tt('Back')"></f7-nav-left>
@@ -734,7 +734,7 @@ function save(confirm?: boolean): void {
         showToast('Your profile has been successfully updated');
 
         if (oldTextDirection === getCurrentLanguageTextDirection()) {
-            router.back(); // if text direction is changed, the page will be reloaded, so it don't need to go back
+            router.back(); 
         }
     }).catch(error => {
         saving.value = false;

@@ -1,9 +1,9 @@
-import type { IconInfo } from '@/core/icon.ts';
+﻿import type { IconInfo } from '@/core/icon.ts';
 
 export const DEFAULT_ACCOUNT_ICON_ID = '1';
 
 export const ALL_ACCOUNT_ICONS: Record<string, IconInfo> = {
-    // 1 - 99 : Cash Symbols
+    
     '1': {
         icon: 'las la-wallet'
     },
@@ -16,14 +16,14 @@ export const ALL_ACCOUNT_ICONS: Record<string, IconInfo> = {
     '30': {
         icon: 'las la-piggy-bank'
     },
-    // 100 - 199 : Bank Service Symbols
+    
     '100': {
         icon: 'las la-credit-card'
     },
     '110': {
         icon: 'las la-money-check-alt'
     },
-    // 500 - 999 : Other Symbols
+    
     '500': {
         icon: 'las la-digital-tachograph'
     },
@@ -78,7 +78,7 @@ export const ALL_ACCOUNT_ICONS: Record<string, IconInfo> = {
     '990': {
         icon: 'las la-globe'
     },
-    // 1000 - 1999 : Currency Symbols
+    
     '1000': {
         icon: 'las la-dollar-sign'
     },
@@ -115,7 +115,7 @@ export const ALL_ACCOUNT_ICONS: Record<string, IconInfo> = {
     '1501': {
         icon: 'lab la-ethereum'
     },
-    // 5000 - 5999 : Credit Card Brand Symbols
+    
     '5000': {
         icon: 'lab la-cc-visa'
     },
@@ -134,7 +134,7 @@ export const ALL_ACCOUNT_ICONS: Record<string, IconInfo> = {
     '5300': {
         icon: 'lab la-cc-diners-club'
     },
-    // 8000 - 8999 : E-pay Brand Symbols
+    
     '8000': {
         icon: 'lab la-paypal'
     },
@@ -167,7 +167,7 @@ export const DEFAULT_CATEGORY_ICON_ID = '1';
 export const AUTOMATICALLY_CREATED_CATEGORY_ICON_ID = '561';
 
 export const ALL_CATEGORY_ICONS: Record<string, IconInfo> = {
-    // 1 - 99 : Expense - Food & Drink
+    
     '1': {
         icon: 'las la-utensils'
     },
@@ -225,7 +225,7 @@ export const ALL_CATEGORY_ICONS: Record<string, IconInfo> = {
     '72': {
         icon: 'las la-candy-cane'
     },
-    // 100 - 199 : Expense - Clothing & Appearance
+    
     '100': {
         icon: 'las la-user-tie'
     },
@@ -253,7 +253,7 @@ export const ALL_CATEGORY_ICONS: Record<string, IconInfo> = {
     '190': {
         icon: 'las la-cut'
     },
-    // 200 - 299 : Expense - Houseware
+    
     '200': {
         icon: 'las la-home'
     },
@@ -317,7 +317,7 @@ export const ALL_CATEGORY_ICONS: Record<string, IconInfo> = {
     '290': {
         icon: 'las la-file-invoice'
     },
-    // 300 - 399 : Expense - Transportation
+    
     '300': {
         icon: 'las la-traffic-light'
     },
@@ -372,7 +372,7 @@ export const ALL_CATEGORY_ICONS: Record<string, IconInfo> = {
     '391': {
         icon: 'las la-helicopter'
     },
-    // 400 - 499 : Expense - Communication
+    
     '400': {
         icon: 'las la-phone-volume'
     },
@@ -418,7 +418,7 @@ export const ALL_CATEGORY_ICONS: Record<string, IconInfo> = {
     '480': {
         icon: 'las la-shipping-fast'
     },
-    // 500 - 599 : Expense - Entertainment
+    
     '500': {
         icon: 'las la-heart'
     },
@@ -563,7 +563,7 @@ export const ALL_CATEGORY_ICONS: Record<string, IconInfo> = {
     '599': {
         icon: 'las la-passport'
     },
-    // 600 - 699 : Expense - Education & Studying
+    
     '600': {
         icon: 'las la-book-reader'
     },
@@ -585,7 +585,7 @@ export const ALL_CATEGORY_ICONS: Record<string, IconInfo> = {
     '680': {
         icon: 'las la-award'
     },
-    // 700 - 799 : Expense - Gifts & Donations
+    
     '700': {
         icon: 'las la-glass-cheers'
     },
@@ -604,7 +604,7 @@ export const ALL_CATEGORY_ICONS: Record<string, IconInfo> = {
     '780': {
         icon: 'las la-donate'
     },
-    // 800 - 899 : Expense - Medical & Healthcare
+    
     '800': {
         icon: 'las la-briefcase-medical'
     },
@@ -656,7 +656,7 @@ export const ALL_CATEGORY_ICONS: Record<string, IconInfo> = {
     '893': {
         icon: 'las la-vial'
     },
-    // 900 - 999 : Expense - Finance & Insurance
+    
     '900': {
         icon: 'las la-landmark'
     },
@@ -687,14 +687,14 @@ export const ALL_CATEGORY_ICONS: Record<string, IconInfo> = {
     '990': {
         icon: 'las la-gavel'
     },
-    // 1000 - 1999 : Expense - Miscellaneous
+    
     '1000': {
         icon: 'las la-pen'
     },
     '1010': {
         icon: 'las la-minus-circle'
     },
-    // 2000 - 2099 : Income - Occupational Earnings
+    
     '2000': {
         icon: 'las la-suitcase'
     },
@@ -710,28 +710,28 @@ export const ALL_CATEGORY_ICONS: Record<string, IconInfo> = {
     '2080': {
         icon: 'las la-user-clock'
     },
-    // 2000 - 2099 : Income - Finance & Investment
+    
     '2100': {
         icon: 'las la-chart-area'
     },
     '2101': {
         icon: 'las la-chart-line'
     },
-    // 3000 - 3999 : Income - Miscellaneous
+    
     '3010': {
         icon: 'las la-plus-circle'
     },
     '3100': {
         icon: 'las la-recycle'
     },
-    // 4000 - 4099 : Transfer
+    
     '4000': {
         icon: 'las la-exchange-alt'
     },
     '4900': {
         icon: 'las la-arrow-circle-right'
     },
-    // 5000 - 5999 : Miscellaneous
+    
     '5000': {
         icon: 'las la-star'
     },
@@ -762,7 +762,7 @@ export const ALL_CATEGORY_ICONS: Record<string, IconInfo> = {
     '5200': {
         icon: 'las la-money-bill-wave-alt'
     },
-    // 6000 - 9999 : Brands
+    
     '6000': {
         icon: 'lab la-amazon'
     },

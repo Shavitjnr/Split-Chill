@@ -1,14 +1,14 @@
-package iif
+﻿package iif
 
 import (
 	"strings"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/datatable"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/datatable"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 const iifAccountNameColumnName = "NAME"
@@ -40,20 +40,20 @@ var iifTransactionSupportedColumns = map[datatable.TransactionDataTableColumn]bo
 	datatable.TRANSACTION_DATA_TABLE_DESCRIPTION:          true,
 }
 
-// iifTransactionDataTable defines the structure of intuit interchange format (iif) transaction data table
+
 type iifTransactionDataTable struct {
 	incomeAccountNames  map[string]bool
 	expenseAccountNames map[string]bool
 	transactionDatasets []*iifTransactionDataset
 }
 
-// iifTransactionDataRow defines the structure of intuit interchange format (iif) transaction data row
+
 type iifTransactionDataRow struct {
 	dataTable  *iifTransactionDataTable
 	finalItems map[datatable.TransactionDataTableColumn]string
 }
 
-// iifTransactionDataRowIterator defines the structure of intuit interchange format (iif) transaction data row iterator
+
 type iifTransactionDataRowIterator struct {
 	dataTable             *iifTransactionDataTable
 	currentDatasetIndex   int
@@ -61,13 +61,13 @@ type iifTransactionDataRowIterator struct {
 	currentSplitDataIndex int
 }
 
-// HasColumn returns whether the transaction data table has specified column
+
 func (t *iifTransactionDataTable) HasColumn(column datatable.TransactionDataTableColumn) bool {
 	_, exists := iifTransactionSupportedColumns[column]
 	return exists
 }
 
-// TransactionRowCount returns the total count of transaction data row
+
 func (t *iifTransactionDataTable) TransactionRowCount() int {
 	totalDataRowCount := 0
 
@@ -86,7 +86,7 @@ func (t *iifTransactionDataTable) TransactionRowCount() int {
 	return totalDataRowCount
 }
 
-// TransactionRowIterator returns the iterator of transaction data row
+
 func (t *iifTransactionDataTable) TransactionRowIterator() datatable.TransactionDataRowIterator {
 	return &iifTransactionDataRowIterator{
 		dataTable:             t,
@@ -96,12 +96,12 @@ func (t *iifTransactionDataTable) TransactionRowIterator() datatable.Transaction
 	}
 }
 
-// IsValid returns whether this row is valid data for importing
+
 func (r *iifTransactionDataRow) IsValid() bool {
 	return true
 }
 
-// GetData returns the data in the specified column type
+
 func (r *iifTransactionDataRow) GetData(column datatable.TransactionDataTableColumn) string {
 	_, exists := iifTransactionSupportedColumns[column]
 
@@ -112,7 +112,7 @@ func (r *iifTransactionDataRow) GetData(column datatable.TransactionDataTableCol
 	return ""
 }
 
-// HasNext returns whether the iterator does not reach the end
+
 func (t *iifTransactionDataRowIterator) HasNext() bool {
 	allDatasets := t.dataTable.transactionDatasets
 
@@ -142,7 +142,7 @@ func (t *iifTransactionDataRowIterator) HasNext() bool {
 	return false
 }
 
-// Next returns the next transaction data row
+
 func (t *iifTransactionDataRowIterator) Next(ctx core.Context, user *models.User) (daraRow datatable.TransactionDataRow, err error) {
 	allDatasets := t.dataTable.transactionDatasets
 
@@ -239,12 +239,12 @@ func (t *iifTransactionDataRowIterator) parseTransaction(ctx core.Context, user 
 		return nil, errs.ErrAmountInvalid
 	}
 
-	if transactionType == iifTransactionTypeBeginningBalance { // balance modification
+	if transactionType == iifTransactionTypeBeginningBalance { 
 		data[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE] = iifTransactionTypeNameMapping[models.TRANSACTION_TYPE_MODIFY_BALANCE]
 		data[datatable.TRANSACTION_DATA_TABLE_ACCOUNT_NAME] = mainAccountName
 		data[datatable.TRANSACTION_DATA_TABLE_AMOUNT] = utils.FormatAmount(mainAmountNum)
 	} else if (t.dataTable.incomeAccountNames[mainAccountName] && !t.dataTable.incomeAccountNames[splitAccountName] && !t.dataTable.expenseAccountNames[splitAccountName]) ||
-		(t.dataTable.incomeAccountNames[splitAccountName] && !t.dataTable.incomeAccountNames[mainAccountName] && !t.dataTable.expenseAccountNames[mainAccountName]) { // income
+		(t.dataTable.incomeAccountNames[splitAccountName] && !t.dataTable.incomeAccountNames[mainAccountName] && !t.dataTable.expenseAccountNames[mainAccountName]) { 
 		data[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE] = iifTransactionTypeNameMapping[models.TRANSACTION_TYPE_INCOME]
 		categoryName := ""
 		accountName := ""
@@ -285,7 +285,7 @@ func (t *iifTransactionDataRowIterator) parseTransaction(ctx core.Context, user 
 		data[datatable.TRANSACTION_DATA_TABLE_ACCOUNT_NAME] = accountName
 		data[datatable.TRANSACTION_DATA_TABLE_AMOUNT] = utils.FormatAmount(amountNum)
 	} else if (t.dataTable.expenseAccountNames[mainAccountName] && !t.dataTable.expenseAccountNames[splitAccountName] && !t.dataTable.incomeAccountNames[splitAccountName]) ||
-		(t.dataTable.expenseAccountNames[splitAccountName] && !t.dataTable.expenseAccountNames[mainAccountName] && !t.dataTable.incomeAccountNames[mainAccountName]) { // expense
+		(t.dataTable.expenseAccountNames[splitAccountName] && !t.dataTable.expenseAccountNames[mainAccountName] && !t.dataTable.incomeAccountNames[mainAccountName]) { 
 		data[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE] = iifTransactionTypeNameMapping[models.TRANSACTION_TYPE_EXPENSE]
 		categoryName := ""
 		accountName := ""
@@ -388,7 +388,7 @@ func (t *iifTransactionDataRowIterator) isSplitTransactionSupported(ctx core.Con
 	supportSplitTransactions := true
 	transactionType, _ := dataset.getTransactionDataItemValue(transactionData, iifTransactionTypeColumnName)
 
-	if transactionType == iifTransactionTypeBeginningBalance { // balance modification
+	if transactionType == iifTransactionTypeBeginningBalance { 
 		supportSplitTransactions = false
 		log.Errorf(ctx, "[iif_transaction_data_table.isSplitTransactionSupported] cannot parse split balance modification transaction#%d (dataset#%d)", t.currentIndexInDataset, t.currentDatasetIndex)
 	} else {

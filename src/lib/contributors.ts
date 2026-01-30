@@ -1,3 +1,3 @@
 export function getContributors(): ContributorInfo {
-    return __EZBOOKKEEPING_CONTRIBUTORS__ || {};
+    return __SPLITCHILL_AI_CONTRIBUTORS__ || {};
 }

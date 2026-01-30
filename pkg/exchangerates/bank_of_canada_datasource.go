@@ -1,4 +1,4 @@
-package exchangerates
+﻿package exchangerates
 
 import (
 	"encoding/json"
@@ -7,12 +7,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
-	"github.com/mayswind/ezbookkeeping/pkg/validators"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/validators"
 )
 
 const bankOfCanadaExchangeRateUrl = "https://www.bankofcanada.ca/valet/observations/group/FX_RATES_DAILY/json?recent=1"
@@ -23,20 +23,20 @@ const bankOfCanadaBaseCurrency = "CAD"
 const bankOfCanadaDataUpdateDateFormat = "2006-01-02 15:04"
 const bankOfCanadaDataUpdateDateTimezone = "America/Toronto"
 
-// BankOfCanadaDataSource defines the structure of exchange rates data source of bank of Canada
+
 type BankOfCanadaDataSource struct {
 	HttpExchangeRatesDataSource
 }
 
-// BankOfCanadaExchangeRateData represents the whole data from bank of Canada
+
 type BankOfCanadaExchangeRateData struct {
 	Observations []BankOfCanadaObservationData `json:"observations"`
 }
 
-// BankOfCanadaObservationData represents the observation data from bank of Canada
+
 type BankOfCanadaObservationData map[string]any
 
-// ToLatestExchangeRateResponse returns a view-object according to original data from bank of Canada
+
 func (e *BankOfCanadaExchangeRateData) ToLatestExchangeRateResponse(c core.Context) *models.LatestExchangeRateResponse {
 	if len(e.Observations) < 1 {
 		log.Errorf(c, "[bank_of_canada_datasource.ToLatestExchangeRateResponse] observations is empty")
@@ -111,7 +111,7 @@ func (e *BankOfCanadaExchangeRateData) ToLatestExchangeRateResponse(c core.Conte
 		return nil
 	}
 
-	updateDateTime := latestUpdateDate + " 16:30" // Daily average exchange rates - published once each business day by 16:30 ET.
+	updateDateTime := latestUpdateDate + " 16:30" 
 	updateTime, err := time.ParseInLocation(bankOfCanadaDataUpdateDateFormat, updateDateTime, timezone)
 
 	if err != nil {
@@ -130,7 +130,7 @@ func (e *BankOfCanadaExchangeRateData) ToLatestExchangeRateResponse(c core.Conte
 	return latestExchangeRateResp
 }
 
-// BuildRequests returns the bank of Canada exchange rates http requests
+
 func (e *BankOfCanadaDataSource) BuildRequests() ([]*http.Request, error) {
 	req, err := http.NewRequest("GET", bankOfCanadaExchangeRateUrl, nil)
 
@@ -141,7 +141,7 @@ func (e *BankOfCanadaDataSource) BuildRequests() ([]*http.Request, error) {
 	return []*http.Request{req}, nil
 }
 
-// Parse returns the common response entity according to the bank of Canada data source raw response
+
 func (e *BankOfCanadaDataSource) Parse(c core.Context, content []byte) (*models.LatestExchangeRateResponse, error) {
 	bankOfCanadaData := &BankOfCanadaExchangeRateData{}
 	err := json.Unmarshal(content, bankOfCanadaData)

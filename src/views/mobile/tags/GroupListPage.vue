@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <f7-page @page:afterin="onPageAfterIn">
         <f7-navbar>
             <f7-nav-left :class="{ 'disabled': loading }" :back-link="tt('Back')" v-if="!displayOrderModified"></f7-nav-left>
@@ -78,7 +78,7 @@ function parseTagGroupIdFromDomId(domId: string): string | null {
         return null;
     }
 
-    return domId.substring(9); // tagGroup_
+    return domId.substring(9); 
 }
 
 function init(): void {

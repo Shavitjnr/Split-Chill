@@ -1,4 +1,4 @@
-package jdcom
+﻿package jdcom
 
 import (
 	"testing"
@@ -6,11 +6,11 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/converter"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/converter"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 func TestJDComFinanceCsvFileImporterParseImportedData_MinimumValidData(t *testing.T) {
@@ -214,7 +214,7 @@ func TestJDComFinanceCsvFileImporterParseImportedData_ParseAccountName(t *testin
 		DefaultCurrency: "CNY",
 	}
 
-	// transfer to jd.com finance wallet
+	
 	data1 := "导出信息：\n" +
 		"京东账号名：xxxxxx\n" +
 		"日期区间：2025-01-01 至 2025-09-01\n" +
@@ -229,7 +229,7 @@ func TestJDComFinanceCsvFileImporterParseImportedData_ParseAccountName(t *testin
 	assert.Equal(t, "xxx", allNewTransactions[0].OriginalDestinationAccountName)
 	assert.Equal(t, models.TRANSACTION_DB_TYPE_TRANSFER_OUT, allNewTransactions[0].Type)
 
-	// transfer from jd.com finance wallet
+	
 	data2 := "导出信息：\n" +
 		"京东账号名：xxxxxx\n" +
 		"日期区间：2025-01-01 至 2025-09-01\n" +
@@ -244,7 +244,7 @@ func TestJDComFinanceCsvFileImporterParseImportedData_ParseAccountName(t *testin
 	assert.Equal(t, "银行卡", allNewTransactions[0].OriginalDestinationAccountName)
 	assert.Equal(t, models.TRANSACTION_DB_TYPE_TRANSFER_OUT, allNewTransactions[0].Type)
 
-	// transfer from other account
+	
 	data3 := "导出信息：\n" +
 		"京东账号名：xxxxxx\n" +
 		"日期区间：2025-01-01 至 2025-09-01\n" +
@@ -261,7 +261,7 @@ func TestJDComFinanceCsvFileImporterParseImportedData_ParseAccountName(t *testin
 	assert.Equal(t, "xxx", allNewTransactions[0].OriginalDestinationAccountName)
 	assert.Equal(t, models.TRANSACTION_DB_TYPE_TRANSFER_OUT, allNewTransactions[0].Type)
 
-	// transfer to other account
+	
 	data4 := "导出信息：\n" +
 		"京东账号名：xxxxxx\n" +
 		"日期区间：2025-01-01 至 2025-09-01\n" +
@@ -278,7 +278,7 @@ func TestJDComFinanceCsvFileImporterParseImportedData_ParseAccountName(t *testin
 	assert.Equal(t, "余额", allNewTransactions[0].OriginalDestinationAccountName)
 	assert.Equal(t, models.TRANSACTION_DB_TYPE_TRANSFER_OUT, allNewTransactions[0].Type)
 
-	// refund
+	
 	data5 := "导出信息：\n" +
 		"京东账号名：xxxxxx\n" +
 		"日期区间：2025-01-01 至 2025-09-01\n" +
@@ -294,7 +294,7 @@ func TestJDComFinanceCsvFileImporterParseImportedData_ParseAccountName(t *testin
 	assert.Equal(t, "银行卡", allNewTransactions[0].OriginalSourceAccountName)
 	assert.Equal(t, models.TRANSACTION_DB_TYPE_EXPENSE, allNewTransactions[0].Type)
 
-	// repayment
+	
 	data6 := "导出信息：\n" +
 		"京东账号名：xxxxxx\n" +
 		"日期区间：2025-01-01 至 2025-09-01\n" +
@@ -419,7 +419,7 @@ func TestJDComFinanceCsvFileImporterParseImportedData_MissingRequiredColumn(t *t
 		DefaultCurrency: "CNY",
 	}
 
-	// Missing Time Column
+	
 	data1 := "导出信息：\n" +
 		"京东账号名：xxxxxx\n" +
 		"日期区间：2025-01-01 至 2025-09-01\n" +
@@ -429,7 +429,7 @@ func TestJDComFinanceCsvFileImporterParseImportedData_MissingRequiredColumn(t *t
 	_, _, _, _, _, _, err := importer.ParseImportedData(context, user, []byte(data1), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrInvalidFileHeader.Message)
 
-	// Missing Merchant Name Column
+	
 	data2 := "导出信息：\n" +
 		"京东账号名：xxxxxx\n" +
 		"日期区间：2025-01-01 至 2025-09-01\n" +
@@ -439,7 +439,7 @@ func TestJDComFinanceCsvFileImporterParseImportedData_MissingRequiredColumn(t *t
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(data2), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingRequiredFieldInHeaderRow.Message)
 
-	// Missing Transaction Memo Column
+	
 	data3 := "导出信息：\n" +
 		"京东账号名：xxxxxx\n" +
 		"日期区间：2025-01-01 至 2025-09-01\n" +
@@ -449,7 +449,7 @@ func TestJDComFinanceCsvFileImporterParseImportedData_MissingRequiredColumn(t *t
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(data3), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingRequiredFieldInHeaderRow.Message)
 
-	// Missing Amount Column
+	
 	data4 := "导出信息：\n" +
 		"京东账号名：xxxxxx\n" +
 		"日期区间：2025-01-01 至 2025-09-01\n" +
@@ -459,7 +459,7 @@ func TestJDComFinanceCsvFileImporterParseImportedData_MissingRequiredColumn(t *t
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(data4), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingRequiredFieldInHeaderRow.Message)
 
-	// Missing Related Account Column
+	
 	data5 := "导出信息：\n" +
 		"京东账号名：xxxxxx\n" +
 		"日期区间：2025-01-01 至 2025-09-01\n" +
@@ -469,7 +469,7 @@ func TestJDComFinanceCsvFileImporterParseImportedData_MissingRequiredColumn(t *t
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(data5), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingRequiredFieldInHeaderRow.Message)
 
-	// Missing Status Column
+	
 	data6 := "导出信息：\n" +
 		"京东账号名：xxxxxx\n" +
 		"日期区间：2025-01-01 至 2025-09-01\n" +
@@ -479,7 +479,7 @@ func TestJDComFinanceCsvFileImporterParseImportedData_MissingRequiredColumn(t *t
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(data6), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingRequiredFieldInHeaderRow.Message)
 
-	// Missing Type Column
+	
 	data7 := "导出信息：\n" +
 		"京东账号名：xxxxxx\n" +
 		"日期区间：2025-01-01 至 2025-09-01\n" +

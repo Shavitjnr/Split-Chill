@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 
 import { useSettingsStore } from '@/stores/setting.ts';
 
@@ -24,9 +24,9 @@ export function useAppLockPageBase() {
     });
 
     return {
-        // states
+        
         isSupportedWebAuthn,
-        // computed states
+        
         isEnableApplicationLock,
         isEnableApplicationLockWebAuthn
     };

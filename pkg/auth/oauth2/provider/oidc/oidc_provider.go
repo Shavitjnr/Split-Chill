@@ -1,4 +1,4 @@
-package oidc
+﻿package oidc
 
 import (
 	"context"
@@ -7,16 +7,16 @@ import (
 
 	"github.com/coreos/go-oidc/v3/oidc"
 
-	"github.com/mayswind/ezbookkeeping/pkg/auth/oauth2/data"
-	"github.com/mayswind/ezbookkeeping/pkg/auth/oauth2/provider"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/httpclient"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/auth/oauth2/data"
+	"github.com/Shavitjnr/split-chill-ai/pkg/auth/oauth2/provider"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/httpclient"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
-// OIDCClaims represents OIDC claims
+
 type OIDCClaims struct {
 	PreferredUserName string `json:"preferred_username"`
 	UserName          string `json:"username"`
@@ -24,7 +24,7 @@ type OIDCClaims struct {
 	Email             string `json:"email"`
 }
 
-// OIDCProvider represents OIDC provider
+
 type OIDCProvider struct {
 	provider.OAuth2Provider
 	oidcIssuerURL      string
@@ -37,7 +37,7 @@ type OIDCProvider struct {
 	oidcVerifier       *oidc.IDTokenVerifier
 }
 
-// GetOAuth2AuthUrl returns the authentication url of the OIDC provider
+
 func (p *OIDCProvider) GetOAuth2AuthUrl(c core.Context, state string, opts ...oauth2.AuthCodeOption) (string, error) {
 	oauth2Config, err := p.getOAuth2Config(c)
 
@@ -48,7 +48,7 @@ func (p *OIDCProvider) GetOAuth2AuthUrl(c core.Context, state string, opts ...oa
 	return oauth2Config.AuthCodeURL(state, opts...), nil
 }
 
-// GetOAuth2Token returns the OAuth 2.0 token of the OIDC provider
+
 func (p *OIDCProvider) GetOAuth2Token(c core.Context, code string, opts ...oauth2.AuthCodeOption) (*oauth2.Token, error) {
 	oauth2Config, err := p.getOAuth2Config(c)
 
@@ -59,7 +59,7 @@ func (p *OIDCProvider) GetOAuth2Token(c core.Context, code string, opts ...oauth
 	return oauth2Config.Exchange(c, code, opts...)
 }
 
-// GetUserInfo returns the user info by the OIDC provider
+
 func (p *OIDCProvider) GetUserInfo(c core.Context, oauth2Token *oauth2.Token) (*data.OAuth2UserInfo, error) {
 	_, err := p.getOAuth2Config(c)
 
@@ -171,7 +171,7 @@ func (p *OIDCProvider) getOAuth2Config(c core.Context) (*oauth2.Config, error) {
 	return oauth2Config, nil
 }
 
-// NewOIDCProvider returns a new OIDC provider
+
 func NewOIDCProvider(config *settings.Config, redirectUrl string) (*OIDCProvider, error) {
 	if len(config.OAuth2OIDCProviderIssuerURL) < 1 {
 		return nil, errs.ErrInvalidOAuth2Config

@@ -1,24 +1,24 @@
-package converter
+﻿package converter
 
 import (
 	"fmt"
 	"strings"
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/datatable"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/datatable"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
-// DataTableTransactionDataExporter defines the structure of plain text data table exporter for transaction data
+
 type DataTableTransactionDataExporter struct {
 	transactionTypeMapping  map[models.TransactionType]string
 	geoLocationSeparator    string
 	transactionTagSeparator string
 }
 
-// BuildExportedContent writes the exported transaction data to the data table builder
+
 func (c *DataTableTransactionDataExporter) BuildExportedContent(ctx core.Context, dataTableBuilder datatable.TransactionDataTableBuilder, uid int64, transactions []*models.Transaction, accountMap map[int64]*models.Account, categoryMap map[int64]*models.TransactionCategory, tagMap map[int64]*models.TransactionTag, allTagIndexes map[int64][]int64) error {
 	for i := 0; i < len(transactions); i++ {
 		transaction := transactions[i]
@@ -157,7 +157,7 @@ func (c *DataTableTransactionDataExporter) getExportedTags(dataTableBuilder data
 	return dataTableBuilder.ReplaceDelimiters(ret.String())
 }
 
-// CreateNewExporter returns a new data table transaction data exporter according to the specified arguments
+
 func CreateNewExporter(transactionTypeMapping map[models.TransactionType]string, geoLocationSeparator string, transactionTagSeparator string) *DataTableTransactionDataExporter {
 	return &DataTableTransactionDataExporter{
 		transactionTypeMapping:  transactionTypeMapping,

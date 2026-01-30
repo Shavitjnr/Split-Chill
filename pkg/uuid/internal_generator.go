@@ -1,13 +1,13 @@
-package uuid
+﻿package uuid
 
 import (
 	"sync/atomic"
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
-// Length and mask of all information in uuid
+
 const (
 	internalUuidUnixTimeBits = 32
 	internalUuidUnixTimeMask = (1 << internalUuidUnixTimeBits) - 1
@@ -25,7 +25,7 @@ const (
 	seqNumberIdMask = (1 << seqNumberIdBits) - 1
 )
 
-// InternalUuidInfo represents a struct which has all information in uuid
+
 type InternalUuidInfo struct {
 	UnixTime     uint32
 	UuidType     uint8
@@ -33,13 +33,13 @@ type InternalUuidInfo struct {
 	SequentialId uint32
 }
 
-// InternalUuidGenerator represents internal bundled uuid generator
+
 type InternalUuidGenerator struct {
 	uuidSeqNumbers [1 << internalUuidTypeBits]atomic.Uint64
 	uuidServerId   uint8
 }
 
-// NewInternalUuidGenerator returns a new internal uuid generator
+
 func NewInternalUuidGenerator(config *settings.Config) (*InternalUuidGenerator, error) {
 	generator := &InternalUuidGenerator{
 		uuidServerId: config.UuidServerId,
@@ -48,7 +48,7 @@ func NewInternalUuidGenerator(config *settings.Config) (*InternalUuidGenerator, 
 	return generator, nil
 }
 
-// GenerateUuid generates a new uuid
+
 func (u *InternalUuidGenerator) GenerateUuid(idType UuidType) int64 {
 	uuids := u.GenerateUuids(idType, 1)
 
@@ -59,9 +59,9 @@ func (u *InternalUuidGenerator) GenerateUuid(idType UuidType) int64 {
 	return uuids[0]
 }
 
-// GenerateUuids generates new uuids
+
 func (u *InternalUuidGenerator) GenerateUuids(idType UuidType, count uint16) []int64 {
-	// 63bits = unixTime(32bits) + uuidType(4bits) + uuidServerId(8bits) + sequentialNumber(19bits)
+
 
 	uuids := make([]int64, count)
 
@@ -98,7 +98,7 @@ func (u *InternalUuidGenerator) GenerateUuids(idType UuidType, count uint16) []i
 	for i := 0; i < int(count); i++ {
 		seqId := (newFirstSeqId + uint64(i)) & seqNumberIdMask
 
-		// the internal uuid generator can only generate 524,287 ids per second for specified type
+		
 		if seqId > internalUuidSeqIdMask {
 			return nil
 		}

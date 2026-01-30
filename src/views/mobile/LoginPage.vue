@@ -1,8 +1,9 @@
 <template>
-    <f7-page no-navbar no-swipeback login-screen hide-toolbar-on-scroll>
-        <f7-login-screen-title>
-            <img alt="logo" class="login-page-logo" :src="APPLICATION_LOGO_PATH" />
-            <f7-block class="login-page-tile margin-vertical-half">{{ tt('global.app.title') }}</f7-block>
+    <f7-page no-navbar no-swipeback login-screen hide-toolbar-on-scroll class="login-bg">
+        <f7-login-screen-title class="margin-top-xl display-flex flex-direction-column align-items-center animate-fade-in">
+            <img alt="logo" class="login-page-logo animate-float" :src="APPLICATION_LOGO_PATH" />
+            <f7-block class="login-page-tile margin-vertical-half text-gradient" style="font-size: 2.2rem; font-weight: 800;">{{ tt('global.app.title') }}</f7-block>
+            <f7-block-footer style="font-size: 1rem; opacity: 0.7;">{{ tt('Smart Finance Tracking') }}</f7-block-footer>
         </f7-login-screen-title>
 
         <f7-list inset v-if="tips">
@@ -72,7 +73,7 @@
 
                 <div class="login-page-powered-by margin-top-half">
                     <span>Powered by</span>
-                    <f7-link @click="openExternalUrl('https://github.com/mayswind/ezbookkeeping')" target="_blank">ezBookkeeping</f7-link>
+                    <f7-link @click="openExternalUrl('https://github.com/shavitjnr')" target="_blank">Split Chill AI</f7-link>
                     <span>{{ version }}</span>
                 </div>
             </f7-block-footer>
@@ -83,7 +84,7 @@
 
             <div class="login-page-powered-by margin-top-half">
                 <span>Powered by</span>
-                <f7-link @click="openExternalUrl('https://github.com/mayswind/ezbookkeeping')" target="_blank">ezBookkeeping</f7-link>
+                <f7-link @click="openExternalUrl('https://github.com/shavitjnr')" target="_blank">Split Chill AI</f7-link>
                 <span>{{ version }}</span>
             </div>
         </f7-toolbar>

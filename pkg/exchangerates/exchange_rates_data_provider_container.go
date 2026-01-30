@@ -1,23 +1,23 @@
-package exchangerates
+﻿package exchangerates
 
 import (
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
-// ExchangeRatesDataProviderContainer contains the current exchange rates data provider
+
 type ExchangeRatesDataProviderContainer struct {
 	current ExchangeRatesDataProvider
 }
 
-// Initialize a exchange rates data provider container singleton instance
+
 var (
 	Container = &ExchangeRatesDataProviderContainer{}
 )
 
-// InitializeExchangeRatesDataSource initializes the current exchange rates data source according to the config
+
 func InitializeExchangeRatesDataSource(config *settings.Config) error {
 	if config.ExchangeRatesDataSource == settings.ReserveBankOfAustraliaDataSource {
 		Container.current = newCommonHttpExchangeRatesDataProvider(config, &ReserveBankOfAustraliaDataSource{})
@@ -75,7 +75,7 @@ func InitializeExchangeRatesDataSource(config *settings.Config) error {
 	return errs.ErrInvalidExchangeRatesDataSource
 }
 
-// GetLatestExchangeRates returns the latest exchange rates data from the current exchange rates data source
+
 func (e *ExchangeRatesDataProviderContainer) GetLatestExchangeRates(c core.Context, uid int64, currentConfig *settings.Config) (*models.LatestExchangeRateResponse, error) {
 	if Container.current == nil {
 		return nil, errs.ErrInvalidExchangeRatesDataSource

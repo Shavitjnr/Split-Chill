@@ -1,24 +1,24 @@
-package services
+﻿package services
 
 import (
 	"time"
 
 	"xorm.io/xorm"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/datastore"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/uuid"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/datastore"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/uuid"
 )
 
-// InsightsExplorerService represents insights explorer service
+
 type InsightsExplorerService struct {
 	ServiceUsingDB
 	ServiceUsingUuid
 }
 
-// Initialize a insights explorer service singleton instance
+
 var (
 	InsightsExplorers = &InsightsExplorerService{
 		ServiceUsingDB: ServiceUsingDB{
@@ -30,7 +30,7 @@ var (
 	}
 )
 
-// GetTotalInsightsExplorersCountByUid returns total insights explorers count of user
+
 func (s *InsightsExplorerService) GetTotalInsightsExplorersCountByUid(c core.Context, uid int64) (int64, error) {
 	if uid <= 0 {
 		return 0, errs.ErrUserIdInvalid
@@ -41,7 +41,7 @@ func (s *InsightsExplorerService) GetTotalInsightsExplorersCountByUid(c core.Con
 	return count, err
 }
 
-// GetAllInsightsExplorerNamesByUid returns all insights explorer models of user without data
+
 func (s *InsightsExplorerService) GetAllInsightsExplorerNamesByUid(c core.Context, uid int64) ([]*models.InsightsExplorer, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -53,7 +53,7 @@ func (s *InsightsExplorerService) GetAllInsightsExplorerNamesByUid(c core.Contex
 	return explorers, err
 }
 
-// GetInsightsExplorerByExplorerId returns a insights explorer model according to insights explorer id
+
 func (s *InsightsExplorerService) GetInsightsExplorerByExplorerId(c core.Context, uid int64, explorerId int64) (*models.InsightsExplorer, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -75,7 +75,7 @@ func (s *InsightsExplorerService) GetInsightsExplorerByExplorerId(c core.Context
 	return explorer, nil
 }
 
-// GetMaxDisplayOrder returns the max display order
+
 func (s *InsightsExplorerService) GetMaxDisplayOrder(c core.Context, uid int64) (int32, error) {
 	if uid <= 0 {
 		return 0, errs.ErrUserIdInvalid
@@ -95,7 +95,7 @@ func (s *InsightsExplorerService) GetMaxDisplayOrder(c core.Context, uid int64) 
 	}
 }
 
-// CreateInsightsExplorer saves a new insights explorer model to database
+
 func (s *InsightsExplorerService) CreateInsightsExplorer(c core.Context, explorer *models.InsightsExplorer) error {
 	if explorer.Uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -117,7 +117,7 @@ func (s *InsightsExplorerService) CreateInsightsExplorer(c core.Context, explore
 	})
 }
 
-// ModifyInsightsExplorer saves an existed insights explorer model to database
+
 func (s *InsightsExplorerService) ModifyInsightsExplorer(c core.Context, explorer *models.InsightsExplorer) error {
 	if explorer.Uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -138,7 +138,7 @@ func (s *InsightsExplorerService) ModifyInsightsExplorer(c core.Context, explore
 	})
 }
 
-// HideInsightsExplorer updates hidden field of given insights explorer ids
+
 func (s *InsightsExplorerService) HideInsightsExplorer(c core.Context, uid int64, ids []int64, hidden bool) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -164,7 +164,7 @@ func (s *InsightsExplorerService) HideInsightsExplorer(c core.Context, uid int64
 	})
 }
 
-// ModifyInsightsExplorerDisplayOrders updates display order of given insights explorers
+
 func (s *InsightsExplorerService) ModifyInsightsExplorerDisplayOrders(c core.Context, uid int64, explorers []*models.InsightsExplorer) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -190,7 +190,7 @@ func (s *InsightsExplorerService) ModifyInsightsExplorerDisplayOrders(c core.Con
 	})
 }
 
-// DeleteInsightsExplorer deletes an existed insights explorer from database
+
 func (s *InsightsExplorerService) DeleteInsightsExplorer(c core.Context, uid int64, explorerId int64) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -216,7 +216,7 @@ func (s *InsightsExplorerService) DeleteInsightsExplorer(c core.Context, uid int
 	})
 }
 
-// DeleteAllInsightsExplorers deletes all existed insights explorers from database
+
 func (s *InsightsExplorerService) DeleteAllInsightsExplorers(c core.Context, uid int64) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid

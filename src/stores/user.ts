@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 
 import { useSettingsStore } from './setting.ts';
@@ -425,9 +425,9 @@ export const useUserStore = defineStore('user', () => {
     }
 
     return {
-        // states
+        
         currentUserBasicInfo,
-        // computed states
+        
         currentUserNickname,
         currentUserAvatar,
         currentUserDefaultAccountId,
@@ -450,7 +450,7 @@ export const useUserStore = defineStore('user', () => {
         currentUserCoordinateDisplayType,
         currentUserExpenseAmountColor,
         currentUserIncomeAmountColor,
-        // functions
+        
         generateNewUserModel,
         storeUserBasicInfo,
         resetUserBasicInfo,

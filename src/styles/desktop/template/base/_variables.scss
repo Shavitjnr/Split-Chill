@@ -1,5 +1,4 @@
-/** Materio Template base classes **/
-/** https://github.com/themeselection/materio-vuetify-vuejs-admin-template-free **/
+﻿
 
 @use "vuetify/lib/styles/tools/functions" as *;
 
@@ -75,12 +74,7 @@ $vertical-nav-nav-group-arrow-transition-timing-function: ease-in-out !default;
 
 // 👉 Horizontal nav
 
-/*
-    ❗ Heads up
-    ==================
-    Here we assume we will always use shorthand property which will apply same padding on four side
-    This is because this have been used as value of top property by `.popper-content`
-*/
+
 $horizontal-nav-padding: 0.6875rem !default;
 
 // Gap between top level horizontal nav items

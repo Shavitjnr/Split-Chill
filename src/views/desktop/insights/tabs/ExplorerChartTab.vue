@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <v-card-text class="px-5 py-0 mb-4">
         <v-row>
             <v-col cols="12">
@@ -447,14 +447,14 @@ function getCategoriedDataDisplayName(info: CategoriedInfo | SeriesInfo): string
 
     let displayName: string = name;
 
-    // convert the name to i18n if needed
+    
     if (needI18n && i18nParameters) {
         displayName = tt(name, i18nParameters);
     } else if (needI18n && !i18nParameters) {
         displayName = tt(name);
     }
 
-    // convert the name to formatted date time if needed
+    
     if (dimession === TransactionExplorerDataDimension.DateTime.value) {
         const dateTime = parseDateTimeFromString(name, dimessionType);
         displayName = dateTime ? formatDateTimeToShortDateTime(dateTime) : tt('Unknown');

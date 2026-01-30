@@ -1,4 +1,4 @@
-import fs from 'fs';
+﻿import fs from 'fs';
 import { resolve } from 'path';
 
 import { type UserConfig, type Plugin, defineConfig } from 'vite'
@@ -72,13 +72,13 @@ export default defineConfig(() => {
         publicDir: PUBLIC_DIR,
         base: './',
         define: {
-            __EZBOOKKEEPING_IS_PRODUCTION__: process.env['NODE_ENV'] === 'production',
-            __EZBOOKKEEPING_VERSION__: JSON.stringify(packageFile.version),
-            __EZBOOKKEEPING_BUILD_UNIX_TIME__: JSON.stringify(buildUnixTime),
-            __EZBOOKKEEPING_BUILD_COMMIT_HASH__: JSON.stringify(git.short()),
-            __EZBOOKKEEPING_CONTRIBUTORS__: JSON.stringify(contributorsFile),
-            __EZBOOKKEEPING_LICENSE__: JSON.stringify(licenseContent),
-            __EZBOOKKEEPING_THIRD_PARTY_LICENSES__: JSON.stringify(thirdPartyLicenseFile)
+            __SPLITCHILL_AI_IS_PRODUCTION__: process.env['NODE_ENV'] === 'production',
+            __SPLITCHILL_AI_VERSION__: JSON.stringify(packageFile.version),
+            __SPLITCHILL_AI_BUILD_UNIX_TIME__: JSON.stringify(buildUnixTime),
+            __SPLITCHILL_AI_BUILD_COMMIT_HASH__: JSON.stringify(git.short()),
+            __SPLITCHILL_AI_CONTRIBUTORS__: JSON.stringify(contributorsFile),
+            __SPLITCHILL_AI_LICENSE__: JSON.stringify(licenseContent),
+            __SPLITCHILL_AI_THIRD_PARTY_LICENSES__: JSON.stringify(thirdPartyLicenseFile)
         },
         plugins: [
             vue({
@@ -117,8 +117,8 @@ export default defineConfig(() => {
                 strategies: 'generateSW',
                 injectRegister: false,
                 manifest: {
-                    name: 'ezBookkeeping',
-                    short_name: 'ezBookkeeping',
+                    name: 'Split Chill AI',
+                    short_name: 'Split Chill AI',
                     description: 'A lightweight, self-hosted personal finance app with a user-friendly interface and powerful bookkeeping features.',
                     theme_color: '#C67E48',
                     background_color: '#F6F7F8',
@@ -129,12 +129,12 @@ export default defineConfig(() => {
                     prefer_related_applications: false,
                     icons: [
                         {
-                            src: 'img/ezbookkeeping-192.png',
+                            src: 'img/splitchill-ai-192.png',
                             sizes: '192x192',
                             type: 'image/png'
                         },
                         {
-                            src: 'img/ezbookkeeping-512.png',
+                            src: 'img/splitchill-ai-512.png',
                             sizes: '512x512',
                             type: 'image/png'
                         }
@@ -162,11 +162,11 @@ export default defineConfig(() => {
                             handler: 'NetworkFirst'
                         },
                         {
-                            urlPattern: /.*\/(mobile|mobile\/)#!\//,
+                            urlPattern: /.*\/(mobile|mobile\/)#!\
                             handler: 'NetworkFirst'
                         },
                         {
-                            urlPattern: /.*\/(desktop|desktop\/)#\//,
+                            urlPattern: /.*\/(desktop|desktop\/)#\
                             handler: 'NetworkFirst'
                         },
                         {

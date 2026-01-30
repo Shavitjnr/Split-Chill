@@ -1,14 +1,14 @@
-package validators
+﻿package validators
 
 import (
 	"strings"
 
 	"github.com/go-playground/validator/v10"
 
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
-// ValidAmountFilter returns whether the given amount filter is valid
+
 func ValidAmountFilter(fl validator.FieldLevel) bool {
 	if value, ok := fl.Field().Interface().(string); ok {
 		if value == "" {

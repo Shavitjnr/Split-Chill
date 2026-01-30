@@ -1,12 +1,12 @@
-package iif
+﻿package iif
 
 import (
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/converter"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/converter"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 var iifTransactionTypeNameMapping = map[models.TransactionType]string{
@@ -16,15 +16,15 @@ var iifTransactionTypeNameMapping = map[models.TransactionType]string{
 	models.TRANSACTION_TYPE_TRANSFER:       utils.IntToString(int(models.TRANSACTION_TYPE_TRANSFER)),
 }
 
-// iifTransactionDataFileImporter defines the structure of intuit interchange format (iif) for transaction data
+
 type iifTransactionDataFileImporter struct{}
 
-// Initialize an intuit interchange format (iif) file importer singleton instance
+
 var (
 	IifTransactionDataFileImporter = &iifTransactionDataFileImporter{}
 )
 
-// ParseImportedData returns the imported data by parsing the intuit interchange format (iif) data
+
 func (c *iifTransactionDataFileImporter) ParseImportedData(ctx core.Context, user *models.User, data []byte, defaultTimezone *time.Location, additionalOptions converter.TransactionDataImporterOptions, accountMap map[string]*models.Account, expenseCategoryMap map[string]map[string]*models.TransactionCategory, incomeCategoryMap map[string]map[string]*models.TransactionCategory, transferCategoryMap map[string]map[string]*models.TransactionCategory, tagMap map[string]*models.TransactionTag) (models.ImportedTransactionSlice, []*models.Account, []*models.TransactionCategory, []*models.TransactionCategory, []*models.TransactionCategory, []*models.TransactionTag, error) {
 	iifDataReader := createNewIifDataReader(data)
 	accountDatasets, transactionDatasets, err := iifDataReader.read(ctx)

@@ -1,4 +1,4 @@
-package fireflyIII
+﻿package fireflyIII
 
 import (
 	"testing"
@@ -6,11 +6,11 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/converter"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/converter"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 func TestFireFlyIIICsvFileimporterParseImportedData_MinimumValidData(t *testing.T) {
@@ -352,32 +352,32 @@ func TestFireFlyIIICsvFileimporterParseImportedData_MissingRequiredColumn(t *tes
 		DefaultCurrency: "CNY",
 	}
 
-	// Missing Time Column
+	
 	_, _, _, _, _, _, err := importer.ParseImportedData(context, user, []byte("type,amount,source_name,destination_name,category\n"+
 		"\"Opening balance\",123.45,\"Initial balance for \"\"Test Account\"\"\",\"Test Account\",\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingRequiredFieldInHeaderRow.Message)
 
-	// Missing Type Column
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte("amount,date,source_name,destination_name,category\n"+
 		"123.45,2024-09-01T00:00:00+08:00,\"Initial balance for \"\"Test Account\"\"\",\"Test Account\",\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingRequiredFieldInHeaderRow.Message)
 
-	// Missing Sub Category Column
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte("type,amount,date,source_name,destination_name\n"+
 		"\"Opening balance\",123.45,2024-09-01T00:00:00+08:00,\"Initial balance for \"\"Test Account\"\"\",\"Test Account\"\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingRequiredFieldInHeaderRow.Message)
 
-	// Missing Account Name Column
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte("type,amount,date,destination_name,category\n"+
 		"\"Opening balance\",123.45,2024-09-01T00:00:00+08:00,\"Test Account\",\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingRequiredFieldInHeaderRow.Message)
 
-	// Missing Amount Column
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte("type,date,source_name,destination_name,category\n"+
 		"\"Opening balance\",2024-09-01T00:00:00+08:00,\"Initial balance for \"\"Test Account\"\"\",\"Test Account\",\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingRequiredFieldInHeaderRow.Message)
 
-	// Missing Account2 Name Column
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte("type,amount,date,source_name,category\n"+
 		"\"Opening balance\",123.45,2024-09-01T00:00:00+08:00,\"Initial balance for \"\"Test Account\"\"\",\n"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingRequiredFieldInHeaderRow.Message)

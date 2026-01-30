@@ -1,27 +1,27 @@
-package llm
+﻿package llm
 
 import (
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/llm/data"
-	"github.com/mayswind/ezbookkeeping/pkg/llm/provider"
-	"github.com/mayswind/ezbookkeeping/pkg/llm/provider/googleai"
-	"github.com/mayswind/ezbookkeeping/pkg/llm/provider/ollama"
-	"github.com/mayswind/ezbookkeeping/pkg/llm/provider/openai"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/llm/data"
+	"github.com/Shavitjnr/split-chill-ai/pkg/llm/provider"
+	"github.com/Shavitjnr/split-chill-ai/pkg/llm/provider/googleai"
+	"github.com/Shavitjnr/split-chill-ai/pkg/llm/provider/ollama"
+	"github.com/Shavitjnr/split-chill-ai/pkg/llm/provider/openai"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
-// LargeLanguageModelProviderContainer contains the current large language model provider
+
 type LargeLanguageModelProviderContainer struct {
 	receiptImageRecognitionCurrentProvider provider.LargeLanguageModelProvider
 }
 
-// Initialize a large language model provider container singleton instance
+
 var (
 	Container = &LargeLanguageModelProviderContainer{}
 )
 
-// InitializeLargeLanguageModelProvider initializes the current large language model provider according to the config
+
 func InitializeLargeLanguageModelProvider(config *settings.Config) error {
 	var err error = nil
 
@@ -54,7 +54,7 @@ func initializeLargeLanguageModelProvider(llmConfig *settings.LLMConfig, enableR
 	return nil, errs.ErrInvalidLLMProvider
 }
 
-// GetJsonResponseByReceiptImageRecognitionModel returns the json response from the current large language model provider by receipt image recognition model
+
 func (l *LargeLanguageModelProviderContainer) GetJsonResponseByReceiptImageRecognitionModel(c core.Context, uid int64, currentConfig *settings.Config, request *data.LargeLanguageModelRequest) (*data.LargeLanguageModelTextualResponse, error) {
 	if currentConfig.ReceiptImageRecognitionLLMConfig == nil || Container.receiptImageRecognitionCurrentProvider == nil {
 		return nil, errs.ErrInvalidLLMProvider

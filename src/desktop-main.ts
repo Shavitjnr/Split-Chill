@@ -1,4 +1,4 @@
-import { createApp, ref } from 'vue';
+﻿import { createApp, ref } from 'vue';
 import { createPinia } from 'pinia';
 import { type I18n, type Composer, createI18n } from 'vue-i18n';
 
@@ -303,46 +303,46 @@ const vuetify = createVuetify({
             light: {
                 dark: false,
                 colors: {
-                    'primary': '#c67e48',
-                    'primary-darken-1': '#b67443',
+                    
+                    'primary-darken-1': '#2563EB',
                     'on-primary': '#ffffff',
-                    'secondary': '#8c8c8c',
-                    'secondary-darken-1': '#595754',
+                    'secondary': '#93C5FD',
+                    'secondary-darken-1': '#60A5FA',
                     'on-secondary': '#ffffff',
-                    'success': '#4cd964',
-                    'success-darken-1': '#40b654',
-                    'on-success': '#ffffff',
-                    'info': '#2196f3',
-                    'info-darken-1': '#1e85d7',
+                    'success': '#86EFAC',
+                    'success-darken-1': '#4ADE80',
+                    'on-success': '#064E3B',
+                    'info': '#0EA5E9',
+                    'info-darken-1': '#0284C7',
                     'on-info': '#ffffff',
-                    'warning': '#ff9500',
-                    'warning-darken-1': '#de8201',
-                    'on-warning': '#ffffff',
-                    'error': '#ff3b30',
-                    'error-darken-1': '#e1342b',
+                    'warning': '#FACC15',
+                    'warning-darken-1': '#EAB308',
+                    'on-warning': '#422006',
+                    'error': '#F87171',
+                    'error-darken-1': '#EF4444',
                     'on-error': '#ffffff',
-                    'teal': '#009688',
-                    'background': '#faf8f4',
-                    'on-background': '#413935',
-                    'surface': '#fff',
-                    'on-surface': '#413935',
-                    'notification-background': '#ffffff',
-                    'on-notification-background': '#000',
-                    'grey': '#8c8c8c',
-                    'grey-50': '#fafafa',
-                    'grey-100': '#f0f2f8',
-                    'grey-200': '#eeeeee',
-                    'grey-300': '#e0e0e0',
-                    'grey-400': '#bdbdbd',
-                    'grey-500': '#9e9e9e',
-                    'grey-600': '#757575',
-                    'grey-700': '#616161',
-                    'grey-800': '#424242',
-                    'grey-900': '#212121',
-                    'perfect-scrollbar-thumb': '#dedcda',
-                    'skin-bordered-background': '#fff',
-                    'skin-bordered-surface': '#fff',
-                    'expansion-panel-text-custom-bg': '#fafafa'
+                    'teal': '#2DD4BF',
+                    'background': '#F0F9FF',
+                    'on-background': '#1E293B',
+                    'surface': '#FFFFFF',
+                    'on-surface': '#1E293B',
+                    'notification-background': '#FFFFFF',
+                    'on-notification-background': '#1E293B',
+                    'grey': '#94A3B8',
+                    'grey-50': '#F8FAFC',
+                    'grey-100': '#F1F5F9',
+                    'grey-200': '#E2E8F0',
+                    'grey-300': '#CBD5E1',
+                    'grey-400': '#94A3B8',
+                    'grey-500': '#64748B',
+                    'grey-600': '#475569',
+                    'grey-700': '#334155',
+                    'grey-800': '#1E293B',
+                    'grey-900': '#0F172A',
+                    'perfect-scrollbar-thumb': '#E2E8F0',
+                    'skin-bordered-background': '#FFFFFF',
+                    'skin-bordered-surface': '#FFFFFF',
+                    'expansion-panel-text-custom-bg': '#F8FAFC'
                 },
                 variables: {
                     'code-color': '#ff8000',
@@ -363,37 +363,37 @@ const vuetify = createVuetify({
                     'high-emphasis-opacity': 0.9,
                     'medium-emphasis-opacity': 0.7,
 
-                    // 👉 shadows
-                    'shadow-key-umbra-color': '#413935',
-                    'shadow-xs-opacity': '0.16',
-                    'shadow-sm-opacity': '0.18',
-                    'shadow-md-opacity': '0.20',
-                    'shadow-lg-opacity': '0.22',
-                    'shadow-xl-opacity': '0.24',
+                    
+                    'shadow-key-umbra-color': 'transparent',
+                    'shadow-xs-opacity': '0',
+                    'shadow-sm-opacity': '0',
+                    'shadow-md-opacity': '0',
+                    'shadow-lg-opacity': '0',
+                    'shadow-xl-opacity': '0',
                 }
             },
             dark: {
                 dark: true,
                 colors: {
-                    'primary': '#c67e48',
-                    'primary-darken-1': '#b67443',
+                    'primary': '#3B82F6',
+                    'primary-darken-1': '#2563EB',
                     'on-primary': '#ffffff',
-                    'secondary': '#9d9b99',
-                    'secondary-darken-1': '#3e3d3c',
-                    'on-secondary': '#fff',
-                    'success': '#4cd964',
-                    'success-darken-1': '#40b654',
+                    'secondary': '#1E293B',
+                    'secondary-darken-1': '#0F172A',
+                    'on-secondary': '#ffffff',
+                    'success': '#34D399',
+                    'success-darken-1': '#10B981',
                     'on-success': '#ffffff',
-                    'info': '#2196f3',
-                    'info-darken-1': '#1e85d7',
+                    'info': '#0EA5E9',
+                    'info-darken-1': '#0284C7',
                     'on-info': '#ffffff',
-                    'warning': '#ff9500',
-                    'warning-darken-1': '#de8201',
-                    'on-warning': '#ffffff',
-                    'error': '#ff3b30',
-                    'error-darken-1': '#e1342b',
+                    'warning': '#FACC15',
+                    'warning-darken-1': '#EAB308',
+                    'on-warning': '#000000',
+                    'error': '#F87171',
+                    'error-darken-1': '#EF4444',
                     'on-error': '#ffffff',
-                    'teal': '#009688',
+                    'teal': '#2DD4BF',
                     'background': '#060504',
                     'on-background': '#fcf0e3',
                     'surface': '#1a1a1a',
@@ -435,13 +435,13 @@ const vuetify = createVuetify({
                     'high-emphasis-opacity': 0.9,
                     'medium-emphasis-opacity': 0.7,
 
-                    // 👉 Shadows
-                    'shadow-key-umbra-color': '#383736',
-                    'shadow-xs-opacity': '0.20',
-                    'shadow-sm-opacity': '0.22',
-                    'shadow-md-opacity': '0.24',
-                    'shadow-lg-opacity': '0.26',
-                    'shadow-xl-opacity': '0.28',
+                    
+                    'shadow-key-umbra-color': 'transparent',
+                    'shadow-xs-opacity': '0',
+                    'shadow-sm-opacity': '0',
+                    'shadow-md-opacity': '0',
+                    'shadow-lg-opacity': '0',
+                    'shadow-xl-opacity': '0',
                 }
             }
         }
@@ -450,11 +450,11 @@ const vuetify = createVuetify({
         rtl: getRtlLocales(),
         adapter: ((i18nGlobal: Composer) => {
             const instance: LocaleInstance = {
-                name: 'ezBookkeeping i18n',
-                decimalSeparator: ref<string>(DecimalSeparator.Default.symbol), // should never use vuetify to format numbers
+                name: 'Split Chill AI i18n',
+                decimalSeparator: ref<string>(DecimalSeparator.Default.symbol), 
                 messages: i18nGlobal.messages,
                 current: i18nGlobal.locale,
-                fallback: i18nGlobal.locale, // no need to let vuetify know what fallback locale is
+                fallback: i18nGlobal.locale, 
                 t: (key: string, ...params: unknown[]): string => {
                     if (!key) {
                         return '';
@@ -464,7 +464,7 @@ const vuetify = createVuetify({
                         return key;
                     }
 
-                    key = key.substring(9); // remove '$vuetify.' prefix
+                    key = key.substring(9); 
                     const mappedTextKey = vuetifyI18nTextKeyMap[key];
 
                     if (!mappedTextKey) {
@@ -472,7 +472,7 @@ const vuetify = createVuetify({
                     }
 
                     if (params && params.length > 0) {
-                        // @ts-expect-error the arguments passed in are compatible with vue-i18n method arguments
+                        
                         return i18nGlobal.t(mappedTextKey, ...params);
                     } else {
                         return i18nGlobal.t(mappedTextKey);
@@ -491,7 +491,7 @@ const vuetify = createVuetify({
     }
 });
 
-// key is in the original i18n text of vuetify (in vuetify/lib/locale/en.js), value is the text in the ezBookkeeping i18n files
+
 const vuetifyI18nTextKeyMap: Record<string, string> = {
     'open': 'Open',
     'close': 'Close'

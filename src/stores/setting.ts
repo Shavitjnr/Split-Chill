@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 
 import {
@@ -133,7 +133,7 @@ export const useSettingsStore = defineStore('settings', () => {
         });
     }
 
-    // Basic Settings
+    
     function setTheme(value: string): void {
         updateApplicationSettingsValue('theme', value);
         appSettings.value.theme = value;
@@ -170,7 +170,7 @@ export const useSettingsStore = defineStore('settings', () => {
         appSettings.value.animate = value;
     }
 
-    // Application Lock
+    
     function setEnableApplicationLock(value: boolean): void {
         updateApplicationSettingsValue('applicationLock', value);
         appSettings.value.applicationLock = value;
@@ -181,13 +181,13 @@ export const useSettingsStore = defineStore('settings', () => {
         appSettings.value.applicationLockWebAuthn = value;
     }
 
-    // Navigation Bar
+    
     function setShowAddTransactionButtonInDesktopNavbar(value: boolean): void {
         updateApplicationSettingsValue('showAddTransactionButtonInDesktopNavbar', value);
         appSettings.value.showAddTransactionButtonInDesktopNavbar = value;
     }
 
-    // Overview Page
+    
     function setShowAmountInHomePage(value: boolean): void {
         updateApplicationSettingsValue('showAmountInHomePage', value);
         appSettings.value.showAmountInHomePage = value;
@@ -212,7 +212,7 @@ export const useSettingsStore = defineStore('settings', () => {
         updateUserApplicationCloudSettingValue('overviewTransactionCategoryFilterInHomePage', value);
     }
 
-    // Transaction List Page
+    
     function setItemsCountInTransactionListPage(value: number): void {
         updateApplicationSettingsValue('itemsCountInTransactionListPage', value);
         appSettings.value.itemsCountInTransactionListPage = value;
@@ -231,7 +231,7 @@ export const useSettingsStore = defineStore('settings', () => {
         updateUserApplicationCloudSettingValue('showTagInTransactionListPage', value);
     }
 
-    // Transaction Edit Page
+    
     function setAutoSaveTransactionDraft(value: string): void {
         updateApplicationSettingsValue('autoSaveTransactionDraft', value);
         appSettings.value.autoSaveTransactionDraft = value;
@@ -250,7 +250,7 @@ export const useSettingsStore = defineStore('settings', () => {
         updateUserApplicationCloudSettingValue('alwaysShowTransactionPicturesInMobileTransactionEditPage', value);
     }
 
-    // Import Transaction Dialog
+    
     function setRememberLastSelectedFileTypeInImportTransactionDialog(value: boolean): void {
         updateApplicationSettingsValue('rememberLastSelectedFileTypeInImportTransactionDialog', value);
         appSettings.value.rememberLastSelectedFileTypeInImportTransactionDialog = value;
@@ -271,7 +271,7 @@ export const useSettingsStore = defineStore('settings', () => {
         updateUserApplicationCloudSettingValue('lastSelectedFileTypeInImportTransactionDialog', value);
     }
 
-    // Insights Explorer Page
+    
     function setInsightsExplorerDefaultDateRangeType(value: number): void {
         updateApplicationSettingsValue('insightsExplorerDefaultDateRangeType', value);
         appSettings.value.insightsExplorerDefaultDateRangeType = value;
@@ -284,7 +284,7 @@ export const useSettingsStore = defineStore('settings', () => {
         updateUserApplicationCloudSettingValue('showTagInInsightsExplorerPage', value);
     }
 
-    // Account List Page
+    
     function setTotalAmountExcludeAccountIds(value: Record<string, boolean>): void {
         updateApplicationSettingsValue('totalAmountExcludeAccountIds', value);
         appSettings.value.totalAmountExcludeAccountIds = value;
@@ -303,14 +303,14 @@ export const useSettingsStore = defineStore('settings', () => {
         updateUserApplicationCloudSettingValue('hideCategoriesWithoutAccounts', value);
     }
 
-    // Exchange Rates Data Page
+    
     function setCurrencySortByInExchangeRatesPage(value: number): void {
         updateApplicationSettingsValue('currencySortByInExchangeRatesPage', value);
         appSettings.value.currencySortByInExchangeRatesPage = value;
         updateUserApplicationCloudSettingValue('currencySortByInExchangeRatesPage', value);
     }
 
-    // Statistics Settings
+    
     function setStatisticsDefaultChartDataType(value: number): void {
         updateApplicationSettingsSubValue('statistics', 'defaultChartDataType', value);
         appSettings.value.statistics.defaultChartDataType = value;
@@ -485,15 +485,15 @@ export const useSettingsStore = defineStore('settings', () => {
     }
 
     return {
-        // states
+        
         appSettings,
         syncedAppSettings,
         localeDefaultSettings,
-        // computed states
+        
         enableApplicationCloudSync,
         accountCategoryDisplayOrders,
-        // functions
-        // -- Basic Settings
+        
+        
         setTheme,
         setFontSize,
         setTimeZone,
@@ -501,37 +501,37 @@ export const useSettingsStore = defineStore('settings', () => {
         setShowAccountBalance,
         setEnableSwipeBack,
         setEnableAnimate,
-        // -- Application Lock
+        
         setEnableApplicationLock,
         setEnableApplicationLockWebAuthn,
-        // -- Navigation Bar
+        
         setShowAddTransactionButtonInDesktopNavbar,
-        // -- Overview Page
+        
         setShowAmountInHomePage,
         setTimezoneUsedForStatisticsInHomePage,
         setOverviewAccountFilterInHomePage,
         setOverviewTransactionCategoryFilterInHomePage,
-        // -- Transaction List Page
+        
         setItemsCountInTransactionListPage,
         setShowTotalAmountInTransactionListPage,
         setShowTagInTransactionListPage,
-        // -- Transaction Edit Page
+        
         setAutoSaveTransactionDraft,
         setAutoGetCurrentGeoLocation,
         setAlwaysShowTransactionPicturesInMobileTransactionEditPage,
-        // -- Import Transaction Dialog
+        
         setRememberLastSelectedFileTypeInImportTransactionDialog,
         setLastSelectedFileTypeInImportTransactionDialog,
-        // -- Insights Explorer Page
+        
         setInsightsExplorerDefaultDateRangeType,
         setShowTagInInsightsExplorerPage,
-        // -- Account List Page
+        
         setTotalAmountExcludeAccountIds,
         setAccountCategoryOrders,
         setHideCategoriesWithoutAccounts,
-        // -- Exchange Rates Data Page
+        
         setCurrencySortByInExchangeRatesPage,
-        // -- Statistics Settings
+        
         setStatisticsDefaultChartDataType,
         setStatisticsDefaultTimezoneType,
         setStatisticsDefaultAccountFilter,

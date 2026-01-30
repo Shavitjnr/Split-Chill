@@ -1,14 +1,14 @@
-package qif
+﻿package qif
 
 import (
 	"strings"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/datatable"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/datatable"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 const qifOpeningBalancePayeeText = "Opening Balance"
@@ -25,7 +25,7 @@ var qifTransactionSupportedColumns = map[datatable.TransactionDataTableColumn]bo
 	datatable.TRANSACTION_DATA_TABLE_PAYEE:                true,
 }
 
-// qifDateFormatType represents the quicken interchange format (qif) date format type
+
 type qifDateFormatType byte
 
 const (
@@ -34,37 +34,37 @@ const (
 	qifDayMonthYearDateFormat qifDateFormatType = 2
 )
 
-// qifTransactionDataTable defines the structure of quicken interchange format (qif) transaction data table
+
 type qifTransactionDataTable struct {
 	dateFormatType qifDateFormatType
 	allData        []*qifTransactionData
 }
 
-// qifTransactionDataRow defines the structure of quicken interchange format (qif) transaction data row
+
 type qifTransactionDataRow struct {
 	dataTable  *qifTransactionDataTable
 	data       *qifTransactionData
 	finalItems map[datatable.TransactionDataTableColumn]string
 }
 
-// qifTransactionDataRowIterator defines the structure of quicken interchange format (qif) transaction data row iterator
+
 type qifTransactionDataRowIterator struct {
 	dataTable    *qifTransactionDataTable
 	currentIndex int
 }
 
-// HasColumn returns whether the transaction data table has specified column
+
 func (t *qifTransactionDataTable) HasColumn(column datatable.TransactionDataTableColumn) bool {
 	_, exists := qifTransactionSupportedColumns[column]
 	return exists
 }
 
-// TransactionRowCount returns the total count of transaction data row
+
 func (t *qifTransactionDataTable) TransactionRowCount() int {
 	return len(t.allData)
 }
 
-// TransactionRowIterator returns the iterator of transaction data row
+
 func (t *qifTransactionDataTable) TransactionRowIterator() datatable.TransactionDataRowIterator {
 	return &qifTransactionDataRowIterator{
 		dataTable:    t,
@@ -72,12 +72,12 @@ func (t *qifTransactionDataTable) TransactionRowIterator() datatable.Transaction
 	}
 }
 
-// IsValid returns whether this row is valid data for importing
+
 func (r *qifTransactionDataRow) IsValid() bool {
 	return true
 }
 
-// GetData returns the data in the specified column type
+
 func (r *qifTransactionDataRow) GetData(column datatable.TransactionDataTableColumn) string {
 	_, exists := qifTransactionSupportedColumns[column]
 
@@ -88,12 +88,12 @@ func (r *qifTransactionDataRow) GetData(column datatable.TransactionDataTableCol
 	return ""
 }
 
-// HasNext returns whether the iterator does not reach the end
+
 func (t *qifTransactionDataRowIterator) HasNext() bool {
 	return t.currentIndex+1 < len(t.dataTable.allData)
 }
 
-// Next returns the next transaction data row
+
 func (t *qifTransactionDataRowIterator) Next(ctx core.Context, user *models.User) (daraRow datatable.TransactionDataRow, err error) {
 	if t.currentIndex+1 >= len(t.dataTable.allData) {
 		return nil, nil
@@ -135,7 +135,7 @@ func (t *qifTransactionDataRowIterator) parseTransaction(ctx core.Context, user 
 		return nil, errs.ErrAmountInvalid
 	}
 
-	amount, err := utils.ParseAmount(strings.ReplaceAll(qifTransaction.Amount, ",", "")) // trim thousands separator
+	amount, err := utils.ParseAmount(strings.ReplaceAll(qifTransaction.Amount, ",", "")) 
 
 	if err != nil {
 		return nil, errs.ErrAmountInvalid
@@ -148,23 +148,23 @@ func (t *qifTransactionDataRowIterator) parseTransaction(ctx core.Context, user 
 	}
 
 	if len(qifTransaction.Category) > 0 && qifTransaction.Category[0] == '[' && qifTransaction.Category[len(qifTransaction.Category)-1] == ']' {
-		if qifTransaction.Payee == qifOpeningBalancePayeeText { // balance modification
+		if qifTransaction.Payee == qifOpeningBalancePayeeText { 
 			data[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE] = qifTransactionTypeNameMapping[models.TRANSACTION_TYPE_MODIFY_BALANCE]
 			data[datatable.TRANSACTION_DATA_TABLE_AMOUNT] = utils.FormatAmount(amount)
 			data[datatable.TRANSACTION_DATA_TABLE_ACCOUNT_NAME] = qifTransaction.Category[1 : len(qifTransaction.Category)-1]
-		} else { // transfer
+		} else { 
 			data[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE] = qifTransactionTypeNameMapping[models.TRANSACTION_TYPE_TRANSFER]
 
-			if amount >= 0 { // transfer from [account name]
+			if amount >= 0 { 
 				data[datatable.TRANSACTION_DATA_TABLE_AMOUNT] = utils.FormatAmount(amount)
 				data[datatable.TRANSACTION_DATA_TABLE_RELATED_ACCOUNT_NAME] = data[datatable.TRANSACTION_DATA_TABLE_ACCOUNT_NAME]
 				data[datatable.TRANSACTION_DATA_TABLE_ACCOUNT_NAME] = qifTransaction.Category[1 : len(qifTransaction.Category)-1]
-			} else { // transfer to [account name]
+			} else { 
 				data[datatable.TRANSACTION_DATA_TABLE_AMOUNT] = utils.FormatAmount(-amount)
 				data[datatable.TRANSACTION_DATA_TABLE_RELATED_ACCOUNT_NAME] = qifTransaction.Category[1 : len(qifTransaction.Category)-1]
 			}
 		}
-	} else { // income/expense
+	} else { 
 		if amount >= 0 {
 			data[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE] = qifTransactionTypeNameMapping[models.TRANSACTION_TYPE_INCOME]
 			data[datatable.TRANSACTION_DATA_TABLE_AMOUNT] = utils.FormatAmount(amount)
@@ -173,7 +173,7 @@ func (t *qifTransactionDataRowIterator) parseTransaction(ctx core.Context, user 
 			data[datatable.TRANSACTION_DATA_TABLE_AMOUNT] = utils.FormatAmount(-amount)
 		}
 
-		if strings.Index(qifTransaction.Category, ":") > 0 { // category:subcategory
+		if strings.Index(qifTransaction.Category, ":") > 0 { 
 			categories := strings.Split(qifTransaction.Category, ":")
 			data[datatable.TRANSACTION_DATA_TABLE_CATEGORY] = categories[0]
 			data[datatable.TRANSACTION_DATA_TABLE_SUB_CATEGORY] = categories[len(categories)-1]

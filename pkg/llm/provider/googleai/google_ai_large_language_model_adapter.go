@@ -1,4 +1,4 @@
-package googleai
+﻿package googleai
 
 import (
 	"bytes"
@@ -7,67 +7,67 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/llm/data"
-	"github.com/mayswind/ezbookkeeping/pkg/llm/provider"
-	"github.com/mayswind/ezbookkeeping/pkg/llm/provider/common"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/llm/data"
+	"github.com/Shavitjnr/split-chill-ai/pkg/llm/provider"
+	"github.com/Shavitjnr/split-chill-ai/pkg/llm/provider/common"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
 const googleAIGenerateContentAPIFormat = "https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent"
 
-// GoogleAILargeLanguageModelAdapter defines the structure of Google AI large language model adapter
+
 type GoogleAILargeLanguageModelAdapter struct {
 	common.HttpLargeLanguageModelAdapter
 	GoogleAIAPIKey  string
 	GoogleAIModelID string
 }
 
-// GoogleAIGenerateContentRequest defines the structure of Google AI generate content request
+
 type GoogleAIGenerateContentRequest struct {
 	Contents []*GoogleAIGenerateContentRequestContent `json:"contents"`
 }
 
-// GoogleAIGenerateContentRequestContent defines the structure of Google AI generate content request content
+
 type GoogleAIGenerateContentRequestContent struct {
 	Parts []*GoogleAIGenerateContentRequestContentPart `json:"parts"`
 }
 
-// GoogleAIGenerateContentRequestContentPart defines the structure of Google AI generate content request content part
+
 type GoogleAIGenerateContentRequestContentPart struct {
 	Text       string                                    `json:"text,omitempty"`
 	InlineData *GoogleAIGenerateContentRequestInlineData `json:"inlineData,omitempty"`
 }
 
-// GoogleAIGenerateContentRequestInlineData defines the structure of Google AI generate content request inline data
+
 type GoogleAIGenerateContentRequestInlineData struct {
 	MimeType string `json:"mimeType"`
 	Data     string `json:"data"`
 }
 
-// GoogleAIGenerateContentResponse defines the structure of Google AI generate content response
+
 type GoogleAIGenerateContentResponse struct {
 	Candidates []*GoogleAIGenerateContentResponseCandidate `json:"candidates"`
 }
 
-// GoogleAIGenerateContentResponseCandidate defines the structure of Google AI generate content response candidate
+
 type GoogleAIGenerateContentResponseCandidate struct {
 	Content *GoogleAIGenerateContentResponseContent `json:"content"`
 }
 
-// GoogleAIGenerateContentResponseContent defines the structure of Google AI generate content response content
+
 type GoogleAIGenerateContentResponseContent struct {
 	Part []*GoogleAIGenerateContentResponseContentPart `json:"parts"`
 }
 
-// GoogleAIGenerateContentResponseContentPart defines the structure of Google AI generate content response content part
+
 type GoogleAIGenerateContentResponseContentPart struct {
 	Text *string `json:"text"`
 }
 
-// BuildTextualRequest returns the http request by Google AI large language model adapter
+
 func (p *GoogleAILargeLanguageModelAdapter) BuildTextualRequest(c core.Context, uid int64, request *data.LargeLanguageModelRequest, responseType data.LargeLanguageModelResponseFormat) (*http.Request, error) {
 	requestBody, err := p.buildJsonRequestBody(c, uid, request, responseType)
 
@@ -88,7 +88,7 @@ func (p *GoogleAILargeLanguageModelAdapter) BuildTextualRequest(c core.Context, 
 	return httpRequest, nil
 }
 
-// ParseTextualResponse returns the textual response by Google AI large language model adapter
+
 func (p *GoogleAILargeLanguageModelAdapter) ParseTextualResponse(c core.Context, uid int64, body []byte, responseType data.LargeLanguageModelResponseFormat) (*data.LargeLanguageModelTextualResponse, error) {
 	generateContentResponse := &GoogleAIGenerateContentResponse{}
 	err := json.Unmarshal(body, &generateContentResponse)
@@ -158,7 +158,7 @@ func (p *GoogleAILargeLanguageModelAdapter) buildJsonRequestBody(c core.Context,
 	return requestBodyBytes, nil
 }
 
-// NewGoogleAILargeLanguageModelProvider creates a new Google AI large language model provider instance
+
 func NewGoogleAILargeLanguageModelProvider(llmConfig *settings.LLMConfig, enableResponseLog bool) provider.LargeLanguageModelProvider {
 	return common.NewCommonHttpLargeLanguageModelProvider(llmConfig, enableResponseLog, &GoogleAILargeLanguageModelAdapter{
 		GoogleAIAPIKey:  llmConfig.GoogleAIAPIKey,

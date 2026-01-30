@@ -1,4 +1,4 @@
-package mt
+﻿package mt
 
 import (
 	"testing"
@@ -6,11 +6,11 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/converter"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/converter"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 func TestMT940TransactionDataFileParseImportedData_MinimumValidData(t *testing.T) {
@@ -28,7 +28,7 @@ func TestMT940TransactionDataFileParseImportedData_MinimumValidData(t *testing.T
 		:25:12345678
 		:28C:123/1
 		:60F:C250601CNY123,45
-		:61:2506010602C123,45NTRFTEST//ABC123456
+		:61:2506010602C123,45NTRFTEST
 		:86:Transaction 1
 		:61:2506020603D234,56NTRFFOOBAR
 		:86:Transaction 2
@@ -204,7 +204,7 @@ func TestMT940TransactionDataFileParseImportedData_MissingRequiredField(t *testi
 		DefaultCurrency: "CNY",
 	}
 
-	// Missing opening balance and closing balance
+	
 	_, _, _, _, _, _, err := importer.ParseImportedData(context, user, []byte(
 		`{1:F01TESTBANK123456789}{2:I940TESTBANK}{4:
 		:20:123456789

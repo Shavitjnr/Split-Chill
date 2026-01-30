@@ -1,4 +1,4 @@
-import de from './de.json';
+﻿import de from './de.json';
 import en from './en.json';
 import es from './es.json';
 import fr from './fr.json';
@@ -35,7 +35,7 @@ export interface LanguageOption {
 
 export const DEFAULT_LANGUAGE: string = 'en';
 
-// To add new languages, please refer to https://ezbookkeeping.mayswind.net/translating
+
 export const ALL_LANGUAGES: Record<string, LanguageInfo> = {
     'de': {
         name: 'German',

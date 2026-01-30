@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <f7-popup push :opened="show" @popup:open="onPopupOpen" @popup:closed="onPopupClosed">
         <f7-page>
             <f7-navbar :outline="false">
@@ -62,9 +62,9 @@ import { type Framework7Dom } from '@/lib/ui/mobile.ts';
 const props = defineProps<{
     modelValue: unknown;
     title?: string;
-    valueType: string; // item or index
-    keyField?: string; // for value type == item
-    valueField?: string; // for value type == item
+    valueType: string; 
+    keyField?: string; 
+    valueField?: string; 
     titleField: string;
     titleI18n?: boolean;
     afterField?: string;

@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+﻿import { defineStore } from 'pinia';
 
 import type {UserExternalAuthInfoResponse, UserExternalAuthUnlinkRequest} from '@/models/user_external_auth.ts';
 
@@ -57,7 +57,7 @@ export const useUserExternalAuthStore = defineStore('userExternalAUth', () => {
     }
 
     return {
-        // functions
+        
         getExternalAuths,
         unlinkExternalAuth
     };

@@ -1,17 +1,17 @@
-package api
+﻿package api
 
 import (
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/duplicatechecker"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/services"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/duplicatechecker"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/services"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
-// TransactionPicturesApi represents transaction pictures api
+
 type TransactionPicturesApi struct {
 	ApiUsingConfig
 	ApiUsingDuplicateChecker
@@ -19,7 +19,7 @@ type TransactionPicturesApi struct {
 	pictures *services.TransactionPictureService
 }
 
-// Initialize a transaction api singleton instance
+
 var (
 	TransactionPictures = &TransactionPicturesApi{
 		ApiUsingConfig: ApiUsingConfig{
@@ -36,7 +36,7 @@ var (
 	}
 )
 
-// TransactionPictureUploadHandler saves transaction picture by request parameters for current user
+
 func (a *TransactionPicturesApi) TransactionPictureUploadHandler(c *core.WebContext) (any, *errs.Error) {
 	uid := c.GetCurrentUid()
 	form, err := c.MultipartForm()
@@ -121,7 +121,7 @@ func (a *TransactionPicturesApi) TransactionPictureUploadHandler(c *core.WebCont
 	return pictureInfoResp, nil
 }
 
-// TransactionPictureGetHandler returns transaction picture data for current user
+
 func (a *TransactionPicturesApi) TransactionPictureGetHandler(c *core.WebContext) ([]byte, string, *errs.Error) {
 	fileName := c.Param("fileName")
 	fileExtension := utils.GetFileNameExtension(fileName)
@@ -152,7 +152,7 @@ func (a *TransactionPicturesApi) TransactionPictureGetHandler(c *core.WebContext
 	return pictureData, contentType, nil
 }
 
-// TransactionPictureRemoveUnusedHandler removes unused transaction picture by request parameters for current user
+
 func (a *TransactionPicturesApi) TransactionPictureRemoveUnusedHandler(c *core.WebContext) (any, *errs.Error) {
 	var pictureDeleteReq models.TransactionPictureUnusedDeleteRequest
 	err := c.ShouldBindJSON(&pictureDeleteReq)

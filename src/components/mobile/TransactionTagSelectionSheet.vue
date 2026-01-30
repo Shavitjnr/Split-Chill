@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <f7-sheet ref="sheet" swipe-to-close swipe-handler=".swipe-handler"
               style="height: auto" :opened="show"
               @sheet:open="onSheetOpen" @sheet:closed="onSheetClosed">
@@ -208,7 +208,7 @@ function cancelSaveNewTag(): void {
 }
 
 function onSearchBarFocus(): void {
-    scrollSheetToTop(sheet.value?.$el as HTMLElement, window.innerHeight); // $el is not Framework7 Dom
+    scrollSheetToTop(sheet.value?.$el as HTMLElement, window.innerHeight); 
 }
 
 function onSheetOpen(event: { $el: Framework7Dom }): void {

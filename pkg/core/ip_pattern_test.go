@@ -1,4 +1,4 @@
-package core
+﻿package core
 
 import (
 	"bytes"
@@ -7,7 +7,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
 )
 
 func TestIPPattern_GobEncode(t *testing.T) {
@@ -44,7 +44,7 @@ func TestParseIPPattern(t *testing.T) {
 	assert.Equal(t, errs.ErrInvalidIpAddressPattern, err)
 	assert.Nil(t, pattern)
 
-	pattern, err = ParseIPPattern("0:0:0:0:0:0:1.2.3.4") // not support IPv6 with embedded IPv4
+	pattern, err = ParseIPPattern("0:0:0:0:0:0:1.2.3.4") 
 	assert.Equal(t, errs.ErrInvalidIpAddressPattern, err)
 	assert.Nil(t, pattern)
 

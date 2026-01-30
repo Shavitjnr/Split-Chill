@@ -1,4 +1,4 @@
-package api
+﻿package api
 
 import (
 	"encoding/json"
@@ -11,22 +11,22 @@ import (
 
 	orderedmap "github.com/wk8/go-ordered-map/v2"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/converter"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/datatable"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/duplicatechecker"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/services"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/converter"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/datatable"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/duplicatechecker"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/services"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 const pageCountForAccountStatement = 1000
 
-// TransactionsApi represents transaction api
+
 type TransactionsApi struct {
 	ApiUsingConfig
 	ApiUsingDuplicateChecker
@@ -38,7 +38,7 @@ type TransactionsApi struct {
 	users                 *services.UserService
 }
 
-// Initialize a transaction api singleton instance
+
 var (
 	Transactions = &TransactionsApi{
 		ApiUsingConfig: ApiUsingConfig{
@@ -59,7 +59,7 @@ var (
 	}
 )
 
-// TransactionCountHandler returns transaction total count of current user
+
 func (a *TransactionsApi) TransactionCountHandler(c *core.WebContext) (any, *errs.Error) {
 	var transactionCountReq models.TransactionCountRequest
 	err := c.ShouldBindQuery(&transactionCountReq)
@@ -111,7 +111,7 @@ func (a *TransactionsApi) TransactionCountHandler(c *core.WebContext) (any, *err
 	return countResp, nil
 }
 
-// TransactionListHandler returns transaction list of current user
+
 func (a *TransactionsApi) TransactionListHandler(c *core.WebContext) (any, *errs.Error) {
 	var transactionListReq models.TransactionListByMaxTimeRequest
 	err := c.ShouldBindQuery(&transactionListReq)
@@ -214,7 +214,7 @@ func (a *TransactionsApi) TransactionListHandler(c *core.WebContext) (any, *errs
 	return transactionResps, nil
 }
 
-// TransactionMonthListHandler returns all transaction list of current user by month
+
 func (a *TransactionsApi) TransactionMonthListHandler(c *core.WebContext) (any, *errs.Error) {
 	var transactionListReq models.TransactionListInMonthByPageRequest
 	err := c.ShouldBindQuery(&transactionListReq)
@@ -290,7 +290,7 @@ func (a *TransactionsApi) TransactionMonthListHandler(c *core.WebContext) (any, 
 	return transactionResps, nil
 }
 
-// TransactionListAllHandler returns all transaction list of current user
+
 func (a *TransactionsApi) TransactionListAllHandler(c *core.WebContext) (any, *errs.Error) {
 	var transactionAllListReq models.TransactionAllListRequest
 	err := c.ShouldBindQuery(&transactionAllListReq)
@@ -372,7 +372,7 @@ func (a *TransactionsApi) TransactionListAllHandler(c *core.WebContext) (any, *e
 	return transactionResult, nil
 }
 
-// TransactionReconciliationStatementHandler returns transaction reconciliation statement list of current user
+
 func (a *TransactionsApi) TransactionReconciliationStatementHandler(c *core.WebContext) (any, *errs.Error) {
 	var reconciliationStatementRequest models.TransactionReconciliationStatementRequest
 	err := c.ShouldBindQuery(&reconciliationStatementRequest)
@@ -480,7 +480,7 @@ func (a *TransactionsApi) TransactionReconciliationStatementHandler(c *core.WebC
 	return reconciliationStatementResp, nil
 }
 
-// TransactionStatisticsHandler returns transaction statistics of current user
+
 func (a *TransactionsApi) TransactionStatisticsHandler(c *core.WebContext) (any, *errs.Error) {
 	var statisticReq models.TransactionStatisticRequest
 	err := c.ShouldBindQuery(&statisticReq)
@@ -541,7 +541,7 @@ func (a *TransactionsApi) TransactionStatisticsHandler(c *core.WebContext) (any,
 	return statisticResp, nil
 }
 
-// TransactionStatisticsTrendsHandler returns transaction statistics trends of current user
+
 func (a *TransactionsApi) TransactionStatisticsTrendsHandler(c *core.WebContext) (any, *errs.Error) {
 	var statisticTrendsReq models.TransactionStatisticTrendsRequest
 	err := c.ShouldBindQuery(&statisticTrendsReq)
@@ -616,7 +616,7 @@ func (a *TransactionsApi) TransactionStatisticsTrendsHandler(c *core.WebContext)
 	return statisticTrendsResp, nil
 }
 
-// TransactionStatisticsAssetTrendsHandler returns transaction statistics asset trends of current user
+
 func (a *TransactionsApi) TransactionStatisticsAssetTrendsHandler(c *core.WebContext) (any, *errs.Error) {
 	var statisticAssetTrendsReq models.TransactionStatisticAssetTrendsRequest
 	err := c.ShouldBindQuery(&statisticAssetTrendsReq)
@@ -681,7 +681,7 @@ func (a *TransactionsApi) TransactionStatisticsAssetTrendsHandler(c *core.WebCon
 	return statisticAssetTrendsResp, nil
 }
 
-// TransactionAmountsHandler returns transaction amounts of current user
+
 func (a *TransactionsApi) TransactionAmountsHandler(c *core.WebContext) (any, *errs.Error) {
 	var transactionAmountsReq models.TransactionAmountsRequest
 	err := c.ShouldBindQuery(&transactionAmountsReq)
@@ -820,7 +820,7 @@ func (a *TransactionsApi) TransactionAmountsHandler(c *core.WebContext) (any, *e
 	return amountsResp, nil
 }
 
-// TransactionGetHandler returns one specific transaction of current user
+
 func (a *TransactionsApi) TransactionGetHandler(c *core.WebContext) (any, *errs.Error) {
 	var transactionGetReq models.TransactionGetRequest
 	err := c.ShouldBindQuery(&transactionGetReq)
@@ -950,7 +950,7 @@ func (a *TransactionsApi) TransactionGetHandler(c *core.WebContext) (any, *errs.
 	return transactionResp, nil
 }
 
-// TransactionCreateHandler saves a new transaction by request parameters for current user
+
 func (a *TransactionsApi) TransactionCreateHandler(c *core.WebContext) (any, *errs.Error) {
 	var transactionCreateReq models.TransactionCreateRequest
 	err := c.ShouldBindJSON(&transactionCreateReq)
@@ -1087,7 +1087,7 @@ func (a *TransactionsApi) TransactionCreateHandler(c *core.WebContext) (any, *er
 	return transactionResp, nil
 }
 
-// TransactionModifyHandler saves an existed transaction by request parameters for current user
+
 func (a *TransactionsApi) TransactionModifyHandler(c *core.WebContext) (any, *errs.Error) {
 	var transactionModifyReq models.TransactionModifyRequest
 	err := c.ShouldBindJSON(&transactionModifyReq)
@@ -1287,7 +1287,7 @@ func (a *TransactionsApi) TransactionModifyHandler(c *core.WebContext) (any, *er
 	return newTransactionResp, nil
 }
 
-// TransactionMoveAllBetweenAccountsHandler moves all transactions from one account to another account for current user
+
 func (a *TransactionsApi) TransactionMoveAllBetweenAccountsHandler(c *core.WebContext) (any, *errs.Error) {
 	var transactionMoveReq models.TransactionMoveBetweenAccountsRequest
 	err := c.ShouldBindJSON(&transactionMoveReq)
@@ -1344,7 +1344,7 @@ func (a *TransactionsApi) TransactionMoveAllBetweenAccountsHandler(c *core.WebCo
 	return true, nil
 }
 
-// TransactionDeleteHandler deletes an existed transaction by request parameters for current user
+
 func (a *TransactionsApi) TransactionDeleteHandler(c *core.WebContext) (any, *errs.Error) {
 	var transactionDeleteReq models.TransactionDeleteRequest
 	err := c.ShouldBindJSON(&transactionDeleteReq)
@@ -1401,7 +1401,7 @@ func (a *TransactionsApi) TransactionDeleteHandler(c *core.WebContext) (any, *er
 	return true, nil
 }
 
-// TransactionParseImportDsvFileDataHandler returns the parsed file data by request parameters for current user
+
 func (a *TransactionsApi) TransactionParseImportDsvFileDataHandler(c *core.WebContext) (any, *errs.Error) {
 	uid := c.GetCurrentUid()
 	form, err := c.MultipartForm()
@@ -1478,7 +1478,7 @@ func (a *TransactionsApi) TransactionParseImportDsvFileDataHandler(c *core.WebCo
 	return allLines, nil
 }
 
-// TransactionParseImportFileHandler returns the parsed transaction data by request parameters for current user
+
 func (a *TransactionsApi) TransactionParseImportFileHandler(c *core.WebContext) (any, *errs.Error) {
 	uid := c.GetCurrentUid()
 	form, err := c.MultipartForm()
@@ -1709,7 +1709,7 @@ func (a *TransactionsApi) TransactionParseImportFileHandler(c *core.WebContext) 
 	return parsedTransactionResps, nil
 }
 
-// TransactionImportHandler imports transactions by request parameters for current user
+
 func (a *TransactionsApi) TransactionImportHandler(c *core.WebContext) (any, *errs.Error) {
 	var transactionImportReq models.TransactionImportRequest
 	err := c.ShouldBindJSON(&transactionImportReq)
@@ -1838,7 +1838,7 @@ func (a *TransactionsApi) TransactionImportHandler(c *core.WebContext) (any, *er
 	return count, nil
 }
 
-// TransactionImportProcessHandler returns the process of specified transaction import task by request parameters for current user
+
 func (a *TransactionsApi) TransactionImportProcessHandler(c *core.WebContext) (any, *errs.Error) {
 	var transactionImportProcessReq models.TransactionImportProcessRequest
 	err := c.ShouldBindQuery(&transactionImportProcessReq)

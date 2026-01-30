@@ -1,24 +1,24 @@
-package services
+﻿package services
 
 import (
 	"time"
 
 	"xorm.io/xorm"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/datastore"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/uuid"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/datastore"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/uuid"
 )
 
-// TransactionTemplateService represents transaction template service
+
 type TransactionTemplateService struct {
 	ServiceUsingDB
 	ServiceUsingUuid
 }
 
-// Initialize a transaction template service singleton instance
+
 var (
 	TransactionTemplates = &TransactionTemplateService{
 		ServiceUsingDB: ServiceUsingDB{
@@ -30,7 +30,7 @@ var (
 	}
 )
 
-// GetTotalNormalTemplateCountByUid returns total normal template count of user
+
 func (s *TransactionTemplateService) GetTotalNormalTemplateCountByUid(c core.Context, uid int64) (int64, error) {
 	if uid <= 0 {
 		return 0, errs.ErrUserIdInvalid
@@ -41,7 +41,7 @@ func (s *TransactionTemplateService) GetTotalNormalTemplateCountByUid(c core.Con
 	return count, err
 }
 
-// GetTotalScheduledTemplateCountByUid returns total scheduled transaction count of user
+
 func (s *TransactionTemplateService) GetTotalScheduledTemplateCountByUid(c core.Context, uid int64) (int64, error) {
 	if uid <= 0 {
 		return 0, errs.ErrUserIdInvalid
@@ -52,7 +52,7 @@ func (s *TransactionTemplateService) GetTotalScheduledTemplateCountByUid(c core.
 	return count, err
 }
 
-// GetAllTemplatesByUid returns all transaction template models of user
+
 func (s *TransactionTemplateService) GetAllTemplatesByUid(c core.Context, uid int64, templateType models.TransactionTemplateType) ([]*models.TransactionTemplate, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -64,7 +64,7 @@ func (s *TransactionTemplateService) GetAllTemplatesByUid(c core.Context, uid in
 	return templates, err
 }
 
-// GetTemplateByTemplateId returns a transaction template model according to transaction template id
+
 func (s *TransactionTemplateService) GetTemplateByTemplateId(c core.Context, uid int64, templateId int64) (*models.TransactionTemplate, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -86,7 +86,7 @@ func (s *TransactionTemplateService) GetTemplateByTemplateId(c core.Context, uid
 	return template, nil
 }
 
-// GetMaxDisplayOrder returns the max display order
+
 func (s *TransactionTemplateService) GetMaxDisplayOrder(c core.Context, uid int64, templateType models.TransactionTemplateType) (int32, error) {
 	if uid <= 0 {
 		return 0, errs.ErrUserIdInvalid
@@ -106,7 +106,7 @@ func (s *TransactionTemplateService) GetMaxDisplayOrder(c core.Context, uid int6
 	}
 }
 
-// CreateTemplate saves a new transaction template model to database
+
 func (s *TransactionTemplateService) CreateTemplate(c core.Context, template *models.TransactionTemplate) error {
 	if template.Uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -134,7 +134,7 @@ func (s *TransactionTemplateService) CreateTemplate(c core.Context, template *mo
 	})
 }
 
-// ModifyTemplate saves an existed transaction template model to database
+
 func (s *TransactionTemplateService) ModifyTemplate(c core.Context, template *models.TransactionTemplate) error {
 	if template.Uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -161,7 +161,7 @@ func (s *TransactionTemplateService) ModifyTemplate(c core.Context, template *mo
 	})
 }
 
-// HideTemplate updates hidden field of given transaction templates
+
 func (s *TransactionTemplateService) HideTemplate(c core.Context, uid int64, ids []int64, hidden bool) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -187,7 +187,7 @@ func (s *TransactionTemplateService) HideTemplate(c core.Context, uid int64, ids
 	})
 }
 
-// ModifyTemplateDisplayOrders updates display order of given transaction templates
+
 func (s *TransactionTemplateService) ModifyTemplateDisplayOrders(c core.Context, uid int64, templates []*models.TransactionTemplate) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -213,7 +213,7 @@ func (s *TransactionTemplateService) ModifyTemplateDisplayOrders(c core.Context,
 	})
 }
 
-// DeleteTemplate deletes an existed transaction template from database
+
 func (s *TransactionTemplateService) DeleteTemplate(c core.Context, uid int64, templateId int64) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -239,7 +239,7 @@ func (s *TransactionTemplateService) DeleteTemplate(c core.Context, uid int64, t
 	})
 }
 
-// DeleteAllTemplates deletes all existed transaction templates from database
+
 func (s *TransactionTemplateService) DeleteAllTemplates(c core.Context, uid int64) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -264,7 +264,7 @@ func (s *TransactionTemplateService) DeleteAllTemplates(c core.Context, uid int6
 }
 
 func (s *TransactionTemplateService) isTemplateValid(sess *xorm.Session, template *models.TransactionTemplate) error {
-	// check accounts are valid
+	
 	sourceAccount := &models.Account{}
 	destinationAccount := &models.Account{}
 	has, err := sess.ID(template.AccountId).Where("uid=? AND deleted=?", template.Uid, false).Get(sourceAccount)
@@ -301,7 +301,7 @@ func (s *TransactionTemplateService) isTemplateValid(sess *xorm.Session, templat
 		return errs.ErrCannotAddTransactionToParentAccount
 	}
 
-	// check category is valid
+	
 	category := &models.TransactionCategory{}
 	has, err = sess.ID(template.CategoryId).Where("uid=? AND deleted=?", template.Uid, false).Get(category)
 
@@ -325,7 +325,7 @@ func (s *TransactionTemplateService) isTemplateValid(sess *xorm.Session, templat
 		return errs.ErrTransactionCategoryTypeInvalid
 	}
 
-	// check tags are valid
+	
 	tagIds := template.GetTagIds()
 	var tags []*models.TransactionTag
 	err = sess.Where("uid=? AND deleted=?", template.Uid, false).In("tag_id", tagIds).Find(&tags)

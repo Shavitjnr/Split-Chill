@@ -1,4 +1,4 @@
-package utils
+﻿package utils
 
 import (
 	"testing"
@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
 )
 
 func TestParseNumericYearMonth(t *testing.T) {
@@ -20,8 +20,8 @@ func TestParseNumericYearMonth(t *testing.T) {
 
 func TestFormatUnixTimeToLongDate(t *testing.T) {
 	unixTime := int64(1617228083)
-	utcTimezone := time.FixedZone("Test Timezone", 0)      // UTC
-	utc8Timezone := time.FixedZone("Test Timezone", 28800) // UTC+8
+	utcTimezone := time.FixedZone("Test Timezone", 0)      
+	utc8Timezone := time.FixedZone("Test Timezone", 28800) 
 
 	expectedValue := "2021-03-31"
 	actualValue := FormatUnixTimeToLongDate(unixTime, utcTimezone)
@@ -34,8 +34,8 @@ func TestFormatUnixTimeToLongDate(t *testing.T) {
 
 func TestFormatUnixTimeToLongDateTimeWithTimezone(t *testing.T) {
 	unixTime := int64(1617228083)
-	utcTimezone := time.FixedZone("Test Timezone", 0)      // UTC
-	utc8Timezone := time.FixedZone("Test Timezone", 28800) // UTC+8
+	utcTimezone := time.FixedZone("Test Timezone", 0)      
+	utc8Timezone := time.FixedZone("Test Timezone", 28800) 
 
 	expectedValue := "2021-03-31 22:01:23Z"
 	actualValue := FormatUnixTimeToLongDateTimeWithTimezone(unixTime, utcTimezone)
@@ -48,8 +48,8 @@ func TestFormatUnixTimeToLongDateTimeWithTimezone(t *testing.T) {
 
 func TestFormatUnixTimeToLongDateTimeWithTimezoneRFC3339Format(t *testing.T) {
 	unixTime := int64(1617228083)
-	utcTimezone := time.FixedZone("Test Timezone", 0)      // UTC
-	utc8Timezone := time.FixedZone("Test Timezone", 28800) // UTC+8
+	utcTimezone := time.FixedZone("Test Timezone", 0)      
+	utc8Timezone := time.FixedZone("Test Timezone", 28800) 
 
 	expectedValue := "2021-03-31T22:01:23Z"
 	actualValue := FormatUnixTimeToLongDateTimeWithTimezoneRFC3339Format(unixTime, utcTimezone)
@@ -62,8 +62,8 @@ func TestFormatUnixTimeToLongDateTimeWithTimezoneRFC3339Format(t *testing.T) {
 
 func TestFormatUnixTimeToLongDateTime(t *testing.T) {
 	unixTime := int64(1617228083)
-	utcTimezone := time.FixedZone("Test Timezone", 0)      // UTC
-	utc8Timezone := time.FixedZone("Test Timezone", 28800) // UTC+8
+	utcTimezone := time.FixedZone("Test Timezone", 0)      
+	utc8Timezone := time.FixedZone("Test Timezone", 28800) 
 
 	expectedValue := "2021-03-31 22:01:23"
 	actualValue := FormatUnixTimeToLongDateTime(unixTime, utcTimezone)
@@ -93,8 +93,8 @@ func TestFormatYearMonthDayToLongDateTime(t *testing.T) {
 
 func TestFormatUnixTimeToLongDateTimeWithoutSecond(t *testing.T) {
 	unixTime := int64(1617228083)
-	utcTimezone := time.FixedZone("Test Timezone", 0)      // UTC
-	utc8Timezone := time.FixedZone("Test Timezone", 28800) // UTC+8
+	utcTimezone := time.FixedZone("Test Timezone", 0)      
+	utc8Timezone := time.FixedZone("Test Timezone", 28800) 
 
 	expectedValue := "2021-03-31 22:01"
 	actualValue := FormatUnixTimeToLongDateTimeWithoutSecond(unixTime, utcTimezone)
@@ -107,8 +107,8 @@ func TestFormatUnixTimeToLongDateTimeWithoutSecond(t *testing.T) {
 
 func TestFormatUnixTimeToYearMonth(t *testing.T) {
 	unixTime := int64(1617228083)
-	utcTimezone := time.FixedZone("Test Timezone", 0)      // UTC
-	utc8Timezone := time.FixedZone("Test Timezone", 28800) // UTC+8
+	utcTimezone := time.FixedZone("Test Timezone", 0)      
+	utc8Timezone := time.FixedZone("Test Timezone", 28800) 
 
 	expectedValue := "2021-03"
 	actualValue := FormatUnixTimeToYearMonth(unixTime, utcTimezone)
@@ -121,8 +121,8 @@ func TestFormatUnixTimeToYearMonth(t *testing.T) {
 
 func TestFormatUnixTimeToNumericYearMonth(t *testing.T) {
 	unixTime := int64(1617228083)
-	utcTimezone := time.FixedZone("Test Timezone", 0)      // UTC
-	utc8Timezone := time.FixedZone("Test Timezone", 28800) // UTC+8
+	utcTimezone := time.FixedZone("Test Timezone", 0)      
+	utc8Timezone := time.FixedZone("Test Timezone", 28800) 
 
 	expectedValue := int32(202103)
 	actualValue := FormatUnixTimeToNumericYearMonth(unixTime, utcTimezone)
@@ -135,8 +135,8 @@ func TestFormatUnixTimeToNumericYearMonth(t *testing.T) {
 
 func TestFormatUnixTimeToNumericYearMonthDay(t *testing.T) {
 	unixTime := int64(1617228083)
-	utcTimezone := time.FixedZone("Test Timezone", 0)      // UTC
-	utc8Timezone := time.FixedZone("Test Timezone", 28800) // UTC+8
+	utcTimezone := time.FixedZone("Test Timezone", 0)      
+	utc8Timezone := time.FixedZone("Test Timezone", 28800) 
 
 	expectedValue := int32(20210331)
 	actualValue := FormatUnixTimeToNumericYearMonthDay(unixTime, utcTimezone)
@@ -149,8 +149,8 @@ func TestFormatUnixTimeToNumericYearMonthDay(t *testing.T) {
 
 func TestFormatUnixTimeToNumericLocalDateTime(t *testing.T) {
 	unixTime := int64(1617228083)
-	utcTimezone := time.FixedZone("Test Timezone", 0)      // UTC
-	utc8Timezone := time.FixedZone("Test Timezone", 28800) // UTC+8
+	utcTimezone := time.FixedZone("Test Timezone", 0)      
+	utc8Timezone := time.FixedZone("Test Timezone", 28800) 
 
 	expectedValue := int64(20210331220123)
 	actualValue := FormatUnixTimeToNumericLocalDateTime(unixTime, utcTimezone)
@@ -228,7 +228,7 @@ func TestParseFromLongDateTimeInTimeZone(t *testing.T) {
 	londonLocation, err := time.LoadLocation("Europe/London")
 	assert.Equal(t, nil, err)
 
-	// during standard time (UTC+0)
+	
 	expectedValue := int64(1577858483)
 	actualTime, err := ParseFromLongDateTimeInTimeZone("2020-01-01 06:01:23", londonLocation)
 	assert.Equal(t, nil, err)
@@ -236,7 +236,7 @@ func TestParseFromLongDateTimeInTimeZone(t *testing.T) {
 	actualValue := actualTime.Unix()
 	assert.Equal(t, expectedValue, actualValue)
 
-	// during daylight saving time (UTC+1)
+	
 	expectedValue = int64(1619845283)
 	actualTime, err = ParseFromLongDateTimeInTimeZone("2021-05-01 06:01:23", londonLocation)
 	assert.Equal(t, nil, err)
@@ -359,14 +359,14 @@ func TestGetTimezoneOffsetMinutes_TimezoneWithDST(t *testing.T) {
 	londonLocation, err := time.LoadLocation("Europe/London")
 	assert.Equal(t, nil, err)
 
-	// during standard time (UTC+0)
+	
 	expectedValue := int16(0)
-	actualValue := GetTimezoneOffsetMinutes(1577858483, londonLocation) // 2020-01-01 06:01:23 +00:00
+	actualValue := GetTimezoneOffsetMinutes(1577858483, londonLocation) 
 	assert.Equal(t, expectedValue, actualValue)
 
-	// during daylight saving time (UTC+1)
+	
 	expectedValue = int16(60)
-	actualValue = GetTimezoneOffsetMinutes(1619845283, londonLocation) // 2021-05-01 06:01:23 +01:00
+	actualValue = GetTimezoneOffsetMinutes(1619845283, londonLocation) 
 	assert.Equal(t, expectedValue, actualValue)
 }
 
@@ -401,14 +401,14 @@ func TestFormatTimezoneOffset_TimezoneWithDST(t *testing.T) {
 	londonLocation, err := time.LoadLocation("Europe/London")
 	assert.Equal(t, nil, err)
 
-	// during standard time (UTC+0)
+	
 	expectedValue := "+00:00"
-	actualValue := FormatTimezoneOffset(1577858483, londonLocation) // 2020-01-01 06:01:23 +00:00
+	actualValue := FormatTimezoneOffset(1577858483, londonLocation) 
 	assert.Equal(t, expectedValue, actualValue)
 
-	// during daylight saving time (UTC+1)
+	
 	expectedValue = "+01:00"
-	actualValue = FormatTimezoneOffset(1619845283, londonLocation) // 2021-05-01 06:01:23 +01:00
+	actualValue = FormatTimezoneOffset(1619845283, londonLocation) 
 	assert.Equal(t, expectedValue, actualValue)
 }
 
@@ -517,11 +517,11 @@ func TestGetTransactionTimeRangeByYearMonth(t *testing.T) {
 }
 
 func TestGetStartOfDay(t *testing.T) {
-	expectedValue := int64(1617148800) // 2021-03-31 00:00:00 UTC
+	expectedValue := int64(1617148800) 
 	actualValue := GetStartOfDay(time.Unix(1617228083, 0).In(time.UTC))
 	assert.Equal(t, expectedValue, actualValue.Unix())
 
-	expectedValue = int64(1617206400) // 2021-04-01 00:00:00 UTC+8
+	expectedValue = int64(1617206400) 
 	actualValue = GetStartOfDay(time.Unix(1617228083, 0).In(time.FixedZone("Test Timezone", 28800)))
 	assert.Equal(t, expectedValue, actualValue.Unix())
 }

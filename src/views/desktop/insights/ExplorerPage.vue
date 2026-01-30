@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <v-row class="match-height">
         <v-col cols="12">
             <v-card>
@@ -392,7 +392,7 @@ function init(initProps: InsightsExplorerProps): void {
         if (explorersStore.currentInsightsExplorer.id !== initProps.initId) {
             needReload = true;
         }
-    } else if (!initProps.initId && !initProps.initActiveTab && !initProps.initDateRangeType && !initProps.initStartTime && !initProps.initEndTime) { // first time open the page
+    } else if (!initProps.initId && !initProps.initActiveTab && !initProps.initDateRangeType && !initProps.initStartTime && !initProps.initEndTime) { 
         explorersStore.updateCurrentInsightsExplorer(InsightsExplorer.createNewExplorer(generateRandomUUID()));
         isCurrentExplorerModified.value = true;
     }
@@ -640,7 +640,7 @@ function exportResults(): void {
 }
 
 function setDateFilter(dateType: number): void {
-    if (dateType === DateRange.Custom.type) { // Custom
+    if (dateType === DateRange.Custom.type) { 
         showCustomDateRangeDialog.value = true;
         return;
     } else if (currentFilter.value.dateRangeType === dateType) {

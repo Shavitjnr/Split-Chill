@@ -1,23 +1,23 @@
-package mcp
+﻿package mcp
 
 import (
 	"encoding/json"
 	"reflect"
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 const transactionTypeIncome = "income"
 const transactionTypeExpense = "expense"
 const transactionTypeTransfer = "transfer"
 
-// MCPAddTransactionRequest represents all parameters of the add transaction request
+
 type MCPAddTransactionRequest struct {
 	Type                   string   `json:"type" jsonschema:"enum=income,enum=expense,enum=transfer" jsonschema_description:"Transaction type (income, expense, transfer)"`
 	Time                   string   `json:"time" jsonschema:"format=date-time" jsonschema_description:"Transaction time in RFC 3339 format (e.g. 2023-01-01T12:00:00Z)"`
@@ -31,7 +31,7 @@ type MCPAddTransactionRequest struct {
 	DryRun                 bool     `json:"dry_run,omitempty" jsonschema_description:"If true, the transaction will not be saved, only validated (optional)"`
 }
 
-// MCPAddTransactionResponse represents the response structure for add transaction
+
 type MCPAddTransactionResponse struct {
 	Success                   bool   `json:"success" jsonschema_description:"Indicates whether this operation is successful"`
 	DryRun                    bool   `json:"dry_run,omitempty" jsonschema_description:"Indicates whether this operation is a dry run (transaction not saved actually)"`
@@ -43,27 +43,27 @@ type mcpAddTransactionToolHandler struct{}
 
 var MCPAddTransactionToolHandler = &mcpAddTransactionToolHandler{}
 
-// Name returns the name of the MCP tool
+
 func (h *mcpAddTransactionToolHandler) Name() string {
 	return "add_transaction"
 }
 
-// Description returns the description of the MCP tool
+
 func (h *mcpAddTransactionToolHandler) Description() string {
-	return "Add a new transaction in ezBookkeeping."
+	return "Add a new transaction in Split Chill AI."
 }
 
-// InputType returns the input type for the MCP tool request
+
 func (h *mcpAddTransactionToolHandler) InputType() reflect.Type {
 	return reflect.TypeOf(&MCPAddTransactionRequest{})
 }
 
-// OutputType returns the output type for the MCP tool response
+
 func (h *mcpAddTransactionToolHandler) OutputType() reflect.Type {
 	return reflect.TypeOf(&MCPAddTransactionResponse{})
 }
 
-// Handle processes the MCP call tool request and returns the response
+
 func (h *mcpAddTransactionToolHandler) Handle(c *core.WebContext, callToolReq *MCPCallToolRequest, user *models.User, currentConfig *settings.Config, services MCPAvailableServices) (any, []*MCPTextContent, error) {
 	var addTransactionRequest MCPAddTransactionRequest
 

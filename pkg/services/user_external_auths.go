@@ -1,22 +1,22 @@
-package services
+﻿package services
 
 import (
 	"time"
 
 	"xorm.io/xorm"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/datastore"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/datastore"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
 )
 
-// UserExternalAuthService represents user external auth service
+
 type UserExternalAuthService struct {
 	ServiceUsingDB
 }
 
-// Initialize a user external auth service singleton instance
+
 var (
 	UserExternalAuths = &UserExternalAuthService{
 		ServiceUsingDB: ServiceUsingDB{
@@ -25,7 +25,7 @@ var (
 	}
 )
 
-// GetUserAllExternalAuthsByUid returns the user all external auth list according to user uid
+
 func (s *UserExternalAuthService) GetUserAllExternalAuthsByUid(c core.Context, uid int64) ([]*models.UserExternalAuth, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -37,7 +37,7 @@ func (s *UserExternalAuthService) GetUserAllExternalAuthsByUid(c core.Context, u
 	return userExternalAuths, err
 }
 
-// GetUserExternalAuthByUid returns the user external auth record by uid
+
 func (s *UserExternalAuthService) GetUserExternalAuthByUid(c core.Context, uid int64, externalAuthType core.UserExternalAuthType) (*models.UserExternalAuth, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -55,7 +55,7 @@ func (s *UserExternalAuthService) GetUserExternalAuthByUid(c core.Context, uid i
 	return userExternalAuth, err
 }
 
-// GetUserExternalAuthByExternalUserName returns the user external auth record by external username
+
 func (s *UserExternalAuthService) GetUserExternalAuthByExternalUserName(c core.Context, externalUserName string, externalAuthType core.UserExternalAuthType) (*models.UserExternalAuth, error) {
 	userExternalAuth := &models.UserExternalAuth{}
 	has, err := s.UserDB().NewSession(c).Where("external_auth_type=? AND external_username=?", externalAuthType, externalUserName).Get(userExternalAuth)
@@ -69,7 +69,7 @@ func (s *UserExternalAuthService) GetUserExternalAuthByExternalUserName(c core.C
 	return userExternalAuth, err
 }
 
-// GetUserExternalAuthByExternalEmail returns the user external auth record by external email
+
 func (s *UserExternalAuthService) GetUserExternalAuthByExternalEmail(c core.Context, externalEmail string, externalAuthType core.UserExternalAuthType) (*models.UserExternalAuth, error) {
 	userExternalAuth := &models.UserExternalAuth{}
 	has, err := s.UserDB().NewSession(c).Where("external_auth_type=? AND external_email=?", externalAuthType, externalEmail).Get(userExternalAuth)
@@ -83,7 +83,7 @@ func (s *UserExternalAuthService) GetUserExternalAuthByExternalEmail(c core.Cont
 	return userExternalAuth, err
 }
 
-// CreateUserExternalAuth creates a new user external auth record in database
+
 func (s *UserExternalAuthService) CreateUserExternalAuth(c core.Context, userExternalAuth *models.UserExternalAuth) error {
 	if userExternalAuth.Uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -105,7 +105,7 @@ func (s *UserExternalAuthService) CreateUserExternalAuth(c core.Context, userExt
 	})
 }
 
-// DeleteUserExternalAuth deletes given user external auth record from database
+
 func (s *UserExternalAuthService) DeleteUserExternalAuth(c core.Context, uid int64, externalAuthType core.UserExternalAuthType) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <v-dialog width="800" :persistent="isCategoryModified" v-model="showState">
         <v-card class="pa-sm-1 pa-md-2">
             <template #title>
@@ -147,9 +147,9 @@ let resolveFunc: ((value: TransactionCategoryEditResponse) => void) | null = nul
 let rejectFunc: ((reason?: unknown) => void) | null = null;
 
 const isCategoryModified = computed<boolean>(() => {
-    if (!editCategoryId.value) { // Add
+    if (!editCategoryId.value) { 
         return !category.value.equals(TransactionCategory.createNewCategory(category.value.type, category.value.parentId));
-    } else { // Edit
+    } else { 
         return true;
     }
 });

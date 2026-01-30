@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 
 import { useI18n } from '@/locales/helpers.ts';
 
@@ -63,19 +63,19 @@ export function useTagListPageBase() {
     }
 
     return {
-        // states
+        
         activeTagGroupId,
         newTag,
         editingTag,
         loading,
         showHidden,
         displayOrderModified,
-        // computed states
+        
         allTagGroupsWithDefault,
         tags,
         noAvailableTag,
         hasEditingTag,
-        // functions
+        
         isTagModified,
         switchTagGroup,
         add,

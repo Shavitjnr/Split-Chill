@@ -1,12 +1,12 @@
-package feidee
+﻿package feidee
 
 import (
 	"strings"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/datatable"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/datatable"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 var FEIDEE_MYMONEY_ELECLOUD_TRANSACTION_TYPE_MODIFY_BALANCE_NAME = "余额变更"
@@ -29,16 +29,16 @@ var feideeMymoneyElecloudTransactionTypeNameMapping = map[string]models.Transact
 	"退款": models.TRANSACTION_TYPE_EXPENSE,
 }
 
-// feideeMymoneyElecloudTransactionDataRowParser defines the structure of feidee mymoney (elecloud) transaction data row parser
+
 type feideeMymoneyElecloudTransactionDataRowParser struct {
 }
 
-// GetAddedColumns returns the added columns after converting the data row
+
 func (p *feideeMymoneyElecloudTransactionDataRowParser) GetAddedColumns() []datatable.TransactionDataTableColumn {
 	return nil
 }
 
-// Parse returns the converted transaction data row
+
 func (p *feideeMymoneyElecloudTransactionDataRowParser) Parse(data map[datatable.TransactionDataTableColumn]string) (rowData map[datatable.TransactionDataTableColumn]string, rowDataValid bool, err error) {
 	rowData = make(map[datatable.TransactionDataTableColumn]string, len(data))
 
@@ -46,7 +46,7 @@ func (p *feideeMymoneyElecloudTransactionDataRowParser) Parse(data map[datatable
 		rowData[column] = value
 	}
 
-	rowData[datatable.TRANSACTION_DATA_TABLE_AMOUNT] = strings.ReplaceAll(rowData[datatable.TRANSACTION_DATA_TABLE_AMOUNT], ",", "") // remove thousand separator
+	rowData[datatable.TRANSACTION_DATA_TABLE_AMOUNT] = strings.ReplaceAll(rowData[datatable.TRANSACTION_DATA_TABLE_AMOUNT], ",", "") 
 
 	if rowData[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE] == FEIDEE_MYMONEY_ELECLOUD_TRANSACTION_TYPE_MODIFY_BALANCE_NAME {
 		amount, err := utils.ParseAmount(rowData[datatable.TRANSACTION_DATA_TABLE_AMOUNT])
@@ -55,7 +55,7 @@ func (p *feideeMymoneyElecloudTransactionDataRowParser) Parse(data map[datatable
 			return nil, false, errs.ErrAmountInvalid
 		}
 
-		// balance modification transaction in feidee mymoney (elecloud) is not the opening balance transaction, it can be added many times
+		
 		if amount >= 0 {
 			rowData[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE] = FEIDEE_MYMONEY_ELECLOUD_TRANSACTION_TYPE_INCOME_NAME
 		} else {
@@ -69,7 +69,7 @@ func (p *feideeMymoneyElecloudTransactionDataRowParser) Parse(data map[datatable
 			return nil, false, errs.ErrAmountInvalid
 		}
 
-		// outstanding balance modification transaction in feidee mymoney app is not the opening balance transaction, it can be added many times
+		
 		if amount >= 0 {
 			rowData[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE] = FEIDEE_MYMONEY_ELECLOUD_TRANSACTION_TYPE_EXPENSE_NAME
 		} else {
@@ -81,7 +81,7 @@ func (p *feideeMymoneyElecloudTransactionDataRowParser) Parse(data map[datatable
 	return rowData, true, nil
 }
 
-// createFeideeMymoneyElecloudTransactionDataRowParser returns feidee mymoney (elecloud) transaction data row parser
+
 func createFeideeMymoneyElecloudTransactionDataRowParser() datatable.TransactionDataRowParser {
 	return &feideeMymoneyElecloudTransactionDataRowParser{}
 }

@@ -1,16 +1,16 @@
-package openai
+﻿package openai
 
 import (
 	"net/http"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/llm/provider"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/llm/provider"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
 const openAICompatibleChatCompletionsPath = "chat/completions"
 
-// OpenAICompatibleChatCompletionsAPIProvider defines the structure of OpenAI compatible chat completions API provider
+
 type OpenAICompatibleChatCompletionsAPIProvider struct {
 	OpenAIChatCompletionsAPIProvider
 	OpenAICompatibleBaseURL string
@@ -18,7 +18,7 @@ type OpenAICompatibleChatCompletionsAPIProvider struct {
 	OpenAICompatibleModelID string
 }
 
-// BuildChatCompletionsHttpRequest returns the chat completions http request by OpenAI compatible chat completions API provider
+
 func (p *OpenAICompatibleChatCompletionsAPIProvider) BuildChatCompletionsHttpRequest(c core.Context, uid int64) (*http.Request, error) {
 	req, err := http.NewRequest("POST", p.getFinalChatCompletionsRequestUrl(), nil)
 
@@ -33,7 +33,7 @@ func (p *OpenAICompatibleChatCompletionsAPIProvider) BuildChatCompletionsHttpReq
 	return req, nil
 }
 
-// GetModelID returns the model id of OpenAI compatible chat completions API provider
+
 func (p *OpenAICompatibleChatCompletionsAPIProvider) GetModelID() string {
 	return p.OpenAICompatibleModelID
 }
@@ -49,7 +49,7 @@ func (p *OpenAICompatibleChatCompletionsAPIProvider) getFinalChatCompletionsRequ
 	return url
 }
 
-// NewOpenAICompatibleLargeLanguageModelProvider creates a new OpenAI compatible large language model provider instance
+
 func NewOpenAICompatibleLargeLanguageModelProvider(llmConfig *settings.LLMConfig, enableResponseLog bool) provider.LargeLanguageModelProvider {
 	return newCommonOpenAIChatCompletionsAPILargeLanguageModelAdapter(llmConfig, enableResponseLog, &OpenAICompatibleChatCompletionsAPIProvider{
 		OpenAICompatibleBaseURL: llmConfig.OpenAICompatibleBaseURL,

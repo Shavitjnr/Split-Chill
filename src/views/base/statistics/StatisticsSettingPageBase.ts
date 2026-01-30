@@ -1,4 +1,4 @@
-import { computed } from 'vue';
+﻿import { computed } from 'vue';
 
 import { useI18n } from '@/locales/helpers.ts';
 
@@ -75,7 +75,7 @@ export function useStatisticsSettingPageBase() {
     });
 
     return {
-        // computed states
+        
         allChartDataTypes,
         allTimezoneTypesUsedForStatistics,
         allSortingTypes,

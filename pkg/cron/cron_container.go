@@ -1,17 +1,17 @@
-package cron
+﻿package cron
 
 import (
 	"time"
 
 	"github.com/go-co-op/gocron/v2"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
-// CronJobSchedulerContainer contains the current cron job scheduler
+
 type CronJobSchedulerContainer struct {
 	scheduler        gocron.Scheduler
 	allJobs          []*CronJob
@@ -19,7 +19,7 @@ type CronJobSchedulerContainer struct {
 	allGocronJobsMap map[string]gocron.Job
 }
 
-// Initialize a cron job scheduler container singleton instance
+
 var (
 	Container = &CronJobSchedulerContainer{
 		allJobsMap:       make(map[string]*CronJob),
@@ -27,7 +27,7 @@ var (
 	}
 )
 
-// InitializeCronJobSchedulerContainer initializes the cron job scheduler according to the config
+
 func InitializeCronJobSchedulerContainer(ctx core.Context, config *settings.Config, startScheduler bool) error {
 	var err error
 
@@ -49,12 +49,12 @@ func InitializeCronJobSchedulerContainer(ctx core.Context, config *settings.Conf
 	return nil
 }
 
-// GetAllJobs returns all the cron jobs
+
 func (c *CronJobSchedulerContainer) GetAllJobs() []*CronJob {
 	return c.allJobs
 }
 
-// SyncRunJobNow runs the specified cron job synchronously now
+
 func (c *CronJobSchedulerContainer) SyncRunJobNow(jobName string) error {
 	if jobName == "" {
 		return errs.ErrCronJobNameIsEmpty

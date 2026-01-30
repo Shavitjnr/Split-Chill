@@ -1,4 +1,4 @@
-import { computed } from 'vue';
+﻿import { computed } from 'vue';
 
 import { useI18n } from '@/locales/helpers.ts';
 
@@ -128,9 +128,9 @@ export function useTrendsChartBase<T extends TrendsChartDateType>(props: CommonT
     }
 
     return {
-        // computed states
+        
         allDateRanges,
-        // functions
+        
         getItemName
     };
 }

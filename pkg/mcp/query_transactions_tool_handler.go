@@ -1,4 +1,4 @@
-package mcp
+﻿package mcp
 
 import (
 	"encoding/json"
@@ -6,15 +6,15 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
-// MCPQueryTransactionsRequest represents all parameters of the query transactions request
+
 type MCPQueryTransactionsRequest struct {
 	StartTime             string `json:"start_time" jsonschema:"format=date-time" jsonschema_description:"Start time for the query in RFC 3339 format (e.g. 2023-01-01T12:00:00Z)"`
 	EndTime               string `json:"end_time" jsonschema:"format=date-time" jsonschema_description:"End time for the query in RFC 3339 format or (e.g. 2023-01-01T12:00:00Z)"`
@@ -27,7 +27,7 @@ type MCPQueryTransactionsRequest struct {
 	ResponseFields        string `json:"response_fields,omitempty" jsonschema_description:"Comma-separated list of optional fields to include in the response (optional, leave empty for all fields, available fields: time, currency, category_name, account_name, comment)"`
 }
 
-// MCPQueryTransactionsResponse represents the response structure for querying transactions
+
 type MCPQueryTransactionsResponse struct {
 	TotalCount   int64                 `json:"total_count" jsonschema_description:"Total number of transactions matching the query"`
 	CurrentPage  int32                 `json:"current_page" jsonschema_description:"Current page number of the results"`
@@ -35,7 +35,7 @@ type MCPQueryTransactionsResponse struct {
 	Transactions []*MCPTransactionInfo `json:"transactions" jsonschema_description:"List of transactions matching the query"`
 }
 
-// MCPTransactionInfo defines the structure of transaction information
+
 type MCPTransactionInfo struct {
 	Time                   string `json:"time,omitempty" jsonschema_description:"Time of the transaction in RFC 3339 format (e.g. 2023-01-01T12:00:00Z)"`
 	Type                   string `json:"type" jsonschema:"enum=income,enum=expense,enum=transfer" jsonschema_description:"Transaction type (income, expense, transfer)"`
@@ -53,27 +53,27 @@ type mcpQueryTransactionsToolHandler struct{}
 
 var MCPQueryTransactionsToolHandler = &mcpQueryTransactionsToolHandler{}
 
-// Name returns the name of the MCP tool
+
 func (h *mcpQueryTransactionsToolHandler) Name() string {
 	return "query_transactions"
 }
 
-// Description returns the description of the MCP tool
+
 func (h *mcpQueryTransactionsToolHandler) Description() string {
 	return "Query transactions based on various filters."
 }
 
-// InputType returns the input type for the MCP tool request
+
 func (h *mcpQueryTransactionsToolHandler) InputType() reflect.Type {
 	return reflect.TypeOf(&MCPQueryTransactionsRequest{})
 }
 
-// OutputType returns the output type for the MCP tool response
+
 func (h *mcpQueryTransactionsToolHandler) OutputType() reflect.Type {
 	return reflect.TypeOf(&MCPQueryTransactionsResponse{})
 }
 
-// Handle processes the MCP call tool request and returns the response
+
 func (h *mcpQueryTransactionsToolHandler) Handle(c *core.WebContext, callToolReq *MCPCallToolRequest, user *models.User, currentConfig *settings.Config, services MCPAvailableServices) (any, []*MCPTextContent, error) {
 	var queryTransactionsRequest MCPQueryTransactionsRequest
 

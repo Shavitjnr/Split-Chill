@@ -1,27 +1,27 @@
-package converter
+﻿package converter
 
 import (
 	"sort"
 	"strings"
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/datatable"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
-	"github.com/mayswind/ezbookkeeping/pkg/validators"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/datatable"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/validators"
 )
 
 type TransactionGeoLocationOrder string
 
 const (
-	TRANSACTION_GEO_LOCATION_ORDER_LONGITUDE_LATITUDE TransactionGeoLocationOrder = "lonlat" // longitude first, then latitude
-	TRANSACTION_GEO_LOCATION_ORDER_LATITUDE_LONGITUDE TransactionGeoLocationOrder = "latlon" // latitude first, then longitude
+	TRANSACTION_GEO_LOCATION_ORDER_LONGITUDE_LATITUDE TransactionGeoLocationOrder = "lonlat" 
+	TRANSACTION_GEO_LOCATION_ORDER_LATITUDE_LONGITUDE TransactionGeoLocationOrder = "latlon" 
 )
 
-// DataTableTransactionDataImporter defines the structure of plain text data table importer for transaction data
+
 type DataTableTransactionDataImporter struct {
 	transactionTypeMapping  map[string]models.TransactionType
 	geoLocationSeparator    string
@@ -29,7 +29,7 @@ type DataTableTransactionDataImporter struct {
 	transactionTagSeparator string
 }
 
-// ParseImportedData returns the imported transaction data
+
 func (c *DataTableTransactionDataImporter) ParseImportedData(ctx core.Context, user *models.User, dataTable datatable.TransactionDataTable, defaultTimezone *time.Location, additionalOptions TransactionDataImporterOptions, accountMap map[string]*models.Account, expenseCategoryMap map[string]map[string]*models.TransactionCategory, incomeCategoryMap map[string]map[string]*models.TransactionCategory, transferCategoryMap map[string]map[string]*models.TransactionCategory, tagMap map[string]*models.TransactionTag) (models.ImportedTransactionSlice, []*models.Account, []*models.TransactionCategory, []*models.TransactionCategory, []*models.TransactionCategory, []*models.TransactionTag, error) {
 	if dataTable.TransactionRowCount() < 1 {
 		log.Errorf(ctx, "[data_table_transaction_data_importer.ParseImportedData] cannot parse import data for user \"uid:%d\", because data table row count is less 1", user.Uid)
@@ -529,7 +529,7 @@ func (c *DataTableTransactionDataImporter) createNewTransactionTagModel(uid int6
 	}
 }
 
-// CreateNewImporterWithTypeNameMapping returns a new data table transaction data importer according to the specified arguments
+
 func CreateNewImporterWithTypeNameMapping(transactionTypeMapping map[models.TransactionType]string, geoLocationSeparator string, geoLocationOrder TransactionGeoLocationOrder, transactionTagSeparator string) *DataTableTransactionDataImporter {
 	return &DataTableTransactionDataImporter{
 		transactionTypeMapping:  buildTransactionNameTypeMap(transactionTypeMapping),
@@ -539,14 +539,14 @@ func CreateNewImporterWithTypeNameMapping(transactionTypeMapping map[models.Tran
 	}
 }
 
-// CreateNewSimpleImporter returns a new data table transaction data importer according to the specified arguments
+
 func CreateNewSimpleImporter(transactionTypeMapping map[string]models.TransactionType) *DataTableTransactionDataImporter {
 	return &DataTableTransactionDataImporter{
 		transactionTypeMapping: transactionTypeMapping,
 	}
 }
 
-// CreateNewSimpleImporterWithTypeNameMapping returns a new data table transaction data importer according to the specified arguments
+
 func CreateNewSimpleImporterWithTypeNameMapping(transactionTypeMapping map[models.TransactionType]string) *DataTableTransactionDataImporter {
 	return &DataTableTransactionDataImporter{
 		transactionTypeMapping: buildTransactionNameTypeMap(transactionTypeMapping),

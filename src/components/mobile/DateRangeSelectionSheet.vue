@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <f7-sheet swipe-to-close swipe-handler=".swipe-handler" style="height:auto"
               :opened="show" @sheet:open="onSheetOpen" @sheet:closed="onSheetClosed">
         <div class="swipe-handler"></div>
@@ -98,7 +98,7 @@ function onSheetOpen(): void {
         dateRange.value[1] = getLocalDatetimeFromSameDateTimeOfUnixTime(props.maxTime);
     }
 
-    window.dispatchEvent(new Event('resize')); // fix vue-datepicker preset max-width
+    window.dispatchEvent(new Event('resize')); 
     datetimepicker.value?.switchView('calendar');
 }
 

@@ -1,10 +1,10 @@
-package errs
+﻿package errs
 
 import (
 	"net/http"
 )
 
-// Error codes related to oauth 2.0
+
 var (
 	ErrOAuth2NotEnabled                    = NewNormalError(NormalSubcategoryOAuth2, 0, http.StatusBadRequest, "oauth2 not enabled")
 	ErrOAuth2AutoRegistrationNotEnabled    = NewNormalError(NormalSubcategoryOAuth2, 1, http.StatusBadRequest, "oauth2 auto registration not enabled")

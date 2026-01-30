@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 
 import type { TransactionCategory } from '@/models/transaction_category.ts';
 
@@ -19,10 +19,10 @@ export function useCategoryListPageBase() {
     });
 
     return {
-        // states
+        
         loading,
         primaryCategoryId,
-        // computed states
+        
         currentPrimaryCategory
     };
 }

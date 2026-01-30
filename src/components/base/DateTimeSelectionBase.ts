@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 
 import { useI18n } from '@/locales/helpers.ts';
 
@@ -97,15 +97,15 @@ export function useDateTimeSelectionBase() {
     }
 
     return {
-        // states
+        
         is24Hour,
         isHourTwoDigits,
         isMinuteTwoDigits,
         isSecondTwoDigits,
         isMeridiemIndicatorFirst,
-        // computed
+        
         meridiemItems,
-        // functions
+        
         getLocalDatetimeFromSameDateTimeOfUnixTime,
         getUnixTimeFromSameDateTimeOfLocalDatetime,
         getDisplayTimeValue,

@@ -1,4 +1,4 @@
-package ollama
+﻿package ollama
 
 import (
 	"bytes"
@@ -6,25 +6,25 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/llm/data"
-	"github.com/mayswind/ezbookkeeping/pkg/llm/provider"
-	"github.com/mayswind/ezbookkeeping/pkg/llm/provider/common"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/llm/data"
+	"github.com/Shavitjnr/split-chill-ai/pkg/llm/provider"
+	"github.com/Shavitjnr/split-chill-ai/pkg/llm/provider/common"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
 const ollamaChatCompletionsPath = "api/chat"
 
-// OllamaLargeLanguageModelAdapter defines the structure of Ollama large language model adapter
+
 type OllamaLargeLanguageModelAdapter struct {
 	common.HttpLargeLanguageModelAdapter
 	OllamaServerURL string
 	OllamaModelID   string
 }
 
-// OllamaMessageRole defines the role of Ollama chat message
+
 type OllamaMessageRole string
 
 const (
@@ -32,7 +32,7 @@ const (
 	OllamaMessageRoleUser   OllamaMessageRole = "user"
 )
 
-// OllamaChatRequest defines the structure of Ollama chat request
+
 type OllamaChatRequest struct {
 	Model    string                      `json:"model"`
 	Stream   bool                        `json:"stream"`
@@ -40,24 +40,24 @@ type OllamaChatRequest struct {
 	Format   string                      `json:"format,omitempty"`
 }
 
-// OllamaChatRequestMessage defines the structure of Ollama chat request message
+
 type OllamaChatRequestMessage struct {
 	Role    OllamaMessageRole `json:"role"`
 	Content string            `json:"content"`
 	Images  []string          `json:"images,omitempty"`
 }
 
-// OllamaChatResponse defines the structure of Ollama chat response
+
 type OllamaChatResponse struct {
 	Message *OllamaChatResponseMessage `json:"message"`
 }
 
-// OllamaChatResponseMessage defines the structure of Ollama chat response message
+
 type OllamaChatResponseMessage struct {
 	Content *string `json:"content"`
 }
 
-// BuildTextualRequest returns the http request by Ollama large language model adapter
+
 func (p *OllamaLargeLanguageModelAdapter) BuildTextualRequest(c core.Context, uid int64, request *data.LargeLanguageModelRequest, responseType data.LargeLanguageModelResponseFormat) (*http.Request, error) {
 	requestBody, err := p.buildJsonRequestBody(c, uid, request, responseType)
 
@@ -76,7 +76,7 @@ func (p *OllamaLargeLanguageModelAdapter) BuildTextualRequest(c core.Context, ui
 	return httpRequest, nil
 }
 
-// ParseTextualResponse returns the textual response by Ollama large language model adapter
+
 func (p *OllamaLargeLanguageModelAdapter) ParseTextualResponse(c core.Context, uid int64, body []byte, responseType data.LargeLanguageModelResponseFormat) (*data.LargeLanguageModelTextualResponse, error) {
 	chatResponse := &OllamaChatResponse{}
 	err := json.Unmarshal(body, &chatResponse)
@@ -157,7 +157,7 @@ func (p *OllamaLargeLanguageModelAdapter) getOllamaRequestUrl() string {
 	return url
 }
 
-// NewOllamaLargeLanguageModelProvider creates a new Ollama large language model provider instance
+
 func NewOllamaLargeLanguageModelProvider(llmConfig *settings.LLMConfig, enableResponseLog bool) provider.LargeLanguageModelProvider {
 	return common.NewCommonHttpLargeLanguageModelProvider(llmConfig, enableResponseLog, &OllamaLargeLanguageModelAdapter{
 		OllamaServerURL: llmConfig.OllamaServerURL,

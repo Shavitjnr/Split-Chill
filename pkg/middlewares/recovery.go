@@ -1,4 +1,4 @@
-package middlewares
+﻿package middlewares
 
 import (
 	"bytes"
@@ -6,10 +6,10 @@ import (
 	"os"
 	"runtime"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 var (
@@ -19,7 +19,7 @@ var (
 	slash     = []byte("/")
 )
 
-// Recovery logs error message when error occurs
+
 func Recovery(c *core.WebContext) {
 	defer func() {
 		if err := recover(); err != nil {
@@ -33,7 +33,6 @@ func Recovery(c *core.WebContext) {
 	c.Next()
 }
 
-// The following code is from recovery.go of gin
 
 func stack(skip int) []byte {
 	buf := new(bytes.Buffer)

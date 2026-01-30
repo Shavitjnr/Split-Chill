@@ -1,4 +1,4 @@
-package cron
+﻿package cron
 
 import (
 	"testing"
@@ -7,7 +7,7 @@ import (
 	"github.com/go-co-op/gocron/v2"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
 )
 
 func TestCronJobNextRunTimeWithIntervalPeriod(t *testing.T) {
@@ -134,7 +134,7 @@ func TestCronJobNextRunTimeWithEvery15MinutesPeriod(t *testing.T) {
 	nextMinuteTime := time.Now()
 
 	if (nextMinuteTime.Minute() == 0 || nextMinuteTime.Minute() == 15 || nextMinuteTime.Minute() == 30 || nextMinuteTime.Minute() == 45) && nextMinuteTime.Second() < int(expectedSecond) {
-		// Do Nothing
+		
 	} else {
 		nextMinute := ((nextMinuteTime.Minute() / 15) + 1) * 15
 		minuteDiff := nextMinute - nextMinuteTime.Minute()

@@ -1,4 +1,4 @@
-package duplicatechecker
+﻿package duplicatechecker
 
 import (
 	"fmt"
@@ -7,17 +7,17 @@ import (
 
 	"github.com/patrickmn/go-cache"
 
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
-// InMemoryDuplicateChecker represents in-memory duplicate checker
+
 type InMemoryDuplicateChecker struct {
 	cache *cache.Cache
 
 	mutex sync.Mutex
 }
 
-// NewInMemoryDuplicateChecker returns a new in-memory duplicate checker
+
 func NewInMemoryDuplicateChecker(config *settings.Config) (*InMemoryDuplicateChecker, error) {
 	checker := &InMemoryDuplicateChecker{
 		cache: cache.New(config.DuplicateSubmissionsIntervalDuration, config.InMemoryDuplicateCheckerCleanupIntervalDuration),
@@ -26,7 +26,7 @@ func NewInMemoryDuplicateChecker(config *settings.Config) (*InMemoryDuplicateChe
 	return checker, nil
 }
 
-// GetSubmissionRemark returns whether the same submission has been processed and related remark
+
 func (c *InMemoryDuplicateChecker) GetSubmissionRemark(checkerType DuplicateCheckerType, uid int64, identification string) (bool, string) {
 	existedRemark, found := c.cache.Get(c.getCacheKey(checkerType, uid, identification))
 
@@ -37,22 +37,22 @@ func (c *InMemoryDuplicateChecker) GetSubmissionRemark(checkerType DuplicateChec
 	return false, ""
 }
 
-// SetSubmissionRemark saves the identification and remark to in-memory cache
+
 func (c *InMemoryDuplicateChecker) SetSubmissionRemark(checkerType DuplicateCheckerType, uid int64, identification string, remark string) {
 	c.cache.Set(c.getCacheKey(checkerType, uid, identification), remark, cache.DefaultExpiration)
 }
 
-// SetSubmissionRemarkWithCustomExpiration saves the identification and remark to in-memory cache with custom expiration time
+
 func (c *InMemoryDuplicateChecker) SetSubmissionRemarkWithCustomExpiration(checkerType DuplicateCheckerType, uid int64, identification string, remark string, expiration time.Duration) {
 	c.cache.Set(c.getCacheKey(checkerType, uid, identification), remark, expiration)
 }
 
-// RemoveSubmissionRemark removes the identification and remark in in-memory cache
+
 func (c *InMemoryDuplicateChecker) RemoveSubmissionRemark(checkerType DuplicateCheckerType, uid int64, identification string) {
 	c.cache.Delete(c.getCacheKey(checkerType, uid, identification))
 }
 
-// GetOrSetCronJobRunningInfo returns the running info when the cron job is running or saves the running info by the current duplicate checker
+
 func (c *InMemoryDuplicateChecker) GetOrSetCronJobRunningInfo(jobName string, runningInfo string, runningInterval time.Duration) (bool, string) {
 	c.mutex.Lock()
 	defer c.mutex.Unlock()
@@ -74,12 +74,12 @@ func (c *InMemoryDuplicateChecker) GetOrSetCronJobRunningInfo(jobName string, ru
 	return false, ""
 }
 
-// RemoveCronJobRunningInfo removes the running info of the cron job by the current duplicate checker
+
 func (c *InMemoryDuplicateChecker) RemoveCronJobRunningInfo(jobName string) {
 	c.cache.Delete(c.getCacheKey(DUPLICATE_CHECKER_TYPE_BACKGROUND_CRON_JOB, 0, jobName))
 }
 
-// GetFailureCount returns the failure count of the specified failure key
+
 func (c *InMemoryDuplicateChecker) GetFailureCount(failureKey string) uint32 {
 	existedFailureCount, found := c.cache.Get(c.getCacheKey(DUPLICATE_CHECKER_TYPE_FAILURE_CHECK, 0, failureKey))
 
@@ -90,7 +90,7 @@ func (c *InMemoryDuplicateChecker) GetFailureCount(failureKey string) uint32 {
 	return 0
 }
 
-// IncreaseFailureCount increases the failure count of the specified failure key
+
 func (c *InMemoryDuplicateChecker) IncreaseFailureCount(failureKey string) uint32 {
 	c.mutex.Lock()
 	defer c.mutex.Unlock()

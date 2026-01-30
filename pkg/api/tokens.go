@@ -1,20 +1,20 @@
-package api
+﻿package api
 
 import (
 	"sort"
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/avatars"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/services"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/avatars"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/services"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
-// TokensApi represents token api
+
 type TokensApi struct {
 	ApiUsingConfig
 	ApiWithUserInfo
@@ -23,7 +23,7 @@ type TokensApi struct {
 	userAppCloudSettings *services.UserApplicationCloudSettingsService
 }
 
-// Initialize a token api singleton instance
+
 var (
 	Tokens = &TokensApi{
 		ApiUsingConfig: ApiUsingConfig{
@@ -43,7 +43,7 @@ var (
 	}
 )
 
-// TokenListHandler returns available token list of current user
+
 func (a *TokensApi) TokenListHandler(c *core.WebContext) (any, *errs.Error) {
 	uid := c.GetCurrentUid()
 	tokens, err := a.tokens.GetAllUnexpiredNormalAndMCPTokensByUid(c, uid)
@@ -83,7 +83,7 @@ func (a *TokensApi) TokenListHandler(c *core.WebContext) (any, *errs.Error) {
 	return tokenResps, nil
 }
 
-// TokenGenerateAPIHandler generates a new API token for current user
+
 func (a *TokensApi) TokenGenerateAPIHandler(c *core.WebContext) (any, *errs.Error) {
 	if !a.CurrentConfig().EnableAPIToken {
 		return nil, errs.ErrAPITokenNotEnabled
@@ -130,7 +130,7 @@ func (a *TokensApi) TokenGenerateAPIHandler(c *core.WebContext) (any, *errs.Erro
 	return generateAPITokenResp, nil
 }
 
-// TokenGenerateMCPHandler generates a new MCP token for current user
+
 func (a *TokensApi) TokenGenerateMCPHandler(c *core.WebContext) (any, *errs.Error) {
 	if !a.CurrentConfig().EnableMCPServer {
 		return nil, errs.ErrMCPServerNotEnabled
@@ -177,7 +177,7 @@ func (a *TokensApi) TokenGenerateMCPHandler(c *core.WebContext) (any, *errs.Erro
 	return generateMCPTokenResp, nil
 }
 
-// TokenRevokeCurrentHandler revokes current token of current user
+
 func (a *TokensApi) TokenRevokeCurrentHandler(c *core.WebContext) (any, *errs.Error) {
 	tokenString := c.GetTokenStringFromHeader()
 
@@ -216,7 +216,7 @@ func (a *TokensApi) TokenRevokeCurrentHandler(c *core.WebContext) (any, *errs.Er
 	return true, nil
 }
 
-// TokenRevokeHandler revokes specific token of current user
+
 func (a *TokensApi) TokenRevokeHandler(c *core.WebContext) (any, *errs.Error) {
 	var tokenRevokeReq models.TokenRevokeRequest
 	err := c.ShouldBindJSON(&tokenRevokeReq)
@@ -270,7 +270,7 @@ func (a *TokensApi) TokenRevokeHandler(c *core.WebContext) (any, *errs.Error) {
 	return true, nil
 }
 
-// TokenRevokeAllHandler revokes all tokens of current user except current token
+
 func (a *TokensApi) TokenRevokeAllHandler(c *core.WebContext) (any, *errs.Error) {
 	uid := c.GetCurrentUid()
 	tokens, err := a.tokens.GetAllTokensByUid(c, uid)
@@ -323,7 +323,7 @@ func (a *TokensApi) TokenRevokeAllHandler(c *core.WebContext) (any, *errs.Error)
 	return true, nil
 }
 
-// TokenRefreshHandler refresh current token of current user
+
 func (a *TokensApi) TokenRefreshHandler(c *core.WebContext) (any, *errs.Error) {
 	uid := c.GetCurrentUid()
 	user, err := a.users.GetUserById(c, uid)

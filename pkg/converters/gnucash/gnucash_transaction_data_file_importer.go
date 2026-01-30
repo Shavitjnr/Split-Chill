@@ -1,12 +1,12 @@
-package gnucash
+﻿package gnucash
 
 import (
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/converter"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/converter"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 var gnucashTransactionTypeNameMapping = map[models.TransactionType]string{
@@ -16,16 +16,16 @@ var gnucashTransactionTypeNameMapping = map[models.TransactionType]string{
 	models.TRANSACTION_TYPE_TRANSFER:       utils.IntToString(int(models.TRANSACTION_TYPE_TRANSFER)),
 }
 
-// gnucashTransactionDataImporter defines the structure of gnucash importer for transaction data
+
 type gnucashTransactionDataImporter struct {
 }
 
-// Initialize a gnucash transaction data importer singleton instance
+
 var (
 	GnuCashTransactionDataImporter = &gnucashTransactionDataImporter{}
 )
 
-// ParseImportedData returns the imported data by parsing the gnucash transaction data
+
 func (c *gnucashTransactionDataImporter) ParseImportedData(ctx core.Context, user *models.User, data []byte, defaultTimezone *time.Location, additionalOptions converter.TransactionDataImporterOptions, accountMap map[string]*models.Account, expenseCategoryMap map[string]map[string]*models.TransactionCategory, incomeCategoryMap map[string]map[string]*models.TransactionCategory, transferCategoryMap map[string]map[string]*models.TransactionCategory, tagMap map[string]*models.TransactionTag) (models.ImportedTransactionSlice, []*models.Account, []*models.TransactionCategory, []*models.TransactionCategory, []*models.TransactionCategory, []*models.TransactionTag, error) {
 	gnucashDataReader, err := createNewGnuCashDatabaseReader(data)
 

@@ -1,4 +1,4 @@
-package mt
+﻿package mt
 
 import (
 	"bufio"
@@ -8,9 +8,9 @@ import (
 	"golang.org/x/text/encoding/unicode"
 	"golang.org/x/text/transform"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
 )
 
 const mtBasicHeaderBlockPrefix = "{1:"
@@ -39,13 +39,12 @@ const (
 	mtTransactionTypeFirstAdvice      = 'F'
 )
 
-// mt940DataReader defines the structure of mt940 data reader
+
 type mt940DataReader struct {
 	allLines []string
 }
 
-// read returns the imported mt940 data
-// Reference: https://www2.swift.com/knowledgecentre/publications/us9m_20230720/2.0?topic=mt940-format-spec.htm
+
 func (r *mt940DataReader) read(ctx core.Context) (*mt940Data, error) {
 	if len(r.allLines) < 1 {
 		return nil, errs.ErrNotFoundTransactionDataInFile
@@ -146,10 +145,10 @@ func (r *mt940DataReader) read(ctx core.Context) (*mt940Data, error) {
 }
 
 func (r *mt940DataReader) parseBalance(ctx core.Context, data string) (*mtBalance, error) {
-	// 1!a (debit/credit mark)
-	// 6!n (date)
-	// 3!a (currency)
-	// 15d (amount)
+	
+	
+	
+	
 	if len(data) < 9 {
 		return nil, errs.ErrInvalidMT940File
 	}
@@ -170,15 +169,15 @@ func (r *mt940DataReader) parseBalance(ctx core.Context, data string) (*mtBalanc
 }
 
 func (r *mt940DataReader) parseStatement(ctx core.Context, data string) (*mtStatement, error) {
-	// 6!n (value date)
-	// [4!n] (entry date, optional)
-	// 2a (debit/credit mark)
-	// [1!a] (funds code, optional)
-	// 15d (amount)
-	// 1!a3!c (transaction type identification code)
-	// 16x (reference for account owner)
-	// [//16x] (reference of account servicing institution, optional)
-	// [34x] (supplementary details, optional)
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	if len(data) < 6 {
 		return nil, errs.ErrInvalidMT940File
 	}
@@ -189,13 +188,13 @@ func (r *mt940DataReader) parseStatement(ctx core.Context, data string) (*mtStat
 
 	currentIndex := 6
 
-	// parse entry date if available
+	
 	if len(data) >= currentIndex+4 && '0' <= data[currentIndex] && data[currentIndex] <= '9' {
 		statement.EntryDate = data[6:10]
 		currentIndex += 4
 	}
 
-	// parse debit/credit indicator
+	
 	if len(data) >= currentIndex+1 && (data[currentIndex] == MT_MARK_DEBIT[0] || data[currentIndex] == MT_MARK_CREDIT[0]) {
 		statement.CreditDebitMark = mtCreditDebitMark(data[currentIndex])
 		currentIndex++
@@ -207,13 +206,13 @@ func (r *mt940DataReader) parseStatement(ctx core.Context, data string) (*mtStat
 		return nil, errs.ErrTransactionTypeInvalid
 	}
 
-	// parse funds code if available
+	
 	if len(data) >= currentIndex+1 && ('A' <= data[currentIndex] && data[currentIndex] <= 'Z') {
 		statement.FundsCode = string(data[currentIndex])
 		currentIndex++
 	}
 
-	// parse amount
+	
 	amountValue := ""
 	for i := currentIndex; i < len(data); i++ {
 		if len(amountValue) < 15 && ('0' <= data[i] && data[i] <= '9' || data[i] == ',') {
@@ -230,7 +229,7 @@ func (r *mt940DataReader) parseStatement(ctx core.Context, data string) (*mtStat
 		return nil, errs.ErrAmountInvalid
 	}
 
-	// parse transaction type identification code
+	
 	if len(data) >= currentIndex+4 && (data[currentIndex] == uint8(mtTransactionTypeSwiftTransfer) || data[currentIndex] == uint8(mtTransactionTypeNonSwiftTransfer) || data[currentIndex] == uint8(mtTransactionTypeFirstAdvice)) {
 		statement.TransactionTypeIdentificationCode = data[currentIndex : currentIndex+4]
 		currentIndex += 4
@@ -239,7 +238,7 @@ func (r *mt940DataReader) parseStatement(ctx core.Context, data string) (*mtStat
 		return nil, errs.ErrInvalidMT940File
 	}
 
-	// parse reference for account owner if available
+	
 	accountOwnerReference := ""
 	for i := currentIndex; i < len(data); i++ {
 		if len(accountOwnerReference) < 16 && (data[i] != '/' || (data[i] == '/' && (i >= len(data)-1 || data[i+1] != '/'))) {
@@ -256,7 +255,7 @@ func (r *mt940DataReader) parseStatement(ctx core.Context, data string) (*mtStat
 		return nil, errs.ErrInvalidMT940File
 	}
 
-	// parse reference of account servicing institution if available
+	
 	if len(data) >= currentIndex+3 && data[currentIndex] == '/' && data[currentIndex+1] == '/' {
 		accountServicingInstitutionReference := ""
 		currentIndex += 2

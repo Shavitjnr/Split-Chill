@@ -1,4 +1,4 @@
-package exchangerates
+﻿package exchangerates
 
 import (
 	"bytes"
@@ -9,12 +9,12 @@ import (
 
 	"golang.org/x/net/html/charset"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
-	"github.com/mayswind/ezbookkeeping/pkg/validators"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/validators"
 )
 
 const norgesBankExchangeRateUrl = "https://data.norges-bank.no/api/data/EXR/B..NOK.SP?format=sdmx-compact-2.1&lastNObservations=1"
@@ -25,23 +25,23 @@ const norgesBankBaseCurrency = "NOK"
 const norgesBankUpdateDateFormat = "2006-01-02 15"
 const norgesBankUpdateDateTimezone = "Europe/Oslo"
 
-// NorgesBankDataSource defines the structure of exchange rates data source of Norges Bank
+
 type NorgesBankDataSource struct {
 	HttpExchangeRatesDataSource
 }
 
-// NorgesBankExchangeRateData represents the whole data from Norges Bank
+
 type NorgesBankExchangeRateData struct {
 	XMLName xml.Name                       `xml:"StructureSpecificData"`
 	DataSet *NorgesBankExchangeRateDataSet `xml:"DataSet"`
 }
 
-// NorgesBankExchangeRateDataSet represents the dataset for exchange rates data of Norges Bank
+
 type NorgesBankExchangeRateDataSet struct {
 	ExchangeRates []*NorgesBankExchangeRate `xml:"Series"`
 }
 
-// NorgesBankExchangeRate represents the exchange rate data from Norges Bank
+
 type NorgesBankExchangeRate struct {
 	BaseCurrency   string                               `xml:"BASE_CUR,attr"`
 	TargetCurrency string                               `xml:"QUOTE_CUR,attr"`
@@ -49,13 +49,13 @@ type NorgesBankExchangeRate struct {
 	Observations   []*NorgesBankExchangeRateObservation `xml:"Obs"`
 }
 
-// NorgesBankExchangeRateObservation represents the observation data of exchange rate data from Norges Bank
+
 type NorgesBankExchangeRateObservation struct {
 	Date string `xml:"TIME_PERIOD,attr"`
 	Rate string `xml:"OBS_VALUE,attr"`
 }
 
-// ToLatestExchangeRateResponse returns a view-object according to original data from Norges Bank
+
 func (e *NorgesBankExchangeRateData) ToLatestExchangeRateResponse(c core.Context) *models.LatestExchangeRateResponse {
 	if e.DataSet == nil || len(e.DataSet.ExchangeRates) < 1 {
 		log.Errorf(c, "[norges_bank_datasource.ToLatestExchangeRateResponse] all exchange rates is empty")
@@ -87,7 +87,7 @@ func (e *NorgesBankExchangeRateData) ToLatestExchangeRateResponse(c core.Context
 			continue
 		}
 
-		updateDateTime := exchangeRate.Observations[0].Date + " 16" // Publication time of daily exchange rates is approximately 16:00 CET.
+		updateDateTime := exchangeRate.Observations[0].Date + " 16" 
 		updateTime, err := time.ParseInLocation(norgesBankUpdateDateFormat, updateDateTime, timezone)
 
 		if err != nil {
@@ -119,7 +119,7 @@ func (e *NorgesBankExchangeRateData) ToLatestExchangeRateResponse(c core.Context
 	return latestExchangeRateResp
 }
 
-// ToLatestExchangeRate returns a data pair according to original data from Norges Bank
+
 func (e *NorgesBankExchangeRate) ToLatestExchangeRate(c core.Context, exchangeRate string) *models.LatestExchangeRate {
 	rate, err := utils.StringToFloat64(exchangeRate)
 
@@ -159,7 +159,7 @@ func (e *NorgesBankExchangeRate) ToLatestExchangeRate(c core.Context, exchangeRa
 	}
 }
 
-// BuildRequests returns the Norges Bank exchange rates http requests
+
 func (e *NorgesBankDataSource) BuildRequests() ([]*http.Request, error) {
 	req, err := http.NewRequest("GET", norgesBankExchangeRateUrl, nil)
 
@@ -170,7 +170,7 @@ func (e *NorgesBankDataSource) BuildRequests() ([]*http.Request, error) {
 	return []*http.Request{req}, nil
 }
 
-// Parse returns the common response entity according to the Norges Bank data source raw response
+
 func (e *NorgesBankDataSource) Parse(c core.Context, content []byte) (*models.LatestExchangeRateResponse, error) {
 	xmlDecoder := xml.NewDecoder(bytes.NewReader(content))
 	xmlDecoder.CharsetReader = charset.NewReaderLabel

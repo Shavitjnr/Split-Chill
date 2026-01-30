@@ -1,4 +1,4 @@
-package exchangerates
+﻿package exchangerates
 
 import (
 	"bytes"
@@ -9,12 +9,12 @@ import (
 
 	"golang.org/x/net/html/charset"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
-	"github.com/mayswind/ezbookkeeping/pkg/validators"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/validators"
 )
 
 const bankOfIsraelExchangeRateUrl = "https://boi.org.il/PublicApi/GetExchangeRates?asXml=true"
@@ -24,18 +24,18 @@ const bankOfIsraelBaseCurrency = "ILS"
 
 const bankOfIsraelDataUpdateDateFormat = "2006-01-02T15:04:05.9999999Z"
 
-// BankOfIsraelDataSource defines the structure of exchange rates data source of bank of Israel
+
 type BankOfIsraelDataSource struct {
 	HttpExchangeRatesDataSource
 }
 
-// BankOfIsraelExchangeRateData represents the whole data from bank of Israel
+
 type BankOfIsraelExchangeRateData struct {
 	XMLName          xml.Name                    `xml:"ExchangeRatesResponseCollectioDTO"`
 	AllExchangeRates []*BankOfIsraelExchangeRate `xml:"ExchangeRates>ExchangeRateResponseDTO"`
 }
 
-// BankOfIsraelExchangeRate represents the exchange rate data from bank of Israel
+
 type BankOfIsraelExchangeRate struct {
 	Currency   string `xml:"Key"`
 	Rate       string `xml:"CurrentExchangeRate"`
@@ -43,7 +43,7 @@ type BankOfIsraelExchangeRate struct {
 	Unit       string `xml:"Unit"`
 }
 
-// ToLatestExchangeRateResponse returns a view-object according to original data from bank of Israel
+
 func (e *BankOfIsraelExchangeRateData) ToLatestExchangeRateResponse(c core.Context) *models.LatestExchangeRateResponse {
 	if len(e.AllExchangeRates) < 1 {
 		log.Errorf(c, "[bank_of_israel_datasource.ToLatestExchangeRateResponse] all exchange rates is empty")
@@ -91,7 +91,7 @@ func (e *BankOfIsraelExchangeRateData) ToLatestExchangeRateResponse(c core.Conte
 	return latestExchangeRateResp
 }
 
-// ToLatestExchangeRate returns a data pair according to original data from bank of Israel
+
 func (e *BankOfIsraelExchangeRate) ToLatestExchangeRate(c core.Context) *models.LatestExchangeRate {
 	rate, err := utils.StringToFloat64(e.Rate)
 
@@ -129,7 +129,7 @@ func (e *BankOfIsraelExchangeRate) ToLatestExchangeRate(c core.Context) *models.
 	}
 }
 
-// BuildRequests returns the bank of Israel exchange rates http requests
+
 func (e *BankOfIsraelDataSource) BuildRequests() ([]*http.Request, error) {
 	req, err := http.NewRequest("GET", bankOfIsraelExchangeRateUrl, nil)
 
@@ -140,7 +140,7 @@ func (e *BankOfIsraelDataSource) BuildRequests() ([]*http.Request, error) {
 	return []*http.Request{req}, nil
 }
 
-// Parse returns the common response entity according to the bank of Israel data source raw response
+
 func (e *BankOfIsraelDataSource) Parse(c core.Context, content []byte) (*models.LatestExchangeRateResponse, error) {
 	xmlDecoder := xml.NewDecoder(bytes.NewReader(content))
 	xmlDecoder.CharsetReader = charset.NewReaderLabel

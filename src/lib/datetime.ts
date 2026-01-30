@@ -1,4 +1,4 @@
-import moment from 'moment-timezone';
+﻿import moment from 'moment-timezone';
 import { type unitOfTime } from 'moment/moment';
 import 'moment-timezone/moment-timezone-utils';
 
@@ -74,8 +74,8 @@ interface DateTimeFormatResult {
 
 type DateTimeTokenFormatFunction = (d: MomentDateTime, options: DateTimeFormatOptions) => DateTimeFormatResult;
 
-const westernmostTimezoneUtcOffset: number = -720; // Etc/GMT+12 (UTC-12:00)
-const easternmostTimezoneUtcOffset: number = 840; // Pacific/Kiritimati (UTC+14:00)
+const westernmostTimezoneUtcOffset: number = -720; 
+const easternmostTimezoneUtcOffset: number = 840; 
 
 function getFixedTimezoneName(utcOffset: number): string {
     return `Fixed/Timezone${utcOffset}`;
@@ -155,7 +155,7 @@ class MomentDateTime implements DateTime {
         return this.instance.quarter();
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    
     public getLocalizedCalendarQuarter(options: DateTimeFormatOptions): number {
         return this.instance.quarter();
     }
@@ -989,12 +989,7 @@ export function getAllYearsStartAndEndUnixTimes(startYearMonth: Year0BasedMonth 
 }
 
 export function getAllFiscalYearsStartAndEndUnixTimes(startYearMonth: Year0BasedMonth | Year1BasedMonth | TextualYearMonth | '', endYearMonth: Year0BasedMonth | Year1BasedMonth | TextualYearMonth | '', fiscalYearStartValue: number): FiscalYearUnixTime[] {
-    // user selects date range: start=2024-01 and end=2026-12
-    // result should be 4x FiscalYearUnixTime made up of:
-    // - 2024-01->2024-06 (FY 24) - input start year-month->end of fiscal year in which the input start year-month falls
-    // - 2024-07->2025-06 (FY 25) - complete fiscal year
-    // - 2025-07->2026-06 (FY 26) - complete fiscal year
-    // - 2026-07->2026-12 (FY 27) - start of fiscal year->end of fiscal year in which the input end year-month falls
+
 
     const allFiscalYearTimes: FiscalYearUnixTime[] = [];
     const range = getStartEndYearMonthRange(startYearMonth, endYearMonth);
@@ -1011,8 +1006,8 @@ export function getAllFiscalYearsStartAndEndUnixTimes(startYearMonth: Year0Based
         fiscalYearStart = FiscalYearStart.Default;
     }
 
-    // Loop over 1 year before and 1 year after the input date range
-    // to include fiscal years that start in the previous calendar year.
+    
+    
     for (let year = range.startYearMonth.year - 1; year <= range.endYearMonth.year + 1; year++) {
         const thisYearMonthUnixTime = getYearMonthFirstUnixTime({ year: year, month1base: fiscalYearStart.month });
         const fiscalStartTime = getFiscalYearStartUnixTime(thisYearMonthUnixTime, fiscalYearStart.value);
@@ -1144,7 +1139,7 @@ export function getShiftedDateRange(minTime: number, maxTime: number, scale: num
     const firstDayOfMonth = minDateTime.clone().startOf('month');
     const lastDayOfMonth = maxDateTime.clone().endOf('month');
 
-    // check whether the date range matches full months
+    
     if (firstDayOfMonth.unix() === minDateTime.unix() && lastDayOfMonth.unix() === maxDateTime.unix()) {
         const months = maxDateTime.year() * 12 + (maxDateTime.month() + 1) - minDateTime.year() * 12 - (minDateTime.month() + 1) + 1;
         const newMinDateTime = minDateTime.add(months * scale, 'months');
@@ -1156,7 +1151,7 @@ export function getShiftedDateRange(minTime: number, maxTime: number, scale: num
         };
     }
 
-    // check whether the date range matches one full year
+    
     if (minDateTime.clone().add(1, 'years').subtract(1, 'seconds').unix() === maxDateTime.unix() ||
         maxDateTime.clone().subtract(1, 'years').add(1, 'seconds').unix() === minDateTime.unix()) {
         const newMinDateTime = minDateTime.add(1 * scale, 'years');
@@ -1168,7 +1163,7 @@ export function getShiftedDateRange(minTime: number, maxTime: number, scale: num
         };
     }
 
-    // check whether the date range matches one full month
+    
     if (minDateTime.clone().add(1, 'months').subtract(1, 'seconds').unix() === maxDateTime.unix() ||
         maxDateTime.clone().subtract(1, 'months').add(1, 'seconds').unix() === minDateTime.unix()) {
         const newMinDateTime = minDateTime.add(1 * scale, 'months');
@@ -1261,61 +1256,61 @@ export function getDateRangeByDateType(dateType: number | undefined, firstDayOfW
     let maxTime = 0;
     let minTime = 0;
 
-    if (dateType === DateRange.All.type) { // All
+    if (dateType === DateRange.All.type) { 
         maxTime = 0;
         minTime = 0;
-    } else if (dateType === DateRange.Today.type) { // Today
+    } else if (dateType === DateRange.Today.type) { 
         maxTime = getTodayLastUnixTime();
         minTime = getTodayFirstUnixTime();
-    } else if (dateType === DateRange.Yesterday.type) { // Yesterday
+    } else if (dateType === DateRange.Yesterday.type) { 
         maxTime = getUnixTimeBeforeUnixTime(getTodayLastUnixTime(), 1, 'days');
         minTime = getUnixTimeBeforeUnixTime(getTodayFirstUnixTime(), 1, 'days');
-    } else if (dateType === DateRange.LastSevenDays.type) { // Last 7 days
+    } else if (dateType === DateRange.LastSevenDays.type) { 
         maxTime = getTodayLastUnixTime();
         minTime = getUnixTimeBeforeUnixTime(getTodayFirstUnixTime(), 6, 'days');
-    } else if (dateType === DateRange.LastThirtyDays.type) { // Last 30 days
+    } else if (dateType === DateRange.LastThirtyDays.type) { 
         maxTime = getTodayLastUnixTime();
         minTime = getUnixTimeBeforeUnixTime(getTodayFirstUnixTime(), 29, 'days');
-    } else if (dateType === DateRange.ThisWeek.type) { // This week
+    } else if (dateType === DateRange.ThisWeek.type) { 
         maxTime = getThisWeekLastUnixTime(firstDayOfWeek);
         minTime = getThisWeekFirstUnixTime(firstDayOfWeek);
-    } else if (dateType === DateRange.LastWeek.type) { // Last week
+    } else if (dateType === DateRange.LastWeek.type) { 
         maxTime = getUnixTimeBeforeUnixTime(getThisWeekLastUnixTime(firstDayOfWeek), 7, 'days');
         minTime = getUnixTimeBeforeUnixTime(getThisWeekFirstUnixTime(firstDayOfWeek), 7, 'days');
-    } else if (dateType === DateRange.ThisMonth.type) { // This month
+    } else if (dateType === DateRange.ThisMonth.type) { 
         maxTime = getThisMonthLastUnixTime();
         minTime = getThisMonthFirstUnixTime();
-    } else if (dateType === DateRange.LastMonth.type) { // Last month
+    } else if (dateType === DateRange.LastMonth.type) { 
         maxTime = getUnixTimeBeforeUnixTime(getThisMonthFirstUnixTime(), 1, 'seconds');
         minTime = getUnixTimeBeforeUnixTime(getThisMonthFirstUnixTime(), 1, 'months');
-    } else if (dateType === DateRange.ThisYear.type) { // This year
+    } else if (dateType === DateRange.ThisYear.type) { 
         maxTime = getThisYearLastUnixTime();
         minTime = getThisYearFirstUnixTime();
-    } else if (dateType === DateRange.LastYear.type) { // Last year
+    } else if (dateType === DateRange.LastYear.type) { 
         maxTime = getUnixTimeBeforeUnixTime(getThisYearLastUnixTime(), 1, 'years');
         minTime = getUnixTimeBeforeUnixTime(getThisYearFirstUnixTime(), 1, 'years');
-    } else if (dateType === DateRange.ThisFiscalYear.type) { // This fiscal year
+    } else if (dateType === DateRange.ThisFiscalYear.type) { 
         maxTime = getFiscalYearEndUnixTime(getTodayFirstUnixTime(), fiscalYearStart);
         minTime = getFiscalYearStartUnixTime(getTodayFirstUnixTime(), fiscalYearStart);
-    } else if (dateType === DateRange.LastFiscalYear.type) { // Last fiscal year
+    } else if (dateType === DateRange.LastFiscalYear.type) { 
         maxTime = getUnixTimeBeforeUnixTime(getFiscalYearEndUnixTime(getTodayFirstUnixTime(), fiscalYearStart), 1, 'years');
         minTime = getUnixTimeBeforeUnixTime(getFiscalYearStartUnixTime(getTodayFirstUnixTime(), fiscalYearStart), 1, 'years');
-    } else if (dateType === DateRange.RecentTwelveMonths.type) { // Recent 12 months
+    } else if (dateType === DateRange.RecentTwelveMonths.type) { 
         maxTime = getThisMonthLastUnixTime();
         minTime = getUnixTimeBeforeUnixTime(getThisMonthFirstUnixTime(), 11, 'months');
-    } else if (dateType === DateRange.RecentTwentyFourMonths.type) { // Recent 24 months
+    } else if (dateType === DateRange.RecentTwentyFourMonths.type) { 
         maxTime = getThisMonthLastUnixTime();
         minTime = getUnixTimeBeforeUnixTime(getThisMonthFirstUnixTime(), 23, 'months');
-    } else if (dateType === DateRange.RecentThirtySixMonths.type) { // Recent 36 months
+    } else if (dateType === DateRange.RecentThirtySixMonths.type) { 
         maxTime = getThisMonthLastUnixTime();
         minTime = getUnixTimeBeforeUnixTime(getThisMonthFirstUnixTime(), 35, 'months');
-    } else if (dateType === DateRange.RecentTwoYears.type) { // Recent 2 years
+    } else if (dateType === DateRange.RecentTwoYears.type) { 
         maxTime = getThisYearLastUnixTime();
         minTime = getUnixTimeBeforeUnixTime(getThisYearFirstUnixTime(), 1, 'years');
-    } else if (dateType === DateRange.RecentThreeYears.type) { // Recent 3 years
+    } else if (dateType === DateRange.RecentThreeYears.type) { 
         maxTime = getThisYearLastUnixTime();
         minTime = getUnixTimeBeforeUnixTime(getThisYearFirstUnixTime(), 2, 'years');
-    } else if (dateType === DateRange.RecentFiveYears.type) { // Recent 5 years
+    } else if (dateType === DateRange.RecentFiveYears.type) { 
         maxTime = getThisYearLastUnixTime();
         minTime = getUnixTimeBeforeUnixTime(getThisYearFirstUnixTime(), 4, 'years');
     } else {
@@ -1333,7 +1328,7 @@ export function getDateRangeByBillingCycleDateType(dateType: number, firstDayOfW
     let maxTime = 0;
     let minTime = 0;
 
-    if (dateType === DateRange.PreviousBillingCycle.type || dateType === DateRange.CurrentBillingCycle.type) { // Previous Billing Cycle | Current Billing Cycle
+    if (dateType === DateRange.PreviousBillingCycle.type || dateType === DateRange.CurrentBillingCycle.type) { 
         if (statementDate) {
             if (getCurrentDateTime().getGregorianCalendarDay() <= statementDate) {
                 maxTime = getThisMonthSpecifiedDayLastUnixTime(statementDate);
@@ -1350,9 +1345,9 @@ export function getDateRangeByBillingCycleDateType(dateType: number, firstDayOfW
         } else {
             let fallbackDateRange = null;
 
-            if (dateType === DateRange.CurrentBillingCycle.type) { // same as This Month
+            if (dateType === DateRange.CurrentBillingCycle.type) { 
                 fallbackDateRange = getDateRangeByDateType(DateRange.ThisMonth.type, firstDayOfWeek, fiscalYearStart);
-            } else if (dateType === DateRange.PreviousBillingCycle.type) { // same as Last Month
+            } else if (dateType === DateRange.PreviousBillingCycle.type) { 
                 fallbackDateRange = getDateRangeByDateType(DateRange.LastMonth.type, firstDayOfWeek, fiscalYearStart);
             }
 
@@ -1542,13 +1537,13 @@ export function getFiscalYearFromUnixTime(unixTime: number, fiscalYearStartValue
         date = date.tz(getFixedTimezoneName(utcOffset));
     }
 
-    // For January 1 fiscal year start, fiscal year matches calendar year
+    
     if (fiscalYearStartValue === FiscalYearStart.JanuaryFirstDay.value) {
         return date.year();
     }
 
-    // Get date components
-    const month = date.month() + 1; // 1-index
+    
+    const month = date.month() + 1; 
     const day = date.date();
     const year = date.year();
 
@@ -1558,15 +1553,15 @@ export function getFiscalYearFromUnixTime(unixTime: number, fiscalYearStartValue
         fiscalYearStart = FiscalYearStart.Default;
     }
 
-    // For other fiscal year starts:
-    // If input time comes before the fiscal year start day in the calendar year,
-    // it belongs to the fiscal year that ends in the current calendar year
+    
+    
+    
     if (month < fiscalYearStart.month || (month === fiscalYearStart.month && day < fiscalYearStart.day)) {
         return year;
     }
 
-    // If input time is on or after the fiscal year start day in the calendar year,
-    // it belongs to the fiscal year that ends in the next calendar year
+    
+    
     return year + 1;
 }
 
@@ -1577,7 +1572,7 @@ export function getFiscalYearStartDateTime(unixTime: number, fiscalYearStartValu
         date = date.tz(getFixedTimezoneName(utcOffset));
     }
 
-    // For January 1 fiscal year start, fiscal year start time is always January 1 in the input calendar year
+    
     if (fiscalYearStartValue === FiscalYearStart.JanuaryFirstDay.value) {
         let finalDate = moment();
 
@@ -1594,15 +1589,15 @@ export function getFiscalYearStartDateTime(unixTime: number, fiscalYearStartValu
         fiscalYearStart = FiscalYearStart.Default;
     }
 
-    const month = date.month() + 1; // 1-index
+    const month = date.month() + 1; 
     const day = date.date();
     const year = date.year();
 
-    // For other fiscal year starts:
-    // If input time comes before the fiscal year start day in the calendar year,
-    // the relevant fiscal year has a start date in Calendar Year = Input Year, and end date in Calendar Year = Input Year + 1.
-    // If input time comes on or after the fiscal year start day in the calendar year,
-    // the relevant fiscal year has a start date in Calendar Year = Input Year - 1, and end date in Calendar Year = Input Year.
+    
+    
+    
+    
+    
     let startYear = year - 1;
     if (month > fiscalYearStart.month || (month === fiscalYearStart.month && day >= fiscalYearStart.day)) {
         startYear = year;
@@ -1616,7 +1611,7 @@ export function getFiscalYearStartDateTime(unixTime: number, fiscalYearStartValu
 
     return MomentDateTime.of(finalDate.set({
         year: startYear,
-        month: fiscalYearStart.month - 1, // 0-index
+        month: fiscalYearStart.month - 1, 
         date: fiscalYearStart.day,
         hour: 0,
         minute: 0,
@@ -1660,14 +1655,14 @@ export function getFiscalYearTimeRangeFromYear(year: number, fiscalYearStartValu
         fiscalYearStart = FiscalYearStart.Default;
     }
 
-    // For a specified fiscal year (e.g., 2023), the start date is in the previous calendar year
-    // unless fiscal year starts on January 1
+    
+    
     const calendarStartYear = fiscalYearStartValue === FiscalYearStart.JanuaryFirstDay.value ? fiscalYear : fiscalYear - 1;
 
-    // Create the timestamp for the start of the fiscal year
+    
     const fiscalYearStartUnixTime = moment().set({
         year: calendarStartYear,
-        month: fiscalYearStart.month - 1, // 0-index
+        month: fiscalYearStart.month - 1, 
         date: fiscalYearStart.day,
         hour: 0,
         minute: 0,
@@ -1675,7 +1670,7 @@ export function getFiscalYearTimeRangeFromYear(year: number, fiscalYearStartValu
         millisecond: 0,
     }).unix();
 
-    // Fiscal year end is one year after start minus 1 second
+    
     const fiscalYearEndUnixTime = moment.unix(fiscalYearStartUnixTime).add(1, 'years').subtract(1, 'seconds').unix();
 
     return {

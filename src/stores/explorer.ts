@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 
 import { useSettingsStore } from './setting.ts';
@@ -1163,17 +1163,17 @@ export const useExplorersStore = defineStore('explorers', () => {
     }
 
     return {
-        // states
+        
         transactionExplorerFilter,
         transactionExplorerStateInvalid,
         allInsightsExplorerBasicInfos,
         allInsightsExplorerBasicInfosMap,
         currentInsightsExplorer,
         insightsExplorerListStateInvalid,
-        // computed
+        
         filteredTransactionsInDataTable,
         categoriedTransactionExplorerData,
-        // functions
+        
         updateTransactionExplorerInvalidState,
         updateInsightsExplorerListInvalidState,
         updateCurrentInsightsExplorer,

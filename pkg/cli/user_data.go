@@ -1,25 +1,25 @@
-package cli
+﻿package cli
 
 import (
 	"strings"
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/converter"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/services"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
-	"github.com/mayswind/ezbookkeeping/pkg/validators"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/converter"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/services"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/validators"
 )
 
 const pageCountForGettingTransactions = 1000
 const pageCountForDataExport = 1000
 
-// UserDataCli represents user data cli
+
 type UserDataCli struct {
 	CliUsingConfig
 	accounts                *services.AccountService
@@ -32,7 +32,7 @@ type UserDataCli struct {
 	forgetPasswords         *services.ForgetPasswordService
 }
 
-// Initialize a user data cli singleton instance
+
 var (
 	UserData = &UserDataCli{
 		CliUsingConfig: CliUsingConfig{
@@ -49,7 +49,7 @@ var (
 	}
 )
 
-// AddNewUser adds a new user according to specified info
+
 func (l *UserDataCli) AddNewUser(c *core.CliContext, username string, email string, nickname string, password string, defaultCurrency string) (*models.User, error) {
 	if username == "" {
 		log.CliErrorf(c, "[user_data.AddNewUser] user name is empty")
@@ -104,7 +104,7 @@ func (l *UserDataCli) AddNewUser(c *core.CliContext, username string, email stri
 	return user, nil
 }
 
-// GetUserByUsername returns user by user name
+
 func (l *UserDataCli) GetUserByUsername(c *core.CliContext, username string) (*models.User, error) {
 	if username == "" {
 		log.CliErrorf(c, "[user_data.GetUserByUsername] user name is empty")
@@ -121,7 +121,7 @@ func (l *UserDataCli) GetUserByUsername(c *core.CliContext, username string) (*m
 	return user, nil
 }
 
-// ModifyUserPassword modifies user password
+
 func (l *UserDataCli) ModifyUserPassword(c *core.CliContext, username string, password string) error {
 	if username == "" {
 		log.CliErrorf(c, "[user_data.ModifyUserPassword] user name is empty")
@@ -169,7 +169,7 @@ func (l *UserDataCli) ModifyUserPassword(c *core.CliContext, username string, pa
 	return nil
 }
 
-// SendPasswordResetMail sends an email with password reset link
+
 func (l *UserDataCli) SendPasswordResetMail(c *core.CliContext, username string) error {
 	if username == "" {
 		log.CliErrorf(c, "[user_data.SendPasswordResetMail] user name is empty")
@@ -205,7 +205,7 @@ func (l *UserDataCli) SendPasswordResetMail(c *core.CliContext, username string)
 	return nil
 }
 
-// EnableUser sets user enabled according to the specified user name
+
 func (l *UserDataCli) EnableUser(c *core.CliContext, username string) error {
 	if username == "" {
 		log.CliErrorf(c, "[user_data.EnableUser] user name is empty")
@@ -222,7 +222,7 @@ func (l *UserDataCli) EnableUser(c *core.CliContext, username string) error {
 	return nil
 }
 
-// DisableUser sets user disabled according to the specified user name
+
 func (l *UserDataCli) DisableUser(c *core.CliContext, username string) error {
 	if username == "" {
 		log.CliErrorf(c, "[user_data.DisableUser] user name is empty")
@@ -239,7 +239,7 @@ func (l *UserDataCli) DisableUser(c *core.CliContext, username string) error {
 	return nil
 }
 
-// SetUserFeatureRestrictions sets user feature restrictions according to the specified user name
+
 func (l *UserDataCli) SetUserFeatureRestrictions(c *core.CliContext, username string, featureRestriction core.UserFeatureRestrictions) error {
 	if username == "" {
 		log.CliErrorf(c, "[user_data.SetUserFeatureRestrictions] user name is empty")
@@ -256,7 +256,7 @@ func (l *UserDataCli) SetUserFeatureRestrictions(c *core.CliContext, username st
 	return nil
 }
 
-// AddUserFeatureRestrictions adds user feature restrictions according to the specified user name
+
 func (l *UserDataCli) AddUserFeatureRestrictions(c *core.CliContext, username string, featureRestriction core.UserFeatureRestrictions) error {
 	if username == "" {
 		log.CliErrorf(c, "[user_data.AddUserFeatureRestrictions] user name is empty")
@@ -273,7 +273,7 @@ func (l *UserDataCli) AddUserFeatureRestrictions(c *core.CliContext, username st
 	return nil
 }
 
-// RemoveUserFeatureRestrictions removes user feature restrictions according to the specified user name
+
 func (l *UserDataCli) RemoveUserFeatureRestrictions(c *core.CliContext, username string, featureRestriction core.UserFeatureRestrictions) error {
 	if username == "" {
 		log.CliErrorf(c, "[user_data.RemoveUserFeatureRestrictions] user name is empty")
@@ -290,7 +290,7 @@ func (l *UserDataCli) RemoveUserFeatureRestrictions(c *core.CliContext, username
 	return nil
 }
 
-// ResendVerifyEmail resends an email with account activation link
+
 func (l *UserDataCli) ResendVerifyEmail(c *core.CliContext, username string) error {
 	if !l.CurrentConfig().EnableUserVerifyEmail {
 		return errs.ErrEmailValidationNotAllowed
@@ -330,7 +330,7 @@ func (l *UserDataCli) ResendVerifyEmail(c *core.CliContext, username string) err
 	return nil
 }
 
-// SetUserEmailVerified sets user email address verified
+
 func (l *UserDataCli) SetUserEmailVerified(c *core.CliContext, username string) error {
 	if username == "" {
 		log.CliErrorf(c, "[user_data.SetUserEmailVerified] user name is empty")
@@ -347,7 +347,7 @@ func (l *UserDataCli) SetUserEmailVerified(c *core.CliContext, username string) 
 	return nil
 }
 
-// SetUserEmailUnverified sets user email address unverified
+
 func (l *UserDataCli) SetUserEmailUnverified(c *core.CliContext, username string) error {
 	if username == "" {
 		log.CliErrorf(c, "[user_data.SetUserEmailUnverified] user name is empty")
@@ -364,7 +364,7 @@ func (l *UserDataCli) SetUserEmailUnverified(c *core.CliContext, username string
 	return nil
 }
 
-// DeleteUser deletes user according to the specified user name
+
 func (l *UserDataCli) DeleteUser(c *core.CliContext, username string) error {
 	if username == "" {
 		log.CliErrorf(c, "[user_data.DeleteUser] user name is empty")
@@ -381,7 +381,7 @@ func (l *UserDataCli) DeleteUser(c *core.CliContext, username string) error {
 	return nil
 }
 
-// ListUserTokens returns all tokens of the specified user
+
 func (l *UserDataCli) ListUserTokens(c *core.CliContext, username string) ([]*models.TokenRecord, error) {
 	if username == "" {
 		log.CliErrorf(c, "[user_data.ListUserTokens] user name is empty")
@@ -405,7 +405,7 @@ func (l *UserDataCli) ListUserTokens(c *core.CliContext, username string) ([]*mo
 	return tokens, nil
 }
 
-// CreateNewUserToken returns a new token for the specified user
+
 func (l *UserDataCli) CreateNewUserToken(c *core.CliContext, username string, tokenType string, expiresInSeconds int64) (*models.TokenRecord, string, error) {
 	if username == "" {
 		log.CliErrorf(c, "[user_data.CreateNewUserToken] user name is empty")
@@ -454,7 +454,7 @@ func (l *UserDataCli) CreateNewUserToken(c *core.CliContext, username string, to
 	return tokenRecord, token, nil
 }
 
-// RevokeUserToken revokes the specified token of the user
+
 func (l *UserDataCli) RevokeUserToken(c *core.CliContext, token string) error {
 	_, claims, _, err := l.tokens.ParseToken(c, token)
 
@@ -487,7 +487,7 @@ func (l *UserDataCli) RevokeUserToken(c *core.CliContext, token string) error {
 	return nil
 }
 
-// ClearUserTokens clears all tokens of the specified user
+
 func (l *UserDataCli) ClearUserTokens(c *core.CliContext, username string) error {
 	if username == "" {
 		log.CliErrorf(c, "[user_data.ClearUserTokens] user name is empty")
@@ -512,7 +512,7 @@ func (l *UserDataCli) ClearUserTokens(c *core.CliContext, username string) error
 	return nil
 }
 
-// DisableUserTwoFactorAuthorization disables 2fa for the specified user
+
 func (l *UserDataCli) DisableUserTwoFactorAuthorization(c *core.CliContext, username string) error {
 	if username == "" {
 		log.CliErrorf(c, "[user_data.DisableUserTwoFactorAuthorization] user name is empty")
@@ -554,7 +554,7 @@ func (l *UserDataCli) DisableUserTwoFactorAuthorization(c *core.CliContext, user
 	return nil
 }
 
-// CheckTransactionAndAccount checks whether all user transactions and all user accounts are correct
+
 func (l *UserDataCli) CheckTransactionAndAccount(c *core.CliContext, username string) (bool, error) {
 	if username == "" {
 		log.CliErrorf(c, "[user_data.CheckTransactionAndAccount] user name is empty")
@@ -683,7 +683,7 @@ func (l *UserDataCli) CheckTransactionAndAccount(c *core.CliContext, username st
 	return true, nil
 }
 
-// FixTransactionTagIndexWithTransactionTime fixes user transaction tag index data with transaction time
+
 func (l *UserDataCli) FixTransactionTagIndexWithTransactionTime(c *core.CliContext, username string) (bool, error) {
 	if username == "" {
 		log.CliErrorf(c, "[user_data.FixTransactionTagIndexWithTransactionTime] user name is empty")
@@ -749,7 +749,7 @@ func (l *UserDataCli) FixTransactionTagIndexWithTransactionTime(c *core.CliConte
 	return true, nil
 }
 
-// ExportTransaction returns csv file content according user all transactions
+
 func (l *UserDataCli) ExportTransaction(c *core.CliContext, username string, fileType string) ([]byte, error) {
 	if username == "" {
 		log.CliErrorf(c, "[user_data.ExportTransaction] user name is empty")

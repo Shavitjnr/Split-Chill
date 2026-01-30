@@ -1,23 +1,23 @@
-package api
+﻿package api
 
 import (
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/exchangerates"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/services"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/exchangerates"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/services"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
-// ExchangeRatesApi represents exchange rate api
+
 type ExchangeRatesApi struct {
 	ApiUsingConfig
 	users                   *services.UserService
 	userCustomExchangeRates *services.UserCustomExchangeRatesService
 }
 
-// Initialize a exchange rate api singleton instance
+
 var (
 	ExchangeRates = &ExchangeRatesApi{
 		ApiUsingConfig: ApiUsingConfig{
@@ -28,7 +28,7 @@ var (
 	}
 )
 
-// LatestExchangeRateHandler returns latest exchange rate data
+
 func (a *ExchangeRatesApi) LatestExchangeRateHandler(c *core.WebContext) (any, *errs.Error) {
 	exchangeRateResponse, err := exchangerates.Container.GetLatestExchangeRates(c, c.GetCurrentUid(), a.CurrentConfig())
 
@@ -39,7 +39,7 @@ func (a *ExchangeRatesApi) LatestExchangeRateHandler(c *core.WebContext) (any, *
 	return exchangeRateResponse, nil
 }
 
-// UserCustomExchangeRateUpdateHandler updates user custom exchange rates data by request parameters for current user
+
 func (a *ExchangeRatesApi) UserCustomExchangeRateUpdateHandler(c *core.WebContext) (any, *errs.Error) {
 	var customExchangeRateUpdateReq models.UserCustomExchangeRateUpdateRequest
 	err := c.ShouldBindJSON(&customExchangeRateUpdateReq)
@@ -72,7 +72,7 @@ func (a *ExchangeRatesApi) UserCustomExchangeRateUpdateHandler(c *core.WebContex
 	return newCustomExchangeRate.ToUserCustomExchangeRateUpdateResponse(defaultCurrencyExchangeRate.Rate), nil
 }
 
-// UserCustomExchangeRateDeleteHandler deletes an existed user custom exchange rates data by request parameters for current user
+
 func (a *ExchangeRatesApi) UserCustomExchangeRateDeleteHandler(c *core.WebContext) (any, *errs.Error) {
 	var customExchangeRateDeleteReq models.UserCustomExchangeRateDeleteRequest
 	err := c.ShouldBindJSON(&customExchangeRateDeleteReq)

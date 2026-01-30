@@ -1,5 +1,4 @@
-/** Materio Template layout styles **/
-/** https://github.com/themeselection/materio-vuetify-vuejs-admin-template-free **/
+﻿
 
 // placeholders
 @use "@/styles/desktop/configured-variables/template" as variables;
@@ -28,7 +27,7 @@
 }
 
 %style-scroll-bar {
-    /* width */
+
 
     &::-webkit-scrollbar {
         background: rgb(var(--v-theme-surface));
@@ -38,12 +37,12 @@
         inline-size: 4px;
     }
 
-    /* Track */
+    
     &::-webkit-scrollbar-track {
         background: transparent;
     }
 
-    /* Handle */
+    
     &::-webkit-scrollbar-thumb {
         border-radius: 0.5rem;
         background: rgb(var(--v-theme-perfect-scrollbar-thumb));

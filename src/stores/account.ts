@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 
 import { useSettingsStore } from './setting.ts';
@@ -709,7 +709,7 @@ export const useAccountsStore = defineStore('accounts', () => {
             }
         }
 
-        if (subAccountId) { // not found specified id in sub accounts
+        if (subAccountId) { 
             return null;
         }
 
@@ -1063,18 +1063,18 @@ export const useAccountsStore = defineStore('accounts', () => {
     }
 
     return {
-        // states
+        
         allAccounts,
         allAccountsMap,
         allCategorizedAccountsMap,
         accountListStateInvalid,
-        // computed states
+        
         allPlainAccounts,
         allMixedPlainAccounts,
         allVisiblePlainAccounts,
         allAvailableAccountsCount,
         allVisibleAccountsCount,
-        // functions
+        
         updateAccountListInvalidState,
         resetAccounts,
         getFirstShowingIds,

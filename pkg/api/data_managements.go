@@ -1,4 +1,4 @@
-package api
+﻿package api
 
 import (
 	"fmt"
@@ -6,20 +6,20 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/services"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/services"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 const pageCountForClearTransactions = 1000
 const pageCountForDataExport = 1000
 
-// DataManagementsApi represents data management api
+
 type DataManagementsApi struct {
 	ApiUsingConfig
 	tokens                  *services.TokenService
@@ -35,7 +35,7 @@ type DataManagementsApi struct {
 	insightsExploreres      *services.InsightsExplorerService
 }
 
-// Initialize a data management api singleton instance
+
 var (
 	DataManagements = &DataManagementsApi{
 		ApiUsingConfig: ApiUsingConfig{
@@ -55,17 +55,17 @@ var (
 	}
 )
 
-// ExportDataToEzbookkeepingCSVHandler returns exported data in csv format
-func (a *DataManagementsApi) ExportDataToEzbookkeepingCSVHandler(c *core.WebContext) ([]byte, string, *errs.Error) {
+
+func (a *DataManagementsApi) ExportDataToSplitChillAICSVHandler(c *core.WebContext) ([]byte, string, *errs.Error) {
 	return a.getExportedFileContent(c, "csv")
 }
 
-// ExportDataToEzbookkeepingTSVHandler returns exported data in csv format
-func (a *DataManagementsApi) ExportDataToEzbookkeepingTSVHandler(c *core.WebContext) ([]byte, string, *errs.Error) {
+
+func (a *DataManagementsApi) ExportDataToSplitChillAITSVHandler(c *core.WebContext) ([]byte, string, *errs.Error) {
 	return a.getExportedFileContent(c, "tsv")
 }
 
-// DataStatisticsHandler returns user data statistics
+
 func (a *DataManagementsApi) DataStatisticsHandler(c *core.WebContext) (any, *errs.Error) {
 	uid := c.GetCurrentUid()
 	totalAccountCount, err := a.accounts.GetTotalAccountCountByUid(c, uid)
@@ -138,7 +138,7 @@ func (a *DataManagementsApi) DataStatisticsHandler(c *core.WebContext) (any, *er
 	return dataStatisticsResp, nil
 }
 
-// ClearAllDataHandler deletes all user data
+
 func (a *DataManagementsApi) ClearAllDataHandler(c *core.WebContext) (any, *errs.Error) {
 	var clearDataReq models.ClearDataRequest
 	err := c.ShouldBindJSON(&clearDataReq)
@@ -220,7 +220,7 @@ func (a *DataManagementsApi) ClearAllDataHandler(c *core.WebContext) (any, *errs
 	return true, nil
 }
 
-// ClearAllTransactionsHandler deletes all transactions
+
 func (a *DataManagementsApi) ClearAllTransactionsHandler(c *core.WebContext) (any, *errs.Error) {
 	var clearDataReq models.ClearDataRequest
 	err := c.ShouldBindJSON(&clearDataReq)
@@ -260,7 +260,7 @@ func (a *DataManagementsApi) ClearAllTransactionsHandler(c *core.WebContext) (an
 	return true, nil
 }
 
-// ClearAllTransactionsByAccountHandler deletes all transactions of specified account
+
 func (a *DataManagementsApi) ClearAllTransactionsByAccountHandler(c *core.WebContext) (any, *errs.Error) {
 	var clearDataReq models.ClearAccountTransactionsRequest
 	err := c.ShouldBindJSON(&clearDataReq)

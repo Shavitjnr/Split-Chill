@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 
 import { useI18n } from '@/locales/helpers.ts';
 
@@ -124,10 +124,10 @@ export function useSignupPageBase() {
     }
 
     return {
-        // states
+        
         user,
         submitting,
-        // computed states
+        
         languageTitle,
         currentLocale,
         currentLanguageName,
@@ -135,7 +135,7 @@ export function useSignupPageBase() {
         inputInvalidProblemMessage,
         inputIsEmpty,
         inputIsInvalid,
-        // functions
+        
         getCategoryTypeName,
         doAfterSignupSuccess
     };

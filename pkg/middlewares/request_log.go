@@ -1,14 +1,14 @@
-package middlewares
+﻿package middlewares
 
 import (
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
-// RequestLog logs the http request log
+
 func RequestLog(c *core.WebContext) {
 	start := time.Now()
 	path := c.Request.URL.Path

@@ -1,4 +1,4 @@
-import { computed } from 'vue';
+﻿import { computed } from 'vue';
 
 import { useI18n } from '@/locales/helpers.ts';
 
@@ -95,7 +95,7 @@ export function useHomePageBase() {
     }
 
     return {
-        // computed states
+        
         showAmountInHomePage,
         defaultCurrency,
         allAccounts,
@@ -104,7 +104,7 @@ export function useHomePageBase() {
         totalLiabilities,
         displayDateRange,
         transactionOverview,
-        // functions
+        
         getDisplayAmount,
         getDisplayIncomeAmount,
         getDisplayExpenseAmount

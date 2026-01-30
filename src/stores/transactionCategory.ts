@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 
 import type { BeforeResolveFunction } from '@/core/base.ts';
@@ -567,17 +567,17 @@ export const useTransactionCategoriesStore = defineStore('transactionCategories'
     }
 
     return {
-        // states
+        
         allTransactionCategories,
         allTransactionCategoriesMap,
         transactionCategoryListStateInvalid,
-        // computed states
+        
         allAvailablePrimaryCategoriesCount,
         allAvailableSecondaryCategoriesCount,
         hasVisibleExpenseCategories,
         hasVisibleIncomeCategories,
         hasVisibleTransferCategories,
-        // functions
+        
         updateTransactionCategoryListInvalidState,
         resetTransactionCategories,
         loadAllCategories,

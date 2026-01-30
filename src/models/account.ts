@@ -1,4 +1,4 @@
-import type { HiddenAmount, NumberWithSuffix } from '@/core/numeral.ts';
+﻿import type { HiddenAmount, NumberWithSuffix } from '@/core/numeral.ts';
 import type { ColorValue } from '@/core/color.ts';
 import { AccountType, AccountCategory } from '@/core/account.ts';
 import { PARENT_ACCOUNT_CURRENCY_PLACEHOLDER } from '@/consts/currency.ts';
@@ -392,39 +392,39 @@ export class Account implements AccountInfoResponse {
 
     public createNewSubAccount(currency: string, balanceTime: number): Account {
         return new Account(
-            '', // id
-            '', // name
-            '', // parentId
-            0, // category
-            0, // type
-            this.icon, // icon
-            this.color, // color
-            currency, // currency
-            0, // balance
-            '', // comment
-            0, // displayOrder
-            true, // visible
-            balanceTime, // balanceTime
-            0 // creditCardStatementDate
+            '', 
+            '', 
+            '', 
+            0, 
+            0, 
+            this.icon, 
+            this.color, 
+            currency, 
+            0, 
+            '', 
+            0, 
+            true, 
+            balanceTime, 
+            0 
         );
     }
 
     public static createNewAccount(accountCategory: AccountCategory, currency: string, balanceTime: number): Account {
         return new Account(
-            '', // id
-            '', // name
-            '', // parentId
-            accountCategory.type, // category
-            AccountType.SingleAccount.type, // type
-            accountCategory.defaultAccountIconId, // icon
-            DEFAULT_ACCOUNT_COLOR, // color
-            currency, // currency
-            0, // balance
-            '', // comment
-            0, // displayOrder
-            true, // visible
-            balanceTime, // balanceTime
-            0 // creditCardStatementDate
+            '', 
+            '', 
+            '', 
+            accountCategory.type, 
+            AccountType.SingleAccount.type, 
+            accountCategory.defaultAccountIconId, 
+            DEFAULT_ACCOUNT_COLOR, 
+            currency, 
+            0, 
+            '', 
+            0, 
+            true, 
+            balanceTime, 
+            0 
         );
     }
 

@@ -1,4 +1,4 @@
-import type { TypeAndName, TypeAndDisplayName } from '@/core/base.ts';
+﻿import type { TypeAndName, TypeAndDisplayName } from '@/core/base.ts';
 import type { CalendarType, ChineseCalendarLocaleData, PersianCalendarLocaleData } from '@/core/calendar.ts';
 import type { NumeralSystem } from '@/core/numeral.ts';
 
@@ -93,12 +93,12 @@ export interface YearMonthRange {
 
 export interface YearMonthDay extends MonthDay {
     readonly year: number;
-    readonly month: number; // 1-based (1 = January, 12 = December)
+    readonly month: number; 
     readonly day: number;
 }
 
 export interface MonthDay {
-    readonly month: number; // 1-based (1 = January, 12 = December
+    readonly month: number; 
     readonly day: number;
 }
 
@@ -140,7 +140,7 @@ export interface RecentMonthDateRange {
     readonly minTime: number;
     readonly maxTime: number;
     readonly year: number;
-    readonly month: number; // 1-based (1 = January, 12 = December)
+    readonly month: number; 
 }
 
 export interface PresetDateRange {
@@ -261,7 +261,7 @@ export class Month {
     public static readonly November = new Month(11, 'November');
     public static readonly December = new Month(12, 'December');
 
-    public readonly month: MonthValue; // 1-based (1 = January, 12 = December)
+    public readonly month: MonthValue; 
     public readonly name: string;
 
     private constructor(month: MonthValue, name: string) {
@@ -696,10 +696,10 @@ export class DateRange implements TypeAndName {
     private static readonly allInstances: DateRange[] = [];
     private static readonly allInstancesByType: Record<number, DateRange> = {};
 
-    // All date range
+    
     public static readonly All = new DateRange(0, 'All', false, false, DateRangeScene.Normal, DateRangeScene.TrendAnalysis, DateRangeScene.AssetTrends, DateRangeScene.InsightsExplorer);
 
-    // Date ranges for normal scene only
+    
     public static readonly Today = new DateRange(1, 'Today', false, false, DateRangeScene.Normal, DateRangeScene.InsightsExplorer);
     public static readonly Yesterday = new DateRange(2, 'Yesterday', false, false, DateRangeScene.Normal, DateRangeScene.InsightsExplorer);
     public static readonly LastSevenDays = new DateRange(3, 'Recent 7 days', false, false, DateRangeScene.Normal, DateRangeScene.AssetTrends, DateRangeScene.InsightsExplorer);
@@ -709,17 +709,17 @@ export class DateRange implements TypeAndName {
     public static readonly ThisMonth = new DateRange(7, 'This month', false, false, DateRangeScene.Normal, DateRangeScene.AssetTrends, DateRangeScene.InsightsExplorer);
     public static readonly LastMonth = new DateRange(8, 'Last month', false, false, DateRangeScene.Normal, DateRangeScene.AssetTrends, DateRangeScene.InsightsExplorer);
 
-    // Date ranges for normal and trend analysis scene
+    
     public static readonly ThisYear = new DateRange(9, 'This year', false, false, DateRangeScene.Normal, DateRangeScene.TrendAnalysis, DateRangeScene.AssetTrends, DateRangeScene.InsightsExplorer);
     public static readonly LastYear = new DateRange(10, 'Last year', false, false, DateRangeScene.Normal, DateRangeScene.TrendAnalysis, DateRangeScene.AssetTrends, DateRangeScene.InsightsExplorer);
     public static readonly ThisFiscalYear = new DateRange(11, 'This fiscal year', false, true, DateRangeScene.Normal, DateRangeScene.TrendAnalysis, DateRangeScene.AssetTrends, DateRangeScene.InsightsExplorer);
     public static readonly LastFiscalYear = new DateRange(12, 'Last fiscal year', false, true, DateRangeScene.Normal, DateRangeScene.TrendAnalysis, DateRangeScene.AssetTrends, DateRangeScene.InsightsExplorer);
 
-    // Billing cycle date ranges for normal scene only
+    
     public static readonly CurrentBillingCycle = new DateRange(51, 'Current Billing Cycle', true, true, DateRangeScene.Normal);
     public static readonly PreviousBillingCycle = new DateRange(52, 'Previous Billing Cycle', true, true, DateRangeScene.Normal);
 
-    // Date ranges for trend analysis scene only
+    
     public static readonly RecentTwelveMonths = new DateRange(101, 'Recent 12 months', false, false, DateRangeScene.TrendAnalysis, DateRangeScene.AssetTrends, DateRangeScene.InsightsExplorer);
     public static readonly RecentTwentyFourMonths = new DateRange(102, 'Recent 24 months', false, false, DateRangeScene.TrendAnalysis, DateRangeScene.AssetTrends, DateRangeScene.InsightsExplorer);
     public static readonly RecentThirtySixMonths = new DateRange(103, 'Recent 36 months', false, false, DateRangeScene.TrendAnalysis, DateRangeScene.AssetTrends, DateRangeScene.InsightsExplorer);
@@ -727,7 +727,7 @@ export class DateRange implements TypeAndName {
     public static readonly RecentThreeYears = new DateRange(105, 'Recent 3 years', false, false, DateRangeScene.TrendAnalysis, DateRangeScene.AssetTrends, DateRangeScene.InsightsExplorer);
     public static readonly RecentFiveYears = new DateRange(106, 'Recent 5 years', false, false, DateRangeScene.TrendAnalysis, DateRangeScene.AssetTrends, DateRangeScene.InsightsExplorer);
 
-    // Custom date range
+    
     public static readonly Custom = new DateRange(255, 'Custom Date', false, true, DateRangeScene.Normal, DateRangeScene.TrendAnalysis, DateRangeScene.AssetTrends, DateRangeScene.InsightsExplorer);
 
     public readonly type: number;

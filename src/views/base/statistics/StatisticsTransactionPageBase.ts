@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 
 import { useI18n } from '@/locales/helpers.ts';
 
@@ -344,12 +344,12 @@ export function useStatisticsTransactionPageBase() {
     }
 
     return {
-        // states
+        
         loading,
         analysisType,
         trendDateAggregationType,
         assetTrendsDateAggregationType,
-        // computed states
+        
         showAccountBalance,
         defaultCurrency,
         firstDayOfWeek,
@@ -384,7 +384,7 @@ export function useStatisticsTransactionPageBase() {
         categoricalAnalysisData,
         trendsAnalysisData,
         assetTrendsData,
-        // functions
+        
         canShowCustomDateRange,
         getTransactionCategoricalAnalysisDataItemDisplayColor,
         getDisplayAmount

@@ -1,24 +1,24 @@
-package services
+﻿package services
 
 import (
 	"time"
 
 	"xorm.io/xorm"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/datastore"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/uuid"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/datastore"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/uuid"
 )
 
-// TransactionTagGroupService represents transaction tag group service
+
 type TransactionTagGroupService struct {
 	ServiceUsingDB
 	ServiceUsingUuid
 }
 
-// Initialize a transaction tag group service singleton instance
+
 var (
 	TransactionTagGroups = &TransactionTagGroupService{
 		ServiceUsingDB: ServiceUsingDB{
@@ -30,7 +30,7 @@ var (
 	}
 )
 
-// GetAllTagGroupsByUid returns all transaction tag group models of user
+
 func (s *TransactionTagGroupService) GetAllTagGroupsByUid(c core.Context, uid int64) ([]*models.TransactionTagGroup, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -42,7 +42,7 @@ func (s *TransactionTagGroupService) GetAllTagGroupsByUid(c core.Context, uid in
 	return tagGroups, err
 }
 
-// GetTagGroupByTagGroupId returns a transaction tag group model according to transaction tag group id
+
 func (s *TransactionTagGroupService) GetTagGroupByTagGroupId(c core.Context, uid int64, tagGroupId int64) (*models.TransactionTagGroup, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -64,7 +64,7 @@ func (s *TransactionTagGroupService) GetTagGroupByTagGroupId(c core.Context, uid
 	return tagGroup, nil
 }
 
-// GetMaxDisplayOrder returns the max display order
+
 func (s *TransactionTagGroupService) GetMaxDisplayOrder(c core.Context, uid int64) (int32, error) {
 	if uid <= 0 {
 		return 0, errs.ErrUserIdInvalid
@@ -84,7 +84,7 @@ func (s *TransactionTagGroupService) GetMaxDisplayOrder(c core.Context, uid int6
 	}
 }
 
-// CreateTagGroup saves a new transaction tag group model to database
+
 func (s *TransactionTagGroupService) CreateTagGroup(c core.Context, tagGroup *models.TransactionTagGroup) error {
 	if tagGroup.Uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -106,7 +106,7 @@ func (s *TransactionTagGroupService) CreateTagGroup(c core.Context, tagGroup *mo
 	})
 }
 
-// ModifyTagGroup saves an existed transaction tag group model to database
+
 func (s *TransactionTagGroupService) ModifyTagGroup(c core.Context, tagGroup *models.TransactionTagGroup) error {
 	if tagGroup.Uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -127,7 +127,7 @@ func (s *TransactionTagGroupService) ModifyTagGroup(c core.Context, tagGroup *mo
 	})
 }
 
-// ModifyTagGroupDisplayOrders updates display order of given transaction tag groups
+
 func (s *TransactionTagGroupService) ModifyTagGroupDisplayOrders(c core.Context, uid int64, tagGroups []*models.TransactionTagGroup) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -153,7 +153,7 @@ func (s *TransactionTagGroupService) ModifyTagGroupDisplayOrders(c core.Context,
 	})
 }
 
-// DeleteTagGroup deletes an existed transaction tag group from database
+
 func (s *TransactionTagGroupService) DeleteTagGroup(c core.Context, uid int64, tagGroupId int64) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -187,7 +187,7 @@ func (s *TransactionTagGroupService) DeleteTagGroup(c core.Context, uid int64, t
 	})
 }
 
-// DeleteAllTagGroups deletes all existed transaction tag groups from database
+
 func (s *TransactionTagGroupService) DeleteAllTagGroups(c core.Context, uid int64) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid

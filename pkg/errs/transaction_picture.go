@@ -1,8 +1,8 @@
-package errs
+﻿package errs
 
 import "net/http"
 
-// Error codes related to transaction pictures
+
 var (
 	ErrTransactionPictureIdInvalid         = NewNormalError(NormalSubcategoryPicture, 0, http.StatusBadRequest, "transaction picture id is invalid")
 	ErrTransactionPictureNotFound          = NewNormalError(NormalSubcategoryPicture, 1, http.StatusBadRequest, "transaction picture not found")

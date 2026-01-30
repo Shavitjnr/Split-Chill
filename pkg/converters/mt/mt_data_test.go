@@ -1,4 +1,4 @@
-package mt
+﻿package mt
 
 import (
 	"testing"
@@ -73,7 +73,7 @@ func TestMtStatementGetInformationToAccountOwnerMap_InvalidFormat(t *testing.T) 
 func TestMtStatementGetInformationToAccountOwnerMap_EmptyKeyValue(t *testing.T) {
 	statement := &mtStatement{
 		InformationToAccountOwner: []string{
-			"/REMI//ABC/ /DEF/456",
+			"/REMI
 			"/GHI/123/JKL/def",
 		},
 	}

@@ -1,29 +1,29 @@
-package api
+﻿package api
 
 import (
 	"encoding/json"
 	"sort"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/services"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/services"
 )
 
-// InsightsExplorersApi represents insights explorers api
+
 type InsightsExplorersApi struct {
 	insightsExploreres *services.InsightsExplorerService
 }
 
-// Initialize a insights explorers api singleton instance
+
 var (
 	InsightsExplorers = &InsightsExplorersApi{
 		insightsExploreres: services.InsightsExplorers,
 	}
 )
 
-// InsightsExplorerListHandler returns insights explorer list of current user
+
 func (a *InsightsExplorersApi) InsightsExplorerListHandler(c *core.WebContext) (any, *errs.Error) {
 	uid := c.GetCurrentUid()
 	explorers, err := a.insightsExploreres.GetAllInsightsExplorerNamesByUid(c, uid)
@@ -49,7 +49,7 @@ func (a *InsightsExplorersApi) InsightsExplorerListHandler(c *core.WebContext) (
 	return explorerResps, nil
 }
 
-// InsightsExplorerGetHandler returns one specific insights explorer of current user
+
 func (a *InsightsExplorersApi) InsightsExplorerGetHandler(c *core.WebContext) (any, *errs.Error) {
 	var explorerGetReq models.InsightsExplorerGetRequest
 	err := c.ShouldBindQuery(&explorerGetReq)
@@ -77,7 +77,7 @@ func (a *InsightsExplorersApi) InsightsExplorerGetHandler(c *core.WebContext) (a
 	return explorerResp, nil
 }
 
-// InsightsExplorerCreateHandler saves a new insights explorer by request parameters for current user
+
 func (a *InsightsExplorersApi) InsightsExplorerCreateHandler(c *core.WebContext) (any, *errs.Error) {
 	var explorerCreateReq models.InsightsExplorerCreateRequest
 	err := c.ShouldBindJSON(&explorerCreateReq)
@@ -122,7 +122,7 @@ func (a *InsightsExplorersApi) InsightsExplorerCreateHandler(c *core.WebContext)
 	return explorerResp, nil
 }
 
-// InsightsExplorerModifyHandler saves an existed insights explorer by request parameters for current user
+
 func (a *InsightsExplorersApi) InsightsExplorerModifyHandler(c *core.WebContext) (any, *errs.Error) {
 	var explorerModifyReq models.InsightsExplorerModifyRequest
 	err := c.ShouldBindJSON(&explorerModifyReq)
@@ -179,7 +179,7 @@ func (a *InsightsExplorersApi) InsightsExplorerModifyHandler(c *core.WebContext)
 	return explorerResp, nil
 }
 
-// InsightsExplorerHideHandler hides a insights explorer by request parameters for current user
+
 func (a *InsightsExplorersApi) InsightsExplorerHideHandler(c *core.WebContext) (any, *errs.Error) {
 	var explorerHideReq models.InsightsExplorerHideRequest
 	err := c.ShouldBindJSON(&explorerHideReq)
@@ -201,7 +201,7 @@ func (a *InsightsExplorersApi) InsightsExplorerHideHandler(c *core.WebContext) (
 	return true, nil
 }
 
-// InsightsExplorerMoveHandler moves display order of existed insights explorers by request parameters for current user
+
 func (a *InsightsExplorersApi) InsightsExplorerMoveHandler(c *core.WebContext) (any, *errs.Error) {
 	var explorerMoveReq models.InsightsExplorerMoveRequest
 	err := c.ShouldBindJSON(&explorerMoveReq)
@@ -236,7 +236,7 @@ func (a *InsightsExplorersApi) InsightsExplorerMoveHandler(c *core.WebContext) (
 	return true, nil
 }
 
-// InsightsExplorerDeleteHandler deletes an existed insights explorer by request parameters for current user
+
 func (a *InsightsExplorersApi) InsightsExplorerDeleteHandler(c *core.WebContext) (any, *errs.Error) {
 	var explorerDeleteReq models.InsightsExplorerDeleteRequest
 	err := c.ShouldBindJSON(&explorerDeleteReq)

@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 
 import { useSettingsStore } from './setting.ts';
@@ -94,7 +94,7 @@ export interface TransactionTotalAmount {
 
 export interface TransactionMonthList {
     readonly year: number;
-    readonly month: number; // 1-based (1 = January, 12 = December)
+    readonly month: number; 
     readonly yearDashMonth: TextualYearMonth;
     opened: boolean;
     readonly items: Transaction[];
@@ -197,7 +197,7 @@ export const useTransactionsStore = defineStore('transactions', () => {
                     const lastMonthList = transactions.value[transactions.value.length - 1] as TransactionMonthList;
 
                     if (lastMonthList.totalAmount.incompleteExpense || lastMonthList.totalAmount.incompleteIncome) {
-                        // calculate the total amount of last month which has incomplete total amount before starting to process a new request
+                        
                         calculateMonthTotalAmount(lastMonthList, defaultCurrency, transactionsFilter.value.accountIds, false);
                     }
                 }
@@ -206,7 +206,7 @@ export const useTransactionsStore = defineStore('transactions', () => {
                     currentMonthList.items.push(Object.freeze(item));
 
                     if (index === transactionPageWrapper.items.length - 1) {
-                        // calculate the total amount of current month when processing the last transaction item of this request
+                        
                         calculateMonthTotalAmount(currentMonthList, defaultCurrency, transactionsFilter.value.accountIds, true);
                     }
                     continue;
@@ -221,7 +221,7 @@ export const useTransactionsStore = defineStore('transactions', () => {
                 }
 
                 if (!currentMonthList || currentMonthList.year !== transactionYear || currentMonthList.month !== transactionMonth) {
-                    // calculate the total amount of current month when processing the first transaction item of the next month
+                    
                     calculateMonthTotalAmount(currentMonthList, defaultCurrency, transactionsFilter.value.accountIds, false);
 
                     const monthList: TransactionMonthList = {
@@ -246,7 +246,7 @@ export const useTransactionsStore = defineStore('transactions', () => {
                 }
 
                 currentMonthList.items.push(Object.freeze(item));
-                // init the total amount struct of current month when processing the first transaction item of current month
+                
                 calculateMonthTotalAmount(currentMonthList, defaultCurrency, transactionsFilter.value.accountIds, true);
             }
         }
@@ -404,13 +404,13 @@ export const useTransactionsStore = defineStore('transactions', () => {
                 dailyTotalAmount.income += amount;
             } else if (transaction.type === TransactionType.Transfer && totalAccountIdsCount > 0) {
                 if (allAccountIdsMap[transaction.sourceAccountId] && allAccountIdsMap[transaction.destinationAccountId]) {
-                    // Do Nothing
+                    
                 } else if (transaction.sourceAccount && transaction.destinationAccount && allAccountIdsMap[transaction.sourceAccount.parentId] && allAccountIdsMap[transaction.destinationAccount.parentId]) {
-                    // Do Nothing
+                    
                 } else if (transaction.sourceAccount && allAccountIdsMap[transaction.sourceAccount.parentId] && allAccountIdsMap[transaction.destinationAccountId]) {
-                    // Do Nothing
+                    
                 } else if (transaction.destinationAccount && allAccountIdsMap[transaction.sourceAccountId] && allAccountIdsMap[transaction.destinationAccount.parentId]) {
-                    // Do Nothing
+                    
                 } else if (allAccountIdsMap[transaction.sourceAccountId] || (transaction.sourceAccount && allAccountIdsMap[transaction.sourceAccount.parentId])) {
                     totalExpense += amount;
                     dailyTotalAmount.expense += amount;
@@ -1437,14 +1437,14 @@ export const useTransactionsStore = defineStore('transactions', () => {
     }
 
     return {
-        // states
+        
         transactionDraft,
         transactionsFilter,
         transactions,
         transactionsNextTimeId,
         transactionListStateInvalid,
         transactionReconciliationStatementStateInvalid,
-        // computed states
+        
         allFilterCategoryIds,
         allFilterAccountIds,
         allFilterTagIds,
@@ -1453,7 +1453,7 @@ export const useTransactionsStore = defineStore('transactions', () => {
         allFilterTagIdsCount,
         noTransaction,
         hasMoreTransaction,
-        // functions
+        
         initTransactionDraft,
         isTransactionDraftModified,
         saveTransactionDraft,

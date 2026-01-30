@@ -1,12 +1,12 @@
 package locales
 
 import (
-	"github.com/mayswind/ezbookkeeping/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
 )
 
 var tr = &LocaleTextItems{
 	GlobalTextItems: &GlobalTextItems{
-		AppName: "ezBookkeeping",
+		AppName: "Split Chill AI",
 	},
 	DefaultTypes: &DefaultTypes{
 		DecimalSeparator:    core.DECIMAL_SEPARATOR_COMMA,

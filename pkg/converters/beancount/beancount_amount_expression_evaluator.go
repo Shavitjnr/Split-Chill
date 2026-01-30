@@ -1,19 +1,19 @@
-package beancount
+﻿package beancount
 
 import (
 	"math/big"
 	"strings"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 const maxAllowedDecimalCount = 6
 const normalizeFactor = int64(1000000)
 const normalizedDecimalsMaxZeroString = "000000"
-const normalizedNumberToAmountFactor = int64(10000) // 1000000 / 100
+const normalizedNumberToAmountFactor = int64(10000) 
 
 var operatorPriority = map[rune]int{
 	'+': 1,
@@ -55,7 +55,7 @@ func normalizeNumber(textualNumber string) (*big.Int, error) {
 }
 
 func denormalizeNumberToTextualAmount(num *big.Int) string {
-	result := big.NewInt(0).Add(num, big.NewInt(0)) // make a copy of num
+	result := big.NewInt(0).Add(num, big.NewInt(0)) 
 	result = result.Div(result, big.NewInt(normalizedNumberToAmountFactor))
 	return utils.FormatAmount(result.Int64())
 }
@@ -71,7 +71,7 @@ func toPostfixExprTokens(ctx core.Context, expr string) ([]string, error) {
 	for i := 0; i < len(expr); i++ {
 		ch := rune(expr[i])
 
-		// number
+		
 		if '0' <= ch && ch <= '9' || ch == '.' {
 			currentNumberBuilder.WriteRune(ch)
 			continue
@@ -80,7 +80,7 @@ func toPostfixExprTokens(ctx core.Context, expr string) ([]string, error) {
 			continue
 		}
 
-		// operator or parenthesis
+		
 		if currentNumberBuilder.Len() > 0 {
 			finalTokens = append(finalTokens, currentNumberBuilder.String())
 			currentNumberBuilder.Reset()
@@ -167,20 +167,20 @@ func evaluatePostfixExpr(ctx core.Context, tokens []string) (*big.Int, error) {
 		token := tokens[i]
 
 		switch token {
-		case "+", "-", "*", "/": // operators
+		case "+", "-", "*", "/": 
 			if len(stack) < 2 {
 				log.Warnf(ctx, "[beancount_amount_expression_evaluator.evaluatePostfixExpr] cannot evaluate expression \"%s\", because not enough operands", strings.Join(tokens, " "))
 				return nil, errs.ErrInvalidAmountExpression
 			}
 
-			// pop the top two operands
+			
 			b := stack[len(stack)-1]
 			stack = stack[:len(stack)-1]
 
 			a := stack[len(stack)-1]
 			stack = stack[:len(stack)-1]
 
-			// evaluate the operation
+			
 			result := big.NewInt(0)
 			switch token {
 			case "+":
@@ -199,9 +199,9 @@ func evaluatePostfixExpr(ctx core.Context, tokens []string) (*big.Int, error) {
 				result.Div(result, b)
 			}
 
-			// push the result back to the stack
+			
 			stack = append(stack, result)
-		default: // operands
+		default: 
 			normalizedNum, err := normalizeNumber(token)
 
 			if err != nil {

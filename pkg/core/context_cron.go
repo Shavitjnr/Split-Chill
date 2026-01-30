@@ -1,4 +1,4 @@
-package core
+﻿package core
 
 import (
 	"context"
@@ -7,29 +7,29 @@ import (
 	"time"
 )
 
-// CronContext represents the cron job context
+
 type CronContext struct {
 	context.Context
 	contextId       string
 	cronJobInterval time.Duration
 }
 
-// GetContextId returns the current context id
+
 func (c *CronContext) GetContextId() string {
 	return c.contextId
 }
 
-// GetClientLocale returns the client locale name
+
 func (c *CronContext) GetClientLocale() string {
 	return ""
 }
 
-// GetInterval returns the current cron job interval
+
 func (c *CronContext) GetInterval() time.Duration {
 	return c.cronJobInterval
 }
 
-// NewCronJobContext returns a new cron job context
+
 func NewCronJobContext(cronJobName string, cronJobInterval time.Duration) *CronContext {
 	return &CronContext{
 		Context:         context.Background(),

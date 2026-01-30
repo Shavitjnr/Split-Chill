@@ -1,4 +1,4 @@
-import { createApp } from 'vue';
+﻿import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import { createI18n } from 'vue-i18n';
 
@@ -36,7 +36,7 @@ import Framework7Typography from 'framework7/components/typography';
 import Framework7Swiper from 'framework7/components/swiper';
 import Framework7VirtualList from 'framework7/components/virtual-list';
 import Framework7PhotoBrowser from 'framework7/components/photo-browser';
-// @ts-expect-error there is a function called "registerComponents" in the framework7-vue package, but it is not declared in the type definition file
+
 import Framework7Vue, { registerComponents } from 'framework7-vue/bundle';
 
 import 'framework7-icons';

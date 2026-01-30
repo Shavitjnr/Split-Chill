@@ -1,4 +1,4 @@
-package excel
+﻿package excel
 
 import (
 	"bytes"
@@ -6,31 +6,31 @@ import (
 
 	"github.com/extrame/xls"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/datatable"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/datatable"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
 )
 
-// ExcelMSCFBFileBasicDataTable defines the structure of excel (microsoft compound file binary) file data table
+
 type ExcelMSCFBFileBasicDataTable struct {
 	workbook              *xls.WorkBook
 	headerLineColumnNames []string
 	hasTitleLine          bool
 }
 
-// ExcelMSCFBFileBasicDataTableRow defines the structure of excel (microsoft compound file binary) file data table row
+
 type ExcelMSCFBFileBasicDataTableRow struct {
 	sheet    *xls.WorkSheet
 	rowIndex int
 }
 
-// ExcelMSCFBFileBasicDataTableRowIterator defines the structure of excel (microsoft compound file binary) file data table row iterator
+
 type ExcelMSCFBFileBasicDataTableRowIterator struct {
 	dataTable              *ExcelMSCFBFileBasicDataTable
 	currentSheetIndex      int
 	currentRowIndexInSheet int
 }
 
-// DataRowCount returns the total count of data row
+
 func (t *ExcelMSCFBFileBasicDataTable) DataRowCount() int {
 	totalDataRowCount := 0
 
@@ -59,7 +59,7 @@ func (t *ExcelMSCFBFileBasicDataTable) DataRowCount() int {
 	return totalDataRowCount
 }
 
-// HeaderColumnNames returns the header column name list
+
 func (t *ExcelMSCFBFileBasicDataTable) HeaderColumnNames() []string {
 	if !t.hasTitleLine {
 		return nil
@@ -68,7 +68,7 @@ func (t *ExcelMSCFBFileBasicDataTable) HeaderColumnNames() []string {
 	return t.headerLineColumnNames
 }
 
-// DataRowIterator returns the iterator of data row
+
 func (t *ExcelMSCFBFileBasicDataTable) DataRowIterator() datatable.BasicDataTableRowIterator {
 	startIndex := -1
 
@@ -83,19 +83,19 @@ func (t *ExcelMSCFBFileBasicDataTable) DataRowIterator() datatable.BasicDataTabl
 	}
 }
 
-// ColumnCount returns the total count of column in this data row
+
 func (r *ExcelMSCFBFileBasicDataTableRow) ColumnCount() int {
 	row := r.sheet.Row(r.rowIndex)
 	return row.LastCol() + 1
 }
 
-// GetData returns the data in the specified column index
+
 func (r *ExcelMSCFBFileBasicDataTableRow) GetData(columnIndex int) string {
 	row := r.sheet.Row(r.rowIndex)
 	return row.Col(columnIndex)
 }
 
-// HasNext returns whether the iterator does not reach the end
+
 func (t *ExcelMSCFBFileBasicDataTableRowIterator) HasNext() bool {
 	workbook := t.dataTable.workbook
 
@@ -128,12 +128,12 @@ func (t *ExcelMSCFBFileBasicDataTableRowIterator) HasNext() bool {
 	return false
 }
 
-// CurrentRowId returns current index
+
 func (t *ExcelMSCFBFileBasicDataTableRowIterator) CurrentRowId() string {
 	return fmt.Sprintf("sheet#%d-row#%d", t.currentSheetIndex, t.currentRowIndexInSheet)
 }
 
-// Next returns the next basic data row
+
 func (t *ExcelMSCFBFileBasicDataTableRowIterator) Next() datatable.BasicDataTableRow {
 	workbook := t.dataTable.workbook
 
@@ -170,7 +170,7 @@ func (t *ExcelMSCFBFileBasicDataTableRowIterator) Next() datatable.BasicDataTabl
 	}
 }
 
-// CreateNewExcelMSCFBFileBasicDataTable returns excel (microsoft compound file binary) data table by file binary data
+
 func CreateNewExcelMSCFBFileBasicDataTable(data []byte, hasTitleLine bool) (datatable.BasicDataTable, error) {
 	reader := bytes.NewReader(data)
 	workbook, err := xls.OpenReader(reader, "")

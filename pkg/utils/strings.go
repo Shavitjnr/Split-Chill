@@ -1,4 +1,4 @@
-package utils
+﻿package utils
 
 import (
 	"crypto/aes"
@@ -13,7 +13,7 @@ import (
 
 	"golang.org/x/crypto/pbkdf2"
 
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
 )
 
 const (
@@ -25,7 +25,7 @@ const (
 	availableNumberAndLowercaseLettersLength = len(availableNumberAndLowercaseLetters)
 )
 
-// SubString returns part of the source string according to start index and length
+
 func SubString(str string, start int, length int) string {
 	chars := []rune(str)
 	realLength := len(chars)
@@ -60,7 +60,7 @@ func SubString(str string, start int, length int) string {
 	return string(chars[start:end])
 }
 
-// ContainsAnyString returns whether the specified string contains any string of sub string slice
+
 func ContainsAnyString(s string, substrs []string) bool {
 	for i := 0; i < len(substrs); i++ {
 		if strings.Index(s, substrs[i]) >= 0 {
@@ -71,7 +71,7 @@ func ContainsAnyString(s string, substrs []string) bool {
 	return false
 }
 
-// GetFirstLowerCharString returns the source string parameter, but makes the first character lower case
+
 func GetFirstLowerCharString(s string) string {
 	if s == "" {
 		return s
@@ -87,7 +87,7 @@ func GetFirstLowerCharString(s string) string {
 	return string(chars)
 }
 
-// ContainsOnlyOneRune returns the source string only contains one character
+
 func ContainsOnlyOneRune(s string, r rune) bool {
 	if len(s) < 1 {
 		return false
@@ -102,7 +102,7 @@ func ContainsOnlyOneRune(s string, r rune) bool {
 	return true
 }
 
-// GetRandomString returns a random string of which length is n
+
 func GetRandomString(n int) (string, error) {
 	var result = make([]byte, n)
 
@@ -119,7 +119,7 @@ func GetRandomString(n int) (string, error) {
 	return string(result), nil
 }
 
-// GetRandomNumberOrLetter returns a random string which only contains number or letter characters
+
 func GetRandomNumberOrLetter(n int) (string, error) {
 	var result = make([]byte, n)
 
@@ -136,7 +136,7 @@ func GetRandomNumberOrLetter(n int) (string, error) {
 	return string(result), nil
 }
 
-// GetRandomNumberOrLowercaseLetter returns a random string which only contains number or letter characters
+
 func GetRandomNumberOrLowercaseLetter(n int) (string, error) {
 	var result = make([]byte, n)
 
@@ -153,20 +153,20 @@ func GetRandomNumberOrLowercaseLetter(n int) (string, error) {
 	return string(result), nil
 }
 
-// MD5Encode returns a hashed string by md5
+
 func MD5Encode(data []byte) []byte {
 	m := md5.New()
 	m.Write(data)
 	return m.Sum(nil)
 }
 
-// MD5EncodeToString returns a hashed string by md5
+
 func MD5EncodeToString(data []byte) string {
 	hash := MD5Encode(data)
 	return hex.EncodeToString(hash)
 }
 
-// AESGCMEncrypt returns a encrypted string by aes-gcm
+
 func AESGCMEncrypt(key []byte, plainText []byte) ([]byte, error) {
 	block, err := aes.NewCipher(key)
 
@@ -192,7 +192,7 @@ func AESGCMEncrypt(key []byte, plainText []byte) ([]byte, error) {
 	return result, nil
 }
 
-// AESGCMDecrypt returns a decrypted string by aes-gcm
+
 func AESGCMDecrypt(key []byte, ciphertext []byte) ([]byte, error) {
 	block, err := aes.NewCipher(key)
 
@@ -224,15 +224,15 @@ func AESGCMDecrypt(key []byte, ciphertext []byte) ([]byte, error) {
 	return plainText, nil
 }
 
-// EncodePassword returns a encoded password
+
 func EncodePassword(password string, salt string) string {
-	encodedPassword := pbkdf2.Key([]byte(password), []byte(salt), 10000, 48, sha256.New) // 256^48 = 64^64
+	encodedPassword := pbkdf2.Key([]byte(password), []byte(salt), 10000, 48, sha256.New) 
 	return strings.TrimRight(base64.StdEncoding.EncodeToString(encodedPassword), "=")
 }
 
-// EncryptSecret returns a encrypted secret
+
 func EncryptSecret(secret string, key string) (string, error) {
-	encryptedSecret, err := AESGCMEncrypt(MD5Encode([]byte(key)), []byte(secret)) // md5encode make the aes key's length to 16
+	encryptedSecret, err := AESGCMEncrypt(MD5Encode([]byte(key)), []byte(secret)) 
 
 	if err != nil {
 		return "", err
@@ -241,7 +241,7 @@ func EncryptSecret(secret string, key string) (string, error) {
 	return base64.StdEncoding.EncodeToString(encryptedSecret), nil
 }
 
-// DecryptSecret returns a decrypted secret
+
 func DecryptSecret(encyptedSecret string, key string) (string, error) {
 	encyptedData, err := base64.StdEncoding.DecodeString(encyptedSecret)
 

@@ -1,16 +1,16 @@
-package gitea
+﻿package gitea
 
 import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/mayswind/ezbookkeeping/pkg/auth/oauth2/data"
-	"github.com/mayswind/ezbookkeeping/pkg/auth/oauth2/provider"
-	"github.com/mayswind/ezbookkeeping/pkg/auth/oauth2/provider/common"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/auth/oauth2/data"
+	"github.com/Shavitjnr/split-chill-ai/pkg/auth/oauth2/provider"
+	"github.com/Shavitjnr/split-chill-ai/pkg/auth/oauth2/provider/common"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
 type giteaUserInfoResponse struct {
@@ -19,27 +19,27 @@ type giteaUserInfoResponse struct {
 	Email    string `json:"email"`
 }
 
-// GiteaOAuth2DataSource represents Gitea OAuth 2.0 data source
+
 type GiteaOAuth2DataSource struct {
 	common.CommonOAuth2DataSource
 	baseUrl string
 }
 
-// GetAuthUrl returns the authentication url of the Gitea data source
+
 func (s *GiteaOAuth2DataSource) GetAuthUrl() string {
-	// Reference: https://docs.gitea.com/development/oauth2-provider
+	
 	return s.baseUrl + "login/oauth/authorize"
 }
 
-// GetTokenUrl returns the token url of the Gitea data source
+
 func (s *GiteaOAuth2DataSource) GetTokenUrl() string {
-	// Reference: https://docs.gitea.com/development/oauth2-provider
+	
 	return s.baseUrl + "login/oauth/access_token"
 }
 
-// GetUserInfoRequest returns the user info request of the Gitea data source
+
 func (s *GiteaOAuth2DataSource) GetUserInfoRequest() (*http.Request, error) {
-	// Reference: https://gitea.com/api/swagger#/user/userGetCurrent
+	
 	req, err := http.NewRequest("GET", s.baseUrl+"api/v1/user", nil)
 
 	if err != nil {
@@ -50,12 +50,12 @@ func (s *GiteaOAuth2DataSource) GetUserInfoRequest() (*http.Request, error) {
 	return req, nil
 }
 
-// GetScopes returns the scopes required by the Gitea provider
+
 func (s *GiteaOAuth2DataSource) GetScopes() []string {
 	return []string{"read:user"}
 }
 
-// ParseUserInfo returns the user info by parsing the response body
+
 func (s *GiteaOAuth2DataSource) ParseUserInfo(c core.Context, body []byte) (*data.OAuth2UserInfo, error) {
 	userInfoResp := &giteaUserInfoResponse{}
 	err := json.Unmarshal(body, &userInfoResp)
@@ -77,7 +77,7 @@ func (s *GiteaOAuth2DataSource) ParseUserInfo(c core.Context, body []byte) (*dat
 	}, nil
 }
 
-// NewGiteaOAuth2Provider creates a new Gitea OAuth 2.0 provider instance
+
 func NewGiteaOAuth2Provider(config *settings.Config, redirectUrl string) (provider.OAuth2Provider, error) {
 	if len(config.OAuth2GiteaBaseUrl) < 1 {
 		return nil, errs.ErrInvalidOAuth2Config

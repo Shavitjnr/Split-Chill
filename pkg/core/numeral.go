@@ -1,13 +1,13 @@
-package core
+﻿package core
 
 import (
 	"fmt"
 )
 
-// NumeralSystem represents the type of numeral system
+
 type NumeralSystem byte
 
-// Numeral System
+
 const (
 	NUMERAL_SYSTEM_DEFAULT                 NumeralSystem = 0
 	NUMERAL_SYSTEM_WESTERN_ARABIC_NUMERALS NumeralSystem = 1
@@ -18,7 +18,7 @@ const (
 	NUMERAL_SYSTEM_INVALID                 NumeralSystem = 255
 )
 
-// String returns a textual representation of the decimal separator enum
+
 func (f NumeralSystem) String() string {
 	switch f {
 	case NUMERAL_SYSTEM_DEFAULT:
@@ -38,10 +38,10 @@ func (f NumeralSystem) String() string {
 	}
 }
 
-// DecimalSeparator represents the type of decimal separator
+
 type DecimalSeparator byte
 
-// Decimal Separator
+
 const (
 	DECIMAL_SEPARATOR_DEFAULT DecimalSeparator = 0
 	DECIMAL_SEPARATOR_DOT     DecimalSeparator = 1
@@ -49,7 +49,7 @@ const (
 	DECIMAL_SEPARATOR_INVALID DecimalSeparator = 255
 )
 
-// String returns a textual representation of the decimal separator enum
+
 func (f DecimalSeparator) String() string {
 	switch f {
 	case DECIMAL_SEPARATOR_DEFAULT:
@@ -65,10 +65,10 @@ func (f DecimalSeparator) String() string {
 	}
 }
 
-// DigitGroupingSymbol represents the digit grouping symbol
+
 type DigitGroupingSymbol byte
 
-// Digit Grouping Symbol
+
 const (
 	DIGIT_GROUPING_SYMBOL_DEFAULT    DigitGroupingSymbol = 0
 	DIGIT_GROUPING_SYMBOL_DOT        DigitGroupingSymbol = 1
@@ -78,7 +78,7 @@ const (
 	DIGIT_GROUPING_SYMBOL_INVALID    DigitGroupingSymbol = 255
 )
 
-// String returns a textual representation of the digit grouping symbol enum
+
 func (f DigitGroupingSymbol) String() string {
 	switch f {
 	case DIGIT_GROUPING_SYMBOL_DEFAULT:
@@ -98,10 +98,10 @@ func (f DigitGroupingSymbol) String() string {
 	}
 }
 
-// DigitGroupingType represents digit grouping type
+
 type DigitGroupingType byte
 
-// Digit Grouping Type
+
 const (
 	DIGIT_GROUPING_TYPE_DEFAULT                DigitGroupingType = 0
 	DIGIT_GROUPING_TYPE_NONE                   DigitGroupingType = 1
@@ -110,7 +110,7 @@ const (
 	DIGIT_GROUPING_TYPE_INVALID                DigitGroupingType = 255
 )
 
-// String returns a textual representation of the digit grouping type enum
+
 func (d DigitGroupingType) String() string {
 	switch d {
 	case DIGIT_GROUPING_TYPE_DEFAULT:

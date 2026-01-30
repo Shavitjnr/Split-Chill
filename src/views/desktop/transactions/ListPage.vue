@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <v-row class="match-height">
         <v-col cols="12">
             <v-card>
@@ -968,7 +968,7 @@ const queryAllSelectedFilterCategoryIds = computed<string>(() => {
         return '';
     } else if (queryAllFilterCategoryIdsCount.value === 1) {
         return query.value.categoryIds;
-    } else { // queryAllFilterCategoryIdsCount.value > 1
+    } else { 
         return 'multiple';
     }
 });
@@ -978,7 +978,7 @@ const queryAllSelectedFilterAccountIds = computed<string>(() => {
         return '';
     } else if (queryAllFilterAccountIdsCount.value === 1) {
         return query.value.accountIds;
-    } else { // queryAllFilterAccountIdsCount.value > 1
+    } else { 
         return 'multiple';
     }
 });
@@ -994,7 +994,7 @@ const queryAllSelectedFilterTagIds = computed<string>(() => {
         }
 
         return '';
-    } else { // queryAllFilterTagIdsCount.value > 1
+    } else { 
         return 'multiple';
     }
 });
@@ -1244,7 +1244,7 @@ function changePageType(type: number): void {
 }
 
 function changeDateFilter(dateRange: TimeRangeAndDateType | number | null): void {
-    if (dateRange === DateRange.Custom.type || (isObject(dateRange) && dateRange.dateType === DateRange.Custom.type && !dateRange.minTime && !dateRange.maxTime)) { // Custom
+    if (dateRange === DateRange.Custom.type || (isObject(dateRange) && dateRange.dateType === DateRange.Custom.type && !dateRange.minTime && !dateRange.maxTime)) { 
         if (!query.value.minTime || !query.value.maxTime) {
             customMaxDatetime.value = getCurrentUnixTime();
             customMinDatetime.value = getDayFirstDateTimeBySpecifiedUnixTime(customMaxDatetime.value).getUnixTime();

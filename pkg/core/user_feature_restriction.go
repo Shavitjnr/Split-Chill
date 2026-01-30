@@ -1,4 +1,4 @@
-package core
+﻿package core
 
 import (
 	"fmt"
@@ -6,28 +6,28 @@ import (
 	"strings"
 )
 
-// UserFeatureRestrictions represents all the restrictions of user features
+
 type UserFeatureRestrictions uint64
 
-// Add returns a new feature restrictions with the specified feature
+
 func (r UserFeatureRestrictions) Add(featureRestrictionType UserFeatureRestrictionType) UserFeatureRestrictions {
 	typeValue := uint64(1 << (featureRestrictionType - 1))
 	return UserFeatureRestrictions(uint64(r) | typeValue)
 }
 
-// Remove returns a new feature restrictions without the specified feature
+
 func (r UserFeatureRestrictions) Remove(featureRestrictionType UserFeatureRestrictionType) UserFeatureRestrictions {
 	typeValue := uint64(1 << (featureRestrictionType - 1))
 	return UserFeatureRestrictions(uint64(r) & (^typeValue))
 }
 
-// Contains returns whether contains the specified feature
+
 func (r UserFeatureRestrictions) Contains(featureRestrictionType UserFeatureRestrictionType) bool {
 	typeValue := uint64(1 << (featureRestrictionType - 1))
 	return uint64(r)&typeValue == typeValue
 }
 
-// String returns a textual representation of all the restrictions of user features
+
 func (r UserFeatureRestrictions) String() string {
 	builder := strings.Builder{}
 
@@ -46,7 +46,7 @@ func (r UserFeatureRestrictions) String() string {
 	return builder.String()
 }
 
-// ParseUserFeatureRestrictions returns restrictions of user features according to the textual restrictions of user features  separated by commas
+
 func ParseUserFeatureRestrictions(featureRestrictions string) UserFeatureRestrictions {
 	if len(featureRestrictions) < 1 {
 		return 0
@@ -71,10 +71,10 @@ func ParseUserFeatureRestrictions(featureRestrictions string) UserFeatureRestric
 	return UserFeatureRestrictions(restrictions)
 }
 
-// UserFeatureRestrictionType represents the restriction type of user features
+
 type UserFeatureRestrictionType uint64
 
-// User Feature Restriction Type
+
 const (
 	USER_FEATURE_RESTRICTION_TYPE_UPDATE_PASSWORD                              UserFeatureRestrictionType = 1
 	USER_FEATURE_RESTRICTION_TYPE_UPDATE_EMAIL                                 UserFeatureRestrictionType = 2
@@ -98,7 +98,7 @@ const (
 const userFeatureRestrictionTypeMinValue UserFeatureRestrictionType = USER_FEATURE_RESTRICTION_TYPE_UPDATE_PASSWORD
 const userFeatureRestrictionTypeMaxValue UserFeatureRestrictionType = USER_FEATURE_RESTRICTION_TYPE_GENERATE_API_TOKEN
 
-// String returns a textual representation of the restriction type of user features
+
 func (t UserFeatureRestrictionType) String() string {
 	switch t {
 	case USER_FEATURE_RESTRICTION_TYPE_UPDATE_PASSWORD:

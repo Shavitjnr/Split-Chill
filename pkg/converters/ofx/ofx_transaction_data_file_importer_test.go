@@ -1,4 +1,4 @@
-package ofx
+﻿package ofx
 
 import (
 	"testing"
@@ -6,11 +6,11 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/converter"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/converter"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 func TestOFXTransactionDataFileParseImportedData_MinimumValidData(t *testing.T) {
@@ -613,7 +613,7 @@ func TestOFXTransactionDataFileParseImportedData_MissingAccountFromNode(t *testi
 		DefaultCurrency: "CNY",
 	}
 
-	// Missing Posted Date Node
+	
 	_, _, _, _, _, _, err := importer.ParseImportedData(context, user, []byte(
 		"<OFX>\n"+
 			"  <BANKMSGSRSV1>\n"+
@@ -643,7 +643,7 @@ func TestOFXTransactionDataFileParseImportedData_MissingCurrencyNode(t *testing.
 		DefaultCurrency: "CNY",
 	}
 
-	// Missing Default Currency Node
+	
 	_, _, _, _, _, _, err := importer.ParseImportedData(context, user, []byte(
 		"<OFX>\n"+
 			"    <BANKMSGSRSV1>\n"+
@@ -675,7 +675,7 @@ func TestOFXTransactionDataFileParseImportedData_MissingTransactionRequiredNode(
 		DefaultCurrency: "CNY",
 	}
 
-	// Missing Posted Date Node
+	
 	_, _, _, _, _, _, err := importer.ParseImportedData(context, user, []byte(
 		"<OFX>\n"+
 			"    <BANKMSGSRSV1>\n"+
@@ -697,7 +697,7 @@ func TestOFXTransactionDataFileParseImportedData_MissingTransactionRequiredNode(
 			"</OFX>"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingTransactionTime.Message)
 
-	// Missing Transaction Type Node
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		"<OFX>\n"+
 			"    <BANKMSGSRSV1>\n"+
@@ -719,7 +719,7 @@ func TestOFXTransactionDataFileParseImportedData_MissingTransactionRequiredNode(
 			"</OFX>"), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrTransactionTypeInvalid.Message)
 
-	// Missing Amount Node
+	
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(
 		"<OFX>\n"+
 			"    <BANKMSGSRSV1>\n"+

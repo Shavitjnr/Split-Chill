@@ -1,4 +1,4 @@
-import { computed } from 'vue';
+﻿import { computed } from 'vue';
 
 import { useI18n } from '@/locales/helpers.ts';
 
@@ -49,9 +49,9 @@ export function useMonthlyTrendsChartBase<T extends Year1BasedMonth>(props: Comm
     }
 
     return {
-        // computed states
+        
         allDateRanges,
-        // functions
+        
         getItemName
     }
 }

@@ -1,5 +1,4 @@
-/** Materio Template base classes **/
-/** https://github.com/themeselection/materio-vuetify-vuejs-admin-template-free **/
+﻿
 
 @use "@/styles/desktop/configured-variables/template" as variables;
 @use "./misc";
@@ -24,10 +23,10 @@
     &::after {
         position: absolute;
         z-index: -1;
-        /* stylelint-disable property-no-vendor-prefix */
+        
         -webkit-backdrop-filter: blur(10px);
         backdrop-filter: blur(10px);
-        /* stylelint-enable */
+        
         background:
             linear-gradient(
                     180deg,
@@ -40,9 +39,9 @@
         content: "";
         inset-block-start: -(variables.$vertical-nav-floating-navbar-top);
         inset-inline: 0 0;
-        /* stylelint-disable property-no-vendor-prefix */
+        
         -webkit-mask: linear-gradient(black, black 18%, transparent 100%);
         mask: linear-gradient(black, black 18%, transparent 100%);
-        /* stylelint-enable */
+        
     }
 }

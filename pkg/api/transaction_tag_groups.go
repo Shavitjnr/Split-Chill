@@ -1,28 +1,28 @@
-package api
+﻿package api
 
 import (
 	"sort"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/services"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/services"
 )
 
-// TransactionTagGroupsApi represents transaction tag group api
+
 type TransactionTagGroupsApi struct {
 	tagGroups *services.TransactionTagGroupService
 }
 
-// Initialize a transaction tag group api singleton instance
+
 var (
 	TransactionTagGroups = &TransactionTagGroupsApi{
 		tagGroups: services.TransactionTagGroups,
 	}
 )
 
-// TagGroupListHandler returns transaction tag group list of current user
+
 func (a *TransactionTagGroupsApi) TagGroupListHandler(c *core.WebContext) (any, *errs.Error) {
 	uid := c.GetCurrentUid()
 	tagGroups, err := a.tagGroups.GetAllTagGroupsByUid(c, uid)
@@ -43,7 +43,7 @@ func (a *TransactionTagGroupsApi) TagGroupListHandler(c *core.WebContext) (any, 
 	return tagGroupResps, nil
 }
 
-// TagGroupGetHandler returns one specific transaction tag group of current user
+
 func (a *TransactionTagGroupsApi) TagGroupGetHandler(c *core.WebContext) (any, *errs.Error) {
 	var tagGroupGetReq models.TransactionTagGroupGetRequest
 	err := c.ShouldBindQuery(&tagGroupGetReq)
@@ -66,7 +66,7 @@ func (a *TransactionTagGroupsApi) TagGroupGetHandler(c *core.WebContext) (any, *
 	return tagGroupResp, nil
 }
 
-// TagGroupCreateHandler saves a new transaction tag group by request parameters for current user
+
 func (a *TransactionTagGroupsApi) TagGroupCreateHandler(c *core.WebContext) (any, *errs.Error) {
 	var tagGroupCreateReq models.TransactionTagGroupCreateRequest
 	err := c.ShouldBindJSON(&tagGroupCreateReq)
@@ -101,7 +101,7 @@ func (a *TransactionTagGroupsApi) TagGroupCreateHandler(c *core.WebContext) (any
 	return tagGroupResp, nil
 }
 
-// TagGroupModifyHandler saves an existed transaction tag group by request parameters for current user
+
 func (a *TransactionTagGroupsApi) TagGroupModifyHandler(c *core.WebContext) (any, *errs.Error) {
 	var tagGroupModifyReq models.TransactionTagGroupModifyRequest
 	err := c.ShouldBindJSON(&tagGroupModifyReq)
@@ -144,7 +144,7 @@ func (a *TransactionTagGroupsApi) TagGroupModifyHandler(c *core.WebContext) (any
 	return tagGroupResp, nil
 }
 
-// TagGroupMoveHandler moves display order of existed transaction tag groups by request parameters for current user
+
 func (a *TransactionTagGroupsApi) TagGroupMoveHandler(c *core.WebContext) (any, *errs.Error) {
 	var tagGroupMoveReq models.TransactionTagGroupMoveRequest
 	err := c.ShouldBindJSON(&tagGroupMoveReq)
@@ -179,7 +179,7 @@ func (a *TransactionTagGroupsApi) TagGroupMoveHandler(c *core.WebContext) (any, 
 	return true, nil
 }
 
-// TagGroupDeleteHandler deletes an existed transaction tag group by request parameters for current user
+
 func (a *TransactionTagGroupsApi) TagGroupDeleteHandler(c *core.WebContext) (any, *errs.Error) {
 	var tagGroupDeleteReq models.TransactionTagGroupDeleteRequest
 	err := c.ShouldBindJSON(&tagGroupDeleteReq)

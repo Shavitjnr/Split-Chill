@@ -1,8 +1,8 @@
-package locales
+﻿package locales
 
-import "github.com/mayswind/ezbookkeeping/pkg/core"
+import "github.com/Shavitjnr/split-chill-ai/pkg/core"
 
-// GetLocaleTextItems returns the locale text items for the specified locale
+
 func GetLocaleTextItems(locale string) *LocaleTextItems {
 	localeInfo, exists := AllLanguages[locale]
 
@@ -13,7 +13,7 @@ func GetLocaleTextItems(locale string) *LocaleTextItems {
 	return DefaultLanguage
 }
 
-// IsDecimalSeparatorEqualsDigitGroupingSymbol returns whether the decimal separator equals to the digit grouping symbol in the specified locale
+
 func IsDecimalSeparatorEqualsDigitGroupingSymbol(decimalSeparator core.DecimalSeparator, digitGroupingSymbol core.DigitGroupingSymbol, locale string) bool {
 	if decimalSeparator == core.DECIMAL_SEPARATOR_DEFAULT && digitGroupingSymbol == core.DIGIT_GROUPING_SYMBOL_DEFAULT {
 		return false

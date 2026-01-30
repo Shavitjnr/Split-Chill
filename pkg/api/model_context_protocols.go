@@ -1,21 +1,21 @@
-package api
+﻿package api
 
 import (
 	"encoding/json"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/mcp"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/services"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/mcp"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/services"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 const mcpServerName = core.ApplicationName + "-mcp"
 
-// ModelContextProtocolAPI represents model context protocol api
+
 type ModelContextProtocolAPI struct {
 	ApiUsingConfig
 	transactions          *services.TransactionService
@@ -26,7 +26,7 @@ type ModelContextProtocolAPI struct {
 	tokens                *services.TokenService
 }
 
-// Initialize a model context protocol api singleton instance
+
 var (
 	ModelContextProtocols = &ModelContextProtocolAPI{
 		ApiUsingConfig: ApiUsingConfig{
@@ -41,7 +41,7 @@ var (
 	}
 )
 
-// InitializeHandler returns the initialize response for model context protocol
+
 func (a *ModelContextProtocolAPI) InitializeHandler(c *core.WebContext, jsonRPCRequest *core.JSONRPCRequest) (any, *errs.Error) {
 	var initRequest mcp.MCPInitializeRequest
 
@@ -110,7 +110,7 @@ func (a *ModelContextProtocolAPI) InitializeHandler(c *core.WebContext, jsonRPCR
 	return initResp, nil
 }
 
-// ListResourcesHandler returns the list of resources for model context protocol
+
 func (a *ModelContextProtocolAPI) ListResourcesHandler(c *core.WebContext, jsonRPCRequest *core.JSONRPCRequest) (any, *errs.Error) {
 	uid := c.GetCurrentUid()
 	user, err := a.users.GetUserById(c, uid)
@@ -131,7 +131,7 @@ func (a *ModelContextProtocolAPI) ListResourcesHandler(c *core.WebContext, jsonR
 	return listResourcesResp, nil
 }
 
-// ReadResourceHandler returns the resource details for a specific resource in model context protocol
+
 func (a *ModelContextProtocolAPI) ReadResourceHandler(c *core.WebContext, jsonRPCRequest *core.JSONRPCRequest) (any, *errs.Error) {
 	var readResourceReq mcp.MCPReadResourceRequest
 
@@ -158,7 +158,7 @@ func (a *ModelContextProtocolAPI) ReadResourceHandler(c *core.WebContext, jsonRP
 	return nil, errs.ErrApiNotFound
 }
 
-// ListToolsHandler returns the list of tools for model context protocol
+
 func (a *ModelContextProtocolAPI) ListToolsHandler(c *core.WebContext, jsonRPCRequest *core.JSONRPCRequest) (any, *errs.Error) {
 	uid := c.GetCurrentUid()
 	user, err := a.users.GetUserById(c, uid)
@@ -196,7 +196,7 @@ func (a *ModelContextProtocolAPI) ListToolsHandler(c *core.WebContext, jsonRPCRe
 	return listToolsResp, nil
 }
 
-// CallToolHandler returns the result of calling a specific tool for model context protocol
+
 func (a *ModelContextProtocolAPI) CallToolHandler(c *core.WebContext, jsonRPCRequest *core.JSONRPCRequest) (any, *errs.Error) {
 	uid := c.GetCurrentUid()
 	user, err := a.users.GetUserById(c, uid)
@@ -229,37 +229,37 @@ func (a *ModelContextProtocolAPI) CallToolHandler(c *core.WebContext, jsonRPCReq
 	return result, nil
 }
 
-// PingHandler return the ping response for model context protocol
+
 func (a *ModelContextProtocolAPI) PingHandler(c *core.WebContext, jsonRPCRequest *core.JSONRPCRequest) (any, *errs.Error) {
 	return core.O{}, nil
 }
 
-// GetTransactionService implements the MCPAvailableServices interface
+
 func (a *ModelContextProtocolAPI) GetTransactionService() *services.TransactionService {
 	return a.transactions
 }
 
-// GetTransactionCategoryService implements the MCPAvailableServices interface
+
 func (a *ModelContextProtocolAPI) GetTransactionCategoryService() *services.TransactionCategoryService {
 	return a.transactionCategories
 }
 
-// GetTransactionTagService implements the MCPAvailableServices interface
+
 func (a *ModelContextProtocolAPI) GetTransactionTagService() *services.TransactionTagService {
 	return a.transactionTags
 }
 
-// GetAccountService implements the MCPAvailableServices interface
+
 func (a *ModelContextProtocolAPI) GetAccountService() *services.AccountService {
 	return a.accounts
 }
 
-// GetUserService implements the MCPAvailableServices interface
+
 func (a *ModelContextProtocolAPI) GetUserService() *services.UserService {
 	return a.users
 }
 
-// getMCPVersion returns the MCP protocol version from the request header
+
 func (a *ModelContextProtocolAPI) getMCPVersion(c *core.WebContext) string {
 	return c.GetHeader(mcp.MCPProtocolVersionHeaderName)
 }

@@ -1,4 +1,4 @@
-import { type TextualYearMonthDay } from '@/core/datetime.ts';
+﻿import { type TextualYearMonthDay } from '@/core/datetime.ts';
 import { TransactionType } from '@/core/transaction.ts';
 import { TemplateType } from '@/core/template.ts';
 
@@ -88,8 +88,8 @@ export class TransactionTemplate extends Transaction implements TransactionTempl
     public static createNewTransactionTemplate(transaction: Transaction): TransactionTemplate {
         return new TransactionTemplate(
             transaction.id,
-            0, // templateType
-            '', // name
+            0, 
+            '', 
             transaction.type,
             transaction.categoryId,
             transaction.timeZone,
@@ -99,11 +99,11 @@ export class TransactionTemplate extends Transaction implements TransactionTempl
             transaction.sourceAmount,
             transaction.destinationAmount,
             transaction.hideAmount,
-            undefined, // scheduledFrequencyType
-            undefined, // scheduledFrequency
-            undefined, // scheduledStartDate
-            undefined, // scheduledEndDate
-            undefined, // scheduledAt
+            undefined, 
+            undefined, 
+            undefined, 
+            undefined, 
+            undefined, 
             transaction.tagIds,
             transaction.comment,
             true,
@@ -119,7 +119,7 @@ export class TransactionTemplate extends Transaction implements TransactionTempl
             templateResponse.name,
             templateResponse.type,
             templateResponse.categoryId,
-            undefined, // only in new transaction template
+            undefined, 
             templateResponse.utcOffset ?? 0,
             templateResponse.sourceAccountId,
             templateResponse.destinationAccountId,
@@ -133,7 +133,7 @@ export class TransactionTemplate extends Transaction implements TransactionTempl
             templateResponse.scheduledAt,
             templateResponse.tagIds,
             templateResponse.comment,
-            true, // editable
+            true, 
             templateResponse.displayOrder,
             templateResponse.hidden
         );

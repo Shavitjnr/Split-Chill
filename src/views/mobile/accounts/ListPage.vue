@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <f7-page :ptr="!sortable" @ptr:refresh="reload" @page:afterin="onPageAfterIn">
         <f7-navbar>
             <f7-nav-left :class="{ 'disabled': loading }" :back-link="tt('Back')" v-if="!sortable"></f7-nav-left>
@@ -304,7 +304,7 @@ function parseAccountIdFromDomId(domId: string): string | null {
         return null;
     }
 
-    return domId.substring(8); // account_
+    return domId.substring(8); 
 }
 
 function init(): void {
@@ -556,7 +556,7 @@ function onSort(event: { el: { id: string }; from: number; to: number }): void {
 
     accountsStore.changeAccountDisplayOrder({
         accountId: id,
-        from: event.from - 1, // first item in the list is title, so the index need minus one
+        from: event.from - 1, 
         to: event.to - 1,
         updateListOrder: true,
         updateGlobalListOrder: true

@@ -1,23 +1,23 @@
-package api
+﻿package api
 
 import (
 	"sort"
 
-	"github.com/mayswind/ezbookkeeping/pkg/auth/oauth2"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/services"
+	"github.com/Shavitjnr/split-chill-ai/pkg/auth/oauth2"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/services"
 )
 
-// UserExternalAuthsApi represents user external auth api
+
 type UserExternalAuthsApi struct {
 	users             *services.UserService
 	userExternalAuths *services.UserExternalAuthService
 }
 
-// Initialize a user external auth api singleton instance
+
 var (
 	UserExternalAuths = &UserExternalAuthsApi{
 		users:             services.Users,
@@ -25,7 +25,7 @@ var (
 	}
 )
 
-// ExternalAuthListHanlder returns external authentications list of current user
+
 func (a *UserExternalAuthsApi) ExternalAuthListHanlder(c *core.WebContext) (any, *errs.Error) {
 	uid := c.GetCurrentUid()
 	userExternalAuths, err := a.userExternalAuths.GetUserAllExternalAuthsByUid(c, uid)
@@ -62,7 +62,7 @@ func (a *UserExternalAuthsApi) ExternalAuthListHanlder(c *core.WebContext) (any,
 	return userExternalAuthResps, nil
 }
 
-// UnlinkExternalAuthHandler unlinks external authentication for current user
+
 func (a *UserExternalAuthsApi) UnlinkExternalAuthHandler(c *core.WebContext) (any, *errs.Error) {
 	var externalAuthLinkReq models.UserExternalAuthUnlinkRequest
 	err := c.ShouldBindJSON(&externalAuthLinkReq)

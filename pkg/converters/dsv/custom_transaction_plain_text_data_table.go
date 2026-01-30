@@ -1,18 +1,18 @@
-package dsv
+﻿package dsv
 
 import (
 	"strings"
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/datatable"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/datatable"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
-// customPlainTextDataTable defines the structure of custom plain text transaction data table
+
 type customPlainTextDataTable struct {
 	innerDataTable             datatable.BasicDataTable
 	columnIndexMapping         map[datatable.TransactionDataTableColumn]int
@@ -24,29 +24,29 @@ type customPlainTextDataTable struct {
 	amountDigitGroupingSymbol  string
 }
 
-// customPlainTextDataRow defines the structure of custom plain text transaction data row
+
 type customPlainTextDataRow struct {
 	transactionDataTable *customPlainTextDataTable
 	rowData              map[datatable.TransactionDataTableColumn]string
 	isValid              bool
 }
 
-// customPlainTextDataRowIterator defines the structure of custom plain text transaction data row iterator
+
 type customPlainTextDataRowIterator struct {
 	transactionDataTable *customPlainTextDataTable
 	innerIterator        datatable.BasicDataTableRowIterator
 }
 
-// HasColumn returns whether the data table has specified column
+
 func (t *customPlainTextDataTable) HasColumn(column datatable.TransactionDataTableColumn) bool {
-	// custom dsv file allows no sub category, account name and related account name column mapping, but data table converter needs these columns
+	
 	if column == datatable.TRANSACTION_DATA_TABLE_SUB_CATEGORY ||
 		column == datatable.TRANSACTION_DATA_TABLE_ACCOUNT_NAME ||
 		column == datatable.TRANSACTION_DATA_TABLE_RELATED_ACCOUNT_NAME {
 		return true
 	}
 
-	// timezone column will be added when original time format contains timezone
+	
 	if t.timeFormatIncludeTimezone && column == datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TIMEZONE {
 		return true
 	}
@@ -55,12 +55,12 @@ func (t *customPlainTextDataTable) HasColumn(column datatable.TransactionDataTab
 	return exists
 }
 
-// TransactionRowCount returns the total count of transaction data row
+
 func (t *customPlainTextDataTable) TransactionRowCount() int {
 	return t.innerDataTable.DataRowCount()
 }
 
-// TransactionRowIterator returns the iterator of transaction data row
+
 func (t *customPlainTextDataTable) TransactionRowIterator() datatable.TransactionDataRowIterator {
 	return &customPlainTextDataRowIterator{
 		transactionDataTable: t,
@@ -68,22 +68,22 @@ func (t *customPlainTextDataTable) TransactionRowIterator() datatable.Transactio
 	}
 }
 
-// IsValid returns whether this row is valid data for importing
+
 func (r *customPlainTextDataRow) IsValid() bool {
 	return r.isValid
 }
 
-// GetData returns the data in the specified column type
+
 func (r *customPlainTextDataRow) GetData(column datatable.TransactionDataTableColumn) string {
 	return r.rowData[column]
 }
 
-// HasNext returns whether the iterator does not reach the end
+
 func (t *customPlainTextDataRowIterator) HasNext() bool {
 	return t.innerIterator.HasNext()
 }
 
-// Next returns the next transaction data row
+
 func (t *customPlainTextDataRowIterator) Next(ctx core.Context, user *models.User) (daraRow datatable.TransactionDataRow, err error) {
 	importedRow := t.innerIterator.Next()
 
@@ -118,7 +118,7 @@ func (t *customPlainTextDataRowIterator) parseTransaction(ctx core.Context, user
 		rowData[column] = value
 	}
 
-	// parse transaction type
+	
 	if rowData[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE] != "" {
 		transactionType, exists := t.transactionDataTable.transactionTypeNameMapping[rowData[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE]]
 
@@ -137,7 +137,7 @@ func (t *customPlainTextDataRowIterator) parseTransaction(ctx core.Context, user
 		rowData[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TYPE] = mappedTransactionType
 	}
 
-	// parse date time
+	
 	if rowData[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TIME] != "" {
 		dateTime, err := time.Parse(t.transactionDataTable.timeFormat, rowData[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TIME])
 
@@ -153,11 +153,11 @@ func (t *customPlainTextDataRowIterator) parseTransaction(ctx core.Context, user
 		}
 	}
 
-	// parse timezone
+	
 	if rowData[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TIMEZONE] != "" {
-		if t.transactionDataTable.timezoneFormat == "Z" || t.transactionDataTable.timezoneFormat == "" { // -HH:mm
-			// Do Nothing
-		} else if t.transactionDataTable.timezoneFormat == "ZZ" { // -HHmm
+		if t.transactionDataTable.timezoneFormat == "Z" || t.transactionDataTable.timezoneFormat == "" { 
+			
+		} else if t.transactionDataTable.timezoneFormat == "ZZ" { 
 			timezone := rowData[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TIMEZONE]
 
 			if len(timezone) != 5 {
@@ -166,7 +166,7 @@ func (t *customPlainTextDataRowIterator) parseTransaction(ctx core.Context, user
 
 			timezone = timezone[:3] + ":" + timezone[3:]
 			rowData[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TIMEZONE] = timezone
-		} else if t.transactionDataTable.timezoneFormat == "zzz" { // IANA Timezone Name
+		} else if t.transactionDataTable.timezoneFormat == "zzz" { 
 			timezoneName := rowData[datatable.TRANSACTION_DATA_TABLE_TRANSACTION_TIMEZONE]
 			timezone, err := time.LoadLocation(timezoneName)
 
@@ -184,12 +184,12 @@ func (t *customPlainTextDataRowIterator) parseTransaction(ctx core.Context, user
 		}
 	}
 
-	// use primary category if sub category is empty
+	
 	if rowData[datatable.TRANSACTION_DATA_TABLE_SUB_CATEGORY] == "" && rowData[datatable.TRANSACTION_DATA_TABLE_CATEGORY] != "" {
 		rowData[datatable.TRANSACTION_DATA_TABLE_SUB_CATEGORY] = rowData[datatable.TRANSACTION_DATA_TABLE_CATEGORY]
 	}
 
-	// trim trailing zero in decimal
+	
 	if rowData[datatable.TRANSACTION_DATA_TABLE_AMOUNT] != "" {
 		amount, err := t.parseAmount(ctx, rowData[datatable.TRANSACTION_DATA_TABLE_AMOUNT])
 
@@ -232,9 +232,9 @@ func (t *customPlainTextDataRowIterator) parseAmount(ctx core.Context, amountVal
 		amountValue = strings.ReplaceAll(amountValue, t.transactionDataTable.amountDigitGroupingSymbol, "")
 
 		if t.transactionDataTable.amountDigitGroupingSymbol == " " {
-			amountValue = strings.ReplaceAll(amountValue, "\u00A0", "") // No-Break Space (NBSP)
-			amountValue = strings.ReplaceAll(amountValue, "\u202F", "") // Narrow No-Break Space (NNBSP)
-			amountValue = strings.ReplaceAll(amountValue, "\u2007", "") // Figure Space
+			amountValue = strings.ReplaceAll(amountValue, "\u00A0", "") 
+			amountValue = strings.ReplaceAll(amountValue, "\u202F", "") 
+			amountValue = strings.ReplaceAll(amountValue, "\u2007", "") 
 		}
 	}
 
@@ -256,7 +256,7 @@ func (t *customPlainTextDataRowIterator) parseAmount(ctx core.Context, amountVal
 	return utils.FormatAmount(amount), nil
 }
 
-// CreateNewCustomPlainTextDataTable returns transaction data table from imported data table
+
 func CreateNewCustomPlainTextDataTable(dataTable datatable.BasicDataTable, columnIndexMapping map[datatable.TransactionDataTableColumn]int, transactionTypeNameMapping map[string]models.TransactionType, timeFormat string, timezoneFormat string, amountDecimalSeparator string, amountDigitGroupingSymbol string) *customPlainTextDataTable {
 	timeFormatIncludeTimezone := strings.Contains(timeFormat, "z") || strings.Contains(timeFormat, "Z")
 
@@ -273,7 +273,7 @@ func CreateNewCustomPlainTextDataTable(dataTable datatable.BasicDataTable, colum
 }
 
 func getDateTimeFormat(format string) string {
-	// convert moment.js format to Go format
+
 
 	format = strings.ReplaceAll(format, "YYYY", "2006")
 	format = strings.ReplaceAll(format, "YY", "06")

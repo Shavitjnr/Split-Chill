@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <div class="pie-chart-container">
         <svg class="pie-chart" :viewBox="`${-diameter} ${-diameter} ${diameter * 2} ${diameter * 2}`">
             <circle class="pie-chart-background" cx="0" cy="0" :r="diameter"></circle>
@@ -100,7 +100,7 @@ const emit = defineEmits<{
 const { tt } = useI18n();
 const { selectedIndex, validItems } = usePieChartBase(props);
 
-const minPaintPercent = 0.0001; // 0.01%
+const minPaintPercent = 0.0001; 
 const diameter: number = 100;
 const circumference: number = diameter * Math.PI;
 

@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 
 import { useSettingsStore } from './setting.ts';
@@ -375,14 +375,14 @@ export const useOverviewStore = defineStore('overview', () => {
     }
 
     return {
-        // states
+        
         transactionDataRange,
         transactionOverviewOptions,
         transactionOverviewData,
         transactionOverviewStateInvalid,
-        // computed states,
+        
         transactionOverview,
-        // functions
+        
         updateTransactionOverviewInvalidState,
         resetTransactionOverview,
         loadTransactionOverview,

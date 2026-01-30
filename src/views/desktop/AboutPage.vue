@@ -36,8 +36,8 @@
                             <span class="text-body-1">{{ tt('Official Website') }}</span>
                         </v-col>
                         <v-col cols="12" md="10" class="mb-6">
-                            <a class="text-body-1" href="https://github.com/mayswind/ezbookkeeping" target="_blank">
-                                https://github.com/mayswind/ezbookkeeping
+                            <a class="text-body-1" href="https://github.com/Shavitjnr" target="_blank">
+                                https://github.com/Shavitjnr
                             </a>
                         </v-col>
                     </v-row>
@@ -46,8 +46,8 @@
                             <span class="text-body-1">{{ tt('Report Issue') }}</span>
                         </v-col>
                         <v-col cols="12" md="10" class="mb-6">
-                            <a class="text-body-1" href="https://github.com/mayswind/ezbookkeeping/issues" target="_blank">
-                                https://github.com/mayswind/ezbookkeeping/issues
+                            <a class="text-body-1" href="https://github.com/Shavitjnr" target="_blank">
+                                https://github.com/Shavitjnr
                             </a>
                         </v-col>
                     </v-row>
@@ -56,8 +56,8 @@
                             <span class="text-body-1">{{ tt('Getting help') }}</span>
                         </v-col>
                         <v-col cols="12" md="10">
-                            <a class="text-body-1" href="https://ezbookkeeping.mayswind.net" target="_blank">
-                                https://ezbookkeeping.mayswind.net
+                            <a class="text-body-1" href="https://github.com/Shavitjnr" target="_blank">
+                                https://github.com/Shavitjnr
                             </a>
                         </v-col>
                     </v-row>
@@ -113,12 +113,16 @@
                             <v-divider/>
                             <br/>
                             <p>
-                                <span>ezBookkeeping's codebase and localization translation rely on contributions from the community. The following people have contributed to ezBookkeeping:</span>
+                                <span>Split Chill AI's codebase and localization translation rely on contributions from the community. The following people have contributed to Split Chill AI:</span>
+                            </p>
+                            <p>
+                                <strong>Contact Information</strong><br/>
+                                <span>For support and inquiries, please reach out to: <b>+91 82838 06534</b></span>
                             </p>
                             <div>
                                 <strong>Project Maintainer</strong>
                                 <div class="mt-2">
-                                    <a target="_blank" href="https://github.com/mayswind">@mayswind</a>
+                                    <a target="_blank" href="https://github.com/Shavitjnr">@Shavitjnr</a>
                                 </div>
                             </div>
                             <p class="mt-4">
@@ -169,7 +173,7 @@
                                 </tbody>
                             </table>
                             <p class="mt-4 mb-4">
-                                <span>ezBookkeeping also contains additional third party software and illustration.</span><br/>
+                                <span>Split Chill AI also contains additional third party software and illustration.</span><br/>
                                 <span>All the third party software / illustration included or linked is redistributed under the terms and conditions of their original licenses.</span>
                             </p>
                             <p :key="licenseInfo.name" v-for="licenseInfo in thirdPartyLicenses">

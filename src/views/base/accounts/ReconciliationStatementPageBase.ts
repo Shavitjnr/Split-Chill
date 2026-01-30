@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+﻿import { ref, computed } from 'vue';
 
 import { useI18n } from '@/locales/helpers.ts';
 
@@ -291,14 +291,14 @@ export function useReconciliationStatementPageBase() {
     }
 
     return {
-        // states
+        
         accountId,
         startTime,
         endTime,
         reconciliationStatements,
         chartDataDateAggregationType,
         timezoneUsedForDateRange,
-        // computed states
+        
         firstDayOfWeek,
         fiscalYearStart,
         defaultCurrency,
@@ -316,7 +316,7 @@ export function useReconciliationStatementPageBase() {
         displayTotalBalance,
         displayOpeningBalance,
         displayClosingBalance,
-        // functions
+        
         setReconciliationStatements,
         getDisplayTransactionType,
         getDisplayDateTime,

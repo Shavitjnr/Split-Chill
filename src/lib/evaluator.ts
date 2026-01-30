@@ -1,4 +1,4 @@
-import { TRANSACTION_MIN_AMOUNT, TRANSACTION_MAX_AMOUNT } from '../consts/transaction.ts';
+﻿import { TRANSACTION_MIN_AMOUNT, TRANSACTION_MAX_AMOUNT } from '../consts/transaction.ts';
 
 import { replaceAll } from './common.ts';
 
@@ -10,7 +10,7 @@ type OperatorAndParenthesis = Operator | '(' | ')';
 const maxAllowedDecimalCount = 6;
 const normalizeFactor: number = 1000000;
 const normalizedDecimalsMaxZeroString: string = '000000';
-const normalizedNumberToAmountFactor: number = 10000; // 1000000 / 100
+const normalizedNumberToAmountFactor: number = 10000; 
 
 const operatorPriority: Record<Operator, number> = {
     '+': 1,
@@ -60,7 +60,7 @@ function toPostfixExprTokens(expr: string): string[] | null {
     for (let i = 0; i < expr.length; i++) {
         const ch = expr[i] as string;
 
-        // number
+        
         if ('0' <= ch && ch <= '9' || ch === '.') {
             currentNumberBuilder += ch;
             continue
@@ -69,7 +69,7 @@ function toPostfixExprTokens(expr: string): string[] | null {
             continue
         }
 
-        // operator or parenthesis
+        
         if (currentNumberBuilder.length > 0) {
             finalTokens.push(currentNumberBuilder);
             currentNumberBuilder = '';
@@ -165,17 +165,17 @@ function evaluatePostfixExpr(tokens: string[]): number | null {
             case '+':
             case '-':
             case '*':
-            case '/': // operators
+            case '/': 
                 if (stack.length < 2) {
                     logger.warn(`cannot evaluate expression "${tokens.join(' ')}", because not enough operands`);
                     return null;
                 }
 
-                // pop the top two operands
+                
                 const b = stack.pop() as number;
                 const a = stack.pop() as number;
 
-                // evaluate the operation
+                
                 let result: number;
                 switch (token) {
                     case '+':
@@ -200,10 +200,10 @@ function evaluatePostfixExpr(tokens: string[]): number | null {
 
                 checkNumberRange(result);
 
-                // push the result back to the stack
+                
                 stack.push(result);
                 break;
-            default: // operands
+            default: 
                 const normalizedNum = normalizeNumber(token);
                 checkNumberRange(normalizedNum);
                 stack.push(normalizedNum);

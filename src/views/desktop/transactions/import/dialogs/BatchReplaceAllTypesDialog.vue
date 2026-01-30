@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <v-dialog width="1000" :persistent="loading || !!rules.length || !!newRule.targetId" v-model="showState">
         <v-card class="pa-sm-1 pa-md-2">
             <template #title>
@@ -404,13 +404,13 @@ function reload(): void {
             && results[1].status === 'rejected' && results[1].reason?.isUpToDate
             && results[2].status === 'rejected' && results[2].reason?.isUpToDate;
 
-        // show info if all up to date
+        
         if (isAllUpToDate) {
             snackbar.value?.showMessage('Data is up to date');
             return;
         }
 
-        // show error if any
+        
         for (const result of results) {
             if (result.status === 'rejected' && !result.reason?.isUpToDate) {
                 snackbar.value?.showError(result.reason);
@@ -418,7 +418,7 @@ function reload(): void {
             }
         }
 
-        // show info if one of them updated
+        
         for (const result of results) {
             if (result.status === 'fulfilled') {
                 snackbar.value?.showMessage('Data has been updated');

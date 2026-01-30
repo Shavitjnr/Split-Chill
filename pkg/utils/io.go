@@ -1,4 +1,4 @@
-package utils
+﻿package utils
 
 import (
 	"io"
@@ -15,7 +15,7 @@ var imageFileExtensionContentTypeMap = map[string]string{
 	"webp": "image/webp",
 }
 
-// GetImageContentType returns the content type of specified image file extension or returns empty when the file extension is not image or not supported
+
 func GetImageContentType(fileExtension string) string {
 	contentType, exists := imageFileExtensionContentTypeMap[fileExtension]
 
@@ -26,7 +26,7 @@ func GetImageContentType(fileExtension string) string {
 	return contentType
 }
 
-// ListFileNamesWithPrefixAndSuffix returns file name list which has specified prefix and suffix
+
 func ListFileNamesWithPrefixAndSuffix(path string, prefix string, suffix string) []string {
 	dir, err := os.Open(path)
 
@@ -55,7 +55,7 @@ func ListFileNamesWithPrefixAndSuffix(path string, prefix string, suffix string)
 	return fileNames
 }
 
-// IsExists returns whether specified file or directory path exits
+
 func IsExists(path string) (bool, error) {
 	_, err := os.Stat(path)
 
@@ -70,7 +70,7 @@ func IsExists(path string) (bool, error) {
 	return false, err
 }
 
-// WriteFile would write file according to specified content
+
 func WriteFile(path string, data []byte) error {
 	file, err := os.Create(path)
 
@@ -89,7 +89,7 @@ func WriteFile(path string, data []byte) error {
 	return err
 }
 
-// GetFileNameWithoutExtension returns the file name without extension
+
 func GetFileNameWithoutExtension(path string) string {
 	if path == "" {
 		return ""
@@ -115,7 +115,7 @@ func GetFileNameWithoutExtension(path string) string {
 	return path[0 : len(path)-len(extension)]
 }
 
-// GetFileNameExtension returns the file extension without dot
+
 func GetFileNameExtension(path string) string {
 	extension := filepath.Ext(path)
 

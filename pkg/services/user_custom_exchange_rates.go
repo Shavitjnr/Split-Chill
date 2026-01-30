@@ -1,21 +1,21 @@
-package services
+﻿package services
 
 import (
 	"time"
 	"xorm.io/xorm"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/datastore"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/datastore"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
 )
 
-// UserCustomExchangeRatesService represents user custom exchange rate data service
+
 type UserCustomExchangeRatesService struct {
 	ServiceUsingDB
 }
 
-// Initialize a user custom exchange rate data service singleton instance
+
 var (
 	UserCustomExchangeRates = &UserCustomExchangeRatesService{
 		ServiceUsingDB: ServiceUsingDB{
@@ -24,7 +24,7 @@ var (
 	}
 )
 
-// GetAllCustomExchangeRatesByUid returns all user exchange rate data models of user
+
 func (s *UserCustomExchangeRatesService) GetAllCustomExchangeRatesByUid(c core.Context, uid int64) ([]*models.UserCustomExchangeRate, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -36,7 +36,7 @@ func (s *UserCustomExchangeRatesService) GetAllCustomExchangeRatesByUid(c core.C
 	return customExchangeRates, err
 }
 
-// UpdateCustomExchangeRate updates user exchange rate data model to database
+
 func (s *UserCustomExchangeRatesService) UpdateCustomExchangeRate(c core.Context, uid int64, currency string, rate string, defaultCurrency string) (*models.UserCustomExchangeRate, *models.UserCustomExchangeRate, error) {
 	if uid <= 0 {
 		return nil, nil, errs.ErrUserIdInvalid
@@ -104,7 +104,7 @@ func (s *UserCustomExchangeRatesService) UpdateCustomExchangeRate(c core.Context
 	return newCustomExchangeRate, defaultCurrencyExchangeRate, err
 }
 
-// DeleteCustomExchangeRate deletes an existed user exchange rate data from database
+
 func (s *UserCustomExchangeRatesService) DeleteCustomExchangeRate(c core.Context, uid int64, currency string) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -129,7 +129,7 @@ func (s *UserCustomExchangeRatesService) DeleteCustomExchangeRate(c core.Context
 	})
 }
 
-// DeleteAllCustomExchangeRates deletes all existed user exchange rate data from database
+
 func (s *UserCustomExchangeRatesService) DeleteAllCustomExchangeRates(c core.Context, uid int64) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid

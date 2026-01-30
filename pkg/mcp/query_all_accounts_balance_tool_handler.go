@@ -1,17 +1,17 @@
-package mcp
+﻿package mcp
 
 import (
 	"encoding/json"
 	"reflect"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
-// MCPQueryAllAccountsBalanceResponse represents the response structure for querying accounts balance
+
 type MCPQueryAllAccountsBalanceResponse struct {
 	CashAccounts                 []*MCPAccountBalanceInfo `json:"cashAccounts,omitempty" jsonschema_description:"List of cash account balances"`
 	CheckingAccounts             []*MCPAccountBalanceInfo `json:"checkingAccounts,omitempty" jsonschema_description:"List of checking account balances"`
@@ -24,7 +24,7 @@ type MCPQueryAllAccountsBalanceResponse struct {
 	InvestmentAccounts           []*MCPAccountBalanceInfo `json:"investmentAccounts,omitempty" jsonschema_description:"List of investment account balances"`
 }
 
-// MCPAccountBalanceInfo defines the structure of account balance information
+
 type MCPAccountBalanceInfo struct {
 	Name               string `json:"name" jsonschema_description:"Account name"`
 	Type               string `json:"type" jsonschema:"enum=asset,enum=liability" jsonschema_description:"Account type (asset or liability)"`
@@ -37,27 +37,27 @@ type mcpQueryAllAccountsBalanceToolHandler struct{}
 
 var MCPQueryAllAccountsBalanceToolHandler = &mcpQueryAllAccountsBalanceToolHandler{}
 
-// Name returns the name of the MCP tool
+
 func (h *mcpQueryAllAccountsBalanceToolHandler) Name() string {
 	return "query_all_accounts_balance"
 }
 
-// Description returns the description of the MCP tool
+
 func (h *mcpQueryAllAccountsBalanceToolHandler) Description() string {
-	return "Query all accounts balance for the current user in ezBookkeeping."
+	return "Query all accounts balance for the current user in Split Chill AI."
 }
 
-// InputType returns the input type for the MCP tool request
+
 func (h *mcpQueryAllAccountsBalanceToolHandler) InputType() reflect.Type {
 	return nil
 }
 
-// OutputType returns the output type for the MCP tool response
+
 func (h *mcpQueryAllAccountsBalanceToolHandler) OutputType() reflect.Type {
 	return reflect.TypeOf(&MCPQueryAllAccountsBalanceResponse{})
 }
 
-// Handle processes the MCP call tool request and returns the response
+
 func (h *mcpQueryAllAccountsBalanceToolHandler) Handle(c *core.WebContext, callToolReq *MCPCallToolRequest, user *models.User, currentConfig *settings.Config, services MCPAvailableServices) (any, []*MCPTextContent, error) {
 	uid := user.Uid
 	accounts, err := services.GetAccountService().GetAllAccountsByUid(c, uid)

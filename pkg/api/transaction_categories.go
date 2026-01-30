@@ -1,28 +1,28 @@
-package api
+﻿package api
 
 import (
 	"sort"
 
 	"github.com/gin-gonic/gin/binding"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/duplicatechecker"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/services"
-	"github.com/mayswind/ezbookkeeping/pkg/settings"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/duplicatechecker"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/services"
+	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
-// TransactionCategoriesApi represents transaction category api
+
 type TransactionCategoriesApi struct {
 	ApiUsingConfig
 	ApiUsingDuplicateChecker
 	categories *services.TransactionCategoryService
 }
 
-// Initialize a transaction category api singleton instance
+
 var (
 	TransactionCategories = &TransactionCategoriesApi{
 		ApiUsingConfig: ApiUsingConfig{
@@ -38,7 +38,7 @@ var (
 	}
 )
 
-// CategoryListHandler returns transaction category list of current user
+
 func (a *TransactionCategoriesApi) CategoryListHandler(c *core.WebContext) (any, *errs.Error) {
 	var categoryListReq models.TransactionCategoryListRequest
 	err := c.ShouldBindQuery(&categoryListReq)
@@ -59,7 +59,7 @@ func (a *TransactionCategoriesApi) CategoryListHandler(c *core.WebContext) (any,
 	return a.getTransactionCategoryListByTypeResponse(categories, categoryListReq.ParentId)
 }
 
-// CategoryGetHandler returns one specific transaction category of current user
+
 func (a *TransactionCategoriesApi) CategoryGetHandler(c *core.WebContext) (any, *errs.Error) {
 	var categoryGetReq models.TransactionCategoryGetRequest
 	err := c.ShouldBindQuery(&categoryGetReq)
@@ -82,7 +82,7 @@ func (a *TransactionCategoriesApi) CategoryGetHandler(c *core.WebContext) (any, 
 	return categoryResp, nil
 }
 
-// CategoryCreateHandler saves a new transaction category by request parameters for current user
+
 func (a *TransactionCategoriesApi) CategoryCreateHandler(c *core.WebContext) (any, *errs.Error) {
 	var categoryCreateReq models.TransactionCategoryCreateRequest
 	err := c.ShouldBindJSON(&categoryCreateReq)
@@ -170,7 +170,7 @@ func (a *TransactionCategoriesApi) CategoryCreateHandler(c *core.WebContext) (an
 	return categoryResp, nil
 }
 
-// CategoryCreateBatchHandler saves some new transaction category by request parameters for current user
+
 func (a *TransactionCategoriesApi) CategoryCreateBatchHandler(c *core.WebContext) (any, *errs.Error) {
 	var categoryCreateBatchReq models.TransactionCategoryCreateBatchRequest
 	err := c.ShouldBindBodyWith(&categoryCreateBatchReq, binding.JSON)
@@ -191,7 +191,7 @@ func (a *TransactionCategoriesApi) CategoryCreateBatchHandler(c *core.WebContext
 	return a.getTransactionCategoryListByTypeResponse(categories, 0)
 }
 
-// CategoryModifyHandler saves an existed transaction category by request parameters for current user
+
 func (a *TransactionCategoriesApi) CategoryModifyHandler(c *core.WebContext) (any, *errs.Error) {
 	var categoryModifyReq models.TransactionCategoryModifyRequest
 	err := c.ShouldBindJSON(&categoryModifyReq)
@@ -286,7 +286,7 @@ func (a *TransactionCategoriesApi) CategoryModifyHandler(c *core.WebContext) (an
 	return categoryResp, nil
 }
 
-// CategoryHideHandler hides an existed transaction category by request parameters for current user
+
 func (a *TransactionCategoriesApi) CategoryHideHandler(c *core.WebContext) (any, *errs.Error) {
 	var categoryHideReq models.TransactionCategoryHideRequest
 	err := c.ShouldBindJSON(&categoryHideReq)
@@ -308,7 +308,7 @@ func (a *TransactionCategoriesApi) CategoryHideHandler(c *core.WebContext) (any,
 	return true, nil
 }
 
-// CategoryMoveHandler moves display order of existed transaction categories by request parameters for current user
+
 func (a *TransactionCategoriesApi) CategoryMoveHandler(c *core.WebContext) (any, *errs.Error) {
 	var categoryMoveReq models.TransactionCategoryMoveRequest
 	err := c.ShouldBindJSON(&categoryMoveReq)
@@ -343,7 +343,7 @@ func (a *TransactionCategoriesApi) CategoryMoveHandler(c *core.WebContext) (any,
 	return true, nil
 }
 
-// CategoryDeleteHandler deletes an existed transaction category by request parameters for current user
+
 func (a *TransactionCategoriesApi) CategoryDeleteHandler(c *core.WebContext) (any, *errs.Error) {
 	var categoryDeleteReq models.TransactionCategoryDeleteRequest
 	err := c.ShouldBindJSON(&categoryDeleteReq)

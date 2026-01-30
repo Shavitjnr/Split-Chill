@@ -1,19 +1,19 @@
-package errs
+﻿package errs
 
 import (
 	"strings"
 )
 
-// ErrorCategory represents error category
+
 type ErrorCategory int32
 
-// Error categories
+
 const (
 	CATEGORY_SYSTEM ErrorCategory = 1
 	CATEGORY_NORMAL ErrorCategory = 2
 )
 
-// Sub categories of system error
+
 const (
 	SystemSubcategoryDefault  = 0
 	SystemSubcategorySetting  = 1
@@ -23,7 +23,7 @@ const (
 	SystemSubcategoryCron     = 5
 )
 
-// Sub categories of normal error
+
 const (
 	NormalSubcategoryGlobal                 = 0
 	NormalSubcategoryUser                   = 1
@@ -47,7 +47,7 @@ const (
 	NormalSubcategoryTagGroup               = 19
 )
 
-// Error represents the specific error returned to user
+
 type Error struct {
 	Category       ErrorCategory
 	SubCategory    int32
@@ -62,17 +62,17 @@ type MultiErrors struct {
 	errors []error
 }
 
-// Error returns the error message
+
 func (err *Error) Error() string {
 	return err.Message
 }
 
-// Code returns the error code
+
 func (err *Error) Code() int32 {
 	return int32(err.Category)*100000 + err.SubCategory*1000 + err.Index
 }
 
-// New returns a new error instance
+
 func New(category ErrorCategory, subCategory int32, index int32, httpStatusCode int, message string, baseError ...error) *Error {
 	return &Error{
 		Category:       category,
@@ -84,7 +84,7 @@ func New(category ErrorCategory, subCategory int32, index int32, httpStatusCode 
 	}
 }
 
-// Error returns the error message
+
 func (err *MultiErrors) Error() string {
 	if len(err.errors) == 1 {
 		return err.errors[0].Error()
@@ -112,17 +112,17 @@ func (err *MultiErrors) Error() string {
 	return ret.String()
 }
 
-// NewSystemError returns a new system error instance
+
 func NewSystemError(subCategory int32, index int32, httpStatusCode int, message string) *Error {
 	return New(CATEGORY_SYSTEM, subCategory, index, httpStatusCode, message)
 }
 
-// NewNormalError returns a new normal error instance
+
 func NewNormalError(subCategory int32, index int32, httpStatusCode int, message string) *Error {
 	return New(CATEGORY_NORMAL, subCategory, index, httpStatusCode, message)
 }
 
-// NewLoggingError returns a new logging error instance
+
 func NewLoggingError(message string, err ...error) *Error {
 	return New(ErrLoggingError.Category,
 		ErrLoggingError.SubCategory,
@@ -131,7 +131,7 @@ func NewLoggingError(message string, err ...error) *Error {
 		message, err...)
 }
 
-// NewIncompleteOrIncorrectSubmissionError returns a new incomplete or incorrect submission error instance
+
 func NewIncompleteOrIncorrectSubmissionError(err error) *Error {
 	return New(ErrIncompleteOrIncorrectSubmission.Category,
 		ErrIncompleteOrIncorrectSubmission.SubCategory,
@@ -140,7 +140,7 @@ func NewIncompleteOrIncorrectSubmissionError(err error) *Error {
 		ErrIncompleteOrIncorrectSubmission.Message, err)
 }
 
-// NewErrorWithContext returns a new error instance with specified context
+
 func NewErrorWithContext(baseError *Error, context any) *Error {
 	return &Error{
 		Category:       baseError.Category,
@@ -153,7 +153,7 @@ func NewErrorWithContext(baseError *Error, context any) *Error {
 	}
 }
 
-// NewMultiErrorOrNil returns a new multi error instance
+
 func NewMultiErrorOrNil(errors ...error) error {
 	count := len(errors)
 
@@ -168,8 +168,7 @@ func NewMultiErrorOrNil(errors ...error) error {
 	}
 }
 
-// Or would return the error from err parameter if the this error is defined in this project,
-// or return the default error
+
 func Or(err error, defaultErr *Error) *Error {
 	if finalError, ok := err.(*Error); ok {
 		return finalError
@@ -178,7 +177,7 @@ func Or(err error, defaultErr *Error) *Error {
 	}
 }
 
-// IsCustomError returns whether this error is defined in this project
+
 func IsCustomError(err error) bool {
 	_, ok := err.(*Error)
 	return ok

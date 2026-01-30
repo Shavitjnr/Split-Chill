@@ -1,4 +1,4 @@
-import CBOR from 'cbor-js';
+﻿import CBOR from 'cbor-js';
 
 import type { ApplicationLockState } from '@/core/setting.ts';
 import type { UserBasicInfo } from '@/models/user.ts';
@@ -50,9 +50,9 @@ const PUBLIC_KEY_CREDENTIAL_CREATION_OPTIONS_BASE_TEMPLATE = {
         userVerification: "discouraged"
     },
     pubKeyCredParams: [
-        // https://www.iana.org/assignments/cose/cose.xhtml#algorithms
-        {type: "public-key", alg: -7},   // ECDSA w/ SHA-256
-        {type: "public-key", alg: -257}, // RSASSA-PKCS1-v1_5 using SHA-256
+        
+        {type: "public-key", alg: -7},   
+        {type: "public-key", alg: -257}, 
     ],
     timeout: 120000
 };
@@ -113,7 +113,7 @@ export function registerWebAuthnCredential(lockState: ApplicationLockState, user
     }
 
     const challenge = generateRandomString();
-    const userId = `${lockState.username}|${lockState.secret}`; // username 32bytes(max) + secret 24bytes = 56bytes(max)
+    const userId = `${lockState.username}|${lockState.secret}`; 
 
     const publicKeyCredentialCreationOptions: PublicKeyCredentialCreationOptions = Object.assign({}, PUBLIC_KEY_CREDENTIAL_CREATION_OPTIONS_BASE_TEMPLATE, {
         challenge: stringToArrayBuffer(challenge),

@@ -1,5 +1,4 @@
-/** Materio Template Vuetify styles **/
-/** https://github.com/themeselection/materio-vuetify-vuejs-admin-template-free **/
+﻿
 
 @use "@/styles/desktop/configured-variables/template" as variables;
 @use "@/styles/desktop/template/base/mixins";
@@ -92,14 +91,14 @@ body {
                 margin: -1rem;
             }
 
-            /* stylelint-disable-next-line no-descending-specificity */
+            
             .v-tab {
                 &.v-btn {
                     border-radius: 0.375rem !important;
                 }
 
                 &:not(.v-tab--selected) {
-                    /* stylelint-disable-next-line no-descending-specificity */
+                    
                     &.v-btn.v-btn--variant-text {
                         &:hover {
                             color: rgb(var(--v-theme-primary));

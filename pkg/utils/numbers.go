@@ -1,4 +1,4 @@
-package utils
+﻿package utils
 
 import (
 	"crypto/rand"
@@ -11,7 +11,7 @@ var (
 	numberPattern = regexp.MustCompile("(-?\\d+)(\\.\\d+)?")
 )
 
-// IsStringOnlyContainsDigits returns whether the specified string only contains digit characters
+
 func IsStringOnlyContainsDigits(str string) bool {
 	for i := 0; i < len(str); i++ {
 		if str[i] < '0' || str[i] > '9' {
@@ -22,7 +22,7 @@ func IsStringOnlyContainsDigits(str string) bool {
 	return true
 }
 
-// GetRandomInteger returns a random number, the max parameter represents upper limit
+
 func GetRandomInteger(max int) (int, error) {
 	result, err := rand.Int(rand.Reader, big.NewInt(int64(max)))
 
@@ -33,7 +33,7 @@ func GetRandomInteger(max int) (int, error) {
 	return int(result.Int64()), nil
 }
 
-// ParseFirstConsecutiveNumber returns the first consecutive number in the specified string
+
 func ParseFirstConsecutiveNumber(str string) (string, bool) {
 	result := numberPattern.FindAllString(str, 1)
 
@@ -44,7 +44,7 @@ func ParseFirstConsecutiveNumber(str string) (string, bool) {
 	}
 }
 
-// TrimTrailingZerosInDecimal returns a textual number without trailing zeros in decimal
+
 func TrimTrailingZerosInDecimal(num string) string {
 	if len(num) < 1 {
 		return num

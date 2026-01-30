@@ -1,4 +1,4 @@
-package mt
+﻿package mt
 
 import "strings"
 
@@ -15,7 +15,7 @@ const (
 	MT_INFORMATION_TO_ACCOUNT_OWNER_TAG_REMITTANCE string = "REMI"
 )
 
-// mt940Data defines the structure of mt940 data
+
 type mt940Data struct {
 	StatementReferenceNumber string
 	RelatedReference         string
@@ -27,7 +27,7 @@ type mt940Data struct {
 	Statements               []*mtStatement
 }
 
-// mtStatement defines the structure of mt940 statement
+
 type mtStatement struct {
 	ValueDate                              string
 	EntryDate                              string
@@ -40,7 +40,7 @@ type mtStatement struct {
 	InformationToAccountOwner              []string
 }
 
-// mtBalance defines the structure of mt940 balance
+
 type mtBalance struct {
 	DebitCreditMark mtCreditDebitMark
 	Date            string
@@ -48,7 +48,7 @@ type mtBalance struct {
 	Amount          string
 }
 
-// GetInformationToAccountOwnerMap returns a map of additional information
+
 func (s *mtStatement) GetInformationToAccountOwnerMap() map[string]string {
 	additionalInfoMap := make(map[string]string, len(s.InformationToAccountOwner))
 

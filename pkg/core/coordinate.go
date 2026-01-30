@@ -1,11 +1,11 @@
-package core
+﻿package core
 
 import "fmt"
 
-// CoordinateDisplayType represents the display type of geographic coordinates
+
 type CoordinateDisplayType byte
 
-// Coordinate Display Type
+
 const (
 	COORDINATE_DISPLAY_TYPE_DEFAULT                                    CoordinateDisplayType = 0
 	COORDINATE_DISPLAY_TYPE_LATITUDE_LONGITUDE_DECIMAL_DEGREES         CoordinateDisplayType = 1
@@ -17,7 +17,7 @@ const (
 	COORDINATE_DISPLAY_TYPE_INVALID                                    CoordinateDisplayType = 255
 )
 
-// String returns a textual representation of the geographic coordinates display type enum
+
 func (d CoordinateDisplayType) String() string {
 	switch d {
 	case COORDINATE_DISPLAY_TYPE_DEFAULT:

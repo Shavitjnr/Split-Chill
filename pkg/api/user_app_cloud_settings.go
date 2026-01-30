@@ -1,24 +1,24 @@
-package api
+﻿package api
 
 import (
 	"encoding/json"
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/services"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/services"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
-// UserApplicationCloudSettingsApi represents user application cloud settings api
+
 type UserApplicationCloudSettingsApi struct {
 	userAppCloudSettings *services.UserApplicationCloudSettingsService
 	users                *services.UserService
 }
 
-// Initialize a user application cloud settings api singleton instance
+
 var (
 	UserApplicationCloudSettings = &UserApplicationCloudSettingsApi{
 		userAppCloudSettings: services.UserApplicationCloudSettings,
@@ -26,7 +26,7 @@ var (
 	}
 )
 
-// ApplicationSettingsGetHandler returns application cloud settings of current user
+
 func (a *UserApplicationCloudSettingsApi) ApplicationSettingsGetHandler(c *core.WebContext) (any, *errs.Error) {
 	uid := c.GetCurrentUid()
 
@@ -50,7 +50,7 @@ func (a *UserApplicationCloudSettingsApi) ApplicationSettingsGetHandler(c *core.
 	return applicationCloudSettingSlice, nil
 }
 
-// ApplicationSettingsUpdateHandler updates user application cloud settings by request parameters for current user
+
 func (a *UserApplicationCloudSettingsApi) ApplicationSettingsUpdateHandler(c *core.WebContext) (any, *errs.Error) {
 	var userAppCloudSettingUpdateReq models.UserApplicationCloudSettingsUpdateRequest
 	err := c.ShouldBindJSON(&userAppCloudSettingUpdateReq)
@@ -77,7 +77,7 @@ func (a *UserApplicationCloudSettingsApi) ApplicationSettingsUpdateHandler(c *co
 
 	var userApplicationCloudSettings *models.UserApplicationCloudSetting
 
-	// Retry up to 3 times
+	
 	for i := 0; i < 3; i++ {
 		userApplicationCloudSettings, err = a.userAppCloudSettings.GetUserApplicationCloudSettingsByUid(c, uid)
 
@@ -97,7 +97,7 @@ func (a *UserApplicationCloudSettingsApi) ApplicationSettingsUpdateHandler(c *co
 			lastUpdateTime = userApplicationCloudSettings.UpdatedUnixTime
 		}
 
-		// Check if the full update settings are the same as the existing settings
+		
 		if userAppCloudSettingUpdateReq.FullUpdate {
 			if len(userAppCloudSettingUpdateReq.Settings) == len(oldApplicationCloudSettingsMap) {
 				needUpdate := false
@@ -115,7 +115,7 @@ func (a *UserApplicationCloudSettingsApi) ApplicationSettingsUpdateHandler(c *co
 					return false, errs.ErrNothingWillBeUpdated
 				}
 			}
-		} else { // Check if the partial update settings are the same as the existing settings or the settings to update are not set to sync
+		} else { 
 			needUpdate := true
 
 			for _, setting := range userAppCloudSettingUpdateReq.Settings {
@@ -161,7 +161,7 @@ func (a *UserApplicationCloudSettingsApi) ApplicationSettingsUpdateHandler(c *co
 			}
 
 			if settingType == models.USER_APPLICATION_CLOUD_SETTING_TYPE_STRING {
-				// Do Nothing
+				
 			} else if settingType == models.USER_APPLICATION_CLOUD_SETTING_TYPE_NUMBER {
 				_, err := utils.StringToFloat64(setting.SettingValue)
 
@@ -196,7 +196,7 @@ func (a *UserApplicationCloudSettingsApi) ApplicationSettingsUpdateHandler(c *co
 			break
 		}
 
-		time.Sleep(100 * time.Millisecond) // Wait for 100 milliseconds before retrying
+		time.Sleep(100 * time.Millisecond) 
 	}
 
 	if err != nil {
@@ -207,7 +207,7 @@ func (a *UserApplicationCloudSettingsApi) ApplicationSettingsUpdateHandler(c *co
 	return true, nil
 }
 
-// ApplicationSettingsDisableHandler disabled user application cloud settings by request parameters for current user
+
 func (a *UserApplicationCloudSettingsApi) ApplicationSettingsDisableHandler(c *core.WebContext) (any, *errs.Error) {
 	uid := c.GetCurrentUid()
 	user, err := a.users.GetUserById(c, uid)

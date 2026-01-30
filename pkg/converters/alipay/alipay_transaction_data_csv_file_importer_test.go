@@ -1,4 +1,4 @@
-package alipay
+﻿package alipay
 
 import (
 	"testing"
@@ -8,11 +8,11 @@ import (
 
 	"golang.org/x/text/encoding/simplifiedchinese"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/converter"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/converter"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 func TestAlipayCsvFileImporterParseImportedData_MinimumValidData(t *testing.T) {
@@ -103,7 +103,7 @@ func TestAlipayCsvFileImporterParseImportedData_ParseRefundTransaction(t *testin
 		DefaultCurrency: "CNY",
 	}
 
-	// refund
+	
 	data1, err := simplifiedchinese.GB18030.NewEncoder().String("支付宝交易记录明细查询\n" +
 		"账号:[xxx@xxx.xxx]\n" +
 		"起始日期:[2024-01-01 00:00:00]    终止日期:[2024-09-01 23:59:59]\n" +
@@ -123,7 +123,7 @@ func TestAlipayCsvFileImporterParseImportedData_ParseRefundTransaction(t *testin
 	assert.Equal(t, "", allNewTransactions[0].OriginalSourceAccountName)
 	assert.Equal(t, "", allNewTransactions[0].OriginalCategoryName)
 
-	// tax refund
+	
 	data2, err := simplifiedchinese.GB18030.NewEncoder().String("支付宝交易记录明细查询\n" +
 		"账号:[xxx@xxx.xxx]\n" +
 		"起始日期:[2024-01-01 00:00:00]    终止日期:[2024-09-01 23:59:59]\n" +
@@ -249,7 +249,7 @@ func TestAlipayCsvFileImporterParseImportedData_ParseAccountName(t *testing.T) {
 		DefaultCurrency: "CNY",
 	}
 
-	// income to alipay wallet
+	
 	data1, err := simplifiedchinese.GB18030.NewEncoder().String("支付宝交易记录明细查询\n" +
 		"账号:[xxx@xxx.xxx]\n" +
 		"起始日期:[2024-01-01 00:00:00]    终止日期:[2024-09-01 23:59:59]\n" +
@@ -265,7 +265,7 @@ func TestAlipayCsvFileImporterParseImportedData_ParseAccountName(t *testing.T) {
 	assert.Equal(t, 1, len(allNewTransactions))
 	assert.Equal(t, "Alipay", allNewTransactions[0].OriginalSourceAccountName)
 
-	// refund to other account
+	
 	data2, err := simplifiedchinese.GB18030.NewEncoder().String("支付宝交易记录明细查询\n" +
 		"账号:[xxx@xxx.xxx]\n" +
 		"起始日期:[2024-01-01 00:00:00]    终止日期:[2024-09-01 23:59:59]\n" +
@@ -281,7 +281,7 @@ func TestAlipayCsvFileImporterParseImportedData_ParseAccountName(t *testing.T) {
 	assert.Equal(t, 1, len(allNewTransactions))
 	assert.Equal(t, "", allNewTransactions[0].OriginalSourceAccountName)
 
-	// transfer to alipay wallet
+	
 	data3, err := simplifiedchinese.GB18030.NewEncoder().String("支付宝交易记录明细查询\n" +
 		"账号:[xxx@xxx.xxx]\n" +
 		"起始日期:[2024-01-01 00:00:00]    终止日期:[2024-09-01 23:59:59]\n" +
@@ -298,7 +298,7 @@ func TestAlipayCsvFileImporterParseImportedData_ParseAccountName(t *testing.T) {
 	assert.Equal(t, "", allNewTransactions[0].OriginalSourceAccountName)
 	assert.Equal(t, "Alipay", allNewTransactions[0].OriginalDestinationAccountName)
 
-	// transfer from alipay wallet
+	
 	data4, err := simplifiedchinese.GB18030.NewEncoder().String("支付宝交易记录明细查询\n" +
 		"账号:[xxx@xxx.xxx]\n" +
 		"起始日期:[2024-01-01 00:00:00]    终止日期:[2024-09-01 23:59:59]\n" +
@@ -315,7 +315,7 @@ func TestAlipayCsvFileImporterParseImportedData_ParseAccountName(t *testing.T) {
 	assert.Equal(t, "Alipay", allNewTransactions[0].OriginalSourceAccountName)
 	assert.Equal(t, "test", allNewTransactions[0].OriginalDestinationAccountName)
 
-	// transfer in
+	
 	data5, err := simplifiedchinese.GB18030.NewEncoder().String("支付宝交易记录明细查询\n" +
 		"账号:[xxx@xxx.xxx]\n" +
 		"起始日期:[2024-01-01 00:00:00]    终止日期:[2024-09-01 23:59:59]\n" +
@@ -332,7 +332,7 @@ func TestAlipayCsvFileImporterParseImportedData_ParseAccountName(t *testing.T) {
 	assert.Equal(t, "", allNewTransactions[0].OriginalSourceAccountName)
 	assert.Equal(t, "test", allNewTransactions[0].OriginalDestinationAccountName)
 
-	// transfer out
+	
 	data6, err := simplifiedchinese.GB18030.NewEncoder().String("支付宝交易记录明细查询\n" +
 		"账号:[xxx@xxx.xxx]\n" +
 		"起始日期:[2024-01-01 00:00:00]    终止日期:[2024-09-01 23:59:59]\n" +
@@ -349,7 +349,7 @@ func TestAlipayCsvFileImporterParseImportedData_ParseAccountName(t *testing.T) {
 	assert.Equal(t, "", allNewTransactions[0].OriginalSourceAccountName)
 	assert.Equal(t, "test", allNewTransactions[0].OriginalDestinationAccountName)
 
-	// repayment
+	
 	data7, err := simplifiedchinese.GB18030.NewEncoder().String("支付宝交易记录明细查询\n" +
 		"账号:[xxx@xxx.xxx]\n" +
 		"起始日期:[2024-01-01 00:00:00]    终止日期:[2024-09-01 23:59:59]\n" +
@@ -664,7 +664,7 @@ func TestAlipayCsvFileImporterParseImportedData_MissingRequiredColumn(t *testing
 		DefaultCurrency: "CNY",
 	}
 
-	// Missing Time Column
+	
 	data1, err := simplifiedchinese.GB18030.NewEncoder().String("支付宝交易记录明细查询\n" +
 		"账号:[xxx@xxx.xxx]\n" +
 		"起始日期:[2024-01-01 00:00:00]    终止日期:[2024-09-01 23:59:59]\n" +
@@ -675,7 +675,7 @@ func TestAlipayCsvFileImporterParseImportedData_MissingRequiredColumn(t *testing
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(data1), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingRequiredFieldInHeaderRow.Message)
 
-	// Missing Amount Column
+	
 	data2, err := simplifiedchinese.GB18030.NewEncoder().String("支付宝交易记录明细查询\n" +
 		"账号:[xxx@xxx.xxx]\n" +
 		"起始日期:[2024-01-01 00:00:00]    终止日期:[2024-09-01 23:59:59]\n" +
@@ -686,7 +686,7 @@ func TestAlipayCsvFileImporterParseImportedData_MissingRequiredColumn(t *testing
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(data2), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingRequiredFieldInHeaderRow.Message)
 
-	// Missing Status Column
+	
 	data3, err := simplifiedchinese.GB18030.NewEncoder().String("支付宝交易记录明细查询\n" +
 		"账号:[xxx@xxx.xxx]\n" +
 		"起始日期:[2024-01-01 00:00:00]    终止日期:[2024-09-01 23:59:59]\n" +
@@ -697,7 +697,7 @@ func TestAlipayCsvFileImporterParseImportedData_MissingRequiredColumn(t *testing
 	_, _, _, _, _, _, err = importer.ParseImportedData(context, user, []byte(data3), time.UTC, converter.DefaultImporterOptions, nil, nil, nil, nil, nil)
 	assert.EqualError(t, err, errs.ErrMissingRequiredFieldInHeaderRow.Message)
 
-	// Missing Type Column
+	
 	data4, err := simplifiedchinese.GB18030.NewEncoder().String("支付宝交易记录明细查询\n" +
 		"账号:[xxx@xxx.xxx]\n" +
 		"起始日期:[2024-01-01 00:00:00]    终止日期:[2024-09-01 23:59:59]\n" +

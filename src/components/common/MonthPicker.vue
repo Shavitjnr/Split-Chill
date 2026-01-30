@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <vue-date-picker inline auto-apply
                      month-picker
                      :class="monthPickerClass"
@@ -36,7 +36,7 @@ import { getAllowedYearRange, getYearMonthDayDateTime } from '@/lib/datetime.ts'
 
 export interface MonthSelectionValue {
     year: number;
-    month: number; // 0-based month (0 = January, 11 = December)
+    month: number; 
 }
 
 type SupportedModelValue = Year0BasedMonth | Year0BasedMonth[];

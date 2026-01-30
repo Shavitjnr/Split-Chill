@@ -1,14 +1,14 @@
-package fireflyIII
+﻿package fireflyIII
 
 import (
 	"bytes"
 	"time"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/converter"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/csv"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/datatable"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/converter"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/csv"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/datatable"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
 )
 
 var fireflyIIITransactionDataColumnNameMapping = map[datatable.TransactionDataTableColumn]string{
@@ -32,15 +32,15 @@ var fireflyIIITransactionTypeNameMapping = map[models.TransactionType]string{
 	models.TRANSACTION_TYPE_TRANSFER:       "Transfer",
 }
 
-// fireflyIIITransactionDataCsvFileImporter defines the structure of firefly III csv importer for transaction data
+
 type fireflyIIITransactionDataCsvFileImporter struct{}
 
-// Initialize a firefly III transaction data csv file importer singleton instance
+
 var (
 	FireflyIIITransactionDataCsvFileImporter = &fireflyIIITransactionDataCsvFileImporter{}
 )
 
-// ParseImportedData returns the imported data by parsing the firefly III transaction csv data
+
 func (c *fireflyIIITransactionDataCsvFileImporter) ParseImportedData(ctx core.Context, user *models.User, data []byte, defaultTimezone *time.Location, additionalOptions converter.TransactionDataImporterOptions, accountMap map[string]*models.Account, expenseCategoryMap map[string]map[string]*models.TransactionCategory, incomeCategoryMap map[string]map[string]*models.TransactionCategory, transferCategoryMap map[string]map[string]*models.TransactionCategory, tagMap map[string]*models.TransactionTag) (models.ImportedTransactionSlice, []*models.Account, []*models.TransactionCategory, []*models.TransactionCategory, []*models.TransactionCategory, []*models.TransactionTag, error) {
 	reader := bytes.NewReader(data)
 	dataTable, err := csv.CreateNewCsvBasicDataTable(ctx, reader, true)

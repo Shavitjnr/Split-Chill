@@ -1,4 +1,4 @@
-package validators
+﻿package validators
 
 import (
 	"testing"
@@ -6,7 +6,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
 )
 
 type fiscalYearStartContainer struct {
@@ -22,10 +22,10 @@ func TestValidateFiscalYearStart_ValidValues(t *testing.T) {
 		name  string
 		value core.FiscalYearStart
 	}{
-		{"January 1", 0x0101},   // January 1
-		{"December 31", 0x0C1F}, // December 31
-		{"July 1", 0x0701},      // July 1
-		{"April 15", 0x040F},    // April 15
+		{"January 1", 0x0101},   
+		{"December 31", 0x0C1F}, 
+		{"July 1", 0x0701},      
+		{"April 15", 0x040F},    
 	}
 
 	for _, tc := range testCases {
@@ -46,19 +46,19 @@ func TestValidateFiscalYearStart_InvalidValues(t *testing.T) {
 		name  string
 		value core.FiscalYearStart
 	}{
-		{"Zero value", 0},             // Zero value
-		{"Month 0", 0x0001},           // Month 0 (invalid)
-		{"Month 13", 0x0D01},          // Month 13 (invalid)
-		{"Day 0", 0x0100},             // Day 0 (invalid)
-		{"January 32", 0x0120},        // January 32 (invalid)
-		{"February 29", 0x021D},       // February 29 (not permitted)
-		{"February 30", 0x021E},       // February 30 (invalid)
-		{"April 31", 0x041F},          // April 31 (invalid)
-		{"June 31", 0x061F},           // June 31 (invalid)
-		{"September 31", 0x091F},      // September 31 (invalid)
-		{"November 32", 0x0B20},       // November 32 (invalid)
-		{"Invalid month 255", 0xFF01}, // Invalid month
-		{"Invalid day 255", 0x01FF},   // Invalid day
+		{"Zero value", 0},             
+		{"Month 0", 0x0001},           
+		{"Month 13", 0x0D01},          
+		{"Day 0", 0x0100},             
+		{"January 32", 0x0120},        
+		{"February 29", 0x021D},       
+		{"February 30", 0x021E},       
+		{"April 31", 0x041F},          
+		{"June 31", 0x061F},           
+		{"September 31", 0x091F},      
+		{"November 32", 0x0B20},       
+		{"Invalid month 255", 0xFF01}, 
+		{"Invalid day 255", 0x01FF},   
 	}
 
 	for _, tc := range testCases {

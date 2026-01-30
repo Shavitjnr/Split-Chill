@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+﻿import { defineStore } from 'pinia';
 
 import type {
     TwoFactorEnableConfirmRequest,
@@ -146,7 +146,7 @@ export const useTwoFactorAuthStore = defineStore('twoFactorAuth', () => {
     }
 
     return {
-        // functions
+        
         get2FAStatus,
         enable2FA,
         confirmEnable2FA,

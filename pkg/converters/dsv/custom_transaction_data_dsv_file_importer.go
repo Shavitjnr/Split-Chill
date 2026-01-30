@@ -1,4 +1,4 @@
-package dsv
+﻿package dsv
 
 import (
 	"bytes"
@@ -16,14 +16,14 @@ import (
 	"golang.org/x/text/encoding/unicode"
 	"golang.org/x/text/transform"
 
-	"github.com/mayswind/ezbookkeeping/pkg/converters/converter"
-	csvconverter "github.com/mayswind/ezbookkeeping/pkg/converters/csv"
-	"github.com/mayswind/ezbookkeeping/pkg/converters/datatable"
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/log"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/utils"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/converter"
+	csvconverter "github.com/Shavitjnr/split-chill-ai/pkg/converters/csv"
+	"github.com/Shavitjnr/split-chill-ai/pkg/converters/datatable"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/log"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/utils"
 )
 
 var supportedFileTypeSeparators = map[string]rune{
@@ -33,58 +33,58 @@ var supportedFileTypeSeparators = map[string]rune{
 }
 
 var supportedFileEncodings = map[string]encoding.Encoding{
-	"utf-8":        unicode.UTF8,                                           // UTF-8
-	"utf-8-bom":    unicode.UTF8BOM,                                        // UTF-8 with BOM
-	"utf-16le":     unicode.UTF16(unicode.LittleEndian, unicode.UseBOM),    // UTF-16 Little Endian
-	"utf-16be":     unicode.UTF16(unicode.BigEndian, unicode.UseBOM),       // UTF-16 Big Endian
-	"utf-16le-bom": unicode.UTF16(unicode.LittleEndian, unicode.ExpectBOM), // UTF-16 Little Endian with BOM
-	"utf-16be-bom": unicode.UTF16(unicode.BigEndian, unicode.ExpectBOM),    // UTF-16 Big Endian with BOM
-	"cp437":        charmap.CodePage437,                                    // OEM United States (CP-437)
-	"cp863":        charmap.CodePage863,                                    // OEM Canadian French (CP-863)
-	"cp037":        charmap.CodePage037,                                    // IBM EBCDIC US/Canada (CP-037)
-	"cp1047":       charmap.CodePage1047,                                   // IBM EBCDIC Open Systems (CP-1047)
-	"cp1140":       charmap.CodePage1140,                                   // IBM EBCDIC US/Canada with Euro (CP-1140)
-	"iso-8859-1":   charmap.ISO8859_1,                                      // Western European (ISO-8859-1)
-	"cp850":        charmap.CodePage850,                                    // Western European (CP-850)
-	"cp858":        charmap.CodePage858,                                    // Western European with Euro (CP-858)
-	"windows-1252": charmap.Windows1252,                                    // Western European (Windows-1252)
-	"iso-8859-15":  charmap.ISO8859_15,                                     // Western European (ISO-8859-15)
-	"iso-8859-4":   charmap.ISO8859_4,                                      // North European (ISO-8859-4)
-	"iso-8859-10":  charmap.ISO8859_10,                                     // North European (ISO-8859-10)
-	"cp865":        charmap.CodePage865,                                    // North European (CP-865)
-	"iso-8859-2":   charmap.ISO8859_2,                                      // Central European (ISO-8859-2)
-	"cp852":        charmap.CodePage852,                                    // Central European (CP-852)
-	"windows-1250": charmap.Windows1250,                                    // Central European (Windows-1250)
-	"iso-8859-14":  charmap.ISO8859_14,                                     // Celtic (ISO-8859-14)
-	"iso-8859-3":   charmap.ISO8859_3,                                      // South European (ISO-8859-3)
-	"cp860":        charmap.CodePage860,                                    // Portuguese (CP-860)
-	"iso-8859-7":   charmap.ISO8859_7,                                      // Greek (ISO-8859-7)
-	"windows-1253": charmap.Windows1253,                                    // Greek (Windows-1253)
-	"iso-8859-9":   charmap.ISO8859_9,                                      // Turkish (ISO-8859-9)
-	"windows-1254": charmap.Windows1254,                                    // Turkish (Windows-1254)
-	"iso-8859-13":  charmap.ISO8859_13,                                     // Baltic (ISO-8859-13)
-	"windows-1257": charmap.Windows1257,                                    // Baltic (Windows-1257)
-	"iso-8859-16":  charmap.ISO8859_16,                                     // South-Eastern European (ISO-8859-16)
-	"iso-8859-5":   charmap.ISO8859_5,                                      // Cyrillic (ISO-8859-5)
-	"cp855":        charmap.CodePage855,                                    // Cyrillic (CP-855)
-	"cp866":        charmap.CodePage866,                                    // Cyrillic (CP-866)
-	"windows-1251": charmap.Windows1251,                                    // Cyrillic (Windows-1251)
-	"koi8r":        charmap.KOI8R,                                          // Cyrillic (KOI8-R)
-	"koi8u":        charmap.KOI8U,                                          // Cyrillic (KOI8-U)
-	"iso-8859-6":   charmap.ISO8859_6,                                      // Arabic (ISO-8859-6)
-	"windows-1256": charmap.Windows1256,                                    // Arabic (Windows-1256)
-	"iso-8859-8":   charmap.ISO8859_8,                                      // Hebrew (ISO-8859-8)
-	"cp862":        charmap.CodePage862,                                    // Hebrew (CP-862)
-	"windows-1255": charmap.Windows1255,                                    // Hebrew (Windows-1255)
-	"windows-874":  charmap.Windows874,                                     // Thai (Windows-874)
-	"windows-1258": charmap.Windows1258,                                    // Vietnamese (Windows-1258)
-	"gb18030":      simplifiedchinese.GB18030,                              // Chinese (Simplified, GB18030)
-	"gbk":          simplifiedchinese.GBK,                                  // Chinese (Simplified, GBK)
-	"big5":         traditionalchinese.Big5,                                // Chinese (Traditional, Big5)
-	"euc-kr":       korean.EUCKR,                                           // Korean (EUC-KR)
-	"euc-jp":       japanese.EUCJP,                                         // Japanese (EUC-JP)
-	"iso-2022-jp":  japanese.ISO2022JP,                                     // Japanese (ISO-2022-JP)
-	"shift_jis":    japanese.ShiftJIS,                                      // Japanese (Shift JIS)
+	"utf-8":        unicode.UTF8,                                           
+	"utf-8-bom":    unicode.UTF8BOM,                                        
+	"utf-16le":     unicode.UTF16(unicode.LittleEndian, unicode.UseBOM),    
+	"utf-16be":     unicode.UTF16(unicode.BigEndian, unicode.UseBOM),       
+	"utf-16le-bom": unicode.UTF16(unicode.LittleEndian, unicode.ExpectBOM), 
+	"utf-16be-bom": unicode.UTF16(unicode.BigEndian, unicode.ExpectBOM),    
+	"cp437":        charmap.CodePage437,                                    
+	"cp863":        charmap.CodePage863,                                    
+	"cp037":        charmap.CodePage037,                                    
+	"cp1047":       charmap.CodePage1047,                                   
+	"cp1140":       charmap.CodePage1140,                                   
+	"iso-8859-1":   charmap.ISO8859_1,                                      
+	"cp850":        charmap.CodePage850,                                    
+	"cp858":        charmap.CodePage858,                                    
+	"windows-1252": charmap.Windows1252,                                    
+	"iso-8859-15":  charmap.ISO8859_15,                                     
+	"iso-8859-4":   charmap.ISO8859_4,                                      
+	"iso-8859-10":  charmap.ISO8859_10,                                     
+	"cp865":        charmap.CodePage865,                                    
+	"iso-8859-2":   charmap.ISO8859_2,                                      
+	"cp852":        charmap.CodePage852,                                    
+	"windows-1250": charmap.Windows1250,                                    
+	"iso-8859-14":  charmap.ISO8859_14,                                     
+	"iso-8859-3":   charmap.ISO8859_3,                                      
+	"cp860":        charmap.CodePage860,                                    
+	"iso-8859-7":   charmap.ISO8859_7,                                      
+	"windows-1253": charmap.Windows1253,                                    
+	"iso-8859-9":   charmap.ISO8859_9,                                      
+	"windows-1254": charmap.Windows1254,                                    
+	"iso-8859-13":  charmap.ISO8859_13,                                     
+	"windows-1257": charmap.Windows1257,                                    
+	"iso-8859-16":  charmap.ISO8859_16,                                     
+	"iso-8859-5":   charmap.ISO8859_5,                                      
+	"cp855":        charmap.CodePage855,                                    
+	"cp866":        charmap.CodePage866,                                    
+	"windows-1251": charmap.Windows1251,                                    
+	"koi8r":        charmap.KOI8R,                                          
+	"koi8u":        charmap.KOI8U,                                          
+	"iso-8859-6":   charmap.ISO8859_6,                                      
+	"windows-1256": charmap.Windows1256,                                    
+	"iso-8859-8":   charmap.ISO8859_8,                                      
+	"cp862":        charmap.CodePage862,                                    
+	"windows-1255": charmap.Windows1255,                                    
+	"windows-874":  charmap.Windows874,                                     
+	"windows-1258": charmap.Windows1258,                                    
+	"gb18030":      simplifiedchinese.GB18030,                              
+	"gbk":          simplifiedchinese.GBK,                                  
+	"big5":         traditionalchinese.Big5,                                
+	"euc-kr":       korean.EUCKR,                                           
+	"euc-jp":       japanese.EUCJP,                                         
+	"iso-2022-jp":  japanese.ISO2022JP,                                     
+	"shift_jis":    japanese.ShiftJIS,                                      
 }
 
 var customTransactionTypeNameMapping = map[models.TransactionType]string{
@@ -98,7 +98,7 @@ type CustomTransactionDataDsvFileParser interface {
 	ParseDsvFileLines(ctx core.Context, data []byte) ([][]string, error)
 }
 
-// customTransactionDataDsvFileImporter defines the structure of custom dsv importer for transaction data
+
 type customTransactionDataDsvFileImporter struct {
 	fileEncoding               encoding.Encoding
 	separator                  rune
@@ -114,7 +114,7 @@ type customTransactionDataDsvFileImporter struct {
 	transactionTagSeparator    string
 }
 
-// ParseDsvFileLines returns the parsed file lines for specified the dsv file data
+
 func (c *customTransactionDataDsvFileImporter) ParseDsvFileLines(ctx core.Context, data []byte) ([][]string, error) {
 	reader := transform.NewReader(bytes.NewReader(data), c.fileEncoding.NewDecoder())
 	csvReader := csv.NewReader(reader)
@@ -149,7 +149,7 @@ func (c *customTransactionDataDsvFileImporter) ParseDsvFileLines(ctx core.Contex
 	return allLines, nil
 }
 
-// ParseImportedData returns the imported data by parsing the custom transaction dsv data
+
 func (c *customTransactionDataDsvFileImporter) ParseImportedData(ctx core.Context, user *models.User, data []byte, defaultTimezone *time.Location, additionalOptions converter.TransactionDataImporterOptions, accountMap map[string]*models.Account, expenseCategoryMap map[string]map[string]*models.TransactionCategory, incomeCategoryMap map[string]map[string]*models.TransactionCategory, transferCategoryMap map[string]map[string]*models.TransactionCategory, tagMap map[string]*models.TransactionTag) (models.ImportedTransactionSlice, []*models.Account, []*models.TransactionCategory, []*models.TransactionCategory, []*models.TransactionCategory, []*models.TransactionTag, error) {
 	allLines, err := c.ParseDsvFileLines(ctx, data)
 
@@ -164,13 +164,13 @@ func (c *customTransactionDataDsvFileImporter) ParseImportedData(ctx core.Contex
 	return dataTableImporter.ParseImportedData(ctx, user, transactionDataTable, defaultTimezone, additionalOptions, accountMap, expenseCategoryMap, incomeCategoryMap, transferCategoryMap, tagMap)
 }
 
-// IsDelimiterSeparatedValuesFileType returns whether the file type is the delimiter-separated values file type
+
 func IsDelimiterSeparatedValuesFileType(fileType string) bool {
 	_, exists := supportedFileTypeSeparators[fileType]
 	return exists
 }
 
-// CreateNewCustomTransactionDataDsvFileParser returns a new custom dsv parser for transaction data
+
 func CreateNewCustomTransactionDataDsvFileParser(fileType string, fileEncoding string) (CustomTransactionDataDsvFileParser, error) {
 	separator, exists := supportedFileTypeSeparators[fileType]
 
@@ -190,7 +190,7 @@ func CreateNewCustomTransactionDataDsvFileParser(fileType string, fileEncoding s
 	}, nil
 }
 
-// CreateNewCustomTransactionDataDsvFileImporter returns a new custom dsv importer for transaction data
+
 func CreateNewCustomTransactionDataDsvFileImporter(fileType string, fileEncoding string, columnIndexMapping map[datatable.TransactionDataTableColumn]int, transactionTypeNameMapping map[string]models.TransactionType, hasHeaderLine bool, timeFormat string, timezoneFormat string, amountDecimalSeparator string, amountDigitGroupingSymbol string, geoLocationSeparator string, geoLocationOrder string, transactionTagSeparator string) (converter.TransactionDataImporter, error) {
 	separator, exists := supportedFileTypeSeparators[fileType]
 

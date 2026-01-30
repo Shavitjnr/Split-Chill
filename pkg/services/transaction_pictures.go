@@ -1,4 +1,4 @@
-package services
+﻿package services
 
 import (
 	"io"
@@ -8,22 +8,22 @@ import (
 
 	"xorm.io/xorm"
 
-	"github.com/mayswind/ezbookkeeping/pkg/core"
-	"github.com/mayswind/ezbookkeeping/pkg/datastore"
-	"github.com/mayswind/ezbookkeeping/pkg/errs"
-	"github.com/mayswind/ezbookkeeping/pkg/models"
-	"github.com/mayswind/ezbookkeeping/pkg/storage"
-	"github.com/mayswind/ezbookkeeping/pkg/uuid"
+	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/datastore"
+	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
+	"github.com/Shavitjnr/split-chill-ai/pkg/models"
+	"github.com/Shavitjnr/split-chill-ai/pkg/storage"
+	"github.com/Shavitjnr/split-chill-ai/pkg/uuid"
 )
 
-// TransactionPictureService represents transaction picture service
+
 type TransactionPictureService struct {
 	ServiceUsingDB
 	ServiceUsingUuid
 	ServiceUsingStorage
 }
 
-// Initialize a transaction picture service singleton instance
+
 var (
 	TransactionPictures = &TransactionPictureService{
 		ServiceUsingDB: ServiceUsingDB{
@@ -38,7 +38,7 @@ var (
 	}
 )
 
-// GetTotalTransactionPicturesCountByUid returns total transaction pictures count of user
+
 func (s *TransactionPictureService) GetTotalTransactionPicturesCountByUid(c core.Context, uid int64) (int64, error) {
 	if uid <= 0 {
 		return 0, errs.ErrUserIdInvalid
@@ -49,7 +49,7 @@ func (s *TransactionPictureService) GetTotalTransactionPicturesCountByUid(c core
 	return count, err
 }
 
-// GetPictureInfoByPictureId returns a transaction picture info model according to transaction picture id
+
 func (s *TransactionPictureService) GetPictureInfoByPictureId(c core.Context, uid int64, pictureId int64) (*models.TransactionPictureInfo, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -71,7 +71,7 @@ func (s *TransactionPictureService) GetPictureInfoByPictureId(c core.Context, ui
 	return pictureInfo, nil
 }
 
-// GetNewPictureInfosByPictureIds returns new transaction picture info models according to transaction picture ids
+
 func (s *TransactionPictureService) GetNewPictureInfosByPictureIds(c core.Context, uid int64, pictureIds []int64) ([]*models.TransactionPictureInfo, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -91,7 +91,7 @@ func (s *TransactionPictureService) GetNewPictureInfosByPictureIds(c core.Contex
 	return pictureInfos, nil
 }
 
-// GetPictureInfosByTransactionId returns transaction picture info models according to transaction id
+
 func (s *TransactionPictureService) GetPictureInfosByTransactionId(c core.Context, uid int64, transactionId int64) ([]*models.TransactionPictureInfo, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -111,7 +111,7 @@ func (s *TransactionPictureService) GetPictureInfosByTransactionId(c core.Contex
 	return pictureInfos, nil
 }
 
-// GetPictureInfosByTransactionIds returns transaction picture info models according to transaction ids
+
 func (s *TransactionPictureService) GetPictureInfosByTransactionIds(c core.Context, uid int64, transactionIds []int64) (map[int64][]*models.TransactionPictureInfo, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -132,7 +132,7 @@ func (s *TransactionPictureService) GetPictureInfosByTransactionIds(c core.Conte
 	return pictureInfoMap, err
 }
 
-// GetPictureByPictureId returns the transaction picture data according to transaction picture id
+
 func (s *TransactionPictureService) GetPictureByPictureId(c core.Context, uid int64, pictureId int64, fileExtension string) ([]byte, error) {
 	if uid <= 0 {
 		return nil, errs.ErrUserIdInvalid
@@ -180,7 +180,7 @@ func (s *TransactionPictureService) GetPictureByPictureId(c core.Context, uid in
 	return pictureData, nil
 }
 
-// UploadPicture uploads the transaction picture for specified user
+
 func (s *TransactionPictureService) UploadPicture(c core.Context, pictureInfo *models.TransactionPictureInfo, pictureFile multipart.File) error {
 	if pictureInfo.Uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -211,7 +211,7 @@ func (s *TransactionPictureService) UploadPicture(c core.Context, pictureInfo *m
 	})
 }
 
-// RemoveUnusedTransactionPicture removes the unused transaction picture of specified user
+
 func (s *TransactionPictureService) RemoveUnusedTransactionPicture(c core.Context, uid int64, pictureId int64) error {
 	if uid <= 0 {
 		return errs.ErrUserIdInvalid
@@ -241,7 +241,7 @@ func (s *TransactionPictureService) RemoveUnusedTransactionPicture(c core.Contex
 	})
 }
 
-// GetPictureInfoMapByList returns a transaction picture info list map by a list
+
 func (s *TransactionPictureService) GetPictureInfoMapByList(pictureInfos []*models.TransactionPictureInfo) map[int64]*models.TransactionPictureInfo {
 	pictureInfoMap := make(map[int64]*models.TransactionPictureInfo)
 
@@ -253,7 +253,7 @@ func (s *TransactionPictureService) GetPictureInfoMapByList(pictureInfos []*mode
 	return pictureInfoMap
 }
 
-// GetPictureInfoListMapByList returns a transaction picture info list map by a list
+
 func (s *TransactionPictureService) GetPictureInfoListMapByList(pictureInfos []*models.TransactionPictureInfo) map[int64][]*models.TransactionPictureInfo {
 	pictureInfoMap := make(map[int64][]*models.TransactionPictureInfo)
 
@@ -267,7 +267,7 @@ func (s *TransactionPictureService) GetPictureInfoListMapByList(pictureInfos []*
 	return pictureInfoMap
 }
 
-// GetTransactionPictureIds returns transaction picture ids list
+
 func (s *TransactionPictureService) GetTransactionPictureIds(pictureInfos []*models.TransactionPictureInfo) []int64 {
 	pictureIds := make([]int64, len(pictureInfos))
 

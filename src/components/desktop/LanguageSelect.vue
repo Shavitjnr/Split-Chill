@@ -6,6 +6,7 @@
         :disabled="disabled"
         :label="label"
         :placeholder="placeholder"
+        :prepend-inner-icon="prependInnerIcon"
         :items="allLanguages"
         v-model="currentLocaleValue"
     >
@@ -39,6 +40,7 @@ import {
 interface DesktopLanguageSelectProps extends LanguageSelectBaseProps {
     label?: string;
     placeholder?: string;
+    prependInnerIcon?: string;
 }
 
 const props = defineProps<DesktopLanguageSelectProps>();

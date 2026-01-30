@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <f7-app v-bind="f7params">
         <f7-view id="main-view" class="safe-areas" main url="/"></f7-view>
     </f7-app>
@@ -39,10 +39,10 @@ const tokensStore = useTokensStore();
 const exchangeRatesStore = useExchangeRatesStore();
 
 const f7params = ref<Framework7Parameters>({
-    name: 'ezBookkeeping',
+    name: 'Split Chill AI',
     theme: 'ios',
     colors: {
-        primary: '#c67e48'
+        primary: '#3B82F6'
     },
     routes: routes,
     darkMode: (() => {
@@ -70,7 +70,7 @@ const f7params = ref<Framework7Parameters>({
         closeOnEscape: true
     },
     dialog: {
-        // @ts-expect-error there is an "animate" field in dialog parameters, but it is not declared in the type definition file
+        
         animate: isEnableAnimate(),
         backdrop: true
     },
@@ -185,8 +185,8 @@ onMounted(() => {
 watch(currentNotificationContent, (newValue) => {
     if (notification.value) {
         notification.value.close();
-        // @ts-expect-error there is an "destroy" function in the Notification component, but it is not defined in the type definition file
-        // see https://framework7.io/docs/notification
+        
+        
         notification.value.destroy();
         notification.value = null;
     }
@@ -215,7 +215,7 @@ setExpenseAndIncomeAmountColor(userStore.currentUserExpenseAmountColor, userStor
 
 if (isUserLogined()) {
     if (!settingsStore.appSettings.applicationLock || isUserUnlocked()) {
-        // refresh token if user is logined
+        
         tokensStore.refreshTokenAndRevokeOldToken().then(response => {
             if (response.user) {
                 localeDefaultSettings = setLanguage(response.user.language);
@@ -229,7 +229,7 @@ if (isUserLogined()) {
             }
         });
 
-        // auto refresh exchange rates data
+        
         if (settingsStore.appSettings.autoUpdateExchangeRatesData) {
             exchangeRatesStore.getLatestExchangeRates({ silent: true, force: false });
         }

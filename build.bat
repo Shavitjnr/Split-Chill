@@ -227,8 +227,7 @@ goto :pre_parse_args
     set "package_file_name=%VERSION%"
 
     if "%RELEASE%"=="0" (
-        set "build_date="
-        set "package_file_name=%package_file_name%-%build_date%"
+        set "package_file_name=%package_file_name%-%BUILD_DATE%"
     )
 
     set "package_file_name=splitchill-ai-%package_file_name%-windows.zip"

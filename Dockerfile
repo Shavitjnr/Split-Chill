@@ -12,7 +12,7 @@ ENV BUILD_UNIXTIME=$BUILD_UNIXTIME
 ENV BUILD_DATE=$BUILD_DATE
 ENV CHECK_3RD_API=$CHECK_3RD_API
 ENV SKIP_TESTS=$SKIP_TESTS
-WORKDIR /go/src/github.com/Shavitjnr/splitchill-ai
+WORKDIR /go/src/github.com/Shavitjnr/split-chill-ai
 COPY . .
 RUN docker/backend-build-pre-setup.sh
 RUN apk add git gcc g++ libc-dev
@@ -28,7 +28,7 @@ ENV RELEASE_BUILD=$RELEASE_BUILD
 ENV BUILD_PIPELINE=$BUILD_PIPELINE
 ENV BUILD_UNIXTIME=$BUILD_UNIXTIME
 ENV BUILD_DATE=$BUILD_DATE
-WORKDIR /go/src/github.com/Shavitjnr/splitchill-ai
+WORKDIR /go/src/github.com/Shavitjnr/split-chill-ai
 COPY . .
 RUN docker/frontend-build-pre-setup.sh
 RUN apk add git
@@ -46,8 +46,8 @@ RUN mkdir -p /splitchill-ai && chown 1000:1000 /splitchill-ai \
   && mkdir -p /splitchill-ai/log && chown 1000:1000 /splitchill-ai/log \
   && mkdir -p /splitchill-ai/storage && chown 1000:1000 /splitchill-ai/storage
 WORKDIR /splitchill-ai
-COPY --from=be-builder --chown=1000:1000 /go/src/github.com/Shavitjnr/splitchill-ai/splitchill-ai /splitchill-ai/splitchill-ai
-COPY --from=fe-builder --chown=1000:1000 /go/src/github.com/Shavitjnr/splitchill-ai/dist /splitchill-ai/public
+COPY --from=be-builder --chown=1000:1000 /go/src/github.com/Shavitjnr/split-chill-ai/splitchill-ai /splitchill-ai/splitchill-ai
+COPY --from=fe-builder --chown=1000:1000 /go/src/github.com/Shavitjnr/split-chill-ai/dist /splitchill-ai/public
 COPY --chown=1000:1000 conf /splitchill-ai/conf
 COPY --chown=1000:1000 templates /splitchill-ai/templates
 COPY --chown=1000:1000 LICENSE /splitchill-ai/LICENSE

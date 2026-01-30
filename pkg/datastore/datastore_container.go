@@ -17,18 +17,15 @@ import (
 	"github.com/Shavitjnr/split-chill-ai/pkg/settings"
 )
 
-
 type DataStoreContainer struct {
 	UserStore     *DataStore
 	TokenStore    *DataStore
 	UserDataStore *DataStore
 }
 
-
 var (
 	Container = &DataStoreContainer{}
 )
-
 
 func InitializeDataStore(config *settings.Config) error {
 	database, err := initializeDatabase(config.DatabaseConfig)
@@ -126,7 +123,7 @@ func setDatabaseLogger(database *Database, config *settings.Config) {
 func getMysqlConnectionString(dbConfig *settings.DatabaseConfig) (string, error) {
 	protocol := "tcp"
 
-	if strings.HasPrefix(dbConfig.DatabaseHost, "/") { 
+	if strings.HasPrefix(dbConfig.DatabaseHost, "/") {
 		protocol = "unix"
 	}
 
@@ -135,9 +132,9 @@ func getMysqlConnectionString(dbConfig *settings.DatabaseConfig) (string, error)
 }
 
 func getPostgresConnectionString(dbConfig *settings.DatabaseConfig) (string, error) {
-	if strings.HasPrefix(dbConfig.DatabaseHost, "/") { 
-		return fmt.Sprintf("postgres:/
-			dbConfig.DatabaseName, dbConfig.DatabaseSSLMode, dbConfig.DatabaseHost, url.QueryEscape(dbConfig.DatabaseUser), url.QueryEscape(dbConfig.DatabasePassword)), nil
+	if strings.HasPrefix(dbConfig.DatabaseHost, "/") {
+		return fmt.Sprintf("postgres://%s:%s@/%s?sslmode=%s&host=%s",
+			url.QueryEscape(dbConfig.DatabaseUser), url.QueryEscape(dbConfig.DatabasePassword), dbConfig.DatabaseName, dbConfig.DatabaseSSLMode, dbConfig.DatabaseHost), nil
 	} else {
 		host, port, err := net.SplitHostPort(dbConfig.DatabaseHost)
 

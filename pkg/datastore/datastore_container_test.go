@@ -52,7 +52,7 @@ func TestGetPostgreSQLConnectionString_TCP(t *testing.T) {
 }
 
 func TestGetPostgreSQLConnectionString_UnixSocket(t *testing.T) {
-	expectedValue := "postgres:/
+	expectedValue := "postgres://username:password@/dbname?sslmode=disable&host=/path/to/postgres.sock"
 	actualValue, err := getPostgresConnectionString(&settings.DatabaseConfig{
 		DatabaseType:     "postgres",
 		DatabaseHost:     "/path/to/postgres.sock",

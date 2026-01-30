@@ -73,7 +73,7 @@ func TestMtStatementGetInformationToAccountOwnerMap_InvalidFormat(t *testing.T) 
 func TestMtStatementGetInformationToAccountOwnerMap_EmptyKeyValue(t *testing.T) {
 	statement := &mtStatement{
 		InformationToAccountOwner: []string{
-			"/REMI
+			"/REMI//ABC//DEF/456",
 			"/GHI/123/JKL/def",
 		},
 	}

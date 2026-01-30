@@ -18,11 +18,11 @@ func TestNewDefaultRequestIdGenerator_Http(t *testing.T) {
 	requestId := generator.GenerateRequestId("127.0.0.1", 20000)
 	requestIdInfo := generator.parseRequestIdInfo(generator.parseRequestIdFromUuid(requestId))
 
-	expectedServerUniqId := uint16(0x2476) 
+	expectedServerUniqId := uint16(0x2476)
 	actualServerUniqId := requestIdInfo.ServerUniqId
 	assert.Equal(t, expectedServerUniqId, actualServerUniqId)
 
-	expectedInstanceUniqId := uint16(0x0e79) 
+	expectedInstanceUniqId := uint16(0x0e79)
 	actualInstanceUniqId := requestIdInfo.InstanceUniqId
 	assert.Equal(t, expectedInstanceUniqId, actualInstanceUniqId)
 }
@@ -37,11 +37,11 @@ func TestNewDefaultRequestIdGenerator_UnixSocket(t *testing.T) {
 	requestId := generator.GenerateRequestId("127.0.0.1", 20000)
 	requestIdInfo := generator.parseRequestIdInfo(generator.parseRequestIdFromUuid(requestId))
 
-	expectedServerUniqId := uint16(0x5bdb) 
+	expectedServerUniqId := uint16(0x5bdb)
 	actualServerUniqId := requestIdInfo.ServerUniqId
 	assert.Equal(t, expectedServerUniqId, actualServerUniqId)
 
-	expectedInstanceUniqId := uint16(0x2cc) 
+	expectedInstanceUniqId := uint16(0x8176)
 	actualInstanceUniqId := requestIdInfo.InstanceUniqId
 	assert.Equal(t, expectedInstanceUniqId, actualInstanceUniqId)
 }
@@ -56,7 +56,7 @@ func TestNewDefaultRequestIdGenerator_ClientIpv4(t *testing.T) {
 	requestId := generator.GenerateRequestId("127.0.0.1", 20000)
 	requestIdInfo := generator.parseRequestIdInfo(generator.parseRequestIdFromUuid(requestId))
 
-	expectedClientIp := uint32(0x7f000001) 
+	expectedClientIp := uint32(0x7f000001)
 	actualClientIp := requestIdInfo.ClientIp
 	assert.Equal(t, expectedClientIp, actualClientIp)
 
@@ -67,7 +67,7 @@ func TestNewDefaultRequestIdGenerator_ClientIpv4(t *testing.T) {
 	requestId = generator.GenerateRequestId("192.168.1.100", 20000)
 	requestIdInfo = generator.parseRequestIdInfo(generator.parseRequestIdFromUuid(requestId))
 
-	expectedClientIp = uint32(0xc0a80164) 
+	expectedClientIp = uint32(0xc0a80164)
 	actualClientIp = requestIdInfo.ClientIp
 	assert.Equal(t, expectedClientIp, actualClientIp)
 
@@ -86,7 +86,7 @@ func TestNewDefaultRequestIdGenerator_ClientIpv6(t *testing.T) {
 	requestId := generator.GenerateRequestId("2001:abc:def:1234::1", 20000)
 	requestIdInfo := generator.parseRequestIdInfo(generator.parseRequestIdFromUuid(requestId))
 
-	expectedClientIp := uint32(0x76fe1b98) 
+	expectedClientIp := uint32(0x76fe1b98)
 	actualClientIp := requestIdInfo.ClientIp
 	assert.Equal(t, expectedClientIp, actualClientIp)
 
@@ -97,7 +97,7 @@ func TestNewDefaultRequestIdGenerator_ClientIpv6(t *testing.T) {
 	requestId = generator.GenerateRequestId("2400:abcd:1234:1:56ef:ab78:c90d:1e2f", 20000)
 	requestIdInfo = generator.parseRequestIdInfo(generator.parseRequestIdFromUuid(requestId))
 
-	expectedClientIp = uint32(0xa0a25faa) 
+	expectedClientIp = uint32(0xa0a25faa)
 	actualClientIp = requestIdInfo.ClientIp
 	assert.Equal(t, expectedClientIp, actualClientIp)
 

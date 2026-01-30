@@ -81,7 +81,7 @@ Visit [Docker Hub](https://hub.docker.com/r/Shavitjnr/split-chill-ai) to see all
 
 ### Install from Binary
 
-Download the latest release: [https://github.com/Shavitjnr/split-chill-ai/releases](https://github.com/Shavitjnr/split-chill-ai/releases)
+Download the latest release: [https://github.com/Shavitjnr/split-chill-ai](https://github.com/Shavitjnr/split-chill-ai)
 
 **Linux / macOS**
 

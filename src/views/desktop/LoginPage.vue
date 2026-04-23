@@ -341,7 +341,44 @@ oauth2ClientSessionId.value = generateRandomUUID();
 
 <style lang="scss" scoped>
 .layout-wrapper {
+    position: relative;
+    min-height: 100vh;
     overflow: hidden;
+    isolation: isolate;
+
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        inset: auto;
+        border-radius: 999px;
+        filter: blur(90px);
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    &::before {
+        width: 480px;
+        height: 480px;
+        top: -140px;
+        left: -120px;
+        background: radial-gradient(circle, rgba(59, 130, 246, 0.24) 0%, rgba(59, 130, 246, 0) 72%);
+    }
+
+    &::after {
+        width: 520px;
+        height: 520px;
+        right: -180px;
+        bottom: -180px;
+        background: radial-gradient(circle, rgba(16, 185, 129, 0.22) 0%, rgba(16, 185, 129, 0) 70%);
+    }
+}
+
+.auth-wrapper {
+    background:
+        radial-gradient(circle at 8% 12%, rgba(59, 130, 246, 0.12), transparent 36%),
+        radial-gradient(circle at 92% 88%, rgba(16, 185, 129, 0.1), transparent 34%),
+        linear-gradient(145deg, #f8fbff 0%, #f4f8ff 40%, #f8fafc 100%) !important;
 }
 
 .auth-logo {
@@ -358,14 +395,24 @@ oauth2ClientSessionId.value = generateRandomUUID();
 }
 
 .auth-image-background {
-    background: radial-gradient(circle at center, rgba(var(--ebk-primary-h), var(--ebk-primary-s), var(--ebk-primary-l), 0.05) 0%, transparent 70%);
+    background:
+        radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.16) 0%, rgba(59, 130, 246, 0) 40%),
+        radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.14) 0%, rgba(139, 92, 246, 0) 44%),
+        linear-gradient(160deg, rgba(15, 23, 42, 0.02) 0%, rgba(59, 130, 246, 0.02) 100%);
 }
 
 .hero-backdrop {
     position: absolute;
     inset: 0;
-    background: url('https://grainy-gradients.vercel.app/noise.svg');
-    opacity: 0.03;
+    background:
+        repeating-linear-gradient(
+            120deg,
+            rgba(148, 163, 184, 0.08) 0px,
+            rgba(148, 163, 184, 0.08) 1px,
+            transparent 1px,
+            transparent 22px
+        );
+    opacity: 0.35;
     pointer-events: none;
 }
 
@@ -434,8 +481,19 @@ oauth2ClientSessionId.value = generateRandomUUID();
 }
 
 .v-theme--dark {
+    .auth-wrapper {
+        background:
+            radial-gradient(circle at 8% 12%, rgba(59, 130, 246, 0.2), transparent 42%),
+            radial-gradient(circle at 92% 88%, rgba(16, 185, 129, 0.16), transparent 40%),
+            linear-gradient(155deg, #020617 0%, #0f172a 46%, #111827 100%) !important;
+    }
+
     .modern-input :deep(.v-field--focused) {
         background-color: #1e293b !important;
+    }
+
+    .hero-backdrop {
+        opacity: 0.2;
     }
 }
 </style>

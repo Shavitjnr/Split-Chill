@@ -424,6 +424,38 @@ oauth2ClientSessionId.value = generateRandomUUID();
 </script>
 
 <style>
+.login-bg {
+    background:
+        radial-gradient(circle at 10% 8%, rgba(59, 130, 246, 0.16), transparent 36%),
+        radial-gradient(circle at 90% 90%, rgba(16, 185, 129, 0.14), transparent 38%),
+        linear-gradient(155deg, #f8fbff 0%, #f4f8ff 45%, #f8fafc 100%) !important;
+}
+
+.dark .login-bg {
+    background:
+        radial-gradient(circle at 10% 8%, rgba(59, 130, 246, 0.24), transparent 42%),
+        radial-gradient(circle at 90% 90%, rgba(16, 185, 129, 0.18), transparent 44%),
+        linear-gradient(150deg, #020617 0%, #0f172a 52%, #111827 100%) !important;
+}
+
+.login-bg .list.inset {
+    background: rgba(255, 255, 255, 0.74);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 14px 36px rgba(15, 23, 42, 0.06);
+}
+
+.dark .login-bg .list.inset {
+    background: rgba(15, 23, 42, 0.68);
+    border-color: rgba(148, 163, 184, 0.2);
+    box-shadow: 0 16px 42px rgba(2, 6, 23, 0.45);
+}
+
+.login-bg .list-button {
+    font-weight: 700;
+}
+
 .login-divider > .item-content {
     width: 100%;
     min-height: 0;

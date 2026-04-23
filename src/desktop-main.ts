@@ -1,4 +1,4 @@
-﻿import { createApp, ref } from 'vue';
+import { createApp, ref } from 'vue';
 import { createPinia } from 'pinia';
 import { type I18n, type Composer, createI18n } from 'vue-i18n';
 
@@ -303,27 +303,27 @@ const vuetify = createVuetify({
             light: {
                 dark: false,
                 colors: {
-                    
-                    'primary-darken-1': '#2563EB',
+                    'primary': '#0DAD83',
+                    'primary-darken-1': '#0b8e6b',
                     'on-primary': '#ffffff',
-                    'secondary': '#93C5FD',
-                    'secondary-darken-1': '#60A5FA',
+                    'secondary': '#FF6E40',
+                    'secondary-darken-1': '#e65c2e',
                     'on-secondary': '#ffffff',
-                    'success': '#86EFAC',
-                    'success-darken-1': '#4ADE80',
-                    'on-success': '#064E3B',
-                    'info': '#0EA5E9',
-                    'info-darken-1': '#0284C7',
+                    'success': '#0DAD83',
+                    'success-darken-1': '#0b8e6b',
+                    'on-success': '#ffffff',
+                    'info': '#0ea5e9',
+                    'info-darken-1': '#0284c7',
                     'on-info': '#ffffff',
-                    'warning': '#FACC15',
-                    'warning-darken-1': '#EAB308',
+                    'warning': '#facc15',
+                    'warning-darken-1': '#eab308',
                     'on-warning': '#422006',
-                    'error': '#F87171',
-                    'error-darken-1': '#EF4444',
+                    'error': '#f87171',
+                    'error-darken-1': '#ef4444',
                     'on-error': '#ffffff',
-                    'teal': '#2DD4BF',
-                    'background': '#F0F9FF',
-                    'on-background': '#1E293B',
+                    'teal': '#0DAD83',
+                    'background': '#f5f7fb',
+                    'on-background': '#1e293b',
                     'surface': '#FFFFFF',
                     'on-surface': '#1E293B',
                     'notification-background': '#FFFFFF',

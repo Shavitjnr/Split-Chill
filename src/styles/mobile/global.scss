@@ -1,4 +1,4 @@
-﻿
+
 html, body {
     position: fixed;
 }
@@ -37,9 +37,9 @@ h1, h2, h3, h4, h5, h6, .navbar-title, .button, .login-page-logo + div {
 
 :root {
     
-    --ebk-primary-h: 221;
-    --ebk-primary-s: 83%;
-    --ebk-primary-l: 53%;
+    --ebk-primary-h: 164;
+    --ebk-primary-s: 86%;
+    --ebk-primary-l: 36%;
     --ebk-primary: hsl(var(--ebk-primary-h), var(--ebk-primary-s), var(--ebk-primary-l));
     
     
@@ -52,12 +52,55 @@ h1, h2, h3, h4, h5, h6, .navbar-title, .button, .login-page-logo + div {
     --f7-sheet-border-radius: 24px;
     
     
-    --ebk-bg-main: #f8fafc;
+    --ebk-bg-main: #ffffff;
     --ebk-surface: #ffffff;
     --ebk-transaction-tag-chip-bg-color: hsla(var(--ebk-primary-h), var(--ebk-primary-s), var(--ebk-primary-l), 0.08);
 
     
     --modern-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+:root {
+    --fintech-gradient: #0DAD83 !important;
+}
+
+.card {
+    border-radius: 16px !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+    border: 1px solid rgba(0,0,0,0.02) !important;
+    transition: all 0.25s ease !important;
+}
+
+.card:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08) !important;
+    transform: translateY(-2px);
+}
+
+.button-fill,
+.button-active,
+.tab-link-active {
+    background: var(--fintech-gradient) !important;
+    border: none !important;
+    color: white !important;
+}
+
+.button {
+    border-radius: 50px !important;
+    transition: all 0.25s ease !important;
+}
+
+.page {
+    background-color: #f5f7fb !important;
+}
+
+.login-bg {
+    background: #f5f7fb !important;
+}
+
+.auth-card {
+    border-radius: 20px !important;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.06) !important;
+    border: 1px solid rgba(255,255,255,0.8) !important;
 }
 
 :root.dark {
@@ -289,26 +332,35 @@ html[dir="rtl"] i.icon.icon-with-direction {
 }
 
 
-.dp__theme_light {
-    --dp-primary-color: #3B82F6;
-    --dp-background-color: inherit;
-    --dp-border-color: #aaa;
-    --dp-menu-border-color: #aaa;
-
-    .dp__overlay {
-        --dp-background-color: #e1e1e2;
-    }
+/* Calendar DatePicker Angular Aesthetic */
+.dp__theme_light, .dp__theme_dark {
+    --dp-primary-color: #0DAD83 !important;
+    --dp-secondary-color: #FF6E40 !important;
+    --dp-hover-color: #FFAB91 !important;
+    --dp-icon-color: #0DAD83 !important;
 }
-
-.dp__theme_dark {
-    --dp-primary-color: #3B82F6;
-    --dp-background-color: inherit;
-    --dp-border-color: #555;
-    --dp-menu-border-color: #555;
-
-    .dp__overlay {
-        --dp-background-color: #1f1f1f;
-    }
+.dp__active_date {
+    background: #FF6E40 !important;
+    border-radius: 50% !important;
+    color: white !important;
+}
+.dp__today {
+    border: 1px solid #FF6E40 !important; 
+    border-radius: 50% !important;
+}
+.dp__action_buttons .dp__action_button.dp__action_select {
+    background: #0DAD83 !important;
+    color: white !important;
+    border-radius: 2px !important;
+}
+.dp__action_buttons .dp__action_button.dp__action_cancel {
+    background: white !important;
+    color: #0DAD83 !important;
+    border: 1px solid #0DAD83 !important;
+    border-radius: 2px !important;
+}
+.dp__menu_inner {
+    border-radius: 4px !important;
 }
 
 

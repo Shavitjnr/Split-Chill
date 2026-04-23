@@ -1,4 +1,4 @@
-﻿<template>
+<template>
     <v-row>
         <v-col cols="12" md="6">
             <div class="d-flex w-100 mb-2">
@@ -344,12 +344,12 @@ function onMessage(event: MessageEvent<SandboxResponse>): void {
     if (data.knownError) {
         snackbar.value?.showError(data.knownError);
         previewResult.value = undefined;
-        executionError.value = `
+        executionError.value = String(data.knownError);
     } else if (data.error) {
         logger.error('Failed to execute custom script: ' + data.error);
         snackbar.value?.showError('Failed to execute custom script');
         previewResult.value = undefined;
-        executionError.value = `
+        executionError.value = String(data.error);
     } else if (data.result) {
         const originalResult = JSON.parse(data.result) as Record<string, unknown>[];
         const finalResult: ImportTransactionRequestItem[] = [];
@@ -380,7 +380,7 @@ function onMessage(event: MessageEvent<SandboxResponse>): void {
                     logger.error('Failed to parse time "' + originalDateTime + '" with custom format "' + format + '"');
                     snackbar.value?.showError('Failed to parse time');
                     previewResult.value = undefined;
-                    executionError.value = `
+                    executionError.value = 'Failed to parse time';
                     return;
                 }
             }
@@ -389,7 +389,7 @@ function onMessage(event: MessageEvent<SandboxResponse>): void {
                 logger.error('Failed to parse time "' + item['time'] + '"');
                 snackbar.value?.showError('Failed to parse time');
                 previewResult.value = undefined;
-                executionError.value = `
+                executionError.value = 'Failed to parse time';
                 return;
             }
 

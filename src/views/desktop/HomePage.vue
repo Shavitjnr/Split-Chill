@@ -181,6 +181,11 @@
                                              :loading="loadingOverview" :disabled="loadingOverview"
                                              :enable-click-item="true" @click="clickMonthlyIncomeOrExpense" />
         </v-col>
+
+        <!-- New Feature: Full Width Transaction Event Calendar (from User Snippet Translation) -->
+        <v-col cols="12">
+            <event-calendar />
+        </v-col>
     </v-row>
 
     <snack-bar ref="snackbar" />
@@ -190,6 +195,7 @@
 import SnackBar from '@/components/desktop/SnackBar.vue';
 import IncomeExpenseOverviewCard from './overview/cards/IncomeExpenseOverviewCard.vue';
 import MonthlyIncomeAndExpenseCard, { type MonthlyIncomeAndExpenseCardClickEvent } from './overview/cards/MonthlyIncomeAndExpenseCard.vue';
+import EventCalendar from '@/components/desktop/EventCalendar.vue';
 
 import { ref, computed, useTemplateRef } from 'vue';
 import { useRouter } from 'vue-router';

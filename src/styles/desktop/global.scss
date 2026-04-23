@@ -1,4 +1,4 @@
-﻿
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -45,16 +45,16 @@ h1, h2, h3, h4, h5, h6, .v-btn, .v-tab, .v-card-title, .auth-logo h1 {
 
 :root {
     
-    --ebk-primary-h: 221;
-    --ebk-primary-s: 83%;
-    --ebk-primary-l: 53%;
+    --ebk-primary-h: 164;
+    --ebk-primary-s: 86%;
+    --ebk-primary-l: 36%;
     --ebk-primary: hsl(var(--ebk-primary-h), var(--ebk-primary-s), var(--ebk-primary-l));
     --ebk-primary-glow: hsla(var(--ebk-primary-h), var(--ebk-primary-s), var(--ebk-primary-l), 0.3);
     
     
-    --ebk-success-h: 142;
-    --ebk-success-s: 71%;
-    --ebk-success-l: 45%;
+    --ebk-success-h: 160;
+    --ebk-success-s: 84%;
+    --ebk-success-l: 39%;
     --ebk-success: hsl(var(--ebk-success-h), var(--ebk-success-s), var(--ebk-success-l));
     
     
@@ -64,7 +64,7 @@ h1, h2, h3, h4, h5, h6, .v-btn, .v-tab, .v-card-title, .auth-logo h1 {
     --ebk-danger: hsl(var(--ebk-danger-h), var(--ebk-danger-s), var(--ebk-danger-l));
 
     
-    --ebk-bg-main: #f8fafc;
+    --ebk-bg-main: #ffffff;
     --ebk-surface: #ffffff;
     --ebk-border-color: #e2e8f0;
     
@@ -73,6 +73,116 @@ h1, h2, h3, h4, h5, h6, .v-btn, .v-tab, .v-card-title, .auth-logo h1 {
     --modern-shadow-md: 0 8px 24px rgba(31, 38, 135, 0.08);
     --modern-shadow-lg: 0 16px 48px rgba(31, 38, 135, 0.12);
     --primary-glow: 0 0 20px var(--ebk-primary-glow);
+}
+
+:root {
+    --fintech-gradient: #0DAD83 !important;
+}
+
+/* Calendar DatePicker Angular Aesthetic */
+.dp__theme_light, .dp__theme_dark {
+    --dp-primary-color: #0DAD83 !important;
+    --dp-secondary-color: #FF6E40 !important;
+    --dp-hover-color: #FFAB91 !important;
+    --dp-icon-color: #0DAD83 !important;
+}
+.dp__active_date {
+    background: #FF6E40 !important;
+    border-radius: 50% !important;
+    color: white !important;
+}
+.dp__today {
+    border: 1px solid #FF6E40 !important; 
+    border-radius: 50% !important;
+}
+.dp__action_buttons .dp__action_button.dp__action_select {
+    background: #0DAD83 !important;
+    color: white !important;
+    border-radius: 2px !important;
+}
+.dp__action_buttons .dp__action_button.dp__action_cancel {
+    background: white !important;
+    color: #0DAD83 !important;
+    border: 1px solid #0DAD83 !important;
+    border-radius: 2px !important;
+}
+.dp__menu_inner {
+    border-radius: 4px !important;
+}
+
+.v-card {
+    border-radius: 16px !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+    border: 1px solid rgba(0,0,0,0.02) !important;
+    transition: all 0.25s ease !important;
+}
+
+.v-card:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08) !important;
+    transform: translateY(-2px);
+}
+
+.v-btn.bg-primary {
+    background: var(--fintech-gradient) !important;
+    border: none !important;
+    color: white !important;
+}
+
+.v-btn {
+    border-radius: 50px !important;
+    transition: all 0.25s ease !important;
+}
+
+.v-field {
+    border-radius: 12px !important;
+}
+
+.v-field--focused {
+    box-shadow: 0 0 0 2px rgba(20, 184, 166, 0.2) !important;
+}
+
+.v-list-item--active:not(.v-list-group__header),
+.v-btn--active,
+.v-slide-group-item--active,
+.v-chip.v-chip--selected.bg-primary {
+    background: var(--fintech-gradient) !important;
+    color: white !important;
+    border-color: transparent !important;
+}
+
+.v-list-item--active:not(.v-list-group__header) .v-icon,
+.v-list-item--active:not(.v-list-group__header) .v-list-item-title {
+    color: white !important;
+}
+
+.v-list-item--active .v-list-item__overlay,
+.v-list-item--active .v-list-item__underlay {
+    opacity: 0 !important;
+}
+
+.v-table {
+    border-radius: 16px !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+}
+
+.v-table th {
+    background-color: #f5f7fb !important;
+    color: #64748b !important;
+    font-weight: 600 !important;
+}
+
+.v-application__wrap, .v-main {
+    background-color: #f5f7fb !important;
+}
+
+.auth-wrapper {
+    background: #f5f7fb !important;
+}
+
+.auth-card {
+    border-radius: 20px !important;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.06) !important;
+    border: 1px solid rgba(255,255,255,0.8) !important;
 }
 
 .v-theme--dark {

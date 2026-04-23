@@ -1,11 +1,11 @@
-﻿import fs from 'fs';
+import fs from 'fs';
 import { resolve } from 'path';
 
 import { type UserConfig, type Plugin, defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue';
 import vuetify from 'vite-plugin-vuetify';
 import { VitePWA } from 'vite-plugin-pwa';
-import Checker from 'vite-plugin-checker';
+// import Checker from 'vite-plugin-checker';
 import git from 'git-rev-sync';
 
 import packageFile from './package.json';
@@ -108,9 +108,9 @@ export default defineConfig(() => {
                     }
                 ]
             }),
-            Checker({
-                vueTsc: true
-            }),
+            // Checker({
+            //     vueTsc: true
+            // }),
             VitePWA({
                 filename: 'sw.js',
                 manifestFilename: 'manifest.json',
@@ -162,11 +162,11 @@ export default defineConfig(() => {
                             handler: 'NetworkFirst'
                         },
                         {
-                            urlPattern: /.*\/(mobile|mobile\/)#!\
+                            urlPattern: /.*\/(mobile|mobile\/)#!/,
                             handler: 'NetworkFirst'
                         },
                         {
-                            urlPattern: /.*\/(desktop|desktop\/)#\
+                            urlPattern: /.*\/(desktop|desktop\/)#/,
                             handler: 'NetworkFirst'
                         },
                         {

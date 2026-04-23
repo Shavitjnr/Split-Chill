@@ -4,6 +4,142 @@
             "title": "Split Chill AI"
         }
     },
+    "language": {
+        "German": "German",
+        "English": "English",
+        "Spanish": "Spanish",
+        "French": "French",
+        "Italian": "Italian",
+        "Japanese": "Japanese",
+        "Kannada": "Kannada",
+        "Korean": "Korean",
+        "Dutch": "Dutch",
+        "Portuguese (Brazil)": "Portuguese (Brazil)",
+        "Russian": "Russian",
+        "Slovenian": "Slovenian",
+        "Tamil": "Tamil",
+        "Thai": "Thai",
+        "Turkish": "Turkish",
+        "Ukrainian": "Ukrainian",
+        "Vietnamese": "Vietnamese",
+        "Chinese (Simplified)": "Chinese (Simplified)",
+        "Chinese (Traditional)": "Chinese (Traditional)"
+    },
+    "default": {
+        "currency": "USD",
+        "firstDayOfWeek": "Sunday",
+        "fiscalYearFormat": "EndYYYY",
+        "calendarDisplayType": "Gregorian",
+        "dateDisplayType": "Gregorian",
+        "longDateFormat": "MonthDayYear",
+        "shortDateFormat": "MonthDayYear",
+        "longTimeFormat": "MeridiemIndicatorHourMinuteSecond",
+        "shortTimeFormat": "MeridiemIndicatorHourMinute",
+        "numeralSystem": "WesternArabicNumerals",
+        "decimalSeparator": "Dot",
+        "digitGroupingSymbol": "Comma",
+        "digitGrouping": "ThousandsSeparator",
+        "currencyDisplayType": "SymbolBeforeAmount"
+    },
+    "format": {
+        "longDate": {
+            "YearMonthDay": "YYYY-MM-DD",
+            "MonthDayYear": "MMM D, YYYY",
+            "DayMonthYear": "D MMM YYYY"
+        },
+        "shortDate": {
+            "YearMonthDay": "YYYY-MM-DD",
+            "MonthDayYear": "M/D/YYYY",
+            "DayMonthYear": "D/M/YYYY"
+        },
+        "longYear": {
+            "YearMonthDay": "YYYY",
+            "MonthDayYear": "YYYY",
+            "DayMonthYear": "YYYY"
+        },
+        "shortYear": {
+            "YearMonthDay": "YYYY",
+            "MonthDayYear": "YYYY",
+            "DayMonthYear": "YYYY"
+        },
+        "longYearMonth": {
+            "YearMonthDay": "MMM YYYY",
+            "MonthDayYear": "MMM YYYY",
+            "DayMonthYear": "MMM YYYY"
+        },
+        "shortYearMonth": {
+            "YearMonthDay": "YYYY-MM",
+            "MonthDayYear": "MM/YYYY",
+            "DayMonthYear": "MM/YYYY"
+        },
+        "longMonthDay": {
+            "YearMonthDay": "MMM D",
+            "MonthDayYear": "MMM D",
+            "DayMonthYear": "D MMM"
+        },
+        "shortMonthDay": {
+            "YearMonthDay": "MM-DD",
+            "MonthDayYear": "M/D",
+            "DayMonthYear": "D/M"
+        },
+        "shortDay": {
+            "YearMonthDay": "D",
+            "MonthDayYear": "D",
+            "DayMonthYear": "D"
+        },
+        "longTime": {
+            "HourMinuteSecond": "HH:mm:ss",
+            "MeridiemIndicatorHourMinuteSecond": "hh:mm:ss A",
+            "HourMinuteSecondMeridiemIndicator": "hh:mm:ss A"
+        },
+        "shortTime": {
+            "HourMinute": "HH:mm",
+            "MeridiemIndicatorHourMinute": "hh:mm A",
+            "HourMinuteMeridiemIndicator": "hh:mm A"
+        },
+        "yearQuarter": {
+            "content": "{year} Q{quarter}"
+        },
+        "fiscalYear": {
+            "StartYYYY_EndYYYY": "FY {StartYYYY}-{EndYYYY}",
+            "StartYYYY_EndYY": "FY {StartYYYY}-{EndYY}",
+            "StartYY_EndYY": "FY {StartYY}-{EndYY}",
+            "EndYYYY": "FY {EndYYYY}",
+            "EndYY": "FY {EndYY}"
+        },
+        "misc": {
+            "nHour": "{n} hr",
+            "nHours": "{n} hrs",
+            "nDay": "{n} day",
+            "nDays": "{n} days",
+            "multiTextJoinSeparator": ", ",
+            "loginWithCustomProvider": "Sign in with {name}",
+            "hoursBehindDefaultTimezone": "{hours} hrs behind default timezone",
+            "hoursAheadOfDefaultTimezone": "{hours} hrs ahead of default timezone",
+            "hoursMinutesBehindDefaultTimezone": "{hours}h {minutes}m behind default timezone",
+            "hoursMinutesAheadOfDefaultTimezone": "{hours}h {minutes}m ahead of default timezone",
+            "monthDay": "{ordinal}",
+            "eachMonthDayInMonthDays": "{ordinal}",
+            "monthDays": "{multiMonthDays}",
+            "everyMultiDaysOfWeek": "Every {days}",
+            "everyMultiDaysOfMonth": "Every {days}",
+            "youHaveAccounts": "You have recorded {count} accounts",
+            "addNewTag": "Add new tag \"{tag}\"",
+            "clickToSelectedFile": "Click to select a file ({extensions})",
+            "previewCount": "Preview counts: {count}",
+            "selectedCount": "Selected {count} / {totalCount}",
+            "queryIndex": "Query #{index}",
+            "youHaveUpdatedTransactions": "You have updated {count} transactions",
+            "confirmImportTransactions": "Are you sure you want to import {count} transactions?",
+            "importingTransactions": "Importing ({process}%)",
+            "importTransactionResult": "You have successfully imported {count} transactions.",
+            "moveTransactionsInAccountTip": "You cannot undo this operation. It will move all transactions in {fromAccount} account to {toAccount}.",
+            "clearTransactionsInAccountTip": "You cannot undo this operation. It will clear all transactions in {account} account. Enter your current password to confirm.",
+            "accountActivationAndResendValidationEmailTip": "Account activation email has been sent to your email address: {email}. If you did not receive the email, please enter your password again and click the button below to resend the validation email.",
+            "resendValidationEmailTip": "If you did not receive the email, please enter your password again and click the button below to resend the validation email to: {email}",
+            "oauth2bindTip": "You are logging in as User \"{userName}\" via {providerName}. Please enter your Split Chill AI password to verify."
+        }
+    },
     "dataExport": {
         "defaultExportFilename": "SplitChillAI_export_data",
         "exportFilename": "SplitChillAI_{nickname}_export_data",

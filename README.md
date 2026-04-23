@@ -1,171 +1,201 @@
 # Split Chill AI
 
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/Shavitjnr/split-chill-ai/blob/master/LICENSE)
-[![Go Report](https://goreportcard.com/badge/github.com/Shavitjnr/split-chill-ai)](https://goreportcard.com/report/github.com/Shavitjnr/split-chill-ai)
-[![Latest Release](https://img.shields.io/github/release/Shavitjnr/split-chill-ai.svg?style=flat)](https://github.com/Shavitjnr/split-chill-ai/releases)
-[![Latest Build](https://img.shields.io/github/actions/workflow/status/Shavitjnr/split-chill-ai/build-snapshot.yml?branch=main)](https://github.com/Shavitjnr/split-chill-ai/actions)
-[![Latest Docker Image Size](https://img.shields.io/docker/image-size/Shavitjnr/split-chill-ai.svg?style=flat)](https://hub.docker.com/r/Shavitjnr/split-chill-ai)
-[![Docker Pulls](https://img.shields.io/docker/pulls/Shavitjnr/split-chill-ai)](https://hub.docker.com/r/Shavitjnr/split-chill-ai)
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Shavitjnr/split-chill-ai)
+Split Chill AI is a full-stack personal finance application with:
 
-[![Recommend By HelloGitHub](https://api.hellogithub.com/v1/widgets/recommend.svg?rid=ded5af09da574ec1811ddb154f1b2093&claim_uid=LT7EZxeBukCnh0K)](https://hellogithub.com/en/repository/Shavitjnr/split-chill-ai)
-[![Trending](https://trendshift.io/api/badge/repositories/12917)](https://trendshift.io/repositories/12917)
+- A Go backend API/server
+- A Vue 3 + Vite frontend (desktop and mobile UI)
+- SQLite-based local persistence by default
+- Optional production packaging via executable or Docker flow
 
-## Introduction
+This repository is configured so you can run frontend and backend separately during development.
 
-Split Chill AI is a lightweight, self-hosted personal finance app with a user-friendly interface and powerful bookkeeping features. It's easy to deploy, and you can start it with just one single Docker command. Designed to be resource-efficient and highly scalable, it can run smoothly on devices as small as a Raspberry Pi, or scale up to NAS, MicroServers, and even large cluster environments.
+## Tech Stack
 
-Split Chill AI offers tailored interfaces for both mobile and desktop devices. With support for PWA (Progressive Web Apps), you can even [add it to your mobile home screen](https://raw.githubusercontent.com/wiki/Shavitjnr/split-chill-ai/img/mobile/add_to_home_screen.gif) and use it like a native app.
+- Backend: Go
+- Frontend: Vue 3, Vite, TypeScript, Vuetify, Framework7
+- Data: SQLite (default)
+- Package manager: npm
 
-Live Demo: [https://splitchill-ai.shavitjnr.net](https://splitchill-ai.shavitjnr.net)
+## Project Structure
 
-## Features
+- `src/` - frontend source code
+- `public/` - frontend static assets
+- `data/` - SQLite database files
+- `log/` - backend logs
+- `conf/` - backend configuration (`splitchill-ai.ini`)
+- `splitchill-ai.exe` - backend executable for Windows
+- `package.json` - frontend scripts and dependencies
 
-- **Open Source & Self-Hosted**
-    - Built for privacy and control
-- **Lightweight & Fast**
-    - Optimized for performance, runs smoothly even on low-resource environments
-- **Easy Installation**
-    - Docker-ready
-    - Supports SQLite, MySQL, PostgreSQL
-    - Cross-platform (Windows, macOS, Linux)
-    - Works on x86, amd64, ARM architectures
-- **User-Friendly Interface**
-    - UI optimized for both mobile and desktop
-    - PWA support for native-like mobile experience
-    - Dark mode
-- **AI-Powered Features**
-    - Receipt image recognition
-    - Supports MCP (Model Context Protocol) for AI integration
-- **Powerful Bookkeeping**
-    - Two-level accounts and categories
-    - Attach images to transactions
-    - Location tracking with maps
-    - Recurring transactions
-    - Advanced filtering, search, visualization, and analysis
-- **Localization & Globalization**
-    - Multi-language and multi-currency support
-    - Automatic exchange rates
-    - Multi-timezone awareness
-    - Custom formats for dates, numbers, and currencies
-- **Security**
-    - Two-factor authentication (2FA)
-    - Login rate limiting
-    - Application lock (PIN code / WebAuthn)
-- **Data Import/Export**
-    - Supports CSV, OFX, QFX, QIF, IIF, Camt.053, MT940, GnuCash, Firefly III, Beancount, and more
+## Prerequisites
 
-## Screenshots
+Install the following on your machine:
 
-### Desktop Version
+- Node.js 18+ (recommended latest LTS)
+- npm 9+
+- Go (only needed if you want to build backend from source)
+- Git
 
-[![Split Chill AI](https://raw.githubusercontent.com/wiki/Shavitjnr/split-chill-ai/img/desktop/en.png)](https://raw.githubusercontent.com/wiki/Shavitjnr/split-chill-ai/img/desktop/en.png)
+For normal local usage on Windows in this repo, you can run backend directly using `splitchill-ai.exe` (no Go build required).
 
-### Mobile Version
+## Quick Start (Current Machine)
 
-[![Split Chill AI](https://raw.githubusercontent.com/wiki/Shavitjnr/split-chill-ai/img/mobile/en.png)](https://raw.githubusercontent.com/wiki/Shavitjnr/split-chill-ai/img/mobile/en.png)
+### 1) Install frontend dependencies
 
-## Installation
+```bash
+npm install
+```
 
-### Run with Docker
+### 2) Start backend
 
-Visit [Docker Hub](https://hub.docker.com/r/Shavitjnr/split-chill-ai) to see all images and tags.
+Windows PowerShell:
 
-**Latest Release:**
+```powershell
+.\splitchill-ai.exe server run
+```
 
-    $ docker run -p8080:8080 Shavitjnr/split-chill-ai
+Backend default URL:
 
-**Latest Daily Build:**
+- `http://localhost:8080`
 
-    $ docker run -p8080:8080 Shavitjnr/split-chill-ai:latest-snapshot
+### 3) Start frontend dev server
 
-### Install from Binary
+In a second terminal:
 
-Download the latest release: [https://github.com/Shavitjnr/split-chill-ai](https://github.com/Shavitjnr/split-chill-ai)
+```bash
+npm run serve
+```
 
-**Linux / macOS**
+Frontend dev URL:
 
-    $ ./splitchill-ai server run
+- `http://localhost:8081`
 
-**Windows**
+## Run On Another PC From Scratch
 
-    > .\splitchill-ai.exe server run
+Use these exact steps on a fresh machine.
 
-By default, Split Chill AI listens on port 8080. You can then visit `http://{YOUR_HOST_ADDRESS}:8080/` .
+### Step 1: Clone repository
 
-### Build from Source
+```bash
+git clone https://github.com/Shavitjnr/Split-Chill.git
+cd Split-Chill
+```
 
-Make sure you have [Golang](https://golang.org/), [GCC](https://gcc.gnu.org/), [Node.js](https://nodejs.org/) and [NPM](https://www.npmjs.com/) installed. Then download the source code, and follow these steps:
+### Step 2: Install Node dependencies
 
-**Linux / macOS**
+```bash
+npm install
+```
 
-    $ ./build.sh package -o splitchill-ai.tar.gz
+### Step 3: Configure backend
 
-All the files will be packaged in `splitchill-ai.tar.gz`.
+Check config file:
 
-**Windows**
+- `conf/splitchill-ai.ini`
 
-    > .\build.bat package -o splitchill-ai.zip
+Set a strong `secret_key` (required for safe usage).  
+Do not keep default/empty value in production.
 
-or
+### Step 4: Start backend
 
-    PS > .\build.ps1 package -Output splitchill-ai.zip
+Windows:
 
-All the files will be packaged in `splitchill-ai.zip`.
+```powershell
+.\splitchill-ai.exe server run
+```
 
-You can also build a Docker image. Make sure you have [Docker](https://www.docker.com/) installed, then follow these steps:
+If running from source on Linux/macOS after build:
 
-**Linux**
+```bash
+./splitchill-ai server run
+```
 
-    $ ./build.sh docker
+### Step 5: Start frontend
 
-## Contributing
+Open another terminal:
 
-We welcome contributions of all kinds.
+```bash
+npm run serve
+```
 
-Found a bug? [Submit an issue](https://github.com/Shavitjnr/split-chill-ai/issues)
+### Step 6: Open app
 
-Want to contribute code? Feel free to fork and send a pull request.
+- Frontend: `http://localhost:8081`
+- Backend API/base server: `http://localhost:8080`
 
-Contributions of all kinds — bug reports, feature suggestions, documentation improvements, or code — are highly appreciated.
+## Access From Other Devices In Same Network (LAN)
 
-Check out our [Contributor Graph](https://github.com/Shavitjnr/split-chill-ai/graphs/contributors) to see the amazing people who've already helped.
+If you want to open this app from another PC/phone on your Wi-Fi:
 
-## Translating
+1. Keep backend and frontend running.
+2. Find host machine local IP (example: `192.168.1.20`).
+3. Open firewall ports if blocked:
+   - `8080` (backend)
+   - `8081` (frontend dev server)
+4. Use:
+   - `http://<HOST_IP>:8081` for frontend
+   - `http://<HOST_IP>:8080` for backend
 
-Help make Split Chill AI accessible to users around the world. If you want to contribute a translation, please refer to our [translation guide](https://splitchill-ai.shavitjnr.net/translating).
+Notes:
 
-Currently available translations:
+- In dev mode, frontend hot reload is available.
+- In strict networks, additional firewall/router rules may be required.
 
-| Tag     | Language           | Contributors                                                                                                                                                                                     |
-| ------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| de      | Deutsch            | [@chrgm](https://github.com/chrgm)                                                                                                                                                               |
-| en      | English            | /                                                                                                                                                                                                |
-| es      | Español            | [@Miguelonlonlon](https://github.com/Miguelonlonlon), [@abrugues](https://github.com/abrugues), [@AndresTeller](https://github.com/AndresTeller), [@diegofercri](https://github.com/diegofercri) |
-| fr      | Français           | [@brieucdlf](https://github.com/brieucdlf)                                                                                                                                                       |
-| it      | Italiano           | [@waron97](https://github.com/waron97)                                                                                                                                                           |
-| ja      | 日本語             | [@tkymmm](https://github.com/tkymmm)                                                                                                                                                             |
-| kn      | ಕನ್ನಡ              | [@Darshanbm05](https://github.com/Darshanbm05)                                                                                                                                                   |
-| ko      | 한국어             | [@overworks](https://github.com/overworks)                                                                                                                                                       |
-| nl      | Nederlands         | [@automagics](https://github.com/automagics)                                                                                                                                                     |
-| pt-BR   | Português (Brasil) | [@thecodergus](https://github.com/thecodergus)                                                                                                                                                   |
-| ru      | Русский            | [@artegoser](https://github.com/artegoser)                                                                                                                                                       |
-| sl      | Slovenščina        | [@thehijacker](https://github.com/thehijacker)                                                                                                                                                   |
-| ta      | தமிழ்              | [@hhharsha36](https://github.com/hhharsha36)                                                                                                                                                     |
-| th      | ไทย                | [@natthavat28](https://github.com/natthavat28)                                                                                                                                                   |
-| tr      | Türkçe             | [@aydnykn](https://github.com/aydnykn)                                                                                                                                                           |
-| uk      | Українська         | [@nktlitvinenko](https://github.com/nktlitvinenko)                                                                                                                                               |
-| vi      | Tiếng Việt         | [@f97](https://github.com/f97)                                                                                                                                                                   |
-| zh-Hans | 中文 (简体)        | /                                                                                                                                                                                                |
-| zh-Hant | 中文 (繁體)        | /                                                                                                                                                                                                |
+## Build Frontend
 
-Don't see your language? Help us add it.
+```bash
+npm run build
+```
 
-## Documentation
+Output is generated in `dist/`.
 
-1. [English](https://splitchill-ai.shavitjnr.net)
-1. [中文 (简体)](https://splitchill-ai.shavitjnr.net/zh_Hans)
+## Useful Scripts
 
-## License
+- `npm run serve` - start frontend dev server
+- `npm run build` - build frontend for production
+- `npm run serve:dist` - preview built frontend
+- `npm run lint` - type-check and lint
 
-[MIT](https://github.com/Shavitjnr/split-chill-ai/blob/master/LICENSE)
+## Data and Logs
+
+- Database file: `data/splitchill-ai.db`
+- Runtime journal files may appear:
+  - `data/splitchill-ai.db-shm`
+  - `data/splitchill-ai.db-wal`
+- Backend logs:
+  - `log/splitchill-ai.log`
+
+These files are environment/runtime artifacts and will change as you use the app.
+
+## Troubleshooting
+
+### Port already in use
+
+- Change port in backend config (`conf/splitchill-ai.ini`) or stop the process using it.
+- For frontend, ensure no other Vite instance is occupying `8081`.
+
+### Frontend cannot talk to backend
+
+- Confirm backend is running on `8080`.
+- Check browser console/network and backend logs.
+- Verify host/IP and firewall if accessing from another device.
+
+### Security warning about `secret_key`
+
+- Set a strong custom `secret_key` in `conf/splitchill-ai.ini`.
+- Restart backend after changing config.
+
+## Contribution Workflow
+
+1. Create a branch
+2. Make changes
+3. Commit with clear message
+4. Push branch and open PR
+
+---
+
+If you want, this README can also be extended with:
+
+- Docker one-command setup
+- systemd/PM2 service setup
+- reverse proxy setup (Nginx/Caddy)
+- HTTPS production deployment checklist

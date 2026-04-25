@@ -472,10 +472,9 @@ const vuetify = createVuetify({
                     }
 
                     if (params && params.length > 0) {
-                        
-                        return i18nGlobal.t(mappedTextKey, ...params);
+                        return i18nGlobal.t(mappedTextKey, params) as string;
                     } else {
-                        return i18nGlobal.t(mappedTextKey);
+                        return i18nGlobal.t(mappedTextKey) as string;
                     }
                 },
                 n: (value: number): string => {

@@ -46,7 +46,7 @@
             <div v-for="blank in blankDaysOffset" :key="'blank-' + blank" class="calendar-cell blank-cell bg-white"></div>
             
             <!-- Actual days of the month -->
-            <div v-for="day in daysInMonth" :key="day.date" class="calendar-cell bg-white" :class="{ 'bg-primary-lighten-5': day.isToday }">
+            <div v-for="day in daysInMonth" :key="day.dayNumber" class="calendar-cell bg-white" :class="{ 'bg-primary-lighten-5': day.isToday }">
                 <div class="d-flex justify-space-between align-center pa-2">
                     <span class="day-number font-weight-medium" :class="{ 'text-primary rounded-circle bg-primary-lighten-4 px-2': day.isToday }">
                         {{ day.dayNumber }}
@@ -113,11 +113,9 @@ const currentViewLabel = computed(() => 'Month'); // Simplified for now since we
 
 const selectedOpen = ref(false);
 const selectedEvent = ref<any>(null);
-const selectedElement = ref<HTMLElement | null>(null);
+const selectedElement = ref<any>(undefined);
 
-// Placeholder arrays mapped from the Vuetify 2 snippet
-const colors = ['#0DAD83', '#FF6E40', '#3B82F6', '#8B5CF6', '#10B981', '#F59E0B'];
-const names = ['Meeting', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party'];
+// Mock arrays removed
 
 // --- GETTERS ---
 const currentYear = computed(() => currentDate.value.getFullYear());
@@ -144,30 +142,11 @@ const daysInMonth = computed(() => {
     const isCurrentMonth = today.getMonth() === currentMonthNumber.value && today.getFullYear() === currentYear.value;
 
     for (let i = 1; i <= totalDays; i++) {
-        // Generate mock events for demonstration (as the Vue 2 snippet did realistically)
-        const dailyEvents = [];
-        if (Math.random() > 0.6) { // 40% chance to have an event
-            dailyEvents.push({
-                name: names[Math.floor(Math.random() * names.length)],
-                start: `${i}/${currentMonthNumber.value + 1} 10:00 AM`,
-                end: `${i}/${currentMonthNumber.value + 1} 11:30 AM`,
-                color: colors[Math.floor(Math.random() * colors.length)]
-            });
-        }
-        if (Math.random() > 0.85) { // 15% chance to have a second event
-            dailyEvents.push({
-                name: names[Math.floor(Math.random() * names.length)],
-                start: `${i}/${currentMonthNumber.value + 1} 2:00 PM`,
-                end: `${i}/${currentMonthNumber.value + 1} 3:00 PM`,
-                color: colors[Math.floor(Math.random() * colors.length)]
-            });
-        }
-
         days.push({
             date: new Date(currentYear.value, currentMonthNumber.value, i),
             dayNumber: i,
             isToday: isCurrentMonth && today.getDate() === i,
-            events: dailyEvents
+            events: [] as any[]
         });
     }
     return days;
@@ -189,7 +168,7 @@ function setToday() {
 function showEventDetails(event: any, e: MouseEvent) {
     e.stopPropagation();
     selectedEvent.value = event;
-    selectedElement.value = e.currentTarget as HTMLElement;
+    selectedElement.value = e.currentTarget;
     selectedOpen.value = true;
 }
 

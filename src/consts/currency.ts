@@ -1,4 +1,4 @@
-﻿import type { CurrencyInfo } from '@/core/currency.ts';
+import type { CurrencyInfo } from '@/core/currency.ts';
 
 
 export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
@@ -473,7 +473,7 @@ export const ALL_CURRENCIES: Record<string, CurrencyInfo> = {
         code: 'IDR',
         fraction: 2,
         symbol: {
-            normal: 'Rp'
+            normal: '₹'
         },
         unit: 'Rupiah'
     },

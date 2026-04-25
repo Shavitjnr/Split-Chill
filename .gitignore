@@ -147,3 +147,8 @@ dist/
 
 # Roo Code
 .roo/
+
+# Runtime data
+data/
+log/
+storage/

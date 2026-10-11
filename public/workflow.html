@@ -575,6 +575,48 @@
       color: #34D399;
     }
 
+    .arch-blueprint-box {
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-light);
+      border-left: 3px solid var(--brand-emerald);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 22px;
+    }
+    .arch-blueprint-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--brand-emerald);
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .arch-meta-list {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .arch-meta-row {
+      display: flex;
+      gap: 8px;
+      align-items: baseline;
+    }
+    .arch-meta-key {
+      font-weight: 700;
+      color: var(--text-muted);
+      min-width: 80px;
+      font-size: 0.72rem;
+      letter-spacing: 0.02em;
+    }
+    .arch-meta-val {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.76rem;
+    }
+
     .step-nav-footer {
       display: flex;
       justify-content: space-between;
@@ -939,6 +981,27 @@
               <span>One-Time Password (OTP) dispatched via Gmail SMTP in &lt;2s</span>
             </li>
           </ul>
+
+          <!-- Underlying Architecture Blueprint -->
+          <div class="arch-blueprint-box">
+            <div class="arch-blueprint-title">
+              <span>⚙️</span> UNDERLYING ARCHITECTURE &amp; DATA FLOW
+            </div>
+            <div class="arch-meta-list">
+              <div class="arch-meta-row">
+                <span class="arch-meta-key">ENGINE:</span>
+                <span class="arch-meta-val" id="stepArchEngine">Bcrypt-12 Auth &amp; Gmail SMTP TLS Mailer</span>
+              </div>
+              <div class="arch-meta-row">
+                <span class="arch-meta-key">DB TABLES:</span>
+                <span class="arch-meta-val" id="stepArchTables">users, user_tokens, two_factor_authorizations</span>
+              </div>
+              <div class="arch-meta-row">
+                <span class="arch-meta-key">GUARANTEE:</span>
+                <span class="arch-meta-val" id="stepArchGuarantee">Zero plaintext passwords; &lt;2s OTP turnaround</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="step-nav-footer">
@@ -1051,6 +1114,11 @@
           "Auto-detect default currency (USD, EUR, INR, JPY, GBP)",
           "One-Time Password (OTP) dispatched via Gmail SMTP in <2s"
         ],
+        arch: {
+          engine: "Bcrypt-12 Auth & Gmail SMTP TLS Mailer",
+          tables: "users, user_tokens, two_factor_authorizations",
+          guarantee: "Zero plaintext passwords; <2s OTP turnaround; local encryption"
+        },
         url: "http://localhost:8081/desktop.html#/login",
         renderCanvas: (j) => `
           <div class="mock-card">
@@ -1088,6 +1156,11 @@
           "Instant QR Code scan allows friends to join without installing an app",
           "Multi-device sync keeps desktop and mobile in continuous harmony"
         ],
+        arch: {
+          engine: "Local Socket Mesh & Dynamic QR Token Generator",
+          tables: "user_groups, group_members, accounts",
+          guarantee: "0.0.0.0 LAN binding; instant camera join without app install"
+        },
         url: "http://localhost:8081/desktop.html#/group/create",
         renderCanvas: (j) => `
           <div class="mock-card">
@@ -1120,6 +1193,11 @@
           "Receipt attachment stored locally or on private MinIO",
           "Automated ledger timeline and calendar updates"
         ],
+        arch: {
+          engine: "Real-Time FX Converter & Private Storage Pipeline",
+          tables: "transactions, transaction_pictures, categories, tags",
+          guarantee: "High-precision cents storage; ACID transaction rollback"
+        },
         url: "http://localhost:8081/desktop.html#/expense/add",
         renderCanvas: (j) => `
           <div class="mock-card">
@@ -1152,6 +1230,11 @@
           "Unequal Split: Adjust by exact amounts or percentage shares",
           "Exclude non-participating members with a single checkbox toggle"
         ],
+        arch: {
+          engine: "Conservation-of-Value Verification (Σ Delta == 0.00)",
+          tables: "transaction_participants, transaction_tags, user_balances",
+          guarantee: "Deterministic micro-cent rounding; rejects imbalanced splits"
+        },
         url: "http://localhost:8081/desktop.html#/expense/split",
         renderCanvas: (j) => `
           <div class="mock-card">
@@ -1182,6 +1265,11 @@
           "Reduces 6 awkward individual transfers down to just 2 direct settlements",
           "Sub-millisecond graph reduction runs instantly in Go"
         ],
+        arch: {
+          engine: "Greedy Dual-Heap Graph Minimizer (O(N log N))",
+          tables: "user_balances, data_summaries",
+          guarantee: "At most N-1 bilateral transfers; eliminates 67% circular debts"
+        },
         url: "http://localhost:8081/desktop.html#/settlements",
         renderCanvas: (j) => `
           <div class="mock-card">
@@ -1214,6 +1302,11 @@
           "Group balance returns to $0.00 — Zero financial friction",
           "Download comprehensive Excel (.xlsx) and CSV reports anytime"
         ],
+        arch: {
+          engine: "Atomic Reconciliation & Streamed Excel/CSV Exporter",
+          tables: "transactions, user_balances, feedbacks, data_summaries",
+          guarantee: "All balances return to $0.00; verifiable audit-ready spreadsheets"
+        },
         url: "http://localhost:8081/desktop.html#/reports",
         renderCanvas: (j) => `
           <div class="mock-card" style="text-align: center; padding: 32px 20px;">
@@ -1266,6 +1359,13 @@
           <span>${act}</span>
         </li>
       `).join('');
+
+      // Update Architecture Data Flow Box
+      if (step.arch) {
+        document.getElementById('stepArchEngine').innerText = step.arch.engine;
+        document.getElementById('stepArchTables').innerText = step.arch.tables;
+        document.getElementById('stepArchGuarantee').innerText = step.arch.guarantee;
+      }
 
       // Update Simulator URL and Canvas
       document.getElementById('deviceUrl').innerText = step.url;

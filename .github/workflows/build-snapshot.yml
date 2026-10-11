@@ -11,6 +11,8 @@ jobs:
     outputs:
       build-unix-time: ${{ steps.variable.outputs.build_unix_time }}
       build-date: ${{ steps.variable.outputs.build_date }}
+      docker-push: ${{ steps.docker_config.outputs.can_push }}
+      docker-image-name: ${{ steps.docker_config.outputs.image_name }}
       docker-version: ${{ steps.meta.outputs.version }}
       docker-tags: ${{ steps.meta.outputs.tags }}
       docker-labels: ${{ steps.meta.outputs.labels }}
@@ -25,12 +27,32 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
+      - name: Determine Docker Image and Push Configuration
+        id: docker_config
+        shell: bash
+        env:
+          DOCKER_IMAGE: ${{ vars.DOCKER_IMAGE_NAME }}
+          DOCKER_USER: ${{ vars.DOCKER_USERNAME || secrets.DOCKER_USERNAME }}
+          DOCKER_PASS: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          IMAGE="${DOCKER_IMAGE}"
+          if [ -z "$IMAGE" ]; then
+            IMAGE="${GITHUB_REPOSITORY,,}"
+          fi
+          echo "image_name=$IMAGE" >> "$GITHUB_OUTPUT"
+
+          if [ -n "$DOCKER_USER" ] && [ -n "$DOCKER_PASS" ]; then
+            echo "can_push=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "can_push=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: |
-            ${{ vars.DOCKER_IMAGE_NAME }}
+            ${{ steps.docker_config.outputs.image_name }}
           tags: |
             type=raw,value=SNAPSHOT-{{date 'YYYYMMDD'}}-${{ github.run_id }}
             type=raw,value=SNAPSHOT-{{date 'YYYYMMDD'}}
@@ -76,9 +98,9 @@ jobs:
           skip-tests: ${{ vars.SKIP_TESTS }}
           platform: linux/amd64
           platform-name: linux-amd64
-          docker-push: true
-          docker-image-name: ${{ vars.DOCKER_IMAGE_NAME }}
-          docker-username: ${{ vars.DOCKER_USERNAME }}
+          docker-push: ${{ needs.setup.outputs.docker-push }}
+          docker-image-name: ${{ needs.setup.outputs.docker-image-name }}
+          docker-username: ${{ vars.DOCKER_USERNAME || secrets.DOCKER_USERNAME }}
           docker-password: ${{ secrets.DOCKER_PASSWORD }}
           docker-bake-meta-file-path: ${{ needs.setup.outputs.splitchill-ai-docker-bake-meta-file-path }}
           docker-bake-meta-artifact-name: ${{ needs.setup.outputs.splitchill-ai-docker-bake-meta-artifact-name }}
@@ -112,9 +134,9 @@ jobs:
           skip-tests: ${{ vars.SKIP_TESTS }}
           platform: ${{ matrix.platform }}
           platform-name: ${{ matrix.platform-name }}
-          docker-push: true
-          docker-image-name: ${{ vars.DOCKER_IMAGE_NAME }}
-          docker-username: ${{ vars.DOCKER_USERNAME }}
+          docker-push: ${{ needs.setup.outputs.docker-push }}
+          docker-image-name: ${{ needs.setup.outputs.docker-image-name }}
+          docker-username: ${{ vars.DOCKER_USERNAME || secrets.DOCKER_USERNAME }}
           docker-password: ${{ secrets.DOCKER_PASSWORD }}
           docker-bake-meta-file-path: ${{ needs.setup.outputs.splitchill-ai-docker-bake-meta-file-path }}
           docker-bake-meta-artifact-name: ${{ needs.setup.outputs.splitchill-ai-docker-bake-meta-artifact-name }}
@@ -128,6 +150,7 @@ jobs:
       - setup
       - build-linux-docker-and-package-x86
       - build-linux-docker-and-package-arm
+    if: ${{ needs.setup.outputs.docker-push == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -135,8 +158,8 @@ jobs:
 
       - uses: ./.github/actions/push-linux-docker
         with:
-          docker-image-name: ${{ vars.DOCKER_IMAGE_NAME }}
-          docker-username: ${{ vars.DOCKER_USERNAME }}
+          docker-image-name: ${{ needs.setup.outputs.docker-image-name }}
+          docker-username: ${{ vars.DOCKER_USERNAME || secrets.DOCKER_USERNAME }}
           docker-password: ${{ secrets.DOCKER_PASSWORD }}
           docker-bake-meta-file-path: ${{ needs.setup.outputs.splitchill-ai-docker-bake-meta-file-path }}
           docker-bake-meta-artifact-name: ${{ needs.setup.outputs.splitchill-ai-docker-bake-meta-artifact-name }}

@@ -1,4 +1,5 @@
 name: Build docker image and package for linux
+description: Build docker image and package for linux
 
 inputs:
     release-build:
@@ -85,7 +86,7 @@ runs:
               source: .
               targets: image
               set: |
-                  *.tags=${{ inputs.docker-image-name }}
+                  ${{ inputs.docker-image-name != '' && format('*.tags={0}', inputs.docker-image-name) || '' }}
                   *.platform=${{ inputs.platform }}
                   *.args.RELEASE_BUILD=${{ inputs.release-build }}
                   *.args.BUILD_PIPELINE=1
@@ -93,15 +94,19 @@ runs:
                   *.args.BUILD_DATE=${{ inputs.build-date }}
                   *.args.CHECK_3RD_API=${{ inputs.check-3rd-api }}
                   *.args.SKIP_TESTS=${{ inputs.skip-tests }}
-                  *.output=type=image,push-by-digest=true,name-canonical=true,push=${{ inputs.docker-push }}
+                  *.output=${{ (inputs.docker-push == true || inputs.docker-push == 'true') && 'type=image,push-by-digest=true,name-canonical=true,push=true' || 'type=image,push=false' }}
                   *.output+=type=local,dest=${{ runner.temp }}/package
 
         - name: Export digests file for ${{ inputs.platform-name }}
           shell: bash
           run: |
-              digest="${{ fromJSON(steps.bake.outputs.metadata).image['containerimage.digest'] }}"
               mkdir -p ${{ inputs.docker-bake-digests-file-path }}
-              touch "${{ inputs.docker-bake-digests-file-path }}/${digest#sha256:}"
+              digest="${{ steps.bake.outputs.metadata && fromJSON(steps.bake.outputs.metadata).image['containerimage.digest'] || '' }}"
+              if [ -n "$digest" ]; then
+                touch "${{ inputs.docker-bake-digests-file-path }}/${digest#sha256:}"
+              else
+                touch "${{ inputs.docker-bake-digests-file-path }}/digest.empty"
+              fi
 
         - name: Build package file for ${{ inputs.platform-name }}
           shell: bash
@@ -110,11 +115,12 @@ runs:
               tar -czf ${{ runner.temp }}/${{ inputs.package-file-name-prefix }}-${{ inputs.platform-name }}.tar.gz *
 
         - name: Upload ${{ inputs.platform-name }} digests artifact
+          if: ${{ inputs.docker-push == true || inputs.docker-push == 'true' }}
           uses: actions/upload-artifact@v4
           with:
               name: ${{ inputs.docker-bake-digests-artifact-name-prefix }}-${{ inputs.platform-name }}
               path: ${{ inputs.docker-bake-digests-file-path }}/*
-              if-no-files-found: error
+              if-no-files-found: warn
 
         - name: Upload artifact for ${{ inputs.platform-name }}
           uses: actions/upload-artifact@v4

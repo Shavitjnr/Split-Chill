@@ -175,6 +175,11 @@ func startWebServer(c *core.CliContext) error {
 		router.StaticFile("/desktop/"+workboxFileNames[i], filepath.Join(config.StaticRootPath, workboxFileNames[i]))
 	}
 
+	router.StaticFile("/landing", filepath.Join(config.StaticRootPath, "landing.html"))
+	router.StaticFile("/landing.html", filepath.Join(config.StaticRootPath, "landing.html"))
+	router.StaticFile("/workflow", filepath.Join(config.StaticRootPath, "workflow.html"))
+	router.StaticFile("/workflow.html", filepath.Join(config.StaticRootPath, "workflow.html"))
+
 	if config.AvatarProvider == core.USER_AVATAR_PROVIDER_INTERNAL {
 		avatarRoute := router.Group("/avatar")
 		avatarRoute.Use(bindMiddleware(middlewares.JWTAuthorizationByQueryString(config)))
@@ -314,6 +319,11 @@ func startWebServer(c *core.CliContext) error {
 		}
 
 		apiRoute.GET("/logout.json", bindApiWithTokenUpdate(api.Tokens.TokenRevokeCurrentHandler, config))
+
+		apiRoute.POST("/feedback.json", bindApi(api.Feedbacks.FeedbackSubmitHandler))
+		apiRoute.POST("/feedback", bindApi(api.Feedbacks.FeedbackSubmitHandler))
+		apiRoute.POST("/contact.json", bindApi(api.Feedbacks.FeedbackSubmitHandler))
+		apiRoute.POST("/contact", bindApi(api.Feedbacks.FeedbackSubmitHandler))
 
 		apiV1Route := apiRoute.Group("/v1")
 		apiV1Route.Use(bindMiddleware(middlewares.JWTAuthorization(config)))

@@ -994,7 +994,13 @@
                         <!-- Success Alert Message (Hidden Initially) -->
                         <div id="formSuccessAlert" class="hidden p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-800 dark:text-emerald-300 text-sm flex items-center gap-3">
                             <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500 flex-shrink-0"></i>
-                            <span>Thank you! Your message has been sent. We'll reply within 24 hours.</span>
+                            <span id="formSuccessText">Thank you! Your message has been sent to our team. We'll reply within 24 hours.</span>
+                        </div>
+
+                        <!-- Error Alert Message (Hidden Initially) -->
+                        <div id="formErrorAlert" class="hidden p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-800 dark:text-rose-300 text-sm flex items-center gap-3">
+                            <i data-lucide="alert-circle" class="w-5 h-5 text-rose-500 flex-shrink-0"></i>
+                            <span id="formErrorText">Could not send message. Please check your network and try again.</span>
                         </div>
                     </form>
                 </div>
@@ -1416,19 +1422,24 @@
             const contactForm = document.getElementById('contactForm');
             const fullNameInput = document.getElementById('fullName');
             const emailInput = document.getElementById('email');
+            const categoryInput = document.getElementById('category');
             const messageInput = document.getElementById('message');
             const nameError = document.getElementById('nameError');
             const emailError = document.getElementById('emailError');
             const messageError = document.getElementById('messageError');
             const formSuccessAlert = document.getElementById('formSuccessAlert');
+            const formErrorAlert = document.getElementById('formErrorAlert');
+            const formErrorText = document.getElementById('formErrorText');
 
             function validateEmail(email) {
                 return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
             }
 
-            contactForm?.addEventListener('submit', (e) => {
+            contactForm?.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 let isValid = true;
+                if (formSuccessAlert) formSuccessAlert.classList.add('hidden');
+                if (formErrorAlert) formErrorAlert.classList.add('hidden');
 
                 // Validate Name
                 if (!fullNameInput.value.trim() || fullNameInput.value.trim().length < 2) {
@@ -1455,22 +1466,61 @@
                 }
 
                 if (isValid) {
-                    // Simulate AJAX dispatch
                     const submitBtn = document.getElementById('submitBtn');
+                    const originalBtnContent = submitBtn.innerHTML;
                     submitBtn.disabled = true;
-                    submitBtn.innerHTML = '<span>Sending Message...</span>';
+                    submitBtn.innerHTML = `
+                        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                        </svg>
+                        <span>Sending to Squad...</span>
+                    `;
 
-                    setTimeout(() => {
-                        formSuccessAlert.classList.remove('hidden');
-                        contactForm.reset();
+                    try {
+                        const payload = {
+                            fullName: fullNameInput.value.trim(),
+                            email: emailInput.value.trim(),
+                            category: categoryInput ? categoryInput.value : 'general',
+                            message: messageInput.value.trim()
+                        };
+
+                        const response = await fetch('/api/feedback.json', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(payload)
+                        });
+
+                        const resData = await response.json().catch(() => null);
+
+                        if (response.ok && resData && resData.success) {
+                            formSuccessAlert.classList.remove('hidden');
+                            contactForm.reset();
+                            if (window.lucide) lucide.createIcons();
+                            
+                            setTimeout(() => {
+                                if (formSuccessAlert) formSuccessAlert.classList.add('hidden');
+                            }, 8000);
+                        } else {
+                            const errDesc = (resData && resData.errorMessage) || 'Failed to dispatch email. Please try again.';
+                            if (formErrorAlert) {
+                                if (formErrorText) formErrorText.textContent = errDesc;
+                                formErrorAlert.classList.remove('hidden');
+                            }
+                        }
+                    } catch (err) {
+                        console.error('Contact submit error:', err);
+                        if (formErrorAlert) {
+                            if (formErrorText) formErrorText.textContent = 'Network error: could not connect to feedback server.';
+                            formErrorAlert.classList.remove('hidden');
+                        }
+                    } finally {
                         submitBtn.disabled = false;
-                        submitBtn.innerHTML = '<span>Send Message</span><i data-lucide="send" class="w-4 h-4"></i>';
-                        lucide.createIcons();
-                        
-                        setTimeout(() => {
-                            formSuccessAlert.classList.add('hidden');
-                        }, 7000);
-                    }, 900);
+                        submitBtn.innerHTML = originalBtnContent;
+                        if (window.lucide) lucide.createIcons();
+                    }
                 }
             });
 

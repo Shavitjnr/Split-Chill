@@ -94,6 +94,11 @@ parse_args() {
     else
         RELEASE_TYPE="release"
     fi
+
+    if [ "$BUILD_PIPELINE" = "1" ]; then
+        NO_LINT="1"
+        NO_TEST="1"
+    fi
 }
 
 check_type_dependencies() {

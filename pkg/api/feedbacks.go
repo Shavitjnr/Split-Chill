@@ -73,7 +73,7 @@ func (a *FeedbacksApi) FeedbackSubmitHandler(c *core.WebContext) (any, *errs.Err
 <style>
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f8fafc; margin: 0; padding: 24px; }
   .card { max-width: 600px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
-  .header { background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 28px 32px; color: #ffffff; }
+  .header { background: linear-gradient(135deg, #10b981 0%%, #059669 100%%); padding: 28px 32px; color: #ffffff; }
   .header h1 { margin: 0; font-size: 22px; font-weight: 800; }
   .header p { margin: 6px 0 0 0; font-size: 13px; opacity: 0.95; }
   .content { padding: 32px; }
@@ -175,7 +175,7 @@ func (a *FeedbacksApi) FeedbackSubmitHandler(c *core.WebContext) (any, *errs.Err
 <style>
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f8fafc; margin: 0; padding: 24px; }
   .card { max-width: 600px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
-  .header { background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 28px 32px; color: #ffffff; }
+  .header { background: linear-gradient(135deg, #10b981 0%%, #059669 100%%); padding: 28px 32px; color: #ffffff; }
   .header h1 { margin: 0; font-size: 20px; font-weight: 800; }
   .header p { margin: 6px 0 0 0; font-size: 13px; opacity: 0.95; }
   .content { padding: 32px; }

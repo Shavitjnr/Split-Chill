@@ -1,4 +1,4 @@
-﻿package cli
+package cli
 
 import (
 	"strings"
@@ -195,7 +195,8 @@ func (l *UserDataCli) SendPasswordResetMail(c *core.CliContext, username string)
 		return err
 	}
 
-	err = l.forgetPasswords.SendPasswordResetEmail(c, user, token, "")
+	otpCode, _ := l.forgetPasswords.GenerateAndSaveOTP(user.Email, 10*time.Minute)
+	err = l.forgetPasswords.SendPasswordResetEmail(c, user, token, otpCode, "")
 
 	if err != nil {
 		log.CliWarnf(c, "[user_data.SendPasswordResetMail] cannot send email to \"%s\", because %s", user.Email, err.Error())

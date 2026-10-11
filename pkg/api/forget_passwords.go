@@ -1,4 +1,4 @@
-﻿package api
+package api
 
 import (
 	"time"
@@ -98,8 +98,10 @@ func (a *ForgetPasswordsApi) UserForgetPasswordRequestHandler(c *core.WebContext
 		return nil, errs.ErrTokenGenerating
 	}
 
+	otpCode, _ := a.forgetPasswords.GenerateAndSaveOTP(user.Email, 10*time.Minute)
+
 	go func() {
-		err = a.forgetPasswords.SendPasswordResetEmail(c, user, token, c.GetClientLocale())
+		err = a.forgetPasswords.SendPasswordResetEmail(c, user, token, otpCode, c.GetClientLocale())
 
 		if err != nil {
 			log.Warnf(c, "[forget_passwords.UserForgetPasswordRequestHandler] cannot send email to \"%s\", because %s", user.Email, err.Error())
@@ -184,3 +186,78 @@ func (a *ForgetPasswordsApi) UserResetPasswordHandler(c *core.WebContext) (any, 
 
 	return true, nil
 }
+
+
+func (a *ForgetPasswordsApi) UserResetPasswordByOTPHandler(c *core.WebContext) (any, *errs.Error) {
+	var request models.PasswordResetByOTPRequest
+	err := c.ShouldBindJSON(&request)
+
+	if err != nil {
+		log.Warnf(c, "[forget_passwords.UserResetPasswordByOTPHandler] parse request failed, because %s", err.Error())
+		return nil, errs.NewIncompleteOrIncorrectSubmissionError(err)
+	}
+
+	err = a.CheckFailureCount(c, 0)
+	if err != nil {
+		log.Warnf(c, "[forget_passwords.UserResetPasswordByOTPHandler] rate limited for \"%s\", because %s", request.Email, err.Error())
+		return nil, errs.Or(err, errs.ErrFailureCountLimitReached)
+	}
+
+	if !a.forgetPasswords.VerifyAndConsumeOTP(request.Email, request.OTP) {
+		failureCheckErr := a.CheckAndIncreaseFailureCount(c, 0)
+		if failureCheckErr != nil {
+			return nil, errs.Or(failureCheckErr, errs.ErrFailureCountLimitReached)
+		}
+		log.Warnf(c, "[forget_passwords.UserResetPasswordByOTPHandler] invalid or expired OTP for \"%s\"", request.Email)
+		return nil, errs.ErrOTPCodeIsInvalidOrExpired
+	}
+
+	user, err := a.users.GetUserByEmail(c, request.Email)
+	if err != nil {
+		if !errs.IsCustomError(err) {
+			log.Errorf(c, "[forget_passwords.UserResetPasswordByOTPHandler] failed to get user, because %s", err.Error())
+		}
+		return nil, errs.ErrUserNotFound
+	}
+
+	if user.Disabled {
+		log.Warnf(c, "[forget_passwords.UserResetPasswordByOTPHandler] user \"uid:%d\" is disabled", user.Uid)
+		return nil, errs.ErrUserIsDisabled
+	}
+
+	if user.FeatureRestriction.Contains(core.USER_FEATURE_RESTRICTION_TYPE_FORGET_PASSWORD) {
+		return nil, errs.ErrNotPermittedToPerformThisAction
+	}
+
+	if a.CurrentConfig().ForgetPasswordRequireVerifyEmail && !user.EmailVerified {
+		log.Warnf(c, "[forget_passwords.UserResetPasswordByOTPHandler] user \"uid:%d\" has not verified email", user.Uid)
+		return nil, errs.ErrEmailIsNotVerified
+	}
+
+	if a.users.IsPasswordEqualsUserPassword(request.Password, user) {
+		return nil, errs.ErrNewPasswordEqualsOldInvalid
+	}
+
+	userNew := &models.User{
+		Uid:      user.Uid,
+		Salt:     user.Salt,
+		Password: request.Password,
+	}
+
+	_, _, err = a.users.UpdateUser(c, userNew, false)
+	if err != nil {
+		log.Errorf(c, "[forget_passwords.UserResetPasswordByOTPHandler] failed to update user \"uid:%d\", because %s", user.Uid, err.Error())
+		return nil, errs.Or(err, errs.ErrOperationFailed)
+	}
+
+	now := time.Now().Unix()
+	err = a.tokens.DeleteTokensBeforeTime(c, user.Uid, now)
+	if err == nil {
+		log.Infof(c, "[forget_passwords.UserResetPasswordByOTPHandler] revoke old tokens before unix time \"%d\" for user \"uid:%d\"", now, user.Uid)
+	} else {
+		log.Warnf(c, "[forget_passwords.UserResetPasswordByOTPHandler] failed to revoke old tokens for user \"uid:%d\", because %s", user.Uid, err.Error())
+	}
+
+	return true, nil
+}
+

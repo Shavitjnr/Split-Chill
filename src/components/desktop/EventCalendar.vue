@@ -41,14 +41,14 @@
         </div>
 
         <!-- Calendar Grid -->
-        <div class="calendar-grid bg-grey-lighten-3">
+        <div class="calendar-grid">
             <!-- Empty offset days for the start of the month -->
-            <div v-for="blank in blankDaysOffset" :key="'blank-' + blank" class="calendar-cell blank-cell bg-white"></div>
+            <div v-for="blank in blankDaysOffset" :key="'blank-' + blank" class="calendar-cell blank-cell"></div>
             
             <!-- Actual days of the month -->
-            <div v-for="day in daysInMonth" :key="day.dayNumber" class="calendar-cell bg-white" :class="{ 'bg-primary-lighten-5': day.isToday }">
+            <div v-for="day in daysInMonth" :key="day.dayNumber" class="calendar-cell" :class="{ 'is-today': day.isToday }">
                 <div class="d-flex justify-space-between align-center pa-2">
-                    <span class="day-number font-weight-medium" :class="{ 'text-primary rounded-circle bg-primary-lighten-4 px-2': day.isToday }">
+                    <span class="day-number" :class="{ 'today-number': day.isToday }">
                         {{ day.dayNumber }}
                     </span>
                 </div>
@@ -181,24 +181,48 @@ onMounted(() => {
 .calendar-header-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
 }
 
 .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 1px; /* Creates the border lines between days */
+    gap: 1px;
+    background-color: rgba(var(--v-border-color), var(--v-border-opacity));
 }
 
 .calendar-cell {
-    min-height: 120px;
+    min-height: 110px;
     display: flex;
     flex-direction: column;
-    transition: background-color 0.2s ease;
+    background-color: rgb(var(--v-theme-surface)) !important;
+    transition: background-color 0.15s ease;
 }
 
 .calendar-cell:hover:not(.blank-cell) {
-    background-color: #f8fafc !important; /* Soft hover effect */
+    background-color: rgba(var(--v-theme-on-surface), 0.04) !important;
+}
+
+.calendar-cell.is-today {
+    background-color: rgba(16, 185, 129, 0.06) !important;
+}
+
+.day-number {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: rgba(var(--v-theme-on-surface), 0.7);
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.day-number.today-number {
+    background-color: #10B981 !important;
+    color: #FFFFFF !important;
+    font-weight: 700;
 }
 
 .events-container {
@@ -207,7 +231,6 @@ onMounted(() => {
     max-height: 80px;
 }
 
-/* Custom scrollbar for events */
 .events-container::-webkit-scrollbar {
     width: 4px;
 }
@@ -219,21 +242,16 @@ onMounted(() => {
 .event-chip {
     cursor: pointer;
     user-select: none;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
+    font-weight: 500;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    transition: filter 0.2s;
+    border-radius: 6px !important;
+    transition: filter 0.15s ease;
 }
 
 .event-chip:hover {
-    filter: brightness(1.1);
-}
-
-.bg-primary-lighten-5 {
-    background-color: rgba(13, 173, 131, 0.05) !important;
-}
-.bg-primary-lighten-4 {
-    background-color: rgba(13, 173, 131, 0.15) !important;
+    filter: brightness(1.08);
 }
 </style>

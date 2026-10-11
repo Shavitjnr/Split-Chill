@@ -3,11 +3,17 @@
          :class="{ 'layout-overlay-nav': mdAndDown }">
         <div class="layout-vertical-nav" :class="{'visible': showVerticalOverlayMenu, 'scrolled': isVerticalNavScrolled, 'overlay-nav': mdAndDown}">
             <div class="nav-header">
-                <router-link to="/" class="app-logo d-flex align-center gap-x-3 app-title-wrapper">
-                    <div class="d-flex">
-                        <img alt="logo" class="main-logo" :src="APPLICATION_LOGO_PATH" />
+                <router-link to="/" class="brand-logo-link d-flex align-center">
+                    <div class="brand-icon-box">
+                        <v-icon :icon="mdiCallSplit" size="20" color="white" class="brand-icon-split" />
                     </div>
-                    <h1 class="font-weight-medium text-xl">{{ tt('global.app.title') }}</h1>
+                    <div class="d-flex flex-column ms-3">
+                        <span class="brand-title-text d-flex align-center">
+                            Spill Chill
+                            <span class="brand-dot-pulse"></span>
+                        </span>
+                        <span class="brand-subtitle-text">Expense Harmony</span>
+                    </div>
                 </router-link>
             </div>
             <perfect-scrollbar
@@ -119,11 +125,15 @@
                                :icon="true" @click="showVerticalOverlayMenu = true">
                             <v-icon :icon="mdiMenu" size="24" />
                         </v-btn>
-                        <div class="app-logo d-flex align-center gap-x-3 app-title-wrapper" v-if="mdAndDown">
-                            <div class="d-flex">
-                                <img alt="logo" class="main-logo" :src="APPLICATION_LOGO_PATH" />
+                        <div class="brand-logo-link d-flex align-center ms-2" v-if="mdAndDown">
+                            <div class="brand-icon-box brand-icon-box-sm">
+                                <v-icon :icon="mdiCallSplit" size="16" color="white" class="brand-icon-split" />
                             </div>
-                            <h1 class="font-weight-medium text-xl">{{ tt('global.app.title') }}</h1>
+                            <div class="d-flex flex-column ms-2">
+                                <span class="brand-title-text brand-title-sm d-flex align-center">
+                                    Spill Chill
+                                </span>
+                            </div>
                         </div>
                         <v-spacer />
                         <v-btn color="primary" variant="text" class="me-2"
@@ -218,7 +228,6 @@ import { useSettingsStore } from '@/stores/setting.ts';
 import { useUserStore } from '@/stores/user.ts';
 import { useDesktopPageStore } from '@/stores/desktopPage.ts';
 
-import { APPLICATION_LOGO_PATH } from '@/consts/asset.ts';
 import { ThemeType } from '@/core/theme.ts';
 import { isUserScheduledTransactionEnabled } from '@/lib/server_settings.ts';
 import { getSystemTheme, setExpenseAndIncomeAmountColor } from '@/lib/ui/common.ts';
@@ -245,7 +254,8 @@ import {
     mdiAccount,
     mdiAccountCogOutline,
     mdiLockOutline,
-    mdiLogout
+    mdiLogout,
+    mdiCallSplit
 } from '@mdi/js';
 
 type SnackBarType = InstanceType<typeof SnackBar>;
@@ -336,7 +346,7 @@ function showAddDialogInTransactionListPage(): void {
 }
 </script>
 
-<style>
+<!-- <style>
 .main-logo {
     width: 1.75rem;
     height: 1.75rem;
@@ -344,5 +354,154 @@ function showAddDialogInTransactionListPage(): void {
 
 .nav-link.home-link > a:not(.router-link-exact-active):hover::before {
     opacity: calc(var(--v-hover-opacity)* var(--v-theme-overlay-multiplier));
+}
+</style> -->
+
+<style>
+/* =========================================================
+   SPILL CHILL EXECUTIVE NAVIGATION & BRANDING
+   Clean • Minimal • Pure Emerald Fintech SaaS
+   ========================================================= */
+
+.brand-logo-link {
+    text-decoration: none;
+    padding: 2px 0;
+}
+
+.brand-icon-box {
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.22);
+    flex-shrink: 0;
+}
+
+.brand-icon-split {
+    transform: rotate(-45deg);
+}
+
+.brand-title-text {
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 800;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+    color: #0F172A;
+    line-height: 1.1;
+}
+
+.brand-dot-pulse {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #10B981;
+    display: inline-block;
+    margin-left: 6px;
+}
+
+.brand-subtitle-text {
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #10B981;
+    line-height: 1;
+    margin-top: 3px;
+}
+
+.brand-icon-box-sm {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+}
+
+.brand-title-sm {
+    font-size: 1.05rem;
+}
+
+/* ---------------------------------------------------------
+   Sidebar & Nav Links
+   --------------------------------------------------------- */
+
+.layout-vertical-nav {
+    border-right: 1px solid #E2E8F0;
+    background-color: #FFFFFF !important;
+}
+
+.nav-link > a {
+    position: relative;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: #475569 !important;
+    transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.nav-link > a:hover {
+    color: #0F172A !important;
+    background: rgba(16, 185, 129, 0.06) !important;
+}
+
+.nav-link > a.router-link-exact-active,
+.nav-link > a.router-link-active:not([href="/"]) {
+    color: #065F46 !important;
+    background: rgba(16, 185, 129, 0.10) !important;
+    font-weight: 600;
+    border-left: 3px solid #10B981 !important;
+
+    .nav-item-icon {
+        color: #10B981 !important;
+    }
+}
+
+.layout-navbar {
+    border-bottom: 1px solid #E2E8F0;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+}
+
+/* ---------------------------------------------------------
+   Dark Mode
+   --------------------------------------------------------- */
+
+.v-theme--dark {
+    .layout-vertical-nav {
+        background-color: #111827 !important;
+        border-right: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .brand-title-text {
+        color: #F8FAFC;
+    }
+
+    .nav-link > a {
+        color: #94A3B8 !important;
+    }
+
+    .nav-link > a:hover {
+        color: #F8FAFC !important;
+        background: rgba(16, 185, 129, 0.10) !important;
+    }
+
+    .nav-link > a.router-link-exact-active,
+    .nav-link > a.router-link-active:not([href="/"]) {
+        color: #34D399 !important;
+        background: rgba(16, 185, 129, 0.16) !important;
+        border-left: 3px solid #34D399 !important;
+
+        .nav-item-icon {
+            color: #34D399 !important;
+        }
+    }
+
+    .layout-navbar {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(17, 24, 39, 0.85);
+    }
 }
 </style>

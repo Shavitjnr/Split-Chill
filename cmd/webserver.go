@@ -1,4 +1,4 @@
-﻿package cmd
+package cmd
 
 import (
 	"fmt"
@@ -304,6 +304,7 @@ func startWebServer(c *core.CliContext) error {
 
 		if config.EnableInternalAuth && config.EnableUserForgetPassword {
 			apiRoute.POST("/forget_password/request.json", bindApi(api.ForgetPasswords.UserForgetPasswordRequestHandler))
+			apiRoute.POST("/forget_password/reset_by_otp.json", bindApi(api.ForgetPasswords.UserResetPasswordByOTPHandler))
 
 			resetPasswordRoute := apiRoute.Group("/forget_password/reset")
 			resetPasswordRoute.Use(bindMiddleware(middlewares.JWTResetPasswordAuthorization(config)))

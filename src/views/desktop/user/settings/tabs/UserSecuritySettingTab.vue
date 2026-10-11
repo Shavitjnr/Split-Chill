@@ -54,7 +54,7 @@
                     </v-card-text>
 
                     <v-card-text class="d-flex flex-wrap gap-4">
-                        <v-btn :disabled="!newPassword || !confirmPassword || updatingPassword" @click="updatePassword">
+                        <v-btn color="primary" :disabled="!newPassword || !confirmPassword || updatingPassword" @click="updatePassword">
                             {{ tt('Save Changes') }}
                             <v-progress-circular indeterminate size="22" class="ms-2" v-if="updatingPassword"></v-progress-circular>
                         </v-btn>

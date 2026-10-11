@@ -1,4 +1,4 @@
-﻿export const BASE_API_URL_PATH: string = '/api';
+export const BASE_API_URL_PATH: string = '/api';
 export const BASE_QRCODE_PATH: string = '/qrcode';
 export const BASE_PROXY_URL_PATH: string = '/proxy';
 export const BASE_AMAP_API_PROXY_URL_PATH: string = '/_AMapService';
@@ -52,6 +52,9 @@ export const SPECIFIED_API_NOT_FOUND_ERRORS: Record<string, SpecifiedApiError> =
         message: 'Forget password is disabled'
     },
     '/api/forget_password/reset/by_token.json': {
+        message: 'Forget password is disabled'
+    },
+    '/api/forget_password/reset_by_otp.json': {
         message: 'Forget password is disabled'
     },
     '/api/v1/users/verify_email/resend.json': {

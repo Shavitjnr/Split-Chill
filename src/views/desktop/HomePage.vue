@@ -1,105 +1,109 @@
 <template>
     <v-row class="match-height">
         <v-col cols="12" lg="4" md="12">
-            <v-card :class="{ 'disabled': loadingOverview }">
-                <template #title>
-                    <div class="d-flex align-center">
-                        <div class="d-flex align-baseline">
-                            <span class="text-2xl font-weight-bold">{{ displayDateRange?.thisMonth?.displayTime }}</span>
-                            <span>·</span>
-                            <span style="font-size: 1rem">{{ tt('Expense') }}</span>
+            <v-card class="executive-hero-card" :class="{ 'disabled': loadingOverview }">
+                <v-card-text class="d-flex flex-column justify-space-between h-100 pa-6">
+                    <div>
+                        <!-- Header pill with month and refresh -->
+                        <div class="d-flex align-center justify-space-between mb-4">
+                            <div class="overview-badge-pill">
+                                <v-icon :icon="mdiCalendarOutline" size="14" class="me-1 text-emerald" />
+                                <span>{{ displayDateRange?.thisMonth?.displayTime }} • {{ tt('Expense') }}</span>
+                            </div>
+                            <v-btn density="compact" color="default" variant="text" size="26"
+                                   :icon="true" :loading="loadingOverview" @click="reload(true)">
+                                <template #loader>
+                                    <v-progress-circular indeterminate size="18"/>
+                                </template>
+                                <v-icon :icon="mdiRefresh" size="20" />
+                                <v-tooltip activator="parent">{{ tt('Refresh') }}</v-tooltip>
+                            </v-btn>
                         </div>
-                        <v-btn density="compact" color="default" variant="text" size="24"
-                               class="ms-2" :icon="true" :loading="loadingOverview" @click="reload(true)">
-                            <template #loader>
-                                <v-progress-circular indeterminate size="20"/>
-                            </template>
-                            <v-icon :icon="mdiRefresh" size="24" />
-                            <v-tooltip activator="parent">{{ tt('Refresh') }}</v-tooltip>
-                        </v-btn>
-                    </div>
-                </template>
 
-                <v-card-text>
-                    <h4 class="text-2xl font-weight-medium text-primary">
-                        <span v-if="!loadingOverview || (transactionOverview && transactionOverview.thisMonth && transactionOverview.thisMonth.valid)">{{ transactionOverview && transactionOverview.thisMonth ? getDisplayExpenseAmount(transactionOverview.thisMonth) : '-' }}</span>
-                        <v-skeleton-loader class="d-inline-block skeleton-no-margin mt-3 pb-1" width="120px" type="text" :loading="true" v-else-if="loadingOverview && (!transactionOverview || !transactionOverview.thisMonth || !transactionOverview.thisMonth.valid)"></v-skeleton-loader>
-                        <v-btn class="ms-1" density="compact" color="default" variant="text"
-                               :icon="true" @click="showAmountInHomePage = !showAmountInHomePage">
-                            <v-icon :icon="showAmountInHomePage ? mdiEyeOffOutline : mdiEyeOutline" size="20" />
-                        </v-btn>
-                    </h4>
-                    <div class="mt-1 mb-3">
-                        <span class="me-2">{{ tt('Monthly income') }}</span>
-                        <span v-if="!loadingOverview || (transactionOverview && transactionOverview.thisMonth && transactionOverview.thisMonth.valid)">{{ transactionOverview && transactionOverview.thisMonth ? getDisplayIncomeAmount(transactionOverview.thisMonth) : '-' }}</span>
-                        <v-skeleton-loader class="d-inline-block skeleton-no-margin mt-2" width="120px" type="text" :loading="true" v-else-if="loadingOverview && (!transactionOverview || !transactionOverview.thisMonth || !transactionOverview.thisMonth.valid)"></v-skeleton-loader>
+                        <!-- Main Expense Amount -->
+                        <div class="overview-amount-container d-flex align-center mt-2 mb-1">
+                            <span class="overview-main-amount" v-if="!loadingOverview || (transactionOverview && transactionOverview.thisMonth && transactionOverview.thisMonth.valid)">
+                                {{ transactionOverview && transactionOverview.thisMonth ? getDisplayExpenseAmount(transactionOverview.thisMonth) : '-' }}
+                            </span>
+                            <v-skeleton-loader class="d-inline-block skeleton-no-margin" width="140px" type="text" :loading="true" v-else-if="loadingOverview && (!transactionOverview || !transactionOverview.thisMonth || !transactionOverview.thisMonth.valid)"></v-skeleton-loader>
+                            <v-btn class="ms-2" density="compact" color="default" variant="text"
+                                   :icon="true" @click="showAmountInHomePage = !showAmountInHomePage">
+                                <v-icon :icon="showAmountInHomePage ? mdiEyeOffOutline : mdiEyeOutline" size="20" />
+                            </v-btn>
+                        </div>
+
+                        <!-- Monthly Income Sub-metric -->
+                        <div class="overview-income-box d-flex align-center mt-3 mb-6">
+                            <span class="overview-income-indicator me-2">
+                                <v-icon :icon="mdiArrowUp" size="14" class="text-emerald" />
+                            </span>
+                            <span class="text-caption font-weight-medium text-slate-muted me-2">{{ tt('Monthly income') }}:</span>
+                            <span class="text-body-2 font-weight-bold text-emerald" v-if="!loadingOverview || (transactionOverview && transactionOverview.thisMonth && transactionOverview.thisMonth.valid)">
+                                {{ transactionOverview && transactionOverview.thisMonth ? getDisplayIncomeAmount(transactionOverview.thisMonth) : '-' }}
+                            </span>
+                            <v-skeleton-loader class="d-inline-block skeleton-no-margin" width="80px" type="text" :loading="true" v-else-if="loadingOverview && (!transactionOverview || !transactionOverview.thisMonth || !transactionOverview.thisMonth.valid)"></v-skeleton-loader>
+                        </div>
                     </div>
-                    <v-btn size="small" :to="`/transaction/list?${overviewStore.getTransactionListPageParams({ dateType: DateRange.ThisMonth.type })}`">{{ tt('View Details') }}</v-btn>
-                    <v-img class="overview-card-background img-with-direction"
-                           src="img/desktop/card-background.png"/>
-                    <v-img class="overview-card-background-image img-with-direction"
-                           width="116px" src="img/desktop/document.svg"/>
+
+                    <!-- Bottom Action -->
+                    <div>
+                        <v-btn size="small" variant="flat" color="primary" class="px-5 font-weight-semibold" :to="`/transaction/list?${overviewStore.getTransactionListPageParams({ dateType: DateRange.ThisMonth.type })}`">
+                            {{ tt('View Details') }}
+                        </v-btn>
+                    </div>
                 </v-card-text>
             </v-card>
         </v-col>
 
         <v-col cols="12" lg="8" md="12">
-            <v-card :class="{ 'disabled': loadingOverview }">
+            <v-card class="asset-summary-card" :class="{ 'disabled': loadingOverview }">
                 <template #title>
-                    <span>{{ tt('Asset Summary') }}</span>
+                    <div class="d-flex align-center justify-space-between pt-1">
+                        <span class="font-weight-bold text-h6">{{ tt('Asset Summary') }}</span>
+                        <span class="text-caption text-slate-muted font-weight-medium" v-if="!loadingOverview || (allAccounts && allAccounts.length)">
+                            {{ tt('format.misc.youHaveAccounts', { count: displayAccountCount }) }}
+                        </span>
+                        <v-skeleton-loader class="skeleton-no-margin" width="140px" type="text" :loading="true" v-else-if="loadingOverview && (!allAccounts || !allAccounts.length)"></v-skeleton-loader>
+                    </div>
                 </template>
 
-                <v-card-text>
-                    <div class="mb-8">
-                        <span class="text-body-1" v-if="!loadingOverview || (allAccounts && allAccounts.length)">{{ tt('format.misc.youHaveAccounts', { count: displayAccountCount }) }}</span>
-                        <v-skeleton-loader class="skeleton-no-margin mt-1 mb-2 pb-1" width="200px" type="text" :loading="true" v-else-if="loadingOverview && (!allAccounts || !allAccounts.length)"></v-skeleton-loader>
-                    </div>
-
-                    <v-row>
-                        <v-col cols="12" md="4">
-                            <div class="d-flex align-center">
-                                <div class="me-3">
-                                    <v-avatar rounded color="grey" size="42" class="elevation-1">
-                                        <v-icon size="24" :icon="mdiBankOutline"/>
-                                    </v-avatar>
+                <v-card-text class="pt-4 pb-6">
+                    <v-row class="asset-metrics-grid">
+                        <v-col cols="12" sm="4">
+                            <div class="metric-tile metric-tile-assets d-flex align-center pa-4">
+                                <div class="metric-icon-box bg-emerald-subtle me-3">
+                                    <v-icon size="22" color="primary" :icon="mdiBankOutline"/>
                                 </div>
-
-                                <div class="d-flex flex-column">
-                                    <span class="text-caption">{{ tt('Total assets') }}</span>
-                                    <span class="text-h5" v-if="!loadingOverview || (allAccounts && allAccounts.length)">{{ totalAssets }}</span>
-                                    <v-skeleton-loader class="skeleton-no-margin mt-3 mb-2" width="120px" type="text" :loading="true" v-else-if="loadingOverview && (!allAccounts || !allAccounts.length)"></v-skeleton-loader>
+                                <div class="d-flex flex-column text-truncate">
+                                    <span class="text-caption text-slate-muted font-weight-medium mb-1">{{ tt('Total assets') }}</span>
+                                    <span class="text-h6 font-weight-bold text-truncate" v-if="!loadingOverview || (allAccounts && allAccounts.length)">{{ totalAssets }}</span>
+                                    <v-skeleton-loader class="skeleton-no-margin" width="90px" type="text" :loading="true" v-else-if="loadingOverview && (!allAccounts || !allAccounts.length)"></v-skeleton-loader>
                                 </div>
                             </div>
                         </v-col>
 
-                        <v-col cols="12" md="4">
-                            <div class="d-flex align-center">
-                                <div class="me-3">
-                                    <v-avatar rounded color="expense" size="42" class="elevation-1">
-                                        <v-icon size="24" :icon="mdiCreditCardOutline"/>
-                                    </v-avatar>
+                        <v-col cols="12" sm="4">
+                            <div class="metric-tile metric-tile-liabilities d-flex align-center pa-4">
+                                <div class="metric-icon-box bg-rose-subtle me-3">
+                                    <v-icon size="22" color="expense" :icon="mdiCreditCardOutline"/>
                                 </div>
-
-                                <div class="d-flex flex-column">
-                                    <span class="text-caption">{{ tt('Total liabilities') }}</span>
-                                    <span class="text-h5" v-if="!loadingOverview || (allAccounts && allAccounts.length)">{{ totalLiabilities }}</span>
-                                    <v-skeleton-loader class="skeleton-no-margin mt-3 mb-2" width="120px" type="text" :loading="true" v-else-if="loadingOverview && (!allAccounts || !allAccounts.length)"></v-skeleton-loader>
+                                <div class="d-flex flex-column text-truncate">
+                                    <span class="text-caption text-slate-muted font-weight-medium mb-1">{{ tt('Total liabilities') }}</span>
+                                    <span class="text-h6 font-weight-bold text-truncate" v-if="!loadingOverview || (allAccounts && allAccounts.length)">{{ totalLiabilities }}</span>
+                                    <v-skeleton-loader class="skeleton-no-margin" width="90px" type="text" :loading="true" v-else-if="loadingOverview && (!allAccounts || !allAccounts.length)"></v-skeleton-loader>
                                 </div>
                             </div>
                         </v-col>
 
-                        <v-col cols="12" md="4">
-                            <div class="d-flex align-center">
-                                <div class="me-3">
-                                    <v-avatar rounded color="primary" size="42" class="elevation-1">
-                                        <v-icon size="24" :icon="mdiPiggyBankOutline"/>
-                                    </v-avatar>
+                        <v-col cols="12" sm="4">
+                            <div class="metric-tile metric-tile-net d-flex align-center pa-4">
+                                <div class="metric-icon-box bg-mint-subtle me-3">
+                                    <v-icon size="22" color="primary" :icon="mdiPiggyBankOutline"/>
                                 </div>
-
-                                <div class="d-flex flex-column">
-                                    <span class="text-caption">{{ tt('Net assets') }}</span>
-                                    <span class="text-h5" v-if="!loadingOverview || (allAccounts && allAccounts.length)">{{ netAssets }}</span>
-                                    <v-skeleton-loader class="skeleton-no-margin mt-3 mb-2" width="120px" type="text" :loading="true" v-else-if="loadingOverview && (!allAccounts || !allAccounts.length)"></v-skeleton-loader>
+                                <div class="d-flex flex-column text-truncate">
+                                    <span class="text-caption text-slate-muted font-weight-medium mb-1">{{ tt('Net assets') }}</span>
+                                    <span class="text-h6 font-weight-bold text-truncate" v-if="!loadingOverview || (allAccounts && allAccounts.length)">{{ netAssets }}</span>
+                                    <v-skeleton-loader class="skeleton-no-margin" width="90px" type="text" :loading="true" v-else-if="loadingOverview && (!allAccounts || !allAccounts.length)"></v-skeleton-loader>
                                 </div>
                             </div>
                         </v-col>
@@ -230,7 +234,9 @@ import {
     mdiCalendarWeekOutline,
     mdiCalendarMonthOutline,
     mdiLayersTripleOutline,
-    mdiListBoxOutline
+    mdiListBoxOutline,
+    mdiCalendarOutline,
+    mdiArrowUp
 } from '@mdi/js';
 
 type SnackBarType = InstanceType<typeof SnackBar>;
@@ -334,7 +340,7 @@ if (isUserLogined() && isUserUnlocked()) {
 }
 </script>
 
-<style>
+<!-- <style>
 .overview-card-background {
     position: absolute;
     inline-size: 9rem;
@@ -347,5 +353,96 @@ if (isUserLogined() && isUserUnlocked()) {
     inline-size: 5rem;
     inset-block-end: 0.5rem;
     inset-inline-end: 1rem;
+}
+</style> -->
+<style>
+/* =========================================================
+   SPILL CHILL EXECUTIVE HOME OVERVIEW
+   Clean • Minimal • No Animations • No Flashy Effects
+   ========================================================= */
+
+.executive-hero-card {
+    border-radius: 16px !important;
+}
+
+.overview-badge-pill {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.22);
+    border-radius: 9999px;
+    padding: 3px 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #10B981;
+}
+
+.overview-main-amount {
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 2.15rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: rgb(var(--v-theme-on-surface));
+    line-height: 1.1;
+}
+
+.overview-income-box {
+    background: rgba(16, 185, 129, 0.05);
+    border: 1px solid rgba(16, 185, 129, 0.14);
+    border-radius: 10px;
+    padding: 6px 12px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.overview-income-indicator {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(16, 185, 129, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-slate-muted {
+    color: rgba(var(--v-theme-on-surface), 0.6) !important;
+}
+
+.text-emerald {
+    color: #10B981 !important;
+}
+
+/* ---------------------------------------------------------
+   Asset Summary Metric Tiles
+   --------------------------------------------------------- */
+
+.metric-tile {
+    background: rgb(var(--v-theme-surface));
+    border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+    border-radius: 14px;
+    transition: border-color 0.15s ease;
+}
+
+.metric-icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.bg-emerald-subtle {
+    background: rgba(16, 185, 129, 0.1) !important;
+}
+
+.bg-rose-subtle {
+    background: rgba(244, 63, 94, 0.1) !important;
+}
+
+.bg-mint-subtle {
+    background: rgba(52, 211, 153, 0.12) !important;
 }
 </style>

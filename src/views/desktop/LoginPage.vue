@@ -1,179 +1,189 @@
-﻿<template>
-    <div class="layout-wrapper auth-wrapper">
-        
-        <router-link to="/" class="auth-logo animate-fade-in" style="text-decoration: none;">
-            <div class="d-flex align-center gap-x-3">
-                <img alt="logo" class="login-page-logo animate-float" :src="APPLICATION_LOGO_PATH" />
-                <h1 class="font-weight-bold text-gradient" style="font-size: 1.8rem;">{{ tt('global.app.title') }}</h1>
-            </div>
-        </router-link>
-
-        <v-row no-gutters class="h-100">
-            
-            <v-col cols="12" md="8" class="auth-image-background d-none d-md-flex align-center justify-center position-relative">
-                <div class="hero-backdrop"></div>
-                
-                <HelixHero 
-                    title="Split Chill AI"
-                    description="The future of personal finance management. Track, analyze, and optimize your wealth with intelligent automation and stunning visualizations."
-                />
-            </v-col>
-
-            
-            <v-col cols="12" md="4" class="d-flex flex-column justify-center align-center px-6">
-                <div class="d-flex align-center justify-center w-100 animate-scale-in">
-                    <v-card class="glass-card w-100 px-8 pt-10 pb-6" max-width="460">
-                        <v-card-text class="text-start px-0">
-                            <h2 class="text-h3 font-weight-bold mb-1" style="font-family: 'Outfit', sans-serif;">{{ tt('Login') }}</h2>
-                            <p class="text-body-1 text-medium-emphasis mb-8">{{ tt('Please enter your credentials to access your account') }}</p>
-                            
-                            <p class="mt-1 mb-4 text-error font-weight-medium animate-fade-in" v-if="tips">{{ tips }}</p>
-                        </v-card-text>
-
-                        <v-card-text class="pa-0">
-                            <v-form @submit.prevent="login">
-                                <v-row dense>
-                                    <v-col cols="12" v-if="isInternalAuthEnabled()">
-                                        <v-text-field
-                                            variant="outlined"
-                                            color="primary"
-                                            density="default"
-                                            type="text"
-                                            autocomplete="username"
-                                            :autofocus="true"
-                                            :disabled="show2faInput || loggingInByPassword || loggingInByOAuth2 || verifying"
-                                            :label="tt('Username or Email')"
-                                            prepend-inner-icon="mdi-account-outline"
-                                            v-model.trim="username"
-                                            @input="tempToken = ''"
-                                            @keyup.enter="passwordInput?.focus()"
-                                            class="modern-input"
-                                        />
-                                    </v-col>
-
-                                    <v-col cols="12" v-if="isInternalAuthEnabled()">
-                                        <v-text-field
-                                            variant="outlined"
-                                            color="primary"
-                                            density="default"
-                                            autocomplete="current-password"
-                                            ref="passwordInput"
-                                            type="password"
-                                            :disabled="show2faInput || loggingInByPassword || loggingInByOAuth2 || verifying"
-                                            :label="tt('Password')"
-                                            prepend-inner-icon="mdi-lock-outline"
-                                            v-model="password"
-                                            @input="tempToken = ''"
-                                            @keyup.enter="login"
-                                            class="modern-input"
-                                        />
-                                    </v-col>
-
-                                    
-                                    <v-col cols="12" v-show="show2faInput" class="animate-fade-in">
-                                        <v-text-field
-                                            variant="outlined"
-                                            density="default"
-                                            type="number"
-                                            autocomplete="one-time-code"
-                                            ref="passcodeInput"
-                                            :disabled="loggingInByPassword || loggingInByOAuth2 || verifying"
-                                            :label="tt('Passcode')"
-                                            prepend-inner-icon="mdi-shield-check-outline"
-                                            :append-inner-icon="mdiHelpCircleOutline"
-                                            v-model="passcode"
-                                            @click:append-inner="twoFAVerifyType = 'backupcode'"
-                                            @keyup.enter="verify"
-                                            v-if="twoFAVerifyType === 'passcode'"
-                                            class="modern-input"
-                                        />
-                                        <v-text-field
-                                            variant="outlined"
-                                            density="default"
-                                            type="text"
-                                            :disabled="loggingInByPassword || loggingInByOAuth2 || verifying"
-                                            :label="tt('Backup Code')"
-                                            prepend-inner-icon="mdi-key-outline"
-                                            :append-inner-icon="mdiOnepassword"
-                                            v-model="backupCode"
-                                            @click:append-inner="twoFAVerifyType = 'passcode'"
-                                            @keyup.enter="verify"
-                                            v-if="twoFAVerifyType === 'backupcode'"
-                                            class="modern-input"
-                                        />
-                                    </v-col>
-
-                                    <v-col cols="12" class="d-flex align-center justify-space-between mb-6">
-                                        <router-link class="text-decoration-none text-body-2 text-primary font-weight-bold h-link" to="/forgetpassword"
-                                                     :class="{ 'disabled': !isUserForgetPasswordEnabled() || loggingInByPassword || loggingInByOAuth2 || verifying }">
-                                            {{ tt('Forgot password?') }}
-                                        </router-link>
-                                    </v-col>
-
-                                    <v-col cols="12">
-                                        <v-btn block color="primary" size="x-large" elevation="0" class="premium-btn text-none"
-                                               :disabled="inputIsEmpty || loggingInByPassword || loggingInByOAuth2 || verifying"
-                                               @click="login" v-if="isInternalAuthEnabled() && !show2faInput">
-                                            <span>{{ tt('Log In') }}</span>
-                                            <v-progress-circular indeterminate size="20" width="2" class="ms-3" v-if="loggingInByPassword"></v-progress-circular>
-                                        </v-btn>
-                                        <v-btn block color="primary" size="x-large" elevation="0" class="premium-btn text-none"
-                                               :disabled="twoFAInputIsEmpty || loggingInByPassword || loggingInByOAuth2 || verifying"
-                                               @click="verify" v-else-if="isInternalAuthEnabled() && show2faInput">
-                                            <span>{{ tt('Verify & Continue') }}</span>
-                                            <v-progress-circular indeterminate size="20" width="2" class="ms-3" v-if="verifying"></v-progress-circular>
-                                        </v-btn>
-
-                                        <template v-if="isOAuth2Enabled()">
-                                            <div class="d-flex align-center my-8">
-                                                <v-divider />
-                                                <span class="px-4 text-caption text-medium-emphasis text-uppercase">{{ tt('or') }}</span>
-                                                <v-divider />
-                                            </div>
-
-                                            <v-btn block variant="outlined" color="primary" size="x-large" class="premium-btn-outline text-none"
-                                                   :disabled="show2faInput || loggingInByPassword || loggingInByOAuth2 || verifying" :href="oauth2LoginUrl"
-                                                   @click="loggingInByOAuth2 = true">
-                                                <v-icon start icon="mdi-account-circle-outline" />
-                                                <span>{{ oauth2LoginDisplayName }}</span>
-                                                <v-progress-circular indeterminate size="20" width="2" class="ms-3" v-if="loggingInByOAuth2"></v-progress-circular>
-                                            </v-btn>
-                                        </template>
-                                    </v-col>
-
-                                    <v-col cols="12" class="text-center text-body-1 mt-8" v-if="isInternalAuthEnabled()">
-                                        <span class="text-medium-emphasis">{{ tt('New to Split Chill AI?') }}</span>
-                                        <router-link class="text-primary font-weight-bold text-decoration-none ms-2 h-link" to="/signup"
-                                                     :class="{ 'disabled': !isUserRegistrationEnabled() || loggingInByPassword || loggingInByOAuth2 || verifying }">
-                                            {{ tt('Create an account') }}
-                                        </router-link>
-                                    </v-col>
-                                </v-row>
-                            </v-form>
-                        </v-card-text>
-                        
-                        <div class="mt-10 pt-4 border-t">
-                             <v-row no-gutters align="center">
-                                <v-col cols="6">
-                                    <language-select-button :disabled="loggingInByPassword || loggingInByOAuth2 || verifying" variant="text" size="small" />
-                                </v-col>
-                                <v-col cols="6" class="text-end">
-                                    <a href="javascript:void(0);"
-                                       class="text-decoration-none text-caption text-primary font-weight-medium h-link"
-                                       :class="{ 'disabled': loggingInByPassword || loggingInByOAuth2 || verifying }"
-                                       @click="showMobileQrCode = true">
-                                        {{ tt('Mobile App') }}
-                                    </a>
-                                </v-col>
-                                <v-col cols="12" class="text-center text-caption text-medium-emphasis mt-4">
-                                     <span>{{ tt('global.app.title') }} v{{ version }} &copy; {{ new Date().getFullYear() }}</span>
-                                </v-col>
-                             </v-row>
+<template>
+    <div class="clean-login-page">
+        <div class="login-container">
+            <!-- Brand Logo & Header matching landing.html -->
+            <div class="login-brand mb-6 text-center">
+                <router-link to="/" class="brand-link">
+                    <div class="brand-icon-box">
+                        <v-icon icon="mdi-call-split" class="brand-icon" size="24" color="white" />
+                    </div>
+                    <div class="d-flex flex-column text-start">
+                        <div class="d-flex align-center gap-2">
+                            <h1 class="login-brand-title">{{ tt('global.app.title') }}</h1>
+                            <span class="brand-pulse-dot"></span>
                         </div>
-                    </v-card>
+                        <span class="brand-tagline">Expense Harmony</span>
+                    </div>
+                </router-link>
+            </div>
+
+            <!-- Centered Informational Box / Card -->
+            <v-card class="login-card" elevation="0">
+                <div class="d-flex justify-center mb-4">
+                    <div class="login-badge-pill">
+                        <span class="badge-dot"></span>
+                        <span>Next-Gen Expense Intelligence</span>
+                    </div>
                 </div>
-            </v-col>
-        </v-row>
+
+                <div class="login-card-header text-center mb-6">
+                    <h2 class="login-title">{{ tt('Login') }}</h2>
+                    <p class="login-subtitle">{{ tt('Please enter your credentials to access your account') }}</p>
+                    <p class="mt-2 text-error font-weight-medium" v-if="tips">{{ tips }}</p>
+                </div>
+
+                <v-form @submit.prevent="login">
+                    <div v-if="isInternalAuthEnabled()">
+                        <div class="form-field-group mb-4">
+                            <v-text-field
+                                variant="outlined"
+                                density="comfortable"
+                                type="text"
+                                autocomplete="username"
+                                :autofocus="true"
+                                :disabled="show2faInput || loggingInByPassword || loggingInByOAuth2 || verifying"
+                                :label="tt('Username or Email')"
+                                :placeholder="tt('Username or Email')"
+                                prepend-inner-icon="mdi-account-outline"
+                                v-model.trim="username"
+                                @input="tempToken = ''"
+                                @keyup.enter="passwordInput?.focus()"
+                                class="clean-input"
+                            />
+                        </div>
+
+                        <div class="form-field-group mb-2">
+                            <v-text-field
+                                variant="outlined"
+                                density="comfortable"
+                                autocomplete="current-password"
+                                ref="passwordInput"
+                                type="password"
+                                :disabled="show2faInput || loggingInByPassword || loggingInByOAuth2 || verifying"
+                                :label="tt('Password')"
+                                :placeholder="tt('Password')"
+                                prepend-inner-icon="mdi-lock-outline"
+                                v-model="password"
+                                @input="tempToken = ''"
+                                @keyup.enter="login"
+                                class="clean-input"
+                            />
+                        </div>
+                    </div>
+
+                    <!-- 2FA Fields -->
+                    <div v-show="show2faInput" class="mb-4">
+                        <v-text-field
+                            variant="outlined"
+                            density="comfortable"
+                            type="number"
+                            autocomplete="one-time-code"
+                            ref="passcodeInput"
+                            :disabled="loggingInByPassword || loggingInByOAuth2 || verifying"
+                            :label="tt('Passcode')"
+                            prepend-inner-icon="mdi-shield-check-outline"
+                            :append-inner-icon="mdiHelpCircleOutline"
+                            v-model="passcode"
+                            @click:append-inner="twoFAVerifyType = 'backupcode'"
+                            @keyup.enter="verify"
+                            v-if="twoFAVerifyType === 'passcode'"
+                            class="clean-input mb-3"
+                        />
+                        <v-text-field
+                            variant="outlined"
+                            density="comfortable"
+                            type="text"
+                            ref="backupCodeInput"
+                            :disabled="loggingInByPassword || loggingInByOAuth2 || verifying"
+                            :label="tt('Backup Code')"
+                            prepend-inner-icon="mdi-key-outline"
+                            :append-inner-icon="mdiOnepassword"
+                            v-model="backupCode"
+                            @click:append-inner="twoFAVerifyType = 'passcode'"
+                            @keyup.enter="verify"
+                            v-if="twoFAVerifyType === 'backupcode'"
+                            class="clean-input mb-3"
+                        />
+                    </div>
+
+                    <div class="d-flex align-center justify-end mb-6" v-if="isInternalAuthEnabled()">
+                        <router-link class="forgot-password-link" to="/forgetpassword"
+                                     :class="{ 'disabled': !isUserForgetPasswordEnabled() || loggingInByPassword || loggingInByOAuth2 || verifying }">
+                            {{ tt('Forgot password?') }}
+                        </router-link>
+                    </div>
+
+                    <!-- Submit Buttons -->
+                    <v-btn block size="large" elevation="0" class="login-submit-btn mb-4"
+                           :disabled="inputIsEmpty || loggingInByPassword || loggingInByOAuth2 || verifying"
+                           @click="login" v-if="isInternalAuthEnabled() && !show2faInput">
+                        <span>{{ tt('Log In') }}</span>
+                        <v-progress-circular indeterminate size="20" width="2" class="ms-3 text-white" v-if="loggingInByPassword"></v-progress-circular>
+                    </v-btn>
+
+                    <v-btn block size="large" elevation="0" class="login-submit-btn mb-4"
+                           :disabled="twoFAInputIsEmpty || loggingInByPassword || loggingInByOAuth2 || verifying"
+                           @click="verify" v-else-if="isInternalAuthEnabled() && show2faInput">
+                        <span>{{ tt('Verify & Continue') }}</span>
+                        <v-progress-circular indeterminate size="20" width="2" class="ms-3 text-white" v-if="verifying"></v-progress-circular>
+                    </v-btn>
+
+                    <!-- OAuth2 -->
+                    <template v-if="isOAuth2Enabled()">
+                        <div class="d-flex align-center my-5">
+                            <v-divider />
+                            <span class="px-3 text-caption text-medium-emphasis text-uppercase">{{ tt('or') }}</span>
+                            <v-divider />
+                        </div>
+
+                        <v-btn block variant="outlined" size="large" class="oauth-btn mb-4"
+                               :disabled="show2faInput || loggingInByPassword || loggingInByOAuth2 || verifying" :href="oauth2LoginUrl"
+                               @click="loggingInByOAuth2 = true">
+                            <v-icon start icon="mdi-account-circle-outline" class="me-2" />
+                            <span>{{ oauth2LoginDisplayName }}</span>
+                            <v-progress-circular indeterminate size="20" width="2" class="ms-3" v-if="loggingInByOAuth2"></v-progress-circular>
+                        </v-btn>
+                    </template>
+
+                    <!-- Register Link -->
+                    <div class="text-center mt-6" v-if="isInternalAuthEnabled()">
+                        <span class="text-caption text-medium-emphasis">{{ tt('New to Split Chill AI?') }}</span>
+                        <router-link class="create-account-link ms-2" to="/signup"
+                                     :class="{ 'disabled': !isUserRegistrationEnabled() || loggingInByPassword || loggingInByOAuth2 || verifying }">
+                            {{ tt('Create an account') }}
+                        </router-link>
+                    </div>
+                </v-form>
+
+                <!-- Footer Utilities -->
+                <div class="card-footer-bar mt-8 pt-4">
+                    <div class="d-flex align-center justify-space-between flex-wrap gap-2">
+                        <language-select-button :disabled="loggingInByPassword || loggingInByOAuth2 || verifying" variant="text" size="small" />
+                        <a href="javascript:void(0);"
+                           class="mobile-app-link"
+                           :class="{ 'disabled': loggingInByPassword || loggingInByOAuth2 || verifying }"
+                           @click="showMobileQrCode = true">
+                            {{ tt('Mobile App') }}
+                        </a>
+                    </div>
+                    <div class="text-center mt-3 text-caption text-medium-emphasis">
+                        <span>{{ tt('global.app.title') }} v{{ version }} &copy; {{ new Date().getFullYear() }}</span>
+                    </div>
+                </div>
+            </v-card>
+
+            <!-- Trust Badge & Back to Landing link matching landing.html -->
+            <div class="login-trust-badge text-center mt-6">
+                <v-icon icon="mdi-shield-check" size="16" class="text-emerald me-1" />
+                <span>256-Bit Bank-Grade Encryption • Zero Ad-Tracking</span>
+            </div>
+            <div class="text-center mt-3">
+                <a href="/landing.html" class="back-to-landing-link">
+                    <v-icon icon="mdi-arrow-left" size="14" class="me-1" />
+                    <span>Back to Spill Chill Home</span>
+                </a>
+            </div>
+        </div>
 
         <switch-to-mobile-dialog v-model:show="showMobileQrCode" />
         <snack-bar ref="snackbar" />
@@ -183,7 +193,8 @@
 <script setup lang="ts">
 import { VTextField } from 'vuetify/components/VTextField';
 import SnackBar from '@/components/desktop/SnackBar.vue';
-import HelixHero from '@/components/desktop/HelixHeroSimple.vue';
+import SwitchToMobileDialog from '@/components/desktop/SwitchToMobileDialog.vue';
+import LanguageSelectButton from '@/components/desktop/LanguageSelectButton.vue';
 
 import { ref, useTemplateRef, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
@@ -340,160 +351,366 @@ oauth2ClientSessionId.value = generateRandomUUID();
 </script>
 
 <style lang="scss" scoped>
-.layout-wrapper {
-    position: relative;
+/* =========================================================
+   SPILL CHILL LUXURY THEME (Aligned with landing.html)
+   Emerald (#10B981) • Forest (#064E3B) • Glassmorphism
+   ========================================================= */
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+.clean-login-page {
     min-height: 100vh;
-    overflow: hidden;
-    isolation: isolate;
-
-    &::before,
-    &::after {
-        content: '';
-        position: absolute;
-        inset: auto;
-        border-radius: 999px;
-        filter: blur(90px);
-        pointer-events: none;
-        z-index: -1;
-    }
-
-    &::before {
-        width: 480px;
-        height: 480px;
-        top: -140px;
-        left: -120px;
-        background: radial-gradient(circle, rgba(59, 130, 246, 0.24) 0%, rgba(59, 130, 246, 0) 72%);
-    }
-
-    &::after {
-        width: 520px;
-        height: 520px;
-        right: -180px;
-        bottom: -180px;
-        background: radial-gradient(circle, rgba(16, 185, 129, 0.22) 0%, rgba(16, 185, 129, 0) 70%);
-    }
-}
-
-.auth-wrapper {
+    width: 100%;
     background:
-        radial-gradient(circle at 8% 12%, rgba(59, 130, 246, 0.12), transparent 36%),
-        radial-gradient(circle at 92% 88%, rgba(16, 185, 129, 0.1), transparent 34%),
-        linear-gradient(145deg, #f8fbff 0%, #f4f8ff 40%, #f8fafc 100%) !important;
+        radial-gradient(at 15% 15%, rgba(16, 185, 129, 0.12) 0px, transparent 50%),
+        radial-gradient(at 85% 20%, rgba(6, 78, 59, 0.12) 0px, transparent 55%),
+        radial-gradient(at 50% 80%, rgba(52, 211, 153, 0.08) 0px, transparent 50%),
+        #F8FAFC !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 16px;
+    box-sizing: border-box;
+    position: relative;
+    overflow-y: auto;
 }
 
-.auth-logo {
-    position: absolute;
-    top: 2.5rem;
-    left: 2.5rem;
-    z-index: 20;
-    
-    .login-page-logo {
-        width: 48px;
-        height: 48px;
-        filter: drop-shadow(0 4px 10px rgba(var(--ebk-primary-h), var(--ebk-primary-s), var(--ebk-primary-l), 0.2));
+:deep(.v-theme--dark) .clean-login-page,
+.v-theme--dark .clean-login-page {
+    background:
+        radial-gradient(at 15% 15%, rgba(16, 185, 129, 0.15) 0px, transparent 50%),
+        radial-gradient(at 85% 20%, rgba(6, 78, 59, 0.28) 0px, transparent 55%),
+        radial-gradient(at 50% 80%, rgba(2, 44, 34, 0.35) 0px, transparent 50%),
+        #0B0F19 !important;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Brand Header */
+.login-brand {
+    .brand-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+    }
+
+    .brand-icon-box {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 14px rgba(16, 185, 129, 0.22);
+        transition: transform 0.2s ease;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+
+    .login-brand-title {
+        font-family: 'Outfit', sans-serif;
+        font-size: 24px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: #0f172a !important;
+        margin: 0;
+    }
+
+    .brand-pulse-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #10B981;
+        display: inline-block;
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    .brand-tagline {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 10.5px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #059669;
     }
 }
 
-.auth-image-background {
-    background:
-        radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.16) 0%, rgba(59, 130, 246, 0) 40%),
-        radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.14) 0%, rgba(139, 92, 246, 0) 44%),
-        linear-gradient(160deg, rgba(15, 23, 42, 0.02) 0%, rgba(59, 130, 246, 0.02) 100%);
+:deep(.v-theme--dark) .login-brand .login-brand-title {
+    color: #ffffff !important;
 }
 
-.hero-backdrop {
-    position: absolute;
-    inset: 0;
-    background:
-        repeating-linear-gradient(
-            120deg,
-            rgba(148, 163, 184, 0.08) 0px,
-            rgba(148, 163, 184, 0.08) 1px,
-            transparent 1px,
-            transparent 22px
-        );
-    opacity: 0.35;
-    pointer-events: none;
+/* Badge Pill */
+.login-badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 14px;
+    border-radius: 9999px;
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    color: #047857;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+
+    .badge-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #10B981;
+    }
 }
 
-.modern-input {
+:deep(.v-theme--dark) .login-badge-pill {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: rgba(16, 185, 129, 0.4);
+    color: #34d399;
+}
+
+/* Centered Glass Card */
+.login-card {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.92) !important;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(226, 232, 240, 0.9) !important;
+    border-radius: 24px !important;
+    padding: 38px 34px 28px !important;
+    box-shadow: 0 20px 45px -12px rgba(6, 78, 59, 0.1), 0 0 1px 1px rgba(16, 185, 129, 0.12) !important;
+}
+
+:deep(.v-theme--dark) .login-card,
+.v-theme--dark .login-card {
+    background: rgba(17, 24, 39, 0.88) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 20px 45px -12px rgba(0, 0, 0, 0.6) !important;
+}
+
+.login-card-header {
+    .login-title {
+        font-family: 'Outfit', sans-serif;
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: #0f172a;
+        margin: 0 0 6px;
+    }
+
+    .login-subtitle {
+        font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+        font-size: 14px;
+        color: #64748b;
+        margin: 0;
+        line-height: 1.5;
+    }
+}
+
+:deep(.v-theme--dark) .login-card-header .login-title {
+    color: #ffffff;
+}
+
+/* Input Fields */
+.clean-input {
     :deep(.v-field) {
-        border-radius: 12px !important;
-        background-color: rgba(var(--v-theme-on-surface), 0.02) !important;
-        transition: all 0.2s ease;
+        border-radius: 14px !important;
+        background: #ffffff !important;
+        border: 1px solid #e2e8f0 !important;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+        &:hover {
+            border-color: #cbd5e1 !important;
+        }
 
         &.v-field--focused {
-            background-color: #fff !important;
-            box-shadow: 0 0 0 4px var(--ebk-primary-glow) !important;
+            border-color: #10B981 !important;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18) !important;
         }
     }
 
     :deep(.v-label) {
-        font-family: 'Inter', sans-serif;
+        font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+        font-size: 14px;
         font-weight: 500;
-        opacity: 0.8;
+        color: #64748b;
+    }
+
+    :deep(input) {
+        font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        color: #0f172a;
+    }
+
+    :deep(.v-field__prepend-inner) {
+        color: #10B981 !important;
     }
 }
 
-.premium-btn {
-    border-radius: 12px !important;
-    background: linear-gradient(135deg, var(--ebk-primary) 0%, #a855f7 100%) !important;
+:deep(.v-theme--dark) .clean-input {
+    :deep(.v-field) {
+        background: #1e293b !important;
+        border-color: #334155 !important;
+    }
+    :deep(input) {
+        color: #f8fafc;
+    }
+}
+
+/* Submit Buttons with Emerald & Forest Gradient */
+.login-submit-btn {
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%) !important;
+    color: #ffffff !important;
+    border-radius: 14px !important;
+    height: 50px !important;
     font-family: 'Outfit', sans-serif !important;
+    font-size: 15px !important;
     font-weight: 700 !important;
-    letter-spacing: 0.5px !important;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    letter-spacing: 0.01em !important;
+    text-transform: none !important;
+    box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.25) !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 
     &:hover:not(:disabled) {
         transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(var(--ebk-primary-h), var(--ebk-primary-s), var(--ebk-primary-l), 0.4) !important;
+        box-shadow: 0 12px 28px -4px rgba(16, 185, 129, 0.35) !important;
     }
 
     &:active:not(:disabled) {
         transform: translateY(0);
     }
+
+    &:disabled {
+        opacity: 0.55;
+        box-shadow: none !important;
+    }
 }
 
-.premium-btn-outline {
-    border-radius: 12px !important;
-    border: 2px solid rgba(var(--ebk-primary-h), var(--ebk-primary-s), var(--ebk-primary-l), 0.1) !important;
-    font-family: 'Outfit', sans-serif !important;
+.oauth-btn {
+    border-radius: 14px !important;
+    height: 48px !important;
+    border: 1px solid #e2e8f0 !important;
+    color: #0f172a !important;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px !important;
     font-weight: 600 !important;
-    transition: all 0.2s ease !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
 
     &:hover:not(:disabled) {
-        border-color: var(--ebk-primary) !important;
-        background-color: rgba(var(--ebk-primary-h), var(--ebk-primary-s), var(--ebk-primary-l), 0.02) !important;
+        background: #ecfdf5 !important;
+        border-color: #10B981 !important;
+        color: #047857 !important;
     }
 }
 
-.h-link {
-    transition: all 0.2s ease;
-    border-bottom: 2px solid transparent;
+:deep(.v-theme--dark) .oauth-btn {
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+    background: transparent !important;
+
+    &:hover:not(:disabled) {
+        background: #064E3B !important;
+        border-color: #10B981 !important;
+    }
+}
+
+/* Links */
+.forgot-password-link {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #059669;
+    text-decoration: none;
+    transition: color 0.15s ease;
 
     &:hover {
-        color: var(--ebk-primary) !important;
-        border-bottom-color: var(--ebk-primary);
+        color: #047857;
+        text-decoration: underline;
     }
 }
 
-.border-t {
-    border-top: 1px solid var(--ebk-border-color);
+.create-account-link {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #059669;
+    text-decoration: none;
+    transition: color 0.15s ease;
+
+    &:hover {
+        color: #047857;
+        text-decoration: underline;
+    }
 }
 
-.v-theme--dark {
-    .auth-wrapper {
-        background:
-            radial-gradient(circle at 8% 12%, rgba(59, 130, 246, 0.2), transparent 42%),
-            radial-gradient(circle at 92% 88%, rgba(16, 185, 129, 0.16), transparent 40%),
-            linear-gradient(155deg, #020617 0%, #0f172a 46%, #111827 100%) !important;
-    }
+.mobile-app-link {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    text-decoration: none;
 
-    .modern-input :deep(.v-field--focused) {
-        background-color: #1e293b !important;
+    &:hover {
+        color: #10B981;
     }
+}
 
-    .hero-backdrop {
-        opacity: 0.2;
+.card-footer-bar {
+    border-top: 1px solid #f1f5f9;
+}
+
+:deep(.v-theme--dark) .card-footer-bar {
+    border-top-color: #1e293b;
+}
+
+/* Trust Badge & Back Link */
+.login-trust-badge {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .text-emerald {
+        color: #10B981 !important;
+    }
+}
+
+.back-to-landing-link {
+    display: inline-flex;
+    align-items: center;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #64748b;
+    text-decoration: none;
+    transition: color 0.15s ease;
+
+    &:hover {
+        color: #10B981;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-card {
+        padding: 28px 20px 20px !important;
+        border-radius: 20px !important;
     }
 }
 </style>

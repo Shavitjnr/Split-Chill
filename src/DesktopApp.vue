@@ -1,4 +1,4 @@
-﻿<template>
+<template>
     <v-app>
         <router-view />
     </v-app>
@@ -135,6 +135,19 @@ if (isProduction()) {
             scope: './'
         }
     });
+} else if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(registrations => {
+        for (const registration of registrations) {
+            registration.unregister();
+        }
+    });
+    if (window.caches) {
+        window.caches.keys().then(names => {
+            for (const name of names) {
+                window.caches.delete(name);
+            }
+        });
+    }
 }
 </script>
 

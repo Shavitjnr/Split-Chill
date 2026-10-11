@@ -37,9 +37,9 @@ h1, h2, h3, h4, h5, h6, .navbar-title, .button, .login-page-logo + div {
 
 :root {
     
-    --ebk-primary-h: 164;
-    --ebk-primary-s: 86%;
-    --ebk-primary-l: 36%;
+    --ebk-primary-h: 270;
+    --ebk-primary-s: 84%;
+    --ebk-primary-l: 55%;
     --ebk-primary: hsl(var(--ebk-primary-h), var(--ebk-primary-s), var(--ebk-primary-l));
     
     
@@ -61,7 +61,7 @@ h1, h2, h3, h4, h5, h6, .navbar-title, .button, .login-page-logo + div {
 }
 
 :root {
-    --fintech-gradient: #0DAD83 !important;
+    --fintech-gradient: linear-gradient(135deg, #10B981 0%, #059669 100%) !important;
 }
 
 .card {
@@ -142,7 +142,7 @@ h1, h2, h3, h4, h5, h6, .navbar-title, .button, .login-page-logo + div {
 }
 
 .text-gradient {
-    background: linear-gradient(135deg, var(--ebk-primary) 0%, #a855f7 100%);
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -154,6 +154,12 @@ h1, h2, h3, h4, h5, h6, .navbar-title, .button, .login-page-logo + div {
     &.active-state {
         transform: scale(0.97);
         opacity: 0.9;
+    }
+
+    &.button-fill {
+        background: linear-gradient(135deg, #10B981 0%, #059669 100%) !important;
+        box-shadow: 0 8px 20px -4px rgba(16, 185, 129, 0.25) !important;
+        border: none !important;
     }
 }
 

@@ -1,0 +1,402 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 820" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="bgGrad" cx="50%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="50%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#05070c" />
+    </radialGradient>
+
+    <!-- Emerald Glow Filter -->
+    <filter id="glowEmerald" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Blue Glow Filter -->
+    <filter id="glowBlue" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Purple Glow Filter -->
+    <filter id="glowPurple" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Card Gradients -->
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.85" />
+    </linearGradient>
+
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#6d28d9" />
+    </linearGradient>
+
+    <!-- Arrow Marker -->
+    <marker id="arrowEmerald" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#10b981" />
+    </marker>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#38bdf8" />
+    </marker>
+    <marker id="arrowPurple" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#a855f7" />
+    </marker>
+  </defs>
+
+  <style>
+    @keyframes dashMove {
+      to {
+        stroke-dashoffset: -40;
+      }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.3; transform: scale(0.98); }
+      50% { opacity: 0.8; transform: scale(1.02); }
+    }
+    @keyframes beacon {
+      0% { r: 3; opacity: 1; }
+      100% { r: 10; opacity: 0; }
+    }
+    @keyframes floatCard {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-3px); }
+    }
+
+    .wire {
+      stroke-dasharray: 8 6;
+      animation: dashMove 1.5s linear infinite;
+    }
+    .wire-fast {
+      stroke-dasharray: 6 5;
+      animation: dashMove 1s linear infinite;
+    }
+    .wire-rev {
+      stroke-dasharray: 8 6;
+      animation: dashMove 1.5s linear infinite reverse;
+    }
+    .beacon-ring {
+      animation: beacon 2s ease-out infinite;
+      transform-origin: center;
+    }
+    .node-text {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      user-select: none;
+    }
+  </style>
+
+  <!-- Background Canvas -->
+  <rect width="1200" height="820" fill="url(#bgGrad)" />
+
+  <!-- Grid Dots Background Pattern -->
+  <pattern id="gridPattern" width="40" height="40" patternUnits="userSpaceOnUse">
+    <circle cx="20" cy="20" r="1" fill="#334155" opacity="0.35" />
+  </pattern>
+  <rect width="1200" height="820" fill="url(#gridPattern)" />
+
+  <!-- Ambient Light Orbs -->
+  <circle cx="200" cy="240" r="160" fill="#10b981" opacity="0.06" filter="url(#glowEmerald)" />
+  <circle cx="650" cy="380" r="220" fill="#3b82f6" opacity="0.05" filter="url(#glowBlue)" />
+  <circle cx="1020" cy="280" r="180" fill="#8b5cf6" opacity="0.05" filter="url(#glowPurple)" />
+
+  <!-- HEADER TITLE -->
+  <g transform="translate(60, 45)">
+    <!-- Brand Pill -->
+    <rect x="0" y="0" width="150" height="26" rx="13" fill="#10b981" fill-opacity="0.15" stroke="#10b981" stroke-width="1" />
+    <circle cx="14" cy="13" r="4" fill="#10b981" />
+    <circle cx="14" cy="13" r="4" fill="#10b981" class="beacon-ring" stroke="#10b981" />
+    <text x="26" y="17" fill="#34d399" font-size="11" font-weight="700" class="node-text" letter-spacing="1">LIVE WORKFLOW</text>
+
+    <!-- Main Title -->
+    <text x="0" y="58" fill="#f8fafc" font-size="28" font-weight="800" class="node-text">Split Chill AI • End-to-End Dynamic System Architecture</text>
+    <text x="0" y="80" fill="#94a3b8" font-size="13.5" class="node-text">Dynamic Data Flow: Multi-Device Clients ➔ Reverse Proxy ➔ Authentication &amp; Financial Engine ➔ Persistence ➔ Real-Time Sync</text>
+  </g>
+
+  <!-- ==================== FLOW PATHS (WIRES WITH ANIMATION) ==================== -->
+  <g fill="none">
+    <!-- Path: Clients to Vite Gateway -->
+    <path id="pClientToVite" d="M 270 240 L 370 240" stroke="#10b981" stroke-width="2.5" class="wire" marker-end="url(#arrowEmerald)" />
+    <path d="M 270 330 L 310 330 Q 340 330 340 270 L 340 250 L 370 250" stroke="#10b981" stroke-width="2" class="wire" />
+    <path d="M 270 420 L 320 420 Q 350 420 350 280 L 350 260 L 370 260" stroke="#10b981" stroke-width="2" class="wire" />
+
+    <!-- Path: Vite Gateway to Go Backend -->
+    <path id="pViteToGo" d="M 540 250 L 630 250" stroke="#38bdf8" stroke-width="3" class="wire-fast" marker-end="url(#arrowBlue)" />
+
+    <!-- Path: Go Engine internal branches -->
+    <!-- Go Auth to SMTP -->
+    <path id="pGoToSmtp" d="M 870 220 L 960 170" stroke="#f59e0b" stroke-width="2" class="wire" marker-end="url(#arrowBlue)" />
+    <!-- Go Core to DB -->
+    <path id="pGoToDb" d="M 870 310 L 960 310" stroke="#38bdf8" stroke-width="2.5" class="wire" marker-end="url(#arrowBlue)" />
+    <!-- Go Storage to MinIO -->
+    <path id="pGoToStorage" d="M 870 390 L 960 440" stroke="#a855f7" stroke-width="2" class="wire" marker-end="url(#arrowPurple)" />
+
+    <!-- Return Loop: Sync Back to Clients (Bottom Arc) -->
+    <path id="pSyncReturn" d="M 960 350 Q 1020 590 600 590 Q 200 590 200 480" stroke="#10b981" stroke-width="2" class="wire-rev" stroke-dasharray="8 6" />
+  </g>
+
+  <!-- Glowing Traveling Data Packets (Native SVG animateMotion) -->
+  <circle r="4.5" fill="#34d399" filter="url(#glowEmerald)">
+    <animateMotion dur="2.4s" repeatCount="indefinite" path="M 270 240 L 370 240 L 540 250 L 630 250 L 870 310 L 960 310" />
+  </circle>
+  <circle r="4" fill="#38bdf8" filter="url(#glowBlue)">
+    <animateMotion dur="2.4s" begin="0.8s" repeatCount="indefinite" path="M 270 330 L 340 250 L 370 250 L 540 250 L 630 250 L 870 220 L 960 170" />
+  </circle>
+  <circle r="4.5" fill="#a855f7" filter="url(#glowPurple)">
+    <animateMotion dur="3.5s" begin="1.2s" repeatCount="indefinite" path="M 960 350 Q 1020 590 600 590 Q 200 590 200 480" />
+  </circle>
+
+  <!-- ==================== COLUMN 1: CLIENT APPLICATIONS ==================== -->
+  <g transform="translate(60, 160)">
+    <!-- Column Header -->
+    <rect x="0" y="0" width="210" height="30" rx="6" fill="#1e293b" stroke="#334155" />
+    <text x="15" y="19" fill="#94a3b8" font-size="11" font-weight="700" class="node-text" letter-spacing="1">STAGE 1 • CLIENTS</text>
+    <circle cx="190" cy="15" r="4" fill="#10b981" />
+
+    <!-- Card 1: Desktop Browser -->
+    <g transform="translate(0, 45)">
+      <rect width="210" height="74" rx="10" fill="url(#cardGrad)" stroke="#10b981" stroke-width="1.5" />
+      <rect x="12" y="14" width="30" height="30" rx="6" fill="#10b981" fill-opacity="0.18" />
+      <!-- Desktop Monitor Icon -->
+      <path d="M 20 22 h 14 v 10 h -14 z M 24 32 v 4 h 6 v -4" fill="none" stroke="#10b981" stroke-width="1.8" stroke-linejoin="round" />
+      <text x="50" y="28" fill="#f8fafc" font-size="13" font-weight="700" class="node-text">Desktop Portal</text>
+      <text x="50" y="44" fill="#94a3b8" font-size="11" class="node-text">Vue 3 + Vuetify + ECharts</text>
+      <text x="14" y="64" fill="#34d399" font-size="10" font-family="monospace">http://localhost:8081/#/</text>
+    </g>
+
+    <!-- Card 2: Mobile PWA Client -->
+    <g transform="translate(0, 135)">
+      <rect width="210" height="74" rx="10" fill="url(#cardGrad)" stroke="#38bdf8" stroke-width="1.2" />
+      <rect x="12" y="14" width="30" height="30" rx="6" fill="#0284c7" fill-opacity="0.18" />
+      <!-- Mobile Phone Icon -->
+      <rect x="22" y="20" width="10" height="18" rx="2" fill="none" stroke="#38bdf8" stroke-width="1.8" />
+      <circle cx="27" cy="34" r="1" fill="#38bdf8" />
+      <text x="50" y="28" fill="#f8fafc" font-size="13" font-weight="700" class="node-text">Mobile PWA App</text>
+      <text x="50" y="44" fill="#94a3b8" font-size="11" class="node-text">Framework7 + Swipe UI</text>
+      <text x="14" y="64" fill="#38bdf8" font-size="10" font-family="monospace">/mobile.html (Offline Cache)</text>
+    </g>
+
+    <!-- Card 3: LAN / Wi-Fi Device -->
+    <g transform="translate(0, 225)">
+      <rect width="210" height="74" rx="10" fill="url(#cardGrad)" stroke="#a855f7" stroke-width="1.2" />
+      <rect x="12" y="14" width="30" height="30" rx="6" fill="#7c3aed" fill-opacity="0.18" />
+      <!-- Wi-Fi Waves Icon -->
+      <path d="M 20 28 a 10 10 0 0 1 14 0 M 23 31 a 5 5 0 0 1 8 0 M 27 34 a 1 1 0 0 1 0 0" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" />
+      <text x="50" y="28" fill="#f8fafc" font-size="13" font-weight="700" class="node-text">LAN / Wi-Fi Remote</text>
+      <text x="50" y="44" fill="#94a3b8" font-size="11" class="node-text">Other Laptops &amp; Phones</text>
+      <text x="14" y="64" fill="#c084fc" font-size="10" font-family="monospace">http://192.168.x.x:8081/</text>
+    </g>
+  </g>
+
+  <!-- ==================== COLUMN 2: VITE REVERSE PROXY ==================== -->
+  <g transform="translate(370, 160)">
+    <!-- Column Header -->
+    <rect x="0" y="0" width="170" height="30" rx="6" fill="#1e293b" stroke="#334155" />
+    <text x="14" y="19" fill="#94a3b8" font-size="11" font-weight="700" class="node-text" letter-spacing="1">STAGE 2 • GATEWAY</text>
+    <circle cx="152" cy="15" r="4" fill="#38bdf8" />
+
+    <!-- Vite Proxy Container Card -->
+    <g transform="translate(0, 45)">
+      <rect width="170" height="254" rx="12" fill="url(#cardGrad)" stroke="#38bdf8" stroke-width="1.5" />
+
+      <!-- Top Title -->
+      <rect x="14" y="14" width="32" height="32" rx="8" fill="#38bdf8" fill-opacity="0.15" />
+      <path d="M 22 25 L 30 20 L 38 25 L 30 40 Z" fill="none" stroke="#38bdf8" stroke-width="1.8" />
+      <text x="54" y="28" fill="#f8fafc" font-size="14" font-weight="700" class="node-text">Vite Gateway</text>
+      <text x="54" y="43" fill="#38bdf8" font-size="11" font-family="monospace">0.0.0.0:8081</text>
+
+      <!-- Subfeatures List -->
+      <g transform="translate(14, 62)">
+        <!-- Feature 1 -->
+        <rect x="0" y="0" width="142" height="40" rx="6" fill="#0f172a" stroke="#334155" stroke-width="0.8" />
+        <text x="10" y="16" fill="#f1f5f9" font-size="11" font-weight="600" class="node-text">Multi-Device Listen</text>
+        <text x="10" y="30" fill="#64748b" font-size="9.5" class="node-text">Binds all IPv4 interfaces</text>
+
+        <!-- Feature 2 -->
+        <rect x="0" y="48" width="142" height="40" rx="6" fill="#0f172a" stroke="#334155" stroke-width="0.8" />
+        <text x="10" y="64" fill="#f1f5f9" font-size="11" font-weight="600" class="node-text">API Reverse Proxy</text>
+        <text x="10" y="78" fill="#64748b" font-size="9.5" class="node-text">/api/* ➔ 127.0.0.1:8082</text>
+
+        <!-- Feature 3 -->
+        <rect x="0" y="96" width="142" height="40" rx="6" fill="#0f172a" stroke="#334155" stroke-width="0.8" />
+        <text x="10" y="112" fill="#f1f5f9" font-size="11" font-weight="600" class="node-text">HMR &amp; Assets Engine</text>
+        <text x="10" y="126" fill="#64748b" font-size="9.5" class="node-text">Pre-bundles SCSS &amp; TS</text>
+
+        <!-- Feature 4 -->
+        <rect x="0" y="144" width="142" height="40" rx="6" fill="#0f172a" stroke="#334155" stroke-width="0.8" />
+        <text x="10" y="160" fill="#f1f5f9" font-size="11" font-weight="600" class="node-text">CORS &amp; Headers</text>
+        <text x="10" y="174" fill="#64748b" font-size="9.5" class="node-text">LAN zero-block routing</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== COLUMN 3: GO BACKEND ENGINE ==================== -->
+  <g transform="translate(630, 160)">
+    <!-- Column Header -->
+    <rect x="0" y="0" width="240" height="30" rx="6" fill="#1e293b" stroke="#334155" />
+    <text x="15" y="19" fill="#94a3b8" font-size="11" font-weight="700" class="node-text" letter-spacing="1">STAGE 3 • GO CORE ENGINE</text>
+    <circle cx="220" cy="15" r="4" fill="#00add8" />
+
+    <!-- Main Engine Box -->
+    <g transform="translate(0, 45)">
+      <rect width="240" height="320" rx="12" fill="url(#cardGrad)" stroke="#00add8" stroke-width="1.8" />
+
+      <!-- Header -->
+      <rect x="14" y="14" width="32" height="32" rx="8" fill="#00add8" fill-opacity="0.2" />
+      <path d="M 21 28 L 30 20 L 39 28 L 30 36 Z" fill="#00add8" />
+      <text x="54" y="27" fill="#f8fafc" font-size="14" font-weight="700" class="node-text">Go HTTP Server (Gin)</text>
+      <text x="54" y="42" fill="#38bdf8" font-size="10.5" font-family="monospace">0.0.0.0:8082 • splitchill-ai</text>
+
+      <!-- Microservice Component 1: Auth & OTP -->
+      <g transform="translate(14, 56)">
+        <rect width="212" height="74" rx="8" fill="#0f172a" stroke="#f59e0b" stroke-width="1" />
+        <circle cx="18" cy="22" r="5" fill="#f59e0b" />
+        <text x="32" y="25" fill="#fbbf24" font-size="12" font-weight="700" class="node-text">Security, JWT &amp; Email OTP</text>
+        <text x="14" y="44" fill="#cbd5e1" font-size="10.5" class="node-text">• 6-Digit Gmail OTP Reset Workflow</text>
+        <text x="14" y="60" fill="#94a3b8" font-size="10" class="node-text">• Bcrypt hashing + 2FA TOTP Engine</text>
+      </g>
+
+      <!-- Microservice Component 2: Expense Splitting Core -->
+      <g transform="translate(14, 138)">
+        <rect width="212" height="82" rx="8" fill="#0f172a" stroke="#10b981" stroke-width="1" />
+        <circle cx="18" cy="22" r="5" fill="#10b981" />
+        <text x="32" y="25" fill="#34d399" font-size="12" font-weight="700" class="node-text">Expense &amp; Debt Alg Engine</text>
+        <text x="14" y="44" fill="#cbd5e1" font-size="10.5" class="node-text">• Multi-Payer Bill Splitting Logic</text>
+        <text x="14" y="58" fill="#cbd5e1" font-size="10.5" class="node-text">• Greedy Debt Simplification Alg</text>
+        <text x="14" y="73" fill="#94a3b8" font-size="10" class="node-text">• Multi-Currency Exchange Auto-Sync</text>
+      </g>
+
+      <!-- Microservice Component 3: Scheduler & MCP Server -->
+      <g transform="translate(14, 228)">
+        <rect width="212" height="76" rx="8" fill="#0f172a" stroke="#8b5cf6" stroke-width="1" />
+        <circle cx="18" cy="22" r="5" fill="#8b5cf6" />
+        <text x="32" y="25" fill="#c084fc" font-size="12" font-weight="700" class="node-text">Scheduler &amp; MCP AI Tools</text>
+        <text x="14" y="44" fill="#cbd5e1" font-size="10.5" class="node-text">• Gocron Background Schedulers</text>
+        <text x="14" y="58" fill="#cbd5e1" font-size="10.5" class="node-text">• AI Model Context Protocol (MCP)</text>
+        <text x="14" y="71" fill="#94a3b8" font-size="10" class="node-text">• Excelize XLSX / CSV / OFX Importer</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== COLUMN 4: PERSISTENCE & SERVICES ==================== -->
+  <g transform="translate(960, 160)">
+    <!-- Column Header -->
+    <rect x="0" y="0" width="180" height="30" rx="6" fill="#1e293b" stroke="#334155" />
+    <text x="14" y="19" fill="#94a3b8" font-size="11" font-weight="700" class="node-text" letter-spacing="1">STAGE 4 • PERSISTENCE</text>
+    <circle cx="162" cy="15" r="4" fill="#f59e0b" />
+
+    <!-- Service 1: Gmail SMTP Service -->
+    <g transform="translate(0, 45)">
+      <rect width="180" height="80" rx="10" fill="url(#cardGrad)" stroke="#f59e0b" stroke-width="1.3" />
+      <circle cx="20" cy="22" r="8" fill="#f59e0b" fill-opacity="0.2" />
+      <text x="16" y="26" fill="#f59e0b" font-size="11" font-weight="bold">✉</text>
+      <text x="38" y="25" fill="#f8fafc" font-size="12.5" font-weight="700" class="node-text">Gmail SMTP Gateway</text>
+      <text x="14" y="45" fill="#e2e8f0" font-size="10.5" class="node-text">smtp.gmail.com:587</text>
+      <text x="14" y="60" fill="#94a3b8" font-size="10" class="node-text">Dispatches 6-digit OTP code</text>
+      <text x="14" y="73" fill="#fbbf24" font-size="9" font-family="monospace">TLS / gomail client</text>
+    </g>
+
+    <!-- Service 2: Primary Relational Database -->
+    <g transform="translate(0, 135)">
+      <rect width="180" height="96" rx="10" fill="url(#cardGrad)" stroke="#38bdf8" stroke-width="1.3" />
+      <!-- DB Cylinders Icon -->
+      <path d="M 14 18 a 10 3 0 0 1 20 0 a 10 3 0 0 1 -20 0 v 12 a 10 3 0 0 0 20 0 v -12" fill="none" stroke="#38bdf8" stroke-width="1.5" />
+      <text x="40" y="24" fill="#f8fafc" font-size="12.5" font-weight="700" class="node-text">Database Engine</text>
+      <text x="14" y="45" fill="#38bdf8" font-size="10.5" font-weight="600" class="node-text">SQLite3 (Default)</text>
+      <text x="14" y="60" fill="#cbd5e1" font-size="10" class="node-text">data/splitchill-ai.db</text>
+      <text x="14" y="75" fill="#94a3b8" font-size="9.5" class="node-text">Or MySQL / PostgreSQL</text>
+      <text x="14" y="88" fill="#64748b" font-size="9" class="node-text">Managed via XORM ORM</text>
+    </g>
+
+    <!-- Service 3: Media Storage / MinIO -->
+    <g transform="translate(0, 240)">
+      <rect width="180" height="75" rx="10" fill="url(#cardGrad)" stroke="#a855f7" stroke-width="1.3" />
+      <!-- Cloud Storage Icon -->
+      <path d="M 16 26 a 6 6 0 0 1 10 -4 a 8 8 0 0 1 12 3 a 5 5 0 0 1 -2 8 h -18 z" fill="none" stroke="#c084fc" stroke-width="1.5" />
+      <text x="42" y="24" fill="#f8fafc" font-size="12.5" font-weight="700" class="node-text">File &amp; Receipt Storage</text>
+      <text x="14" y="45" fill="#e2e8f0" font-size="10.5" class="node-text">Local Disk / MinIO S3</text>
+      <text x="14" y="60" fill="#94a3b8" font-size="10" class="node-text">Avatars &amp; Receipt Images</text>
+    </g>
+  </g>
+
+  <!-- ==================== BOTTOM STAGE: REAL-TIME CLIENT FEEDBACK & LAN SYNC ==================== -->
+  <g transform="translate(60, 520)">
+    <rect width="1080" height="96" rx="14" fill="#0f172a" stroke="#10b981" stroke-width="1.5" />
+
+    <!-- Left Badge -->
+    <rect x="20" y="20" width="170" height="56" rx="8" fill="#10b981" fill-opacity="0.12" stroke="#10b981" stroke-width="1" />
+    <text x="32" y="42" fill="#34d399" font-size="13" font-weight="800" class="node-text">STAGE 5: REAL-TIME</text>
+    <text x="32" y="60" fill="#f8fafc" font-size="11.5" font-weight="600" class="node-text">MULTI-DEVICE SYNC</text>
+
+    <!-- Middle Explanation Steps -->
+    <g transform="translate(210, 18)">
+      <!-- Step 1 -->
+      <g transform="translate(0, 0)">
+        <circle cx="14" cy="14" r="10" fill="#1e293b" stroke="#34d399" />
+        <text x="11" y="18" fill="#34d399" font-size="10" font-weight="bold">1</text>
+        <text x="32" y="14" fill="#f8fafc" font-size="11.5" font-weight="700" class="node-text">Ledger Updated</text>
+        <text x="32" y="28" fill="#94a3b8" font-size="10" class="node-text">Transaction committed in DB</text>
+      </g>
+
+      <!-- Step 2 -->
+      <g transform="translate(220, 0)">
+        <circle cx="14" cy="14" r="10" fill="#1e293b" stroke="#38bdf8" />
+        <text x="10" y="18" fill="#38bdf8" font-size="10" font-weight="bold">2</text>
+        <text x="32" y="14" fill="#f8fafc" font-size="11.5" font-weight="700" class="node-text">ECharts Visuals</text>
+        <text x="32" y="28" fill="#94a3b8" font-size="10" class="node-text">Balances re-calculated</text>
+      </g>
+
+      <!-- Step 3 -->
+      <g transform="translate(430, 0)">
+        <circle cx="14" cy="14" r="10" fill="#1e293b" stroke="#f59e0b" />
+        <text x="10" y="18" fill="#f59e0b" font-size="10" font-weight="bold">3</text>
+        <text x="32" y="14" fill="#f8fafc" font-size="11.5" font-weight="700" class="node-text">LAN Broadcast</text>
+        <text x="32" y="28" fill="#94a3b8" font-size="10" class="node-text">Pinia state syncs all screens</text>
+      </g>
+
+      <!-- Step 4 -->
+      <g transform="translate(630, 0)">
+        <circle cx="14" cy="14" r="10" fill="#1e293b" stroke="#a855f7" />
+        <text x="10" y="18" fill="#a855f7" font-size="10" font-weight="bold">4</text>
+        <text x="32" y="14" fill="#f8fafc" font-size="11.5" font-weight="700" class="node-text">Settlement Ready</text>
+        <text x="32" y="28" fill="#94a3b8" font-size="10" class="node-text">Clean single-tap payments</text>
+      </g>
+    </g>
+
+    <!-- Bottom Info Strip -->
+    <rect x="210" y="60" width="845" height="24" rx="6" fill="#1e293b" />
+    <text x="225" y="76" fill="#34d399" font-size="10.5" font-weight="bold" class="node-text">✓ ZERO CLOUD LOCK-IN</text>
+    <text x="400" y="76" fill="#cbd5e1" font-size="10.5" class="node-text">• 100% Self-Hosted</text>
+    <text x="560" y="76" fill="#cbd5e1" font-size="10.5" class="node-text">• Sub-second Response Time (&lt;30ms)</text>
+    <text x="790" y="76" fill="#cbd5e1" font-size="10.5" class="node-text">• Dual Mobile &amp; Desktop Interfaces</text>
+  </g>
+
+  <!-- FOOTER -->
+  <g transform="translate(60, 770)">
+    <text x="0" y="0" fill="#64748b" font-size="11" class="node-text">Split Chill AI Architecture Engine • Engineered with Go, Vue 3, Vite, Vuetify 3 &amp; Framework7</text>
+    <text x="1080" y="0" text-anchor="end" fill="#10b981" font-size="11" font-weight="600" class="node-text">● System Active &amp; Operational</text>
+  </g>
+</svg>

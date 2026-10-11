@@ -1,4 +1,4 @@
-﻿import { ref } from 'vue';
+import { ref } from 'vue';
 import { defineStore } from 'pinia';
 
 import { useSettingsStore } from './setting.ts';
@@ -22,7 +22,7 @@ import type {
     UserProfileUpdateRequest,
     UserProfileUpdateResponse
 } from '@/models/user.ts';
-import type { ForgetPasswordRequest } from '@/models/forget_password.ts';
+import type { ForgetPasswordRequest, PasswordResetByOTPRequest } from '@/models/forget_password.ts';
 import type { LocalizedPresetCategory } from '@/core/category.ts';
 
 import {
@@ -440,6 +440,31 @@ export const useRootStore = defineStore('root', () => {
         });
     }
 
+    function resetPasswordByOTP(req: PasswordResetByOTPRequest): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            services.resetPasswordByOTP(req).then(response => {
+                const data = response.data;
+
+                if (!data || !data.success || !data.result) {
+                    reject({ message: 'Unable to reset password' });
+                    return;
+                }
+
+                resolve(data.result);
+            }).catch(error => {
+                logger.error('failed to reset password by OTP', error);
+
+                if (error && error.processed) {
+                    reject(error);
+                } else if (error.response && error.response.data && error.response.data.errorMessage) {
+                    reject({ error: error.response.data });
+                } else {
+                    reject({ message: 'Unable to reset password' });
+                }
+            });
+        });
+    }
+
     function updateUserProfile(req: UserProfileUpdateRequest): Promise<UserProfileUpdateResponse> {
         const userDefaultCurrency = userStore.currentUserDefaultCurrency;
 
@@ -660,6 +685,7 @@ export const useRootStore = defineStore('root', () => {
         resendVerifyEmailByUnloginUser,
         requestResetPassword,
         resetPassword,
+        resetPasswordByOTP,
         updateUserProfile,
         resendVerifyEmailByLoginedUser,
         clearAllUserTransactionsOfAccount,

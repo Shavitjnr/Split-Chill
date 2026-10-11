@@ -1,4 +1,4 @@
-﻿<template>
+<template>
     <f7-app v-bind="f7params">
         <f7-view id="main-view" class="safe-areas" main url="/"></f7-view>
     </f7-app>
@@ -42,7 +42,7 @@ const f7params = ref<Framework7Parameters>({
     name: 'Split Chill AI',
     theme: 'ios',
     colors: {
-        primary: '#3B82F6'
+        primary: '#10B981'
     },
     routes: routes,
     darkMode: (() => {

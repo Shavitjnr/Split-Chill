@@ -1,4 +1,4 @@
-﻿package errs
+package errs
 
 import (
 	"net/http"
@@ -41,4 +41,5 @@ var (
 	ErrCannotLoginByPassword                               = NewNormalError(NormalSubcategoryUser, 32, http.StatusBadRequest, "cannot login by password")
 	ErrUserNameIsInvalid                                   = NewNormalError(NormalSubcategoryUser, 33, http.StatusBadRequest, "user name is invalid")
 	ErrNickNameIsInvalid                                   = NewNormalError(NormalSubcategoryUser, 34, http.StatusBadRequest, "nick name is invalid")
+	ErrOTPCodeIsInvalidOrExpired                           = NewNormalError(NormalSubcategoryUser, 35, http.StatusBadRequest, "verification code is invalid or expired")
 )

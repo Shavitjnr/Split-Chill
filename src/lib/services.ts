@@ -1,4 +1,4 @@
-﻿import axios, { type AxiosRequestConfig, type AxiosRequestHeaders, type AxiosResponse } from 'axios';
+import axios, { type AxiosRequestConfig, type AxiosRequestHeaders, type AxiosResponse } from 'axios';
 
 import type { ApiResponse } from '@/core/api.ts';
 
@@ -56,7 +56,8 @@ import type {
     LatestExchangeRateResponse
 } from '@/models/exchange_rate.ts';
 import type {
-    ForgetPasswordRequest
+    ForgetPasswordRequest,
+    PasswordResetByOTPRequest
 } from '@/models/forget_password.ts';
 import type {
     ImportTransactionResponsePageWrapper
@@ -349,6 +350,12 @@ export default {
             email: email,
             password: password
         }, {
+            noAuth: true,
+            ignoreError: true
+        } as ApiRequestConfig);
+    },
+    resetPasswordByOTP: (req: PasswordResetByOTPRequest): ApiResponsePromise<boolean> => {
+        return axios.post<ApiResponse<boolean>>('forget_password/reset_by_otp.json', req, {
             noAuth: true,
             ignoreError: true
         } as ApiRequestConfig);

@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- SEO Meta Tags -->
+    <title>Spill Chill — Intelligent Expense Splitting & Financial Harmony</title>
+    <meta name="description" content="Spill Chill is the premier group expense splitting and personal finance SaaS platform. Settle debts seamlessly with AI receipt scanning, optimal debt reduction, and real-time multi-currency conversions.">
+    <meta name="keywords" content="expense splitting, group finance, bill split, split chill, debt simplification, receipt scanner, personal finance SaaS">
+    <meta name="author" content="Spill Chill Inc.">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://spillchill.ai/">
+    <meta property="og:title" content="Spill Chill — Intelligent Expense Splitting & Financial Harmony">
+    <meta property="og:description" content="Effortless expense sharing for roommates, travels, couples, and teams. Eliminate money friction with automated smart settlements.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=1200&q=80">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Spill Chill — Intelligent Expense Splitting">
+    <meta name="twitter:description" content="Effortless expense sharing for roommates, travels, couples, and teams. Zero awkward money talks.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=1200&q=80">
+
+    <!-- Google Fonts: Plus Jakarta Sans & Cabinet Grotesk Alternative (Outfit) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10B981', // Brand Primary Emerald
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065F46',
+                            900: '#064E3B', // Brand Forest Green
+                            950: '#022c22'
+                        },
+                        forest: {
+                            light: '#059669',
+                            DEFAULT: '#064E3B',
+                            dark: '#022c22',
+                            deep: '#011c15'
+                        },
+                        obsidian: '#0B0F19'
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+                        display: ['Outfit', 'system-ui', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'luxury': '0 20px 40px -15px rgba(6, 78, 59, 0.08), 0 0 1px 1px rgba(16, 185, 129, 0.1)',
+                        'emerald-glow': '0 0 35px -5px rgba(16, 185, 129, 0.35)',
+                        'forest-glow': '0 0 45px -10px rgba(6, 78, 59, 0.45)'
+                    }
+                }
+            }
+        };
+    </script>
+
+    <!-- CSS Custom Properties & Base Styles -->
+    <style>
+        :root {
+            --brand-emerald: #10B981;
+            --brand-forest: #064E3B;
+            --brand-forest-dark: #022c22;
+            --bg-light: #F8FAFC;
+            --surface-light: #FFFFFF;
+            --border-light: #E2E8F0;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+        }
+
+        .dark {
+            --bg-light: #0B0F19;
+            --surface-light: #111827;
+            --border-light: #1F2937;
+            --text-primary: #F8FAFC;
+            --text-secondary: #94A3B8;
+        }
+
+        /* Smooth scroll and typography */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        h1, h2, h3, h4, .font-display {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Luxury subtle gradient backgrounds */
+        .emerald-gradient-text {
+            background: linear-gradient(135deg, #10B981 0%, #064E3B 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .dark .emerald-gradient-text {
+            background: linear-gradient(135deg, #34D399 0%, #10B981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-mesh-bg {
+            background-image: 
+                radial-gradient(at 15% 15%, rgba(16, 185, 129, 0.12) 0px, transparent 50%),
+                radial-gradient(at 85% 20%, rgba(6, 78, 59, 0.15) 0px, transparent 55%),
+                radial-gradient(at 50% 80%, rgba(52, 211, 153, 0.08) 0px, transparent 50%);
+        }
+
+        .dark .hero-mesh-bg {
+            background-image: 
+                radial-gradient(at 15% 15%, rgba(16, 185, 129, 0.15) 0px, transparent 50%),
+                radial-gradient(at 85% 20%, rgba(6, 78, 59, 0.28) 0px, transparent 55%),
+                radial-gradient(at 50% 80%, rgba(2, 44, 34, 0.35) 0px, transparent 50%);
+        }
+
+        /* Glassmorphism */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Parallax 3D Card tilt container */
+        .parallax-card-wrapper {
+            perspective: 1200px;
+        }
+
+        .parallax-card-inner {
+            transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: #0B0F19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #10B981;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #059669;
+        }
+
+        /* Scroll triggered fade-in utility */
+        .fade-in-element {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        .fade-in-element.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-obsidian text-slate-900 dark:text-slate-100 antialiased selection:bg-emerald-500 selection:text-white">
+
+    <!-- =========================================================================
+         1. STICKY TOP NAVIGATION BAR (With Glassmorphism & Theme Toggle)
+    ========================================================================== -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/80 dark:bg-obsidian/85 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo Section -->
+            <a href="#" class="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded-lg p-1">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-md shadow-emerald-500/20 group-hover:scale-105 transition-transform duration-300">
+                    <i data-lucide="split" class="w-6 h-6 text-white transform -rotate-45"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-display font-extrabold text-2xl tracking-tight text-slate-900 dark:text-white flex items-center gap-1.5">
+                        Spill Chill
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
+                    </span>
+                    <span class="text-[10px] font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Expense Harmony</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600 dark:text-slate-300" aria-label="Main Navigation">
+                <a href="#features" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Features</a>
+                <a href="#how-it-works" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">How It Works</a>
+                <a href="#testimonials" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Reviews</a>
+                <a href="#pricing" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Pricing</a>
+                <a href="#faq" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">FAQ</a>
+                <a href="#contact" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Contact</a>
+            </nav>
+
+            <!-- Navbar Actions: Theme Switcher & Primary CTA -->
+            <div class="hidden md:flex items-center gap-4">
+                <!-- Dark / Light Mode Toggle Button -->
+                <button id="themeToggleBtn" type="button" aria-label="Toggle Dark / Light Theme" class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 flex items-center justify-center transition-all duration-200 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    <i id="themeIconLight" data-lucide="sun" class="w-5 h-5 hidden"></i>
+                    <i id="themeIconDark" data-lucide="moon" class="w-5 h-5 block"></i>
+                </button>
+
+                <!-- Sign In Link -->
+                <a href="/desktop.html#/login" class="text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-emerald-600 dark:hover:text-emerald-400 px-3 py-2 transition-colors">
+                    Sign In
+                </a>
+
+                <!-- Primary CTA Button -->
+                <a href="#pricing" class="relative group inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-semibold text-sm shadow-md shadow-emerald-500/20 hover:shadow-lg hover:shadow-emerald-500/30 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
+                    <span>Get Started Free</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+
+            <!-- Mobile Hamburger Button -->
+            <div class="flex items-center gap-3 md:hidden">
+                <button id="themeToggleMobileBtn" type="button" aria-label="Toggle Dark Mode" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                    <i id="mobileThemeIcon" data-lucide="moon" class="w-5 h-5"></i>
+                </button>
+                <button id="mobileMenuBtn" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open Navigation Menu" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-emerald-600">
+                    <i id="menuIcon" data-lucide="menu" class="w-6 h-6"></i>
+                    <i id="closeIcon" data-lucide="x" class="w-6 h-6 hidden"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer (Animated Dropdown) -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white/95 dark:bg-obsidian/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 px-6 py-6 transition-all duration-300 shadow-2xl">
+            <nav class="flex flex-col gap-4 text-base font-semibold text-slate-700 dark:text-slate-200">
+                <a href="#features" class="mobile-nav-link py-2 border-b border-slate-100 dark:border-slate-800/60 hover:text-emerald-600">Features</a>
+                <a href="#how-it-works" class="mobile-nav-link py-2 border-b border-slate-100 dark:border-slate-800/60 hover:text-emerald-600">How It Works</a>
+                <a href="#testimonials" class="mobile-nav-link py-2 border-b border-slate-100 dark:border-slate-800/60 hover:text-emerald-600">User Reviews</a>
+                <a href="#pricing" class="mobile-nav-link py-2 border-b border-slate-100 dark:border-slate-800/60 hover:text-emerald-600">Pricing Plans</a>
+                <a href="#faq" class="mobile-nav-link py-2 border-b border-slate-100 dark:border-slate-800/60 hover:text-emerald-600">FAQ</a>
+                <a href="#contact" class="mobile-nav-link py-2 border-b border-slate-100 dark:border-slate-800/60 hover:text-emerald-600">Contact Us</a>
+                
+                <div class="pt-4 flex flex-col gap-3">
+                    <a href="/desktop.html#/login" class="w-full text-center py-3 rounded-xl border border-slate-200 dark:border-slate-700 font-bold text-slate-800 dark:text-white">
+                        Sign In
+                    </a>
+                    <a href="#pricing" class="mobile-nav-link w-full text-center py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-bold shadow-md shadow-emerald-500/20">
+                        Get Started Free
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- =========================================================================
+         2. HERO SECTION (With Parallax Card, Trust Badges, Micro-Interactions)
+    ========================================================================== -->
+    <section class="relative pt-36 pb-24 lg:pt-44 lg:pb-32 overflow-hidden hero-mesh-bg" id="hero">
+        <!-- Floating Ambient Glows -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-emerald-500/15 dark:bg-emerald-500/20 blur-[130px] rounded-full pointer-events-none -z-10"></div>
+        <div class="absolute top-1/3 right-10 w-[400px] h-[400px] bg-forest-DEFAULT/10 dark:bg-forest-DEFAULT/25 blur-[140px] rounded-full pointer-events-none -z-10"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                
+                <!-- Left Hero Column: Copy & Actions -->
+                <div class="lg:col-span-7 space-y-8 text-center lg:text-left fade-in-element">
+                    
+                    <!-- Pre-Header Badge -->
+                    <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800/60 text-emerald-700 dark:text-emerald-300 text-xs font-bold tracking-wide uppercase shadow-sm">
+                        <span class="flex h-2 w-2 relative">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                        </span>
+                        Next-Gen Expense Intelligence • Split Chill 2.0
+                    </div>
+
+                    <!-- Main Catchy Title -->
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.12]">
+                        Split Expenses With Grace. <br class="hidden sm:inline" />
+                        <span class="emerald-gradient-text">Chill Without Drama.</span>
+                    </h1>
+
+                    <!-- Value Proposition Paragraph -->
+                    <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-300 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        The ultimate financial collaboration tool for roommates, couples, trip squads, and creators. Automated receipt parsing, mathematically optimal debt settlement, and zero awkward conversations.
+                    </p>
+
+                    <!-- Dual CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#pricing" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-bold text-base shadow-md shadow-emerald-500/25 hover:shadow-lg hover:shadow-emerald-500/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
+                            <i data-lucide="sparkles" class="w-5 h-5"></i>
+                            <span>Create Free Group</span>
+                        </a>
+
+                        <a href="#how-it-works" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-7 py-4 rounded-xl bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 font-bold text-base hover:bg-slate-50 dark:hover:bg-slate-750 hover:border-emerald-500/40 transition-all duration-200 shadow-sm">
+                            <i data-lucide="play-circle" class="w-5 h-5 text-emerald-500"></i>
+                            <span>Watch 2-Min Demo</span>
+                        </a>
+                    </div>
+
+                    <!-- Social Proof Micro-Bar -->
+                    <div class="pt-6 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 text-sm text-slate-500 dark:text-slate-400">
+                        <div class="flex -space-x-2">
+                            <img class="inline-block h-10 w-10 rounded-full ring-2 ring-white dark:ring-obsidian" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt="Avatar User 1">
+                            <img class="inline-block h-10 w-10 rounded-full ring-2 ring-white dark:ring-obsidian" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" alt="Avatar User 2">
+                            <img class="inline-block h-10 w-10 rounded-full ring-2 ring-white dark:ring-obsidian" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80" alt="Avatar User 3">
+                            <img class="inline-block h-10 w-10 rounded-full ring-2 ring-white dark:ring-obsidian" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80" alt="Avatar User 4">
+                        </div>
+                        <div class="flex flex-col text-left">
+                            <div class="flex items-center gap-1 text-amber-500">
+                                <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                                <span class="font-bold text-slate-900 dark:text-white ms-1">4.9/5</span>
+                            </div>
+                            <span class="text-xs">Trusted by 85,000+ happy groups across 140 countries</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Hero Column: Interactive Parallax 3D Financial Dashboard Card -->
+                <div class="lg:col-span-5 parallax-card-wrapper fade-in-element">
+                    <div id="heroCard" class="parallax-card-inner relative rounded-3xl p-6 sm:p-8 bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl border border-slate-200/90 dark:border-slate-800 shadow-luxury shadow-emerald-900/10">
+                        
+                        <!-- Header within Card -->
+                        <div class="flex items-center justify-between pb-6 border-b border-slate-100 dark:border-slate-800">
+                            <div>
+                                <span class="text-xs uppercase font-bold text-slate-400 tracking-wider">Group Balance</span>
+                                <h3 class="text-2xl font-extrabold text-slate-900 dark:text-white font-display">Tokyo Trip 2026 🗾</h3>
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 text-xs font-bold border border-emerald-300/40">
+                                4 Active Members
+                            </span>
+                        </div>
+
+                        <!-- Card Metric Grid -->
+                        <div class="grid grid-cols-2 gap-4 py-6">
+                            <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/50">
+                                <span class="text-xs text-slate-500 font-medium">Total Group Spend</span>
+                                <p class="text-2xl font-extrabold text-slate-900 dark:text-white mt-1 font-display">$4,850.40</p>
+                                <span class="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1 mt-1">
+                                    <i data-lucide="trending-up" class="w-3.5 h-3.5"></i> 18 Transactions
+                                </span>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20">
+                                <span class="text-xs text-emerald-800 dark:text-emerald-300 font-medium">You Are Owed</span>
+                                <p class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400 mt-1 font-display">+$620.50</p>
+                                <span class="text-[11px] text-slate-500 font-semibold flex items-center gap-1 mt-1">
+                                    From Liam & Sophia
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Live Mini Transaction Rows -->
+                        <div class="space-y-3">
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Recent Activity</span>
+                            
+                            <!-- Item 1 -->
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50/70 dark:bg-slate-800/40 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-9 h-9 rounded-lg bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold">
+                                        <i data-lucide="utensils" class="w-4 h-4"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-bold text-slate-800 dark:text-slate-100">Shinjuku Omakase Dinner</p>
+                                        <p class="text-xs text-slate-400">Paid by You • Split Equally</p>
+                                    </div>
+                                </div>
+                                <span class="text-sm font-bold text-slate-900 dark:text-white">$320.00</span>
+                            </div>
+
+                            <!-- Item 2 -->
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50/70 dark:bg-slate-800/40 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-9 h-9 rounded-lg bg-teal-100 dark:bg-teal-950 text-teal-600 dark:text-teal-400 flex items-center justify-center font-bold">
+                                        <i data-lucide="train" class="w-4 h-4"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-bold text-slate-800 dark:text-slate-100">JR Bullet Train Tickets</p>
+                                        <p class="text-xs text-slate-400">Paid by Sophia • 4 people</p>
+                                    </div>
+                                </div>
+                                <span class="text-sm font-bold text-slate-900 dark:text-white">$480.00</span>
+                            </div>
+                        </div>
+
+                        <!-- 1-Click Optimal Debt Transfer Pill -->
+                        <div class="mt-6 pt-5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+                                <span class="text-xs font-semibold text-slate-600 dark:text-slate-300">Simplified Settlement: 1 transfer resolves all</span>
+                            </div>
+                            <button type="button" class="px-3.5 py-1.5 rounded-lg bg-emerald-500 text-white text-xs font-bold hover:bg-emerald-600 transition-colors">
+                                Settle Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         3. LOGO TICKER / BRAND PARTNERS MARQUEE
+    ========================================================================== -->
+    <div class="py-12 border-y border-slate-200/70 dark:border-slate-800/80 bg-white/40 dark:bg-slate-900/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-xs uppercase tracking-widest font-extrabold text-slate-400 mb-8">Integrated With Global Banking & Payment Rails</p>
+            <div class="flex flex-wrap items-center justify-center gap-8 sm:gap-14 opacity-70 grayscale hover:grayscale-0 transition-all duration-300">
+                <div class="flex items-center gap-2 font-display font-extrabold text-xl text-slate-700 dark:text-slate-300">
+                    <i data-lucide="shield-check" class="text-emerald-500"></i> Stripe
+                </div>
+                <div class="flex items-center gap-2 font-display font-extrabold text-xl text-slate-700 dark:text-slate-300">
+                    <i data-lucide="wallet" class="text-emerald-500"></i> Apple Pay
+                </div>
+                <div class="flex items-center gap-2 font-display font-extrabold text-xl text-slate-700 dark:text-slate-300">
+                    <i data-lucide="credit-card" class="text-emerald-500"></i> Wise FX
+                </div>
+                <div class="flex items-center gap-2 font-display font-extrabold text-xl text-slate-700 dark:text-slate-300">
+                    <i data-lucide="landmark" class="text-emerald-500"></i> Plaid
+                </div>
+                <div class="flex items-center gap-2 font-display font-extrabold text-xl text-slate-700 dark:text-slate-300">
+                    <i data-lucide="circle-dollar-sign" class="text-emerald-500"></i> Revolut
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================================
+         4. CORE VALUE FEATURES SECTION (Luxury Grid Layout)
+    ========================================================================== -->
+    <section id="features" class="py-24 lg:py-32 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-16 sm:mb-20 space-y-4 fade-in-element">
+                <span class="px-3.5 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 text-xs font-bold uppercase tracking-wider border border-emerald-200 dark:border-emerald-800/60">
+                    Architected For Frictionless Living
+                </span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                    Every Feature Engineered To <br>
+                    <span class="emerald-gradient-text">Eliminate Awkward Money Talks</span>
+                </h2>
+                <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300">
+                    Never calculate tip percentages on napkins again. Spill Chill takes messy receipts and turns them into crystal-clear micro-balances.
+                </p>
+            </div>
+
+            <!-- Features Grid (6 High-Impact Cards) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Card 1: AI Receipt OCR -->
+                <div class="group relative p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 hover:border-emerald-500/50 shadow-sm hover:shadow-emerald-glow transition-all duration-300 hover:-translate-y-1.5 fade-in-element">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300">
+                        <i data-lucide="scan-line" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 font-display">AI Receipt Scanner (OCR)</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Snap a photo of any restaurant receipt, grocery bill, or handwritten bar tab. Our multi-modal vision engine isolates line items, taxes, and service fees in 1.4 seconds.
+                    </p>
+                </div>
+
+                <!-- Card 2: Optimal Debt Reduction Algorithm -->
+                <div class="group relative p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 hover:border-emerald-500/50 shadow-sm hover:shadow-emerald-glow transition-all duration-300 hover:-translate-y-1.5 fade-in-element">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300">
+                        <i data-lucide="git-merge" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 font-display">Mathematical Debt Minimizer</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Why send 15 peer transfers when 2 can settle the entire trip? Our graph optimization algorithm finds the mathematical minimum transaction paths across any group size.
+                    </p>
+                </div>
+
+                <!-- Card 3: Multi-Currency Live FX -->
+                <div class="group relative p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 hover:border-emerald-500/50 shadow-sm hover:shadow-emerald-glow transition-all duration-300 hover:-translate-y-1.5 fade-in-element">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300">
+                        <i data-lucide="globe-2" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 font-display">160+ Multi-Currency Conversions</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Travelling across borders? Log in Euros, Yen, Pesos, or USD. Instant spot-rate normalization ensures nobody loses money to hidden foreign exchange fees.
+                    </p>
+                </div>
+
+                <!-- Card 4: Scheduled Recurring Splits -->
+                <div class="group relative p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 hover:border-emerald-500/50 shadow-sm hover:shadow-emerald-glow transition-all duration-300 hover:-translate-y-1.5 fade-in-element">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300">
+                        <i data-lucide="calendar-sync" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 font-display">Automated Recurring Bills</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Set and forget rent, Wi-Fi, Netflix, cleaning supplies, and utility invoices. Spill Chill automatically logs and assigns scheduled monthly splits on the 1st of every month.
+                    </p>
+                </div>
+
+                <!-- Card 5: Bank-Grade Privacy & Encryption -->
+                <div class="group relative p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 hover:border-emerald-500/50 shadow-sm hover:shadow-emerald-glow transition-all duration-300 hover:-translate-y-1.5 fade-in-element">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300">
+                        <i data-lucide="shield-check" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 font-display">Zero-Knowledge Privacy</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                        We never sell your spending habits or financial footprints to advertisers. Self-hostable, end-to-end encrypted, and compliant with strict global financial privacy standards.
+                    </p>
+                </div>
+
+                <!-- Card 6: One-Click Export & PDF Reports -->
+                <div class="group relative p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 hover:border-emerald-500/50 shadow-sm hover:shadow-emerald-glow transition-all duration-300 hover:-translate-y-1.5 fade-in-element">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300">
+                        <i data-lucide="file-spreadsheet" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 font-display">One-Click CSV / PDF Audits</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Download comprehensive balance sheets, itemized breakdowns, and transaction history receipts ready for accountant review, roommates, or tax submissions.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         5. HOW IT WORKS / PARALLAX SCROLL PROGRESSION
+    ========================================================================== -->
+    <section id="how-it-works" class="py-24 bg-slate-100/60 dark:bg-slate-900/60 border-y border-slate-200/80 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16 fade-in-element">
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Dead Simple Workflow</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-2 font-display">How Spill Chill Works In 3 Steps</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+                
+                <!-- Step 1 -->
+                <div class="relative p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-4 shadow-sm fade-in-element">
+                    <div class="w-12 h-12 rounded-full bg-emerald-500 text-white font-extrabold text-lg flex items-center justify-center font-display shadow-md shadow-emerald-500/30">
+                        01
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white font-display">Create Your Circle</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">
+                        Start a group in 10 seconds. Invite members via link, QR code, or email. No registration required for guests to view balances.
+                    </p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-4 shadow-sm fade-in-element">
+                    <div class="w-12 h-12 rounded-full bg-emerald-500 text-white font-extrabold text-lg flex items-center justify-center font-display shadow-md shadow-emerald-500/30">
+                        02
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white font-display">Log or Snap Bills</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">
+                        Upload receipts or type amounts in any currency. Tag individual items, split evenly, by percentages, or custom shares.
+                    </p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-4 shadow-sm fade-in-element">
+                    <div class="w-12 h-12 rounded-full bg-forest-DEFAULT text-white font-extrabold text-lg flex items-center justify-center font-display shadow-md shadow-forest-DEFAULT/30">
+                        03
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white font-display">1-Click Settle Up</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">
+                        Spill Chill figures out who pays whom with minimum transactions. Connect directly to Venmo, UPI, Wise, or record cash.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         6. STATS COUNTER / REAL-TIME IMPACT NUMBERS
+    ========================================================================== -->
+    <section class="py-20 bg-slate-50 dark:bg-slate-900/80 border-y border-slate-200/80 dark:border-slate-800 text-black relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
+                
+                <div class="p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 shadow-sm space-y-2 fade-in-element hover:border-emerald-500/40 transition-colors">
+                    <p class="text-4xl sm:text-5xl font-extrabold font-display counter-item text-black dark:text-white" data-target="420" data-prefix="$" data-suffix="M+">$0M+</p>
+                    <p class="text-sm text-slate-800 dark:text-slate-300 font-semibold">Group Expenses Tracked</p>
+                </div>
+
+                <div class="p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 shadow-sm space-y-2 fade-in-element hover:border-emerald-500/40 transition-colors">
+                    <p class="text-4xl sm:text-5xl font-extrabold font-display counter-item text-black dark:text-white" data-target="140" data-suffix="+">0+</p>
+                    <p class="text-sm text-slate-800 dark:text-slate-300 font-semibold">Countries Supported</p>
+                </div>
+
+                <div class="p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 shadow-sm space-y-2 fade-in-element hover:border-emerald-500/40 transition-colors">
+                    <p class="text-4xl sm:text-5xl font-extrabold font-display counter-item text-black dark:text-white" data-target="99" data-suffix=".98%">0%</p>
+                    <p class="text-sm text-slate-800 dark:text-slate-300 font-semibold">Platform Uptime</p>
+                </div>
+
+                <div class="p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 shadow-sm space-y-2 fade-in-element hover:border-emerald-500/40 transition-colors">
+                    <p class="text-4xl sm:text-5xl font-extrabold font-display counter-item text-black dark:text-white" data-target="30" data-prefix="< " data-suffix="s">&lt; 0s</p>
+                    <p class="text-sm text-slate-800 dark:text-slate-300 font-semibold">Avg. Settlement Time</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         7. INTERACTIVE TESTIMONIAL CAROUSEL / SLIDER
+    ========================================================================== -->
+    <section id="testimonials" class="py-24 lg:py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 fade-in-element">
+                <div class="space-y-3">
+                    <span class="text-xs uppercase font-extrabold tracking-wider text-emerald-600 dark:text-emerald-400">Real People. Real Peace.</span>
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white font-display">Loved By Travelers & Roommates</h2>
+                </div>
+
+                <!-- Carousel Control Buttons -->
+                <div class="flex items-center gap-3 mt-6 md:mt-0">
+                    <button id="carouselPrevBtn" aria-label="Previous Testimonial" class="w-12 h-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-500 hover:border-emerald-500 flex items-center justify-center transition-all duration-200">
+                        <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                    </button>
+                    <button id="carouselNextBtn" aria-label="Next Testimonial" class="w-12 h-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-500 hover:border-emerald-500 flex items-center justify-center transition-all duration-200">
+                        <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Carousel Slide Container -->
+            <div class="relative overflow-hidden rounded-3xl">
+                <div id="carouselTrack" class="flex transition-transform duration-500 ease-out">
+                    
+                    <!-- Slide 1 -->
+                    <div class="w-full flex-shrink-0 px-2 sm:px-4">
+                        <div class="p-8 sm:p-12 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm relative">
+                            <i data-lucide="quote" class="w-12 h-12 text-emerald-500/20 absolute top-8 right-8"></i>
+                            <div class="flex items-center gap-1 text-amber-400 mb-6">
+                                <i data-lucide="star" class="w-5 h-5 fill-amber-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-amber-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-amber-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-amber-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-amber-400"></i>
+                            </div>
+                            <p class="text-lg sm:text-xl text-slate-700 dark:text-slate-200 font-medium leading-relaxed mb-8">
+                                "We lived in a Brooklyn loft with 4 roommates for three years. Utilities, cleaning services, groceries—everything was a nightmare before Spill Chill. The automated OCR bill reader saved our friendships."
+                            </p>
+                            <div class="flex items-center gap-4">
+                                <img class="w-14 h-14 rounded-full object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=140&q=80" alt="Elena Vance">
+                                <div>
+                                    <h4 class="font-bold text-slate-900 dark:text-white font-display">Elena Vance</h4>
+                                    <p class="text-xs text-slate-400">Brooklyn, NY • 4-Roommate Household</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="w-full flex-shrink-0 px-2 sm:px-4">
+                        <div class="p-8 sm:p-12 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm relative">
+                            <i data-lucide="quote" class="w-12 h-12 text-emerald-500/20 absolute top-8 right-8"></i>
+                            <div class="flex items-center gap-1 text-amber-400 mb-6">
+                                <i data-lucide="star" class="w-5 h-5 fill-amber-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-amber-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-amber-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-amber-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-amber-400"></i>
+                            </div>
+                            <p class="text-lg sm:text-xl text-slate-700 dark:text-slate-200 font-medium leading-relaxed mb-8">
+                                "Took 8 friends across Italy and Switzerland with Euros and Swiss Francs flying everywhere. Spill Chill normalized all currencies instantly and simplified 40 debts into literally three transfers. Magic."
+                            </p>
+                            <div class="flex items-center gap-4">
+                                <img class="w-14 h-14 rounded-full object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=140&q=80" alt="Marcus Thorne">
+                                <div>
+                                    <h4 class="font-bold text-slate-900 dark:text-white font-display">Marcus Thorne</h4>
+                                    <p class="text-xs text-slate-400">San Francisco, CA • Travel Organizer</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="w-full flex-shrink-0 px-2 sm:px-4">
+                        <div class="p-8 sm:p-12 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm relative">
+                            <i data-lucide="quote" class="w-12 h-12 text-emerald-500/20 absolute top-8 right-8"></i>
+                            <div class="flex items-center gap-1 text-amber-400 mb-6">
+                                <i data-lucide="star" class="w-5 h-5 fill-amber-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-amber-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-amber-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-amber-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-amber-400"></i>
+                            </div>
+                            <p class="text-lg sm:text-xl text-slate-700 dark:text-slate-200 font-medium leading-relaxed mb-8">
+                                "The self-hosted capability and clean obsidian/emerald design are gorgeous. My partner and I use it daily to split rent, groceries, and vacations without checking joint spreadsheets."
+                            </p>
+                            <div class="flex items-center gap-4">
+                                <img class="w-14 h-14 rounded-full object-cover" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=140&q=80" alt="Samantha Wu">
+                                <div>
+                                    <h4 class="font-bold text-slate-900 dark:text-white font-display">Samantha Wu</h4>
+                                    <p class="text-xs text-slate-400">Austin, TX • Software Architect</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Carousel Pagination Dots -->
+            <div id="carouselDots" class="flex items-center justify-center gap-2 mt-8">
+                <button class="carousel-dot w-3 h-3 rounded-full bg-emerald-500 transition-all duration-200" aria-label="Go to slide 1"></button>
+                <button class="carousel-dot w-3 h-3 rounded-full bg-slate-300 dark:bg-slate-700 transition-all duration-200" aria-label="Go to slide 2"></button>
+                <button class="carousel-dot w-3 h-3 rounded-full bg-slate-300 dark:bg-slate-700 transition-all duration-200" aria-label="Go to slide 3"></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         8. TRANSPARENT PRICING TABLE (With Monthly / Annual Billing Toggle)
+    ========================================================================== -->
+    <section id="pricing" class="py-24 lg:py-32 bg-slate-100/60 dark:bg-slate-900/60 border-t border-slate-200/80 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16 fade-in-element">
+                <span class="px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 text-xs font-bold uppercase tracking-wider border border-emerald-200 dark:border-emerald-800/60">
+                    Transparent Financials
+                </span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white mt-3 font-display">
+                    Fair Plans For Everyone
+                </h2>
+                <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 mt-2">
+                    Free forever for everyday splitting. Upgrade to unlock unlimited AI receipt parsing and priority multi-currency settlement.
+                </p>
+
+                <!-- Billing Toggle Button -->
+                <div class="flex items-center justify-center gap-4 mt-8">
+                    <span id="monthlyLabel" class="text-sm font-bold text-slate-900 dark:text-white">Monthly</span>
+                    <button id="billingToggle" type="button" role="switch" aria-checked="false" aria-label="Toggle annual billing discount" class="w-14 h-8 rounded-full bg-slate-300 dark:bg-slate-700 p-1 relative transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        <span id="toggleKnob" class="block w-6 h-6 rounded-full bg-white shadow-md transform transition-transform duration-200 translate-x-0"></span>
+                    </button>
+                    <span id="annualLabel" class="text-sm font-semibold text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+                        Annual 
+                        <span class="px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-[11px] font-extrabold">Save 25%</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Pricing Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                
+                <!-- Plan 1: Free Starter -->
+                <div class="p-8 sm:p-10 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-col justify-between shadow-sm hover:border-slate-300 transition-all duration-200 fade-in-element">
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white font-display">Free Chill</h3>
+                            <p class="text-xs text-slate-500 mt-1">Ideal for roommates & casual weekend getaways</p>
+                        </div>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-4xl font-extrabold text-slate-900 dark:text-white font-display">$0</span>
+                            <span class="text-sm text-slate-500 font-medium">/ month</span>
+                        </div>
+                        <ul class="space-y-3.5 text-sm text-slate-600 dark:text-slate-300">
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i> Up to 3 Active Groups</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i> Unlimited Group Members</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i> Mathematical Debt Simplifier</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i> 5 AI Receipt Scans / Month</li>
+                            <li class="flex items-center gap-3 text-slate-400"><i data-lucide="x" class="w-4 h-4 flex-shrink-0"></i> Multi-Currency Spot FX</li>
+                            <li class="flex items-center gap-3 text-slate-400"><i data-lucide="x" class="w-4 h-4 flex-shrink-0"></i> Scheduled Recurring Splits</li>
+                        </ul>
+                    </div>
+                    <a href="/desktop.html#/signup" class="mt-8 w-full py-3.5 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-white font-bold text-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                        Start Free
+                    </a>
+                </div>
+
+                <!-- Plan 2: Pro Squad (Featured Most Popular) -->
+                <div class="relative p-8 sm:p-10 rounded-3xl bg-white dark:bg-slate-900 border-2 border-emerald-500 flex flex-col justify-between shadow-2xl shadow-emerald-500/15 hover:shadow-emerald-glow transition-all duration-200 transform md:-translate-y-2 fade-in-element">
+                    <!-- Featured Pill -->
+                    <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-emerald-500 to-forest-DEFAULT text-white text-xs font-extrabold uppercase tracking-wide shadow-md">
+                        Most Popular
+                    </div>
+
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white font-display">Pro Squad</h3>
+                            <p class="text-xs text-slate-500 mt-1">For frequent travelers, founders & active groups</p>
+                        </div>
+                        <div class="flex items-baseline gap-1">
+                            <span id="proPrice" class="text-5xl font-extrabold text-slate-900 dark:text-white font-display">$8</span>
+                            <span class="text-sm text-slate-500 font-medium">/ month</span>
+                        </div>
+                        <ul class="space-y-3.5 text-sm text-slate-700 dark:text-slate-200 font-medium">
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i> Unlimited Active Groups</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i> Unlimited AI Receipt Scans (OCR)</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i> Live 160+ Multi-Currency Spot FX</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i> Recurring Automated Splits</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i> 1-Click PDF / Excel Export</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i> Priority 24/7 Concierge Support</li>
+                        </ul>
+                    </div>
+                    <a href="/desktop.html#/signup" class="mt-8 w-full py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-bold text-center shadow-md shadow-emerald-500/25 hover:shadow-lg hover:shadow-emerald-500/35 hover:opacity-95 transition-all">
+                        Upgrade To Pro
+                    </a>
+                </div>
+
+                <!-- Plan 3: Community / Teams -->
+                <div class="p-8 sm:p-10 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-col justify-between shadow-sm hover:border-slate-300 transition-all duration-200 fade-in-element">
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white font-display">Clubs & Teams</h3>
+                            <p class="text-xs text-slate-500 mt-1">For organizations, student clubs, and companies</p>
+                        </div>
+                        <div class="flex items-baseline gap-1">
+                            <span id="clubPrice" class="text-4xl font-extrabold text-slate-900 dark:text-white font-display">$24</span>
+                            <span class="text-sm text-slate-500 font-medium">/ month</span>
+                        </div>
+                        <ul class="space-y-3.5 text-sm text-slate-600 dark:text-slate-300">
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i> Everything in Pro Squad</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i> Multi-Tenant Admin Controls</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i> Custom Approval Workflows</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i> QuickBooks & Xero Sync</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i> Dedicated Account Manager</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i> Custom SLA Guarantee</li>
+                        </ul>
+                    </div>
+                    <a href="#contact" class="mt-8 w-full py-3.5 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-white font-bold text-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                        Contact Enterprise
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         9. INTERACTIVE ACCORDION FAQ SECTION
+    ========================================================================== -->
+    <section id="faq" class="py-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in-element">
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Common Questions</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-2 font-display">Frequently Asked Questions</h2>
+        </div>
+
+        <div class="space-y-4" id="faqAccordion">
+            
+            <!-- Question 1 -->
+            <div class="faq-item rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm transition-all duration-200">
+                <button type="button" class="faq-question w-full p-6 text-left flex items-center justify-between font-bold text-slate-900 dark:text-white focus:outline-none" aria-expanded="false">
+                    <span class="text-base sm:text-lg">How does Spill Chill minimize debts?</span>
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-emerald-500 transition-transform duration-200"></i>
+                </button>
+                <div class="faq-answer px-6 pb-6 text-sm text-slate-600 dark:text-slate-300 leading-relaxed hidden">
+                    Spill Chill uses a graph-simplification algorithm. For example, if Alex owes Beth $20, and Beth owes Chris $20, our engine automatically instructs Alex to pay Chris $20 directly. This reduces total settlement transactions by up to 80%.
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="faq-item rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm transition-all duration-200">
+                <button type="button" class="faq-question w-full p-6 text-left flex items-center justify-between font-bold text-slate-900 dark:text-white focus:outline-none" aria-expanded="false">
+                    <span class="text-base sm:text-lg">Do my group members need to install an app?</span>
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-emerald-500 transition-transform duration-200"></i>
+                </button>
+                <div class="faq-answer px-6 pb-6 text-sm text-slate-600 dark:text-slate-300 leading-relaxed hidden">
+                    No! Spill Chill runs smoothly in any mobile or desktop web browser. You can share a group link, and friends can view balances, add expenses, and settle debts without having to download an app from an app store.
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="faq-item rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm transition-all duration-200">
+                <button type="button" class="faq-question w-full p-6 text-left flex items-center justify-between font-bold text-slate-900 dark:text-white focus:outline-none" aria-expanded="false">
+                    <span class="text-base sm:text-lg">Is my financial and banking data secure?</span>
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-emerald-500 transition-transform duration-200"></i>
+                </button>
+                <div class="faq-answer px-6 pb-6 text-sm text-slate-600 dark:text-slate-300 leading-relaxed hidden">
+                    Yes. All traffic is encrypted using TLS 1.3 with 256-bit encryption. We do not store raw credit card numbers or banking passwords. You can also self-host Spill Chill entirely on your own private infrastructure.
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="faq-item rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm transition-all duration-200">
+                <button type="button" class="faq-question w-full p-6 text-left flex items-center justify-between font-bold text-slate-900 dark:text-white focus:outline-none" aria-expanded="false">
+                    <span class="text-base sm:text-lg">Can I self-host Spill Chill on Docker or Kubernetes?</span>
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-emerald-500 transition-transform duration-200"></i>
+                </button>
+                <div class="faq-answer px-6 pb-6 text-sm text-slate-600 dark:text-slate-300 leading-relaxed hidden">
+                    Absolutely. Spill Chill is fully open-source and provides official lightweight Docker images with SQLite, MySQL, and PostgreSQL backends for self-hosting enthusiasts.
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         10. CONTACT FORM WITH REAL-TIME CLIENT VALIDATION & GOOGLE MAPS
+    ========================================================================== -->
+    <section id="contact" class="py-24 bg-slate-100/60 dark:bg-slate-900/60 border-t border-slate-200/80 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                
+                <!-- Left: Contact Form Column -->
+                <div class="lg:col-span-6 bg-white dark:bg-slate-900 p-8 sm:p-10 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm fade-in-element">
+                    <div class="space-y-2 mb-8">
+                        <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Get In Touch</span>
+                        <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white font-display">Speak With Our Squad</h2>
+                        <p class="text-sm text-slate-500">Have an enterprise inquiry or question? Send a message and our team will get back to you within 24 hours.</p>
+                    </div>
+
+                    <!-- Interactive Form -->
+                    <form id="contactForm" novalidate class="space-y-5">
+                        
+                        <!-- Name Field -->
+                        <div>
+                            <label for="fullName" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">Full Name *</label>
+                            <input type="text" id="fullName" name="fullName" required placeholder="Alex Mercer" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm transition-all">
+                            <span id="nameError" class="text-xs text-rose-500 mt-1 hidden">Please enter your name (at least 2 characters).</span>
+                        </div>
+
+                        <!-- Email Field -->
+                        <div>
+                            <label for="email" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">Email Address *</label>
+                            <input type="email" id="email" name="email" required placeholder="alex@company.com" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm transition-all">
+                            <span id="emailError" class="text-xs text-rose-500 mt-1 hidden">Please enter a valid email address.</span>
+                        </div>
+
+                        <!-- Inquiry Category -->
+                        <div>
+                            <label for="category" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">Topic</label>
+                            <select id="category" name="category" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm transition-all">
+                                <option value="general">General Question</option>
+                                <option value="enterprise">Enterprise Pricing</option>
+                                <option value="selfhost">Self-Hosting Assistance</option>
+                                <option value="partnership">Partnership & API</option>
+                            </select>
+                        </div>
+
+                        <!-- Message Field -->
+                        <div>
+                            <label for="message" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">Message *</label>
+                            <textarea id="message" name="message" rows="4" required placeholder="Tell us how we can help your group..." class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm transition-all"></textarea>
+                            <span id="messageError" class="text-xs text-rose-500 mt-1 hidden">Message must be at least 10 characters long.</span>
+                        </div>
+
+                        <!-- Submit Button with Feedback -->
+                        <button type="submit" id="submitBtn" class="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-forest-DEFAULT text-white font-bold text-sm shadow-md shadow-emerald-500/25 hover:shadow-lg hover:shadow-emerald-500/40 transition-all flex items-center justify-center gap-2">
+                            <span>Send Message</span>
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                        </button>
+
+                        <!-- Success Alert Message (Hidden Initially) -->
+                        <div id="formSuccessAlert" class="hidden p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-800 dark:text-emerald-300 text-sm flex items-center gap-3">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500 flex-shrink-0"></i>
+                            <span>Thank you! Your message has been sent. We'll reply within 24 hours.</span>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Right: Google Maps Embed & Office Card -->
+                <div class="lg:col-span-6 space-y-6 fade-in-element" id="location">
+                    
+                    <!-- Office Info Card -->
+                    <div class="p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold">
+                                <i data-lucide="map-pin" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 dark:text-white font-display">Spill Chill Global HQ</h4>
+                                <p class="text-xs text-slate-400">Financial District • San Francisco, CA</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-600 dark:text-slate-300">
+                            555 California Street, Suite 4200<br>
+                            San Francisco, CA 94104, United States
+                        </p>
+                        <div class="pt-2 flex flex-wrap gap-4 text-xs font-semibold text-slate-600 dark:text-slate-400">
+                            <span class="flex items-center gap-1.5"><i data-lucide="mail" class="w-4 h-4 text-emerald-500"></i> support@spillchill.ai</span>
+                            <span class="flex items-center gap-1.5"><i data-lucide="phone" class="w-4 h-4 text-emerald-500"></i> +1 (415) 890-CHILL</span>
+                        </div>
+                    </div>
+
+                    <!-- Google Maps Iframe Embed -->
+                    <div class="rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm h-[320px] bg-slate-200 dark:bg-slate-800">
+                        <iframe 
+                            title="Spill Chill Headquarters Map"
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            loading="lazy" 
+                            allowfullscreen 
+                            referrerpolicy="no-referrer-when-downgrade" 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.019747517524!2d-122.40428542360814!3d37.79252651130664!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808580629ecaa0f3%3A0x60aaec2e761df89b!2s555%20California%20St%2C%20San%20Francisco%2C%20CA%2094104!5e0!3m2!1sen!2sus!4v1710000000000!5m2!1sen!2sus">
+                        </iframe>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         11. COMPREHENSIVE FOOTER & SOCIAL LINKS
+    ========================================================================== -->
+    <footer class="bg-white dark:bg-obsidian border-t border-slate-200 dark:border-slate-800 pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-100 dark:border-slate-800">
+                
+                <!-- Brand Column -->
+                <div class="lg:col-span-2 space-y-4">
+                    <a href="#" class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center text-white">
+                            <i data-lucide="split" class="w-5 h-5 -rotate-45"></i>
+                        </div>
+                        <span class="font-display font-extrabold text-2xl text-slate-900 dark:text-white">Spill Chill</span>
+                    </a>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 max-w-sm leading-relaxed">
+                        Intelligent expense splitting, real-time multi-currency settlement, and automated receipt recognition for teams, travelers, and friends.
+                    </p>
+                    
+                    <!-- Social Media Links -->
+                    <div class="flex items-center gap-3 pt-2">
+                        <a href="https://github.com/Shavitjnr" target="_blank" rel="noopener noreferrer" aria-label="Spill Chill on GitHub" class="w-9 h-9 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-emerald-500 hover:bg-emerald-50 dark:hover:bg-slate-750 flex items-center justify-center transition-colors">
+                            <i data-lucide="github" class="w-4 h-4"></i>
+                        </a>
+                        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Spill Chill on Twitter" class="w-9 h-9 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-emerald-500 hover:bg-emerald-50 dark:hover:bg-slate-750 flex items-center justify-center transition-colors">
+                            <i data-lucide="twitter" class="w-4 h-4"></i>
+                        </a>
+                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="Spill Chill on LinkedIn" class="w-9 h-9 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-emerald-500 hover:bg-emerald-50 dark:hover:bg-slate-750 flex items-center justify-center transition-colors">
+                            <i data-lucide="linkedin" class="w-4 h-4"></i>
+                        </a>
+                        <a href="https://discord.com" target="_blank" rel="noopener noreferrer" aria-label="Spill Chill Discord Community" class="w-9 h-9 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-emerald-500 hover:bg-emerald-50 dark:hover:bg-slate-750 flex items-center justify-center transition-colors">
+                            <i data-lucide="message-square" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Product Links -->
+                <div>
+                    <h5 class="text-xs uppercase font-extrabold text-slate-900 dark:text-white tracking-wider mb-4">Product</h5>
+                    <ul class="space-y-2.5 text-sm text-slate-500 dark:text-slate-400">
+                        <li><a href="#features" class="hover:text-emerald-500 transition-colors">Receipt OCR Scanner</a></li>
+                        <li><a href="#features" class="hover:text-emerald-500 transition-colors">Debt Simplification</a></li>
+                        <li><a href="#features" class="hover:text-emerald-500 transition-colors">Multi-Currency FX</a></li>
+                        <li><a href="#features" class="hover:text-emerald-500 transition-colors">Self-Hosted Docker</a></li>
+                        <li><a href="/desktop.html#/login" class="hover:text-emerald-500 transition-colors">Web App Dashboard</a></li>
+                    </ul>
+                </div>
+
+                <!-- Resources Links -->
+                <div>
+                    <h5 class="text-xs uppercase font-extrabold text-slate-900 dark:text-white tracking-wider mb-4">Resources</h5>
+                    <ul class="space-y-2.5 text-sm text-slate-500 dark:text-slate-400">
+                        <li><a href="#faq" class="hover:text-emerald-500 transition-colors">Documentation</a></li>
+                        <li><a href="#faq" class="hover:text-emerald-500 transition-colors">API Reference</a></li>
+                        <li><a href="https://github.com/Shavitjnr" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-500 transition-colors">Community Forum</a></li>
+                        <li><a href="#pricing" class="hover:text-emerald-500 transition-colors">Release Notes</a></li>
+                        <li><a href="#faq" class="hover:text-emerald-500 transition-colors">System Status</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal / Compliance -->
+                <div>
+                    <h5 class="text-xs uppercase font-extrabold text-slate-900 dark:text-white tracking-wider mb-4">Security & Legal</h5>
+                    <ul class="space-y-2.5 text-sm text-slate-500 dark:text-slate-400">
+                        <li><a href="#" class="hover:text-emerald-500 transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-emerald-500 transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-emerald-500 transition-colors">SOC2 Compliance</a></li>
+                        <li><a href="#" class="hover:text-emerald-500 transition-colors">Cookie Preferences</a></li>
+                        <li><a href="#" class="hover:text-emerald-500 transition-colors">Security Whitepaper</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Bottom Copyright & WCAG Disclaimer -->
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
+                <p>© 2026 Spill Chill Inc. All rights reserved. Designed with Emerald (#10B981) & Forest (#064E3B).</p>
+                <div class="flex items-center gap-6">
+                    <span class="flex items-center gap-1.5"><i data-lucide="shield" class="w-3.5 h-3.5 text-emerald-500"></i> WCAG 2.1 AA Compliant</span>
+                    <span>Zero Ad-Tracking Guarantee</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- =========================================================================
+         12. STICKY CALL-TO-ACTION (Floating Bottom Bar on Scroll)
+    ========================================================================== -->
+    <div id="stickyCta" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 transform translate-y-28 opacity-0 transition-all duration-300 w-11/12 max-w-xl">
+        <div class="p-3.5 sm:p-4 rounded-2xl bg-slate-900/90 dark:bg-slate-800/90 text-white backdrop-blur-xl border border-emerald-500/30 shadow-2xl flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-emerald-500 text-white flex items-center justify-center font-bold flex-shrink-0">
+                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+                </div>
+                <div class="hidden sm:block">
+                    <p class="text-xs font-bold font-display">Ready to eliminate group debt friction?</p>
+                    <p class="text-[11px] text-emerald-300">Set up your circle in 10 seconds</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <a href="/desktop.html#/signup" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold shadow-md transition-colors whitespace-nowrap">
+                    Claim Free Group →
+                </a>
+                <button id="closeStickyCta" type="button" aria-label="Close Notification" class="text-slate-400 hover:text-white p-1">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================================
+         13. BACK TO TOP BUTTON
+    ========================================================================== -->
+    <button id="backToTopBtn" type="button" aria-label="Scroll back to top of page" class="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-white dark:bg-slate-800 text-slate-800 dark:text-white border border-slate-200 dark:border-slate-700 shadow-xl opacity-0 pointer-events-none hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-500 transition-all duration-300 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-emerald-500">
+        <i data-lucide="arrow-up" class="w-5 h-5"></i>
+    </button>
+
+    <!-- =========================================================================
+         14. VANILLA JAVASCRIPT (Interactivity, Parallax, Carousel, Validations)
+    ========================================================================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide Icons
+            lucide.createIcons();
+
+            /* -------------------------------------------------------------------------
+               A. DARK / LIGHT THEME TOGGLE
+            -------------------------------------------------------------------------- */
+            const htmlElement = document.documentElement;
+            const themeToggleBtn = document.getElementById('themeToggleBtn');
+            const themeToggleMobileBtn = document.getElementById('themeToggleMobileBtn');
+            const themeIconLight = document.getElementById('themeIconLight');
+            const themeIconDark = document.getElementById('themeIconDark');
+            const mobileThemeIcon = document.getElementById('mobileThemeIcon');
+
+            // Check saved theme or system preference
+            const savedTheme = localStorage.getItem('spillchill_theme') || 
+                (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+            function applyTheme(theme) {
+                if (theme === 'dark') {
+                    htmlElement.classList.add('dark');
+                    themeIconLight.classList.remove('hidden');
+                    themeIconDark.classList.add('hidden');
+                    localStorage.setItem('spillchill_theme', 'dark');
+                } else {
+                    htmlElement.classList.remove('dark');
+                    themeIconLight.classList.add('hidden');
+                    themeIconDark.classList.remove('hidden');
+                    localStorage.setItem('spillchill_theme', 'light');
+                }
+            }
+
+            applyTheme(savedTheme);
+
+            function toggleTheme() {
+                const isDark = htmlElement.classList.contains('dark');
+                applyTheme(isDark ? 'light' : 'dark');
+            }
+
+            themeToggleBtn?.addEventListener('click', toggleTheme);
+            themeToggleMobileBtn?.addEventListener('click', toggleTheme);
+
+            /* -------------------------------------------------------------------------
+               B. MOBILE MENU (HAMBURGER) TOGGLE
+            -------------------------------------------------------------------------- */
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuIcon = document.getElementById('menuIcon');
+            const closeIcon = document.getElementById('closeIcon');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+            function toggleMobileMenu() {
+                const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+                mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+                mobileMenu.classList.toggle('hidden');
+                menuIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+            }
+
+            mobileMenuBtn?.addEventListener('click', toggleMobileMenu);
+
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        toggleMobileMenu();
+                    }
+                });
+            });
+
+            /* -------------------------------------------------------------------------
+               C. SCROLL-TRIGGERED FADE-IN ANIMATIONS (IntersectionObserver)
+            -------------------------------------------------------------------------- */
+            const fadeElements = document.querySelectorAll('.fade-in-element');
+            const observerOptions = {
+                root: null,
+                threshold: 0.1,
+                rootMargin: '0px 0px -40px 0px'
+            };
+
+            const fadeObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            fadeElements.forEach(el => fadeObserver.observe(el));
+
+            /* -------------------------------------------------------------------------
+               D. PARALLAX 3D CARD MOUSE MOVEMENT EFFECT
+            -------------------------------------------------------------------------- */
+            const heroCard = document.getElementById('heroCard');
+            const cardWrapper = document.querySelector('.parallax-card-wrapper');
+
+            if (cardWrapper && heroCard) {
+                cardWrapper.addEventListener('mousemove', (e) => {
+                    const rect = cardWrapper.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    
+                    const rotateX = (-y / rect.height) * 16;
+                    const rotateY = (x / rect.width) * 16;
+
+                    heroCard.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                });
+
+                cardWrapper.addEventListener('mouseleave', () => {
+                    heroCard.style.transform = 'rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                });
+            }
+
+            /* -------------------------------------------------------------------------
+               E. STATS COUNTER ANIMATION
+            -------------------------------------------------------------------------- */
+            const counterItems = document.querySelectorAll('.counter-item');
+            let countersAnimated = false;
+
+            const counterObserver = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting && !countersAnimated) {
+                    countersAnimated = true;
+                    counterItems.forEach(counter => {
+                        const target = parseFloat(counter.getAttribute('data-target'));
+                        const prefix = counter.getAttribute('data-prefix') || '';
+                        const suffix = counter.getAttribute('data-suffix') || '';
+                        let current = 0;
+                        const duration = 1800; // ms
+                        const stepTime = 25;
+                        const totalSteps = duration / stepTime;
+                        const increment = target / totalSteps;
+
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                current = target;
+                                clearInterval(timer);
+                            }
+                            counter.textContent = `${prefix}${Math.round(current)}${suffix}`;
+                        }, stepTime);
+                    });
+                }
+            }, { threshold: 0.3 });
+
+            const statsSection = document.querySelector('.counter-item')?.parentElement?.parentElement;
+            if (statsSection) counterObserver.observe(statsSection);
+
+            /* -------------------------------------------------------------------------
+               F. TESTIMONIAL CAROUSEL / SLIDER
+            -------------------------------------------------------------------------- */
+            const carouselTrack = document.getElementById('carouselTrack');
+            const carouselPrevBtn = document.getElementById('carouselPrevBtn');
+            const carouselNextBtn = document.getElementById('carouselNextBtn');
+            const carouselDots = document.querySelectorAll('.carousel-dot');
+            let currentSlide = 0;
+            const totalSlides = 3;
+
+            function updateCarousel(index) {
+                currentSlide = (index + totalSlides) % totalSlides;
+                if (carouselTrack) {
+                    carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+                }
+                carouselDots.forEach((dot, dotIdx) => {
+                    if (dotIdx === currentSlide) {
+                        dot.classList.add('bg-emerald-500');
+                        dot.classList.remove('bg-slate-300', 'dark:bg-slate-700');
+                    } else {
+                        dot.classList.remove('bg-emerald-500');
+                        dot.classList.add('bg-slate-300', 'dark:bg-slate-700');
+                    }
+                });
+            }
+
+            carouselPrevBtn?.addEventListener('click', () => updateCarousel(currentSlide - 1));
+            carouselNextBtn?.addEventListener('click', () => updateCarousel(currentSlide + 1));
+
+            carouselDots.forEach((dot, idx) => {
+                dot.addEventListener('click', () => updateCarousel(idx));
+            });
+
+            // Autoplay carousel every 6 seconds
+            setInterval(() => {
+                updateCarousel(currentSlide + 1);
+            }, 6000);
+
+            /* -------------------------------------------------------------------------
+               G. PRICING ANNUAL / MONTHLY TOGGLE
+            -------------------------------------------------------------------------- */
+            const billingToggle = document.getElementById('billingToggle');
+            const toggleKnob = document.getElementById('toggleKnob');
+            const proPrice = document.getElementById('proPrice');
+            const clubPrice = document.getElementById('clubPrice');
+            let isAnnual = false;
+
+            billingToggle?.addEventListener('click', () => {
+                isAnnual = !isAnnual;
+                billingToggle.setAttribute('aria-checked', isAnnual);
+                
+                if (isAnnual) {
+                    billingToggle.classList.remove('bg-slate-300', 'dark:bg-slate-700');
+                    billingToggle.classList.add('bg-emerald-500');
+                    toggleKnob.classList.add('translate-x-6');
+                    proPrice.textContent = '$6';
+                    clubPrice.textContent = '$18';
+                } else {
+                    billingToggle.classList.add('bg-slate-300', 'dark:bg-slate-700');
+                    billingToggle.classList.remove('bg-emerald-500');
+                    toggleKnob.classList.remove('translate-x-6');
+                    proPrice.textContent = '$8';
+                    clubPrice.textContent = '$24';
+                }
+            });
+
+            /* -------------------------------------------------------------------------
+               H. ACCORDION FAQ
+            -------------------------------------------------------------------------- */
+            const faqQuestions = document.querySelectorAll('.faq-question');
+
+            faqQuestions.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+                    const answer = btn.nextElementSibling;
+                    const chevron = btn.querySelector('svg') || btn.querySelector('i');
+
+                    // Close all others
+                    faqQuestions.forEach(otherBtn => {
+                        if (otherBtn !== btn) {
+                            otherBtn.setAttribute('aria-expanded', 'false');
+                            otherBtn.nextElementSibling.classList.add('hidden');
+                            const otherIcon = otherBtn.querySelector('svg') || otherBtn.querySelector('i');
+                            if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+                        }
+                    });
+
+                    // Toggle current
+                    btn.setAttribute('aria-expanded', !isExpanded);
+                    if (!isExpanded) {
+                        answer.classList.remove('hidden');
+                        if (chevron) chevron.style.transform = 'rotate(180deg)';
+                    } else {
+                        answer.classList.add('hidden');
+                        if (chevron) chevron.style.transform = 'rotate(0deg)';
+                    }
+                });
+            });
+
+            /* -------------------------------------------------------------------------
+               I. CONTACT FORM VALIDATION & SUBMISSION
+            -------------------------------------------------------------------------- */
+            const contactForm = document.getElementById('contactForm');
+            const fullNameInput = document.getElementById('fullName');
+            const emailInput = document.getElementById('email');
+            const messageInput = document.getElementById('message');
+            const nameError = document.getElementById('nameError');
+            const emailError = document.getElementById('emailError');
+            const messageError = document.getElementById('messageError');
+            const formSuccessAlert = document.getElementById('formSuccessAlert');
+
+            function validateEmail(email) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            }
+
+            contactForm?.addEventListener('submit', (e) => {
+                e.preventDefault();
+                let isValid = true;
+
+                // Validate Name
+                if (!fullNameInput.value.trim() || fullNameInput.value.trim().length < 2) {
+                    nameError.classList.remove('hidden');
+                    isValid = false;
+                } else {
+                    nameError.classList.add('hidden');
+                }
+
+                // Validate Email
+                if (!validateEmail(emailInput.value.trim())) {
+                    emailError.classList.remove('hidden');
+                    isValid = false;
+                } else {
+                    emailError.classList.add('hidden');
+                }
+
+                // Validate Message
+                if (!messageInput.value.trim() || messageInput.value.trim().length < 10) {
+                    messageError.classList.remove('hidden');
+                    isValid = false;
+                } else {
+                    messageError.classList.add('hidden');
+                }
+
+                if (isValid) {
+                    // Simulate AJAX dispatch
+                    const submitBtn = document.getElementById('submitBtn');
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<span>Sending Message...</span>';
+
+                    setTimeout(() => {
+                        formSuccessAlert.classList.remove('hidden');
+                        contactForm.reset();
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<span>Send Message</span><i data-lucide="send" class="w-4 h-4"></i>';
+                        lucide.createIcons();
+                        
+                        setTimeout(() => {
+                            formSuccessAlert.classList.add('hidden');
+                        }, 7000);
+                    }, 900);
+                }
+            });
+
+            /* -------------------------------------------------------------------------
+               J. BACK TO TOP BUTTON & STICKY CALL-TO-ACTION SCROLL LISTENERS
+            -------------------------------------------------------------------------- */
+            const backToTopBtn = document.getElementById('backToTopBtn');
+            const stickyCta = document.getElementById('stickyCta');
+            const closeStickyCta = document.getElementById('closeStickyCta');
+            let isStickyCtaDismissed = false;
+
+            closeStickyCta?.addEventListener('click', () => {
+                isStickyCtaDismissed = true;
+                stickyCta.classList.add('translate-y-28', 'opacity-0');
+            });
+
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+
+                // Back to Top trigger
+                if (scrollY > 500) {
+                    backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                }
+
+                // Sticky CTA trigger
+                if (scrollY > 700 && !isStickyCtaDismissed) {
+                    stickyCta.classList.remove('translate-y-28', 'opacity-0');
+                    stickyCta.classList.add('translate-y-0', 'opacity-100');
+                } else {
+                    stickyCta.classList.add('translate-y-28', 'opacity-0');
+                    stickyCta.classList.remove('translate-y-0', 'opacity-100');
+                }
+            });
+
+            backToTopBtn?.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

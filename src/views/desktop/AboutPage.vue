@@ -224,7 +224,7 @@ const allLanguages = computed<LanguageOption[]>(() => getAllLanguageOptions(fals
 init();
 </script>
 
-<style>
+<!-- <style>
 .contributors-table {
     border-collapse: collapse;
 
@@ -245,4 +245,235 @@ init();
         text-align: start;
     }
 }
+</style> -->
+
+<style lang="scss" scoped>
+
+/* =========================================================
+   PREMIUM CONTRIBUTORS TABLE
+   Modern • Clean • SaaS Dashboard
+   No Animations
+   ========================================================= */
+
+.contributors-table {
+    width: 100%;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    overflow: hidden;
+
+    background:
+        rgba(var(--v-theme-surface), 0.75);
+
+    border:
+        1px solid
+        rgba(var(--v-border-color), 0.10);
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 4px 20px
+        rgba(15, 23, 42, 0.035);
+
+
+    /* -----------------------------------------------------
+       Table Header
+       ----------------------------------------------------- */
+
+    > thead > tr {
+
+        > th {
+            padding: 13px 14px;
+
+            background:
+                rgba(
+                    var(--ebk-primary-h),
+                    var(--ebk-primary-s),
+                    var(--ebk-primary-l),
+                    0.045
+                );
+
+            color:
+                rgb(var(--v-theme-on-surface));
+
+            font-family: 'Outfit', sans-serif;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            letter-spacing: 0.01em;
+
+            text-align: start;
+
+            border-bottom:
+                1px solid
+                rgba(
+                    var(--ebk-primary-h),
+                    var(--ebk-primary-s),
+                    var(--ebk-primary-l),
+                    0.10
+                );
+
+            white-space: nowrap;
+        }
+
+        > th:first-child {
+            border-top-left-radius: 14px;
+        }
+
+        > th:last-child {
+            border-top-right-radius: 14px;
+        }
+
+        > th:not(:first-child) {
+            padding-inline-start: 14px;
+        }
+
+        > th:not(:last-child) {
+            padding-inline-end: 14px;
+        }
+    }
+
+
+    /* -----------------------------------------------------
+       Table Body
+       ----------------------------------------------------- */
+
+    > tbody > tr {
+
+        > td {
+            padding: 13px 14px;
+
+            color:
+                rgb(var(--v-theme-on-surface));
+
+            font-family: 'Inter', sans-serif;
+
+            font-size: 14px;
+            font-weight: 500;
+
+            text-align: start;
+
+            border-bottom:
+                1px solid
+                rgba(var(--v-border-color), 0.08);
+
+            vertical-align: middle;
+        }
+
+        &:last-child > td {
+            border-bottom: none;
+        }
+
+        &:last-child > td:first-child {
+            border-bottom-left-radius: 14px;
+        }
+
+        &:last-child > td:last-child {
+            border-bottom-right-radius: 14px;
+        }
+
+
+        /* Premium purple row hover */
+
+        &:hover {
+            background:
+                rgba(
+                    var(--ebk-primary-h),
+                    var(--ebk-primary-s),
+                    var(--ebk-primary-l),
+                    0.035
+                );
+        }
+    }
+
+
+    /* -----------------------------------------------------
+       First Column
+       ----------------------------------------------------- */
+
+    > tbody > tr > td:first-child {
+        font-weight: 600;
+    }
+
+
+    /* -----------------------------------------------------
+       Numeric / Secondary Columns
+       ----------------------------------------------------- */
+
+    > tbody > tr > td:not(:first-child) {
+        color:
+            rgba(
+                var(--v-theme-on-surface),
+                0.72
+            );
+    }
+}
+
+
+/* =========================================================
+   DARK MODE
+   ========================================================= */
+
+.v-theme--dark {
+
+    .contributors-table {
+        background:
+            rgba(255, 255, 255, 0.025);
+
+        border-color:
+            rgba(255, 255, 255, 0.08);
+
+        box-shadow:
+            0 8px 30px
+            rgba(0, 0, 0, 0.18);
+
+
+        > thead > tr > th {
+            background:
+                rgba(168, 85, 247, 0.08);
+
+            border-bottom-color:
+                rgba(168, 85, 247, 0.14);
+        }
+
+
+        > tbody > tr {
+
+            > td {
+                border-bottom-color:
+                    rgba(255, 255, 255, 0.06);
+            }
+
+            &:hover {
+                background:
+                    rgba(168, 85, 247, 0.06);
+            }
+        }
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .contributors-table {
+        min-width: 600px;
+
+        > thead > tr > th {
+            padding: 11px 12px;
+            font-size: 12px;
+        }
+
+        > tbody > tr > td {
+            padding: 11px 12px;
+            font-size: 13px;
+        }
+    }
+}
+
 </style>

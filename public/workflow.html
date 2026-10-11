@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Split Chill AI — Customer &amp; User Experience Workflow</title>
+  <link rel="icon" type="image/png" href="public/img/desktop/favicon/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Split Chill Official Light Theme */
+      --brand-emerald: #10B981;
+      --brand-emerald-dark: #059669;
+      --brand-forest: #064E3B;
+      --brand-forest-dark: #022c22;
+      --brand-emerald-light: #D1FAE5;
+      --brand-emerald-glow: rgba(16, 185, 129, 0.25);
+      
+      --bg-light: #F8FAFC;
+      --surface-light: #FFFFFF;
+      --surface-card: #FFFFFF;
+      --surface-subtle: #F1F5F9;
+      --border-light: #E2E8F0;
+      --border-focus: #10B981;
+      
+      --text-primary: #0F172A;
+      --text-secondary: #475569;
+      --text-muted: #64748B;
+      
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 20px -2px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 12px 32px -4px rgba(15, 23, 42, 0.12);
+      --shadow-emerald: 0 10px 25px -5px rgba(16, 185, 129, 0.25);
+    }
+
+    /* Dark Mode Theme Support */
+    body.dark-mode {
+      --bg-light: #0B0F19;
+      --surface-light: #111827;
+      --surface-card: #182234;
+      --surface-subtle: #1F2937;
+      --border-light: #2D3748;
+      --border-focus: #34D399;
+      
+      --text-primary: #F8FAFC;
+      --text-secondary: #CBD5E1;
+      --text-muted: #94A3B8;
+      
+      --shadow-md: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
+      --shadow-lg: 0 12px 32px -4px rgba(0, 0, 0, 0.6);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-primary);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      line-height: 1.5;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, .font-display {
+      font-family: 'Outfit', sans-serif;
+      letter-spacing: -0.02em;
+    }
+
+    /* Background Subtle Grid Pattern */
+    .bg-pattern {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      background-image: radial-gradient(rgba(16, 185, 129, 0.08) 1.5px, transparent 1.5px);
+      background-size: 28px 28px;
+      opacity: 0.8;
+    }
+
+    /* Navigation Bar */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.9);
+      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-light);
+      padding: 16px 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.3s ease;
+    }
+    body.dark-mode header {
+      background: rgba(17, 24, 39, 0.9);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, var(--brand-emerald), var(--brand-emerald-dark));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px var(--brand-emerald-glow);
+    }
+    .brand-logo svg {
+      width: 20px;
+      height: 20px;
+      fill: #ffffff;
+    }
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+    .brand-title span {
+      color: var(--brand-emerald);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn {
+      padding: 9px 18px;
+      border-radius: 9px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--border-light);
+      background: var(--surface-light);
+      color: var(--text-primary);
+    }
+    .btn:hover {
+      background: var(--surface-subtle);
+      border-color: #CBD5E1;
+      transform: translateY(-1px);
+    }
+    .btn-emerald {
+      background: linear-gradient(135deg, var(--brand-emerald), var(--brand-emerald-dark));
+      border-color: transparent;
+      color: #ffffff;
+      box-shadow: var(--shadow-emerald);
+    }
+    .btn-emerald:hover {
+      box-shadow: 0 12px 28px -4px rgba(16, 185, 129, 0.4);
+      transform: translateY(-2px);
+      color: #ffffff;
+    }
+
+    .theme-toggle-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid var(--border-light);
+      background: var(--surface-light);
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.15rem;
+      transition: all 0.2s ease;
+    }
+    .theme-toggle-btn:hover {
+      background: var(--surface-subtle);
+    }
+
+    /* Main Container */
+    main {
+      position: relative;
+      z-index: 10;
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: var(--brand-emerald-light);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--brand-forest);
+      margin-bottom: 16px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    body.dark-mode .pill-badge {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34D399;
+    }
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--brand-emerald);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--brand-emerald);
+      animation: pulseDot 1.8s infinite;
+    }
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .hero h1 {
+      font-size: 2.75rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 14px;
+      color: var(--text-primary);
+    }
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--brand-emerald) 0%, var(--brand-forest) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    body.dark-mode .hero h1 .highlight {
+      background: linear-gradient(135deg, #34D399 0%, #10B981 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      color: var(--text-secondary);
+      font-size: 1.15rem;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    /* Simulation Toolbar */
+    .controls-panel {
+      background: var(--surface-card);
+      border: 1px solid var(--border-light);
+      border-radius: 18px;
+      padding: 16px 24px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .scenario-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tab-btn {
+      padding: 10px 18px;
+      border-radius: 10px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-light);
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tab-btn:hover {
+      background: #E2E8F0;
+      color: var(--text-primary);
+    }
+    body.dark-mode .tab-btn:hover {
+      background: #2D3748;
+    }
+    .tab-btn.active {
+      background: var(--brand-emerald-light);
+      border-color: var(--brand-emerald);
+      color: var(--brand-forest);
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+    }
+    body.dark-mode .tab-btn.active {
+      background: rgba(16, 185, 129, 0.18);
+      color: #34D399;
+      border-color: #34D399;
+    }
+
+    .playback-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* ==================== MOVING WORKFLOW CHART CONTAINER ==================== */
+    .workflow-chart-section {
+      background: var(--surface-card);
+      border: 1px solid var(--border-light);
+      border-radius: 24px;
+      padding: 36px 30px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .chart-header-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .step-tracker-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--brand-emerald);
+      background: var(--brand-emerald-light);
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+    body.dark-mode .step-tracker-label {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34D399;
+    }
+
+    /* Dynamic Horizontal Steps Pipeline */
+    .steps-pipeline-track {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
+      position: relative;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 1100px) {
+      .steps-pipeline-track {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+    }
+    @media (max-width: 680px) {
+      .steps-pipeline-track {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Connecting Animated Flow Line (Desktop) */
+    .flow-line-bar {
+      position: absolute;
+      top: 38px;
+      left: 5%;
+      right: 5%;
+      height: 4px;
+      background: var(--border-light);
+      border-radius: 2px;
+      z-index: 1;
+    }
+    .flow-line-progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--brand-emerald), #059669);
+      border-radius: 2px;
+      transition: width 0.5s ease;
+      box-shadow: 0 0 10px var(--brand-emerald);
+    }
+    /* Moving Dot Pulse along Line */
+    .flow-line-runner {
+      position: absolute;
+      top: -4px;
+      width: 12px;
+      height: 12px;
+      background: #ffffff;
+      border: 2px solid var(--brand-emerald);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--brand-emerald);
+      transition: left 0.5s ease;
+    }
+
+    /* Individual Workflow Step Card */
+    .workflow-card {
+      background: var(--surface-light);
+      border: 1.5px solid var(--border-light);
+      border-radius: 16px;
+      padding: 22px 18px;
+      position: relative;
+      z-index: 2;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .workflow-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--brand-emerald);
+    }
+    .workflow-card.active {
+      border-color: var(--brand-emerald);
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.22);
+      transform: translateY(-6px);
+      background: #FFFFFF;
+    }
+    body.dark-mode .workflow-card.active {
+      background: #1A2333;
+    }
+
+    /* Step Number Badge */
+    .card-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--surface-subtle);
+      border: 2px solid var(--border-light);
+      color: var(--text-secondary);
+      font-weight: 800;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      transition: all 0.3s ease;
+    }
+    .workflow-card.active .card-num {
+      background: linear-gradient(135deg, var(--brand-emerald), var(--brand-forest));
+      color: #ffffff;
+      border-color: #ffffff;
+      box-shadow: 0 0 14px var(--brand-emerald-glow);
+    }
+    .workflow-card.completed .card-num {
+      background: var(--brand-emerald-light);
+      color: var(--brand-forest);
+      border-color: var(--brand-emerald);
+    }
+    body.dark-mode .workflow-card.completed .card-num {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34D399;
+    }
+
+    .card-icon {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+    }
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+    .card-desc {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* ==================== LIVE SIMULATION STAGE (DUAL PANEL) ==================== */
+    .simulation-stage-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 28px;
+      margin-bottom: 40px;
+    }
+    @media (max-width: 960px) {
+      .simulation-stage-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Left: Step Explainer Card */
+    .explainer-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-light);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .explainer-step-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--brand-emerald);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+    .explainer-title {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 14px;
+    }
+    .explainer-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .key-actions-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .key-action-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.92rem;
+      color: var(--text-primary);
+    }
+    .check-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--brand-emerald-light);
+      color: var(--brand-emerald-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    body.dark-mode .check-icon {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34D399;
+    }
+
+    .step-nav-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-light);
+    }
+
+    /* Right: Interactive Device UI Simulator (Macbook / App Canvas) */
+    .device-simulator {
+      background: var(--surface-card);
+      border: 1px solid var(--border-light);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .device-titlebar {
+      background: var(--surface-subtle);
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .device-window-dots {
+      display: flex;
+      gap: 7px;
+    }
+    .window-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot-close { background: #FF5F56; }
+    .dot-min { background: #FFBD2E; }
+    .dot-max { background: #27C93F; }
+
+    .device-url-bar {
+      background: var(--surface-light);
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      padding: 4px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      width: 60%;
+      text-align: center;
+    }
+
+    /* Device Screen Content Area */
+    .device-canvas {
+      padding: 28px;
+      min-height: 420px;
+      background: #FAFAFA;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    body.dark-mode .device-canvas {
+      background: #111827;
+    }
+
+    /* Interactive Mock UI Components */
+    .mock-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    body.dark-mode .mock-card {
+      background: #1F2937;
+    }
+
+    .mock-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .mock-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .mock-chip {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: var(--brand-emerald-light);
+      color: var(--brand-forest);
+    }
+    body.dark-mode .mock-chip {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34D399;
+    }
+
+    /* Avatars Stack */
+    .avatar-stack {
+      display: flex;
+      margin-bottom: 16px;
+    }
+    .avatar-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-right: -8px;
+    }
+    body.dark-mode .avatar-circle {
+      border-color: #1F2937;
+    }
+    .av-1 { background: #3B82F6; }
+    .av-2 { background: #10B981; }
+    .av-3 { background: #F59E0B; }
+    .av-4 { background: #8B5CF6; }
+
+    /* Debt Simplification Visual Graphic */
+    .debt-matrix-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 16px 0;
+    }
+    .debt-arrow-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: var(--surface-subtle);
+      border-radius: 10px;
+      font-size: 0.88rem;
+    }
+    .debt-transfer-amt {
+      font-weight: 700;
+      color: var(--brand-emerald-dark);
+      background: #FFFFFF;
+      padding: 3px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border-light);
+    }
+    body.dark-mode .debt-transfer-amt {
+      background: #111827;
+      color: #34D399;
+    }
+
+    /* Real-Time Live Status Pill */
+    .live-sync-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--brand-emerald);
+      margin-top: 14px;
+    }
+
+    /* Customer Values Strip */
+    .values-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .val-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .val-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--brand-emerald-light);
+      color: var(--brand-forest);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    body.dark-mode .val-icon {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34D399;
+    }
+    .val-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .val-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    footer {
+      border-top: 1px solid var(--border-light);
+      padding: 32px 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Pattern -->
+  <div class="bg-pattern"></div>
+
+  <!-- Header Navigation -->
+  <header>
+    <a href="landing.html" class="brand">
+      <div class="brand-logo">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <div class="brand-title">Split Chill <span>AI</span></div>
+    </a>
+    <div class="nav-actions">
+      <a href="desktop.html#/" class="btn">Desktop App</a>
+      <a href="mobile.html#/" class="btn">Mobile App</a>
+      <a href="landing.html" class="btn btn-emerald">Return to Landing</a>
+      <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleColorTheme()" title="Toggle Theme">
+        ☀️
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="pill-badge">
+        <span class="pill-dot"></span>
+        End-to-End Customer Experience
+      </div>
+      <h1>Complete <span class="highlight">User Workflow</span> &amp; Bill Splitting Journey</h1>
+      <p>Discover how effortlessly friends, roommates, and travel groups split shared expenses, eliminate awkward debt reminders, and settle balances in seconds.</p>
+    </section>
+
+    <!-- Simulation Controls -->
+    <section class="controls-panel">
+      <div class="scenario-tabs">
+        <button class="tab-btn active" id="tabScenario1" onclick="switchJourney(1)">
+          <span>✈️</span> Weekend Trip to Tokyo
+        </button>
+        <button class="tab-btn" id="tabScenario2" onclick="switchJourney(2)">
+          <span>🏠</span> Apartment Roommates
+        </button>
+        <button class="tab-btn" id="tabScenario3" onclick="switchJourney(3)">
+          <span>🍱</span> Office Lunch Split
+        </button>
+      </div>
+
+      <div class="playback-group">
+        <button class="btn" id="playBtn" onclick="togglePlay()">⏸ Pause Walkthrough</button>
+        <button class="btn btn-emerald" onclick="restartJourney()">⟳ Restart From Step 1</button>
+      </div>
+    </section>
+
+    <!-- MOVING WORKFLOW CHART -->
+    <section class="workflow-chart-section">
+      <div class="chart-header">
+        <div class="chart-header-title">
+          <span style="color: var(--brand-emerald); font-size: 1.4rem;">➔</span>
+          Interactive Customer Journey Pipeline
+        </div>
+        <div class="step-tracker-label" id="stepCounterBadge">STEP 1 OF 6 ACTIVE</div>
+      </div>
+
+      <!-- Connecting Track with Moving Progress -->
+      <div class="steps-pipeline-track">
+        <div class="flow-line-bar">
+          <div class="flow-line-progress" id="flowProgressBar" style="width: 16%;"></div>
+          <div class="flow-line-runner" id="flowRunner" style="left: 16%;"></div>
+        </div>
+
+        <!-- Step 1 Card -->
+        <div class="workflow-card active" id="stepCard1" onclick="jumpToStep(1)">
+          <div class="card-num">1</div>
+          <div class="card-icon">🔐</div>
+          <div class="card-title">Onboarding &amp; Login</div>
+          <div class="card-desc">Quick signup, currency choice &amp; Gmail OTP reset</div>
+        </div>
+
+        <!-- Step 2 Card -->
+        <div class="workflow-card" id="stepCard2" onclick="jumpToStep(2)">
+          <div class="card-num">2</div>
+          <div class="card-icon">👥</div>
+          <div class="card-title">Create Group</div>
+          <div class="card-desc">Add friends &amp; instant QR code mobile join</div>
+        </div>
+
+        <!-- Step 3 Card -->
+        <div class="workflow-card" id="stepCard3" onclick="jumpToStep(3)">
+          <div class="card-num">3</div>
+          <div class="card-icon">🧾</div>
+          <div class="card-title">Add Expenses</div>
+          <div class="card-desc">Log bill, snap receipt &amp; multi-currency convert</div>
+        </div>
+
+        <!-- Step 4 Card -->
+        <div class="workflow-card" id="stepCard4" onclick="jumpToStep(4)">
+          <div class="card-num">4</div>
+          <div class="card-icon">⚖️</div>
+          <div class="card-title">Flexible Split</div>
+          <div class="card-desc">Equal, unequal, shares or exact percentages</div>
+        </div>
+
+        <!-- Step 5 Card -->
+        <div class="workflow-card" id="stepCard5" onclick="jumpToStep(5)">
+          <div class="card-num">5</div>
+          <div class="card-icon">✨</div>
+          <div class="card-title">Debt Minimizer</div>
+          <div class="card-desc">Auto algorithm reduces 6 circular debts to 2</div>
+        </div>
+
+        <!-- Step 6 Card -->
+        <div class="workflow-card" id="stepCard6" onclick="jumpToStep(6)">
+          <div class="card-num">6</div>
+          <div class="card-icon">🎉</div>
+          <div class="card-title">Settle &amp; Export</div>
+          <div class="card-desc">One-click payment mark &amp; Excel/PDF reports</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE STAGE PREVIEW (DUAL PANEL) -->
+    <section class="simulation-stage-grid">
+      <!-- Left Panel: Detailed Customer Step Narrative -->
+      <div class="explainer-card">
+        <div>
+          <div class="explainer-step-pill" id="stepPill">STAGE 01 • USER ENTRY</div>
+          <h2 class="explainer-title" id="stepTitle">Quick Sign Up &amp; Secure Verification</h2>
+          <p class="explainer-desc" id="stepDesc">
+            Users get started in seconds with modern authentication. Pick your primary home currency, configure 2FA protection, and rest easy with instant 6-digit Gmail OTP password recovery.
+          </p>
+
+          <ul class="key-actions-list" id="stepActionsList">
+            <li class="key-action-item">
+              <span class="check-icon">✓</span>
+              <span>Fast registration without cumbersome phone numbers</span>
+            </li>
+            <li class="key-action-item">
+              <span class="check-icon">✓</span>
+              <span>Auto-detect default currency (USD, EUR, INR, JPY, GBP)</span>
+            </li>
+            <li class="key-action-item">
+              <span class="check-icon">✓</span>
+              <span>One-Time Password (OTP) dispatched via Gmail SMTP in &lt;2s</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="step-nav-footer">
+          <button class="btn" onclick="prevStep()" id="prevBtn" disabled>← Previous Step</button>
+          <div style="font-size: 0.85rem; color: var(--text-muted);" id="stepFooterText">Step 1 of 6</div>
+          <button class="btn btn-emerald" onclick="nextStep()" id="nextBtn">Next Step →</button>
+        </div>
+      </div>
+
+      <!-- Right Panel: Dynamic Interactive Device Simulator -->
+      <div class="device-simulator">
+        <div class="device-titlebar">
+          <div class="device-window-dots">
+            <div class="window-dot dot-close"></div>
+            <div class="window-dot dot-min"></div>
+            <div class="window-dot dot-max"></div>
+          </div>
+          <div class="device-url-bar" id="deviceUrl">http://localhost:8081/desktop.html#/login</div>
+          <div style="font-size: 0.72rem; font-weight: 700; color: var(--brand-emerald);">● LIVE PREVIEW</div>
+        </div>
+
+        <div class="device-canvas" id="deviceCanvas">
+          <!-- Dynamically Rendered Mock UI Card for the active step -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Customer Values Strip -->
+    <section class="values-strip">
+      <div class="val-card">
+        <div class="val-icon">⚡</div>
+        <div>
+          <div class="val-title">Sub-Second Calculations</div>
+          <div class="val-desc">Complex multi-currency bill splits and conversions compute in milliseconds without waiting.</div>
+        </div>
+      </div>
+
+      <div class="val-card">
+        <div class="val-icon">🔒</div>
+        <div>
+          <div class="val-title">100% Private &amp; Self-Hosted</div>
+          <div class="val-desc">Your financial history never leaves your machine. Full data ownership with local SQLite or MySQL.</div>
+        </div>
+      </div>
+
+      <div class="val-card">
+        <div class="val-icon">📱</div>
+        <div>
+          <div class="val-title">Mobile PWA Ready</div>
+          <div class="val-desc">Install directly to your iPhone or Android home screen for native touch gestures and offline access.</div>
+        </div>
+      </div>
+
+      <div class="val-card">
+        <div class="val-icon">📊</div>
+        <div>
+          <div class="val-title">Export Anytime</div>
+          <div class="val-desc">Download clean spreadsheets (Excel XLSX, CSV) and reports for tax filing or group archives.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    Split Chill AI • Intelligent Expense Splitting &amp; Personal Finance SaaS • Designed for Total Financial Harmony
+  </footer>
+
+  <!-- Interactive Simulator Script -->
+  <script>
+    let currentStep = 1;
+    let currentJourney = 1;
+    let isPlaying = true;
+    let timer = null;
+
+    const journeyData = {
+      1: {
+        name: "Weekend Trip to Tokyo",
+        groupName: "Tokyo Explorers 🏯",
+        members: ["Alice", "Bob", "Charlie", "David"],
+        currencies: "USD & JPY",
+        sampleExpense: "Shinjuku Wagyu Dinner",
+        amount: "$180.00 (¥27,000)"
+      },
+      2: {
+        name: "Apartment Roommates",
+        groupName: "Apartment 4B 🛋️",
+        members: ["Sarah", "Mike", "Elena", "Liam"],
+        currencies: "USD",
+        sampleExpense: "High-Speed Wi-Fi & Electric Bill",
+        amount: "$140.00"
+      },
+      3: {
+        name: "Office Lunch Split",
+        groupName: "Engineering Team Lunch 🍕",
+        members: ["Alex", "Priya", "Carlos", "Ken"],
+        currencies: "USD",
+        sampleExpense: "Artisan Pizza & Salads",
+        amount: "$96.00"
+      }
+    };
+
+    const stepDetails = {
+      1: {
+        pill: "STAGE 01 • USER ENTRY",
+        title: "Quick Sign Up & Secure Verification",
+        desc: "Users get started in seconds with modern authentication. Pick your primary home currency, configure 2FA protection, and rest easy with instant 6-digit Gmail OTP password recovery.",
+        actions: [
+          "Fast registration without cumbersome phone numbers",
+          "Auto-detect default currency (USD, EUR, INR, JPY, GBP)",
+          "One-Time Password (OTP) dispatched via Gmail SMTP in <2s"
+        ],
+        url: "http://localhost:8081/desktop.html#/login",
+        renderCanvas: (j) => `
+          <div class="mock-card">
+            <div class="mock-header">
+              <div class="mock-title">Welcome to Split Chill AI</div>
+              <div class="mock-chip">Secure Login</div>
+            </div>
+            <div style="margin-bottom: 14px;">
+              <label style="display: block; font-size: 0.78rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 4px;">Email Address</label>
+              <div style="background: var(--surface-subtle); padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; border: 1px solid var(--border-light);">
+                alice@example.com
+              </div>
+            </div>
+            <div style="margin-bottom: 18px;">
+              <label style="display: block; font-size: 0.78rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 4px;">Primary Currency</label>
+              <div style="background: var(--surface-subtle); padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; border: 1px solid var(--border-light); color: var(--brand-forest); font-weight: 700;">
+                USD ($) — United States Dollar
+              </div>
+            </div>
+            <button style="width: 100%; padding: 10px; background: var(--brand-emerald); color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer;">
+              Sign In to Dashboard ➔
+            </button>
+            <div class="live-sync-indicator">
+              <span style="font-size: 1rem;">🛡️</span> Password protected with Bcrypt 12 + Gmail SMTP OTP recovery
+            </div>
+          </div>
+        `
+      },
+      2: {
+        pill: "STAGE 02 • COLLABORATION",
+        title: "Create Group & Invite Friends Instantly",
+        desc: "Create dedicated ledgers for trips, housemates, or events. Add members with avatars, set group currencies, and share a quick QR code for instant mobile onboarding.",
+        actions: [
+          "Custom group avatars, categories (Trip, Home, Event)",
+          "Instant QR Code scan allows friends to join without installing an app",
+          "Multi-device sync keeps desktop and mobile in continuous harmony"
+        ],
+        url: "http://localhost:8081/desktop.html#/group/create",
+        renderCanvas: (j) => `
+          <div class="mock-card">
+            <div class="mock-header">
+              <div class="mock-title">${j.groupName}</div>
+              <div class="mock-chip">${j.members.length} Members Active</div>
+            </div>
+            <div class="avatar-stack">
+              <div class="avatar-circle av-1">A</div>
+              <div class="avatar-circle av-2">B</div>
+              <div class="avatar-circle av-3">C</div>
+              <div class="avatar-circle av-4">D</div>
+            </div>
+            <div style="background: var(--surface-subtle); padding: 12px; border-radius: 10px; font-size: 0.85rem; margin-bottom: 14px;">
+              <div style="font-weight: 700; color: var(--text-primary); margin-bottom: 2px;">Invite Link Active</div>
+              <div style="color: var(--brand-emerald); font-family: monospace; font-size: 0.8rem;">http://192.168.1.50:8081/#/join?g=tokyo26</div>
+            </div>
+            <div class="live-sync-indicator">
+              <span style="font-size: 1rem;">📱</span> QR Code generated for mobile phone camera instant connect
+            </div>
+          </div>
+        `
+      },
+      3: {
+        pill: "STAGE 03 • EXPENSE LOGGING",
+        title: "Add Bills, Snap Receipts & Convert Currencies",
+        desc: "Log an expense in under 5 seconds. Specify who paid, pick categories, attach itemized receipt photos, and convert foreign currencies in real time.",
+        actions: [
+          "Real-time exchange rate calculation (e.g., JPY to USD)",
+          "Receipt attachment stored locally or on private MinIO",
+          "Automated ledger timeline and calendar updates"
+        ],
+        url: "http://localhost:8081/desktop.html#/expense/add",
+        renderCanvas: (j) => `
+          <div class="mock-card">
+            <div class="mock-header">
+              <div class="mock-title">${j.sampleExpense}</div>
+              <div style="font-size: 1.25rem; font-weight: 800; color: var(--brand-emerald);">${j.amount}</div>
+            </div>
+            <div style="display: flex; gap: 10px; margin-bottom: 14px;">
+              <div style="flex: 1; background: var(--surface-subtle); padding: 8px 12px; border-radius: 8px; font-size: 0.82rem;">
+                <div style="color: var(--text-muted);">Paid By</div>
+                <div style="font-weight: 700; color: var(--text-primary);">${j.members[0]} (Alice)</div>
+              </div>
+              <div style="flex: 1; background: var(--surface-subtle); padding: 8px 12px; border-radius: 8px; font-size: 0.82rem;">
+                <div style="color: var(--text-muted);">Category</div>
+                <div style="font-weight: 700; color: var(--text-primary);">Dining &amp; Food 🍽️</div>
+              </div>
+            </div>
+            <div style="background: rgba(16, 185, 129, 0.08); border: 1px dashed var(--brand-emerald); border-radius: 8px; padding: 10px; text-align: center; font-size: 0.8rem; color: var(--brand-emerald);">
+              📸 Receipt image verified (Wagyu_Bill_04.jpg)
+            </div>
+          </div>
+        `
+      },
+      4: {
+        pill: "STAGE 04 • SPLIT CUSTOMIZATION",
+        title: "Flexible Split: Equal, Unequal or Shares",
+        desc: "Not all meals are eaten equally! Split Chill AI provides 4 split modes: Equal split across everyone, exact dollar amounts, percentages, or weighted ratio shares.",
+        actions: [
+          "Split Equally: Perfect for group meals, rides, and rent",
+          "Unequal Split: Adjust by exact amounts or percentage shares",
+          "Exclude non-participating members with a single checkbox toggle"
+        ],
+        url: "http://localhost:8081/desktop.html#/expense/split",
+        renderCanvas: (j) => `
+          <div class="mock-card">
+            <div class="mock-header">
+              <div class="mock-title">Split Breakdown (4 People)</div>
+              <div class="mock-chip">Equal 25% Each</div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px;">
+              ${j.members.map((m, i) => `
+                <div style="display: flex; justify-content: space-between; align-items: center; background: var(--surface-subtle); padding: 6px 12px; border-radius: 8px; font-size: 0.82rem;">
+                  <span style="font-weight: 600;">${m}</span>
+                  <span style="font-weight: 700; color: var(--text-primary);">$45.00</span>
+                </div>
+              `).join('')}
+            </div>
+            <div class="live-sync-indicator">
+              <span style="font-size: 1rem;">⚖️</span> Sum verified: $180.00 total balances to $0.00 delta
+            </div>
+          </div>
+        `
+      },
+      5: {
+        pill: "STAGE 05 • SMART ALGORITHM",
+        title: "Automated Debt Simplification (Greedy Graph)",
+        desc: "Instead of Bob paying Charlie, Charlie paying Alice, and Alice paying David, our algorithmic debt simplifier optimizes cross-debts into the absolute minimum number of direct payments.",
+        actions: [
+          "Eliminates circular debts completely",
+          "Reduces 6 awkward individual transfers down to just 2 direct settlements",
+          "Sub-millisecond graph reduction runs instantly in Go"
+        ],
+        url: "http://localhost:8081/desktop.html#/settlements",
+        renderCanvas: (j) => `
+          <div class="mock-card">
+            <div class="mock-header">
+              <div class="mock-title">Optimized Settlement Plan</div>
+              <div class="mock-chip" style="background: #FEF3C7; color: #92400E;">6 Debts ➔ 2 Direct Payments</div>
+            </div>
+            <div class="debt-matrix-flow">
+              <div class="debt-arrow-row">
+                <span><b>${j.members[1]}</b> owes <b>${j.members[0]}</b></span>
+                <span class="debt-transfer-amt">$45.00</span>
+              </div>
+              <div class="debt-arrow-row">
+                <span><b>${j.members[2]}</b> owes <b>${j.members[0]}</b></span>
+                <span class="debt-transfer-amt">$45.00</span>
+              </div>
+            </div>
+            <div class="live-sync-indicator" style="color: var(--brand-emerald);">
+              <span style="font-size: 1rem;">✨</span> 67% fewer transactions needed to balance the entire group
+            </div>
+          </div>
+        `
+      },
+      6: {
+        pill: "STAGE 06 • HARMONY",
+        title: "One-Click Settlement & Excel/PDF Reports",
+        desc: "Members tap 'Settle Up' to mark payments as complete. Instant confetti feedback confirms all accounts are balanced, and users can export full accounting spreadsheets.",
+        actions: [
+          "One-tap 'Record Payment' with Venmo, CashApp, or cash record",
+          "Group balance returns to $0.00 — Zero financial friction",
+          "Download comprehensive Excel (.xlsx) and CSV reports anytime"
+        ],
+        url: "http://localhost:8081/desktop.html#/reports",
+        renderCanvas: (j) => `
+          <div class="mock-card" style="text-align: center; padding: 32px 20px;">
+            <div style="font-size: 2.5rem; margin-bottom: 8px;">🎉</div>
+            <div style="font-size: 1.3rem; font-weight: 800; color: var(--text-primary); margin-bottom: 4px;">Group Settled in Full!</div>
+            <div style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 18px;">All member balances are now exactly $0.00.</div>
+            <div style="display: flex; gap: 10px; justify-content: center;">
+              <button style="padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border-light); background: var(--surface-light); font-size: 0.85rem; font-weight: 600; cursor: pointer;">
+                📄 Export Excel (.xlsx)
+              </button>
+              <button style="padding: 8px 16px; border-radius: 8px; border: none; background: var(--brand-emerald); color: white; font-size: 0.85rem; font-weight: 700; cursor: pointer;">
+                Close Ledger ✓
+              </button>
+            </div>
+          </div>
+        `
+      }
+    };
+
+    function updateView() {
+      const step = stepDetails[currentStep];
+      const journey = journeyData[currentJourney];
+
+      // Update Header Badge
+      document.getElementById('stepCounterBadge').innerText = `STEP ${currentStep} OF 6 ACTIVE`;
+
+      // Update Progress Bar & Runner Position
+      const pct = ((currentStep) / 6) * 100;
+      document.getElementById('flowProgressBar').style.width = `${pct}%`;
+      document.getElementById('flowRunner').style.left = `${Math.min(pct, 98)}%`;
+
+      // Update Workflow Cards Active State
+      for (let i = 1; i <= 6; i++) {
+        const card = document.getElementById(`stepCard${i}`);
+        card.classList.toggle('active', i === currentStep);
+        card.classList.toggle('completed', i < currentStep);
+      }
+
+      // Update Explainer Text
+      document.getElementById('stepPill').innerText = step.pill;
+      document.getElementById('stepTitle').innerText = step.title;
+      document.getElementById('stepDesc').innerText = step.desc;
+      document.getElementById('stepFooterText').innerText = `Step ${currentStep} of 6`;
+
+      // Update Actions List
+      const actionsList = document.getElementById('stepActionsList');
+      actionsList.innerHTML = step.actions.map(act => `
+        <li class="key-action-item">
+          <span class="check-icon">✓</span>
+          <span>${act}</span>
+        </li>
+      `).join('');
+
+      // Update Simulator URL and Canvas
+      document.getElementById('deviceUrl').innerText = step.url;
+      document.getElementById('deviceCanvas').innerHTML = step.renderCanvas(journey);
+
+      // Update Button State
+      document.getElementById('prevBtn').disabled = currentStep === 1;
+      document.getElementById('nextBtn').innerText = currentStep === 6 ? "Restart ⟳" : "Next Step →";
+    }
+
+    function jumpToStep(num) {
+      currentStep = num;
+      updateView();
+    }
+
+    function nextStep() {
+      currentStep = currentStep === 6 ? 1 : currentStep + 1;
+      updateView();
+    }
+
+    function prevStep() {
+      if (currentStep > 1) {
+        currentStep--;
+        updateView();
+      }
+    }
+
+    function switchJourney(num) {
+      currentJourney = num;
+      currentStep = 1;
+      for (let i = 1; i <= 3; i++) {
+        document.getElementById(`tabScenario${i}`).classList.toggle('active', i === num);
+      }
+      updateView();
+    }
+
+    function togglePlay() {
+      isPlaying = !isPlaying;
+      document.getElementById('playBtn').innerText = isPlaying ? "⏸ Pause Walkthrough" : "▶ Resume Walkthrough";
+      if (isPlaying) startAutoTimer();
+      else if (timer) clearInterval(timer);
+    }
+
+    function restartJourney() {
+      currentStep = 1;
+      updateView();
+    }
+
+    function startAutoTimer() {
+      if (timer) clearInterval(timer);
+      timer = setInterval(() => {
+        if (isPlaying) {
+          nextStep();
+        }
+      }, 3500);
+    }
+
+    function toggleColorTheme() {
+      document.body.classList.toggle('dark-mode');
+      const isDark = document.body.classList.contains('dark-mode');
+      document.getElementById('themeToggleBtn').innerText = isDark ? '🌙' : '☀️';
+    }
+
+    // Initialize
+    updateView();
+    startAutoTimer();
+  </script>
+</body>
+</html>

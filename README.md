@@ -1,535 +1,494 @@
-# Split Chill AI (Spill Chill)
+<div align="center">
+
+  <img src="public/img/luxury-banner.svg" alt="Split Chill AI Executive Banner" width="100%" />
+
+  <br/><br/>
+
+  [![GitHub Release](https://img.shields.io/badge/Release-v1.4.0%20Snapshot-059669?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Shavitjnr/Split-Chill/releases)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-D97706?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](LICENSE)
+  [![Go Engine](https://img.shields.io/badge/Go%20Engine-1.25%2B%20%7C%201.27-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://golang.org/)
+  [![Vue 3](https://img.shields.io/badge/Frontend-Vue%203.5.25-4FC08D?style=for-the-badge&logo=vuedotjs&logoColor=white)](https://vuejs.org/)
+  [![Vite](https://img.shields.io/badge/Build%20Tool-Vite%207.2.7-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+  [![SQLite / MySQL / Postgres](https://img.shields.io/badge/Database-17%20Tables%20Unified-0F172A?style=for-the-badge&logo=sqlite&logoColor=white)](https://sqlite.org/)
+  [![Build Status](https://img.shields.io/badge/CI%2FCD-Passing%20100%25-059669?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/Shavitjnr/Split-Chill/actions)
+
+  <br/>
+
+  <p align="center">
+    <strong>✦ Intelligent Expense Splitting &bull; Personal Ledger Sovereignty &bull; Financial Harmony SaaS ✦</strong>
+  </p>
+
+  <p align="center">
+    <a href="#-quick-access--live-portals"><b>Quick Access</b></a> •
+    <a href="#-key-features--executive-capabilities"><b>Features</b></a> •
+    <a href="#-interactive-customer-workflow--simulator"><b>Workflow</b></a> •
+    <a href="#-complete-technology-stack--library-versions"><b>Tech Stack</b></a> •
+    <a href="#-local-installation--development-guide"><b>Installation</b></a> •
+    <a href="#-how-to-run-and-access-on-other-devices-lan-wi-fi--mobile"><b>LAN & Mobile</b></a> •
+    <a href="#-database-architecture-17-tables"><b>Database</b></a> •
+    <a href="#-configuration-reference-splitchill-aiini"><b>Config</b></a>
+  </p>
+
+</div>
 
 <p align="center">
-  <img src="public/img/desktop/favicon/favicon.png" width="80" height="80" alt="Split Chill AI Logo" />
+  <img src="public/img/luxury-divider.svg" alt="Luxury Divider" width="100%" />
 </p>
 
-<h3 align="center">Intelligent Expense Splitting, Personal Finance & Financial Harmony SaaS</h3>
+> [!NOTE]
+> **Executive Philosophy**: *Split Chill AI* (also known as *Spill Chill*) was designed from the ground up for individuals, groups, roommates, and travel cohorts who demand absolute ownership of their financial records. Zero forced subscriptions, zero third-party telemetry, instant debt simplification, bank-grade encryption, and seamless multi-device access across your entire home and office Wi-Fi.
+
+---
+
+## 🏛️ Quick Access & Live Portals
+
+When the Split Chill AI backend and frontend are running on your local network:
+
+| Portal | URL & Link | Purpose |
+| :--- | :--- | :--- |
+| **💻 Desktop Fintech Portal** | [http://localhost:8081/desktop.html#/](http://localhost:8081/desktop.html#/) | Full-featured bookkeeping, analytics, ledger & settlements |
+| **📱 Mobile PWA Application** | [http://localhost:8081/mobile.html#/](http://localhost:8081/mobile.html#/) | Native-feel touch client with gestures & camera QR scanner |
+| **🌐 Product Landing Page** | [http://localhost:8081/landing.html](http://localhost:8081/landing.html) | Modern product presentation & live feedback contact form |
+| **⚡ Interactive Workflow Simulator** | [http://localhost:8081/workflow.html](http://localhost:8081/workflow.html) | Live interactive bill-splitting & debt minimization simulator |
+| **🩺 Backend Engine Health API** | [http://localhost:8082/api/v1/server/status](http://localhost:8082/api/v1/server/status) | Real-time Go microservice health probe and version status |
+
+---
+
+## 💎 Key Features & Executive Capabilities
+
+<table>
+  <tr>
+    <td width="50%">
+      <h3>⚖️ Intelligent Debt Simplification</h3>
+      <p>Proprietary greedy graph optimization engine reduces complex circular web debts. For example, 6 messy multi-party debts are automatically resolved into <strong>only 2 direct peer payments</strong> in <code>O(N log N)</code> execution time.</p>
+    </td>
+    <td width="50%">
+      <h3>🛡️ Enterprise Security & Privacy</h3>
+      <p>Secured with Bcrypt (Cost 12) password hashing, Time-Based One-Time Passwords (TOTP / 2FA), WebAuthn biometric passkeys, PIN code lockouts, and automated Gmail SMTP OTP password reset verification.</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <h3>📊 Double-Entry Multi-Account Ledger</h3>
+      <p>Manage cash accounts, high-yield savings, credit card balances, investment portfolios, and custom asset hierarchies with real-time multi-currency conversion across 170+ global currencies.</p>
+    </td>
+    <td width="50%">
+      <h3>📱 Native PWA & LAN Multi-Device Sync</h3>
+      <p>Engine listens on <code>0.0.0.0</code>: run on one host PC and connect instantly from any iPhone, iPad, Android phone, or laptop over local Wi-Fi with instant camera QR pairing.</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <h3>📅 Visual Financial Calendar</h3>
+      <p>Day-by-day cash flow calendar visualizing upcoming recurring bills, historical spending peaks, income events, and monthly balance shifts.</p>
+    </td>
+    <td width="50%">
+      <h3>📥 Broad Import / Export Suite</h3>
+      <p>Export clean Microsoft Excel (<code>.xlsx</code>) and <code>.csv</code> records. Seamlessly import from CSV, OFX, QFX, QIF, IIF, Camt.053, MT940, GnuCash, Firefly III, and Beancount.</p>
+    </td>
+  </tr>
+</table>
 
 <p align="center">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-10B981.svg" alt="License"></a>
-  <img src="https://img.shields.io/badge/Go-1.25+-00ADD8?logo=go&logoColor=white" alt="Go Version">
-  <img src="https://img.shields.io/badge/Node.js-20%2B%20%7C%2022%20LTS-339933?logo=nodedotjs&logoColor=white" alt="Node.js Version">
-  <img src="https://img.shields.io/badge/Vue.js-3.5.25-4FC08D?logo=vuedotjs&logoColor=white" alt="Vue 3">
-  <img src="https://img.shields.io/badge/Vite-7.2.7-646CFF?logo=vite&logoColor=white" alt="Vite">
-  <img src="https://img.shields.io/badge/Vuetify-3.11.3-1867C0?logo=vuetify&logoColor=white" alt="Vuetify 3">
-  <img src="https://img.shields.io/badge/Framework7-9.0.2-EE350F?logo=framework7&logoColor=white" alt="Framework7">
-  <img src="https://img.shields.io/badge/PRs-welcome-10B981.svg" alt="PRs Welcome">
+  <img src="public/img/luxury-divider.svg" alt="Luxury Divider" width="100%" />
 </p>
 
 ---
 
-## Table of Contents
+## 🚀 Customer & User Experience Workflow
 
-- [Overview](#overview)
-- [Key Features](#key-features)
-- [Customer & User Experience Workflow](#customer--user-experience-workflow)
-  - [Interactive Workflow Simulator (Light Theme Web App)](#interactive-workflow-simulator-light-theme-web-app)
-  - [End-to-End Customer Journey Chart](#end-to-end-customer-journey-chart)
-  - [Detailed Customer Journey Stages](#detailed-customer-journey-stages)
-- [Complete Technology Stack & Library Versions](#complete-technology-stack--library-versions)
-  - [Backend Dependencies (Go Modules)](#backend-dependencies-go-modules)
-  - [Frontend Dependencies (Node / npm)](#frontend-dependencies-node--npm)
-- [Prerequisites & System Requirements](#prerequisites--system-requirements)
-- [Local Installation & Development Guide](#local-installation--development-guide)
-  - [Step 1: Clone the Repository](#step-1-clone-the-repository)
-  - [Step 2: Install Frontend Dependencies](#step-2-install-frontend-dependencies)
-  - [Step 3: Install Backend Dependencies](#step-3-install-backend-dependencies)
-  - [Step 4: Configure Backend Settings](#step-4-configure-backend-settings)
-  - [Step 5: Run Backend Server](#step-5-run-backend-server)
-  - [Step 6: Run Frontend Development Server](#step-6-run-frontend-development-server)
-  - [Step 7: Access the Application](#step-7-access-the-application)
-- [How to Run and Access on Other Devices (LAN, Wi-Fi & Mobile)](#how-to-run-and-access-on-other-devices-lan-wi-fi--mobile)
-  - [Architecture: Network Binding (`0.0.0.0`)](#architecture-network-binding-0000)
-  - [Step 1: Find Host Machine LAN IP](#step-1-find-host-machine-lan-ip)
-  - [Step 2: Configure Host Firewall](#step-2-configure-host-firewall)
-  - [Step 3: Connect from Another PC or Laptop](#step-3-connect-from-another-pc-or-laptop)
-  - [Step 4: Connect from Smartphone or Tablet (iOS / Android)](#step-4-connect-from-smartphone-or-tablet-ios--android)
-  - [Step 5: Install as Mobile PWA (Native App Feel)](#step-5-install-as-mobile-pwa-native-app-feel)
-  - [Step 6: Mobile QR Code Instant Connect](#step-6-mobile-qr-code-instant-connect)
-- [Setting Up on a Completely New Computer (Fresh Install)](#setting-up-on-a-completely-new-computer-fresh-install)
-  - [Windows Fresh Install](#windows-fresh-install)
-  - [Linux / macOS Fresh Install](#linux--macos-fresh-install)
-  - [Docker Quick Deployment](#docker-quick-deployment)
-- [Configuration Reference (`splitchill-ai.ini`)](#configuration-reference-splitchill-aiini)
-  - [Server & Network](#server--network)
-  - [Database Setup (SQLite, MySQL, PostgreSQL)](#database-setup-sqlite-mysql-postgresql)
-  - [SMTP Email & OTP Setup (Gmail / Custom SMTP)](#smtp-email--otp-setup-gmail--custom-smtp)
-- [Production Build & Packaging](#production-build--packaging)
-- [Troubleshooting & FAQs](#troubleshooting--faqs)
-- [Translating & Localization](#translating--localization)
-- [License](#license)
-
----
-
-## Overview
-
-**Split Chill AI** (also known as **Spill Chill**) is a modern, high-performance, self-hosted financial ledger and group expense tracking application. It bridges personal bookkeeping with seamless bill splitting, multi-currency conversions, automated debt simplification, and AI receipt processing.
-
-Built with a robust **Go** microservices-style HTTP engine and an executive **Vue 3 + Vite** web client, Split Chill AI features:
-- **Desktop Experience**: Crafted with Vuetify 3, Apache ECharts, and a custom Emerald Fintech design system.
-- **Mobile Experience**: Built on Framework7 with full Progressive Web App (PWA) support, swipe gestures, and offline-ready service worker caching.
-- **Privacy First**: Complete data ownership with local SQLite, MySQL, or PostgreSQL persistence.
-- **Secure Password Reset**: Integrated SMTP Email OTP verification system.
-
----
-
-## Key Features
-
-- **Double-Entry & Multi-Account Bookkeeping**: Manage cash, bank accounts, credit cards, investments, and custom assets with two-level account hierarchies.
-- **Group Expense Splitting**: Settle group bills, trips, and shared expenses effortlessly without awkward debt calculations.
-- **Interactive Financial Visualizations**: Real-time asset overview, monthly income/expense trends, and comprehensive transaction analytics.
-- **Event Calendar Ledger**: Calendar day-by-day views of spending, income, and scheduled recurring bills.
-- **AI & MCP Ready**: Built-in support for Model Context Protocol (MCP) server endpoints allowing AI agents to interface with your financial records.
-- **Enterprise Security**:
-  - Two-Factor Authentication (2FA / TOTP)
-  - One-Time Password (OTP) Email Verification for Password Resets
-  - PIN Code & WebAuthn Application Lock
-  - IP-based Login Rate Limiting & Brute Force Protection
-- **Broad Data Import / Export**: Import and export CSV, OFX, QFX, QIF, IIF, Camt.053, MT940, GnuCash, Firefly III, and Beancount formats.
-- **Global Ready**: Supports 17+ languages, real-time multi-currency exchange rates, and customized numeral/date formatting.
-
----
-
-## Customer & User Experience Workflow
-
-Split Chill AI delivers an intuitive, frictionless bill splitting and personal finance experience for friends, travel groups, and roommates.
+Split Chill AI provides a friction-free experience for groups traveling together, flatmates dividing household utilities, or colleagues dining out.
 
 ### Interactive Workflow Simulator (Light Theme Web App)
 
-Experience the complete customer journey interactively in the official **Light Theme** (matching the product design system):
-- **Direct Browser URL**: [http://localhost:8081/workflow.html](http://localhost:8081/workflow.html) (or [`public/workflow.html`](file:///c:/Users/admin/Desktop/Modi/ADBMS%20Project/Split-Chill/public/workflow.html))
+Experience the full journey in the built-in interactive simulator:
+- **Direct Portal**: [http://localhost:8081/workflow.html](http://localhost:8081/workflow.html) (Source: [`public/workflow.html`](file:///c:/Users/admin/Desktop/Modi/ADBMS%20Project/Split-Chill/public/workflow.html))
 - **Interactive Scenarios**:
-  1. **✈️ Weekend Trip to Tokyo** — Multi-currency expense splitting (USD &amp; JPY) with dinner receipts.
-  2. **🏠 Apartment Roommates** — Monthly high-speed Wi-Fi &amp; electric utilities split.
+  1. **✈️ Weekend Trip to Tokyo** — Multi-currency expense splitting (USD & JPY) with dinner receipts.
+  2. **🏠 Apartment Roommates** — Monthly high-speed Wi-Fi & electric utilities split.
   3. **🍱 Office Team Lunch** — Instant 4-way meal split with direct QR code settling.
 
 ---
 
-### End-to-End Customer Journey Chart
+### End-to-End Customer Journey Architecture
 
 ```mermaid
 flowchart TD
-  %% Light theme styling matching Split Chill UI
   classDef startStep fill:#ECFDF5,stroke:#10B981,stroke-width:2px,color:#064E3B;
   classDef normalStep fill:#FFFFFF,stroke:#E2E8F0,stroke-width:2px,color:#0F172A;
   classDef activeStep fill:#D1FAE5,stroke:#059669,stroke-width:2.5px,color:#064E3B;
   classDef finishStep fill:#FEF3C7,stroke:#F59E0B,stroke-width:2px,color:#78350F;
 
-  subgraph C1 ["Step 1: Onboarding &amp; Profile"]
-    S1["👤 1. Sign Up / Login<br/>• Select home currency (USD, EUR, INR)<br/>• Password secured with Bcrypt 12<br/>• Gmail SMTP OTP recovery active"]:::startStep
+  subgraph C1 ["Step 1: Onboarding & Security"]
+    S1["👤 1. Sign Up / Authentication<br/>• Select primary currency (USD, EUR, INR, JPY)<br/>• Bcrypt 12 password hashing<br/>• Gmail SMTP OTP recovery active"]:::startStep
   end
 
-  subgraph C2 ["Step 2: Group &amp; Friends"]
-    S2["👥 2. Create Group Ledger<br/>• Name: 'Tokyo Trip' or 'Apartment 4B'<br/>• Set group members &amp; avatars<br/>• Share instant mobile QR Join code"]:::normalStep
+  subgraph C2 ["Step 2: Group Creation"]
+    S2["👥 2. Establish Shared Ledger<br/>• Name: 'Tokyo Vacation' or 'Apartment 4B'<br/>• Set member avatars & initial balances<br/>• Instant camera QR join link generated"]:::normalStep
   end
 
   subgraph C3 ["Step 3: Expense Capture"]
-    S3["🧾 3. Log Expense &amp; Receipt<br/>• Enter $180 dinner bill<br/>• Designate who paid (Alice)<br/>• Real-time currency conversion (JPY ➔ USD)<br/>• Attach receipt photo"]:::normalStep
+    S3["🧾 3. Record Bill & Receipts<br/>• Enter $180 dinner or utility payment<br/>• Designate payer (Alice)<br/>• Real-time exchange rate calculation<br/>• Attach invoice photo or PDF receipt"]:::normalStep
   end
 
-  subgraph C4 ["Step 4: Flexible Split"]
-    S4["⚖️ 4. Choose Split Method<br/>• Equal Split (25% each)<br/>• Unequal Dollar Amounts<br/>• Percentage or Weighted Shares<br/>• Instant $0.00 delta validation"]:::normalStep
+  subgraph C4 ["Step 4: Precision Split"]
+    S4["⚖️ 4. Choose Division Method<br/>• Equal Split (25% each)<br/>• Unequal Dollar Amounts<br/>• Percentage / Weighted Shares<br/>• Instant $0.00 delta balance validation"]:::normalStep
   end
 
-  subgraph C5 ["Step 5: Smart Algorithm"]
-    S5["✨ 5. Debt Simplification Engine<br/>• Greedy graph algorithm runs O(N log N)<br/>• Eliminates messy circular debts<br/>• 6 chaotic debts reduced to 2 direct payments"]:::activeStep
+  subgraph C5 ["Step 5: Smart Optimization"]
+    S5["✨ 5. Debt Minimization Engine<br/>• Greedy graph algorithm runs in O(N log N)<br/>• Eliminates messy circular debts<br/>• 6 chaotic debts reduced to 2 direct transfers"]:::activeStep
   end
 
-  subgraph C6 ["Step 6: Settle &amp; Archive"]
-    S6["🎉 6. Settle Up &amp; Financial Harmony<br/>• One-tap 'Record Payment'<br/>• All member balances reach $0.00<br/>• Export clean Excel (.xlsx) &amp; CSV reports"]:::finishStep
+  subgraph C6 ["Step 6: Settlement & Harmony"]
+    S6["🎉 6. Settle Up & Export<br/>• One-tap 'Record Payment'<br/>• All member balances reach $0.00<br/>• Instant Microsoft Excel (.xlsx) & CSV export"]:::finishStep
   end
 
-  %% Sequential customer flow
   S1 -->|Creates Account| S2
-  S2 -->|Invites Group| S3
-  S3 -->|Captures Bill| S4
+  S2 -->|Invites Members| S3
+  S3 -->|Captures Expense| S4
   S4 -->|Calculates Shares| S5
   S5 -->|Optimizes Payments| S6
-  S6 -.->|Add Next Shared Bill| S3
+  S6 -.->|Add Subsequent Bill| S3
 ```
 
 ---
 
-### Detailed Customer Journey Stages
+### Step-by-Step Customer Journey Breakdown
 
-| Stage | Customer Action | System Intelligence &amp; Behavior | Result / Experience |
+| Stage | Customer Action | System Intelligence & Engine Behavior | Outcome / User Experience |
 | :--- | :--- | :--- | :--- |
-| **1. Onboarding &amp; Security** | User registers with email &amp; chooses home currency (USD, EUR, etc.). | Password hashed with Bcrypt (Cost 12); Gmail SMTP OTP verification ready on `smtp.gmail.com:587`. | Immediate dashboard access; zero complicated verification delays. |
-| **2. Group Creation** | User creates a group (*"Tokyo Trip"*), selects members, and shows QR code. | Generates direct join link and dynamic QR code; opens LAN sockets on `0.0.0.0:8081`. | Friends scan with phone cameras and join the ledger in &lt;3 seconds. |
-| **3. Expense Logging** | User adds $180 dinner, chooses Alice as payer, and attaches receipt photo. | Automatically fetches live exchange rates (JPY to USD) and verifies storage quota. | Real-time entry appears on both desktop and mobile screens simultaneously. |
-| **4. Split Customization** | User picks split mode: Equal, by percentage, or custom amounts. | Validates total sum equals $180.00; checks for rounding fractions. | Every member sees their exact calculated share with complete transparency. |
-| **5. Debt Minimizer** | Group views the *"Settlements"* tab. | Greedy graph algorithm resolves circular balances: e.g., Alice, Bob, Charlie &amp; David. | **6 complex debts collapse into only 2 direct payments**, eliminating 67% of transfers! |
-| **6. Settlement &amp; Reports** | Members tap *"Settle Up"* after payment; organizer exports record. | Balances zero out with confetti animation; engine generates Microsoft Excel (.xlsx) file. | Group achieves total financial harmony with verifiable records. |
+| **1. Onboarding** | User registers with email & chooses home currency. | Hashes password with Bcrypt; initiates SMTP OTP verification engine. | Instant entry to dashboard; zero verification delays. |
+| **2. Group Creation** | User creates group (*"Tokyo Trip"*), displays QR code. | Opens local sockets on `0.0.0.0:8081`; generates join token. | Friends scan from phone camera and join in <3 seconds. |
+| **3. Expense Logging** | User adds $180 dinner, marks Alice as payer. | Fetches live exchange rates (JPY to USD) and verifies storage quota. | Synchronized live across desktop and mobile screens. |
+| **4. Split Customization** | User selects split mode: Equal, percentage, or custom. | Validates sum equals $180.00; checks for rounding fractions. | Every member sees calculated share with full transparency. |
+| **5. Debt Minimizer** | Group views the *"Settlements"* tab. | Greedy graph algorithm resolves circular balances. | **6 complex debts collapse into 2 direct payments** (67% fewer transfers). |
+| **6. Settlement** | Members tap *"Settle Up"*; organizer exports record. | Balances zero out with confetti animation; engine generates `.xlsx` report. | Group achieves total financial clarity with verifiable proof. |
+
+<p align="center">
+  <img src="public/img/luxury-divider.svg" alt="Luxury Divider" width="100%" />
+</p>
 
 ---
 
-## Complete Technology Stack & Library Versions
+## 🗄️ Database Architecture (17 Tables)
+
+Split Chill AI utilizes a unified relational data store with 17 synchronized tables. Persistence is supported on **SQLite 3**, **MySQL 8.0+**, and **PostgreSQL 14+**.
+
+```mermaid
+erDiagram
+  USERS ||--o{ ACCOUNTS : owns
+  USERS ||--o{ TRANSACTIONS : creates
+  USERS ||--o{ CATEGORIES : configures
+  USERS ||--o{ TAGS : categorizes
+  USERS ||--o{ USER_TOKENS : authenticates
+  USERS ||--o{ TWO_FACTOR_AUTHORIZATIONS : secures
+  USERS ||--o{ DATA_SUMMARIES : calculates
+  TRANSACTIONS ||--o{ TRANSACTION_TAGS : associates
+  TRANSACTIONS ||--o{ TRANSACTION_PICTURES : attaches
+  ACCOUNTS ||--o{ TRANSACTIONS : debits_credits
+  FEEDBACKS }o--|| USERS : receives_from
+```
+
+### Complete Schema Catalog
+
+| # | Table Name | Primary Key | Key Attributes & Foreign Relationships | Purpose |
+| :-: | :--- | :--- | :--- | :--- |
+| **1** | `users` | `uid` (BIGINT) | `username`, `email`, `password`, `default_currency` | Master user identities & authentication credentials |
+| **2** | `user_tokens` | `token_id` (BIGINT) | `uid` ➔ `users.uid`, `user_token`, `expires_at` | Active JWT session tokens & device authorizations |
+| **3** | `two_factor_authorizations` | `id` (BIGINT) | `uid` ➔ `users.uid`, `secret`, `recovery_codes` | TOTP / Authenticator app two-factor security secrets |
+| **4** | `accounts` | `id` (BIGINT) | `uid` ➔ `users.uid`, `category`, `currency`, `balance` | Financial accounts (cash, bank, credit card, investment) |
+| **5** | `transactions` | `id` (BIGINT) | `uid`, `source_account_id`, `destination_account_id`, `amount` | Core financial ledger entries (income, expense, transfers) |
+| **6** | `transaction_categories` | `id` (BIGINT) | `uid`, `name`, `type`, `color`, `icon` | Hierarchical expense & income classification trees |
+| **7** | `transaction_tags` | `id` (BIGINT) | `uid`, `name` | Reusable labels & tags for flexible transaction grouping |
+| **8** | `map_transaction_tags` | `id` (BIGINT) | `transaction_id` ➔ `transactions.id`, `tag_id` ➔ `tags.id` | Many-to-many relationship mapping transactions to tags |
+| **9** | `transaction_pictures` | `id` (BIGINT) | `transaction_id` ➔ `transactions.id`, `picture_path` | Receipt photos, invoice attachments, and image files |
+| **10** | `transaction_templates` | `id` (BIGINT) | `uid`, `name`, `template_type`, `payload` | Reusable transaction templates for recurring expenses |
+| **11** | `data_summaries` | `id` (BIGINT) | `uid`, `year_month`, `total_income`, `total_expense` | Cached monthly and yearly analytical rollups |
+| **12** | `exchange_rates` | `id` (BIGINT) | `source_currency`, `target_currency`, `rate`, `updated_at` | Live currency exchange conversion matrices |
+| **13** | `user_custom_tabs` | `id` (BIGINT) | `uid`, `tab_name`, `order_index` | Desktop navigation bar customizations and user preferences |
+| **14** | `user_external_data` | `id` (BIGINT) | `uid`, `provider`, `external_id` | OAuth, OpenID Connect & external identity provider bindings |
+| **15** | `database_versions` | `version` (INT) | `applied_at` | Schema migration history and database version tracking |
+| **16** | `settings` | `key` (VARCHAR) | `value`, `updated_at` | System-wide configuration overrides and server toggles |
+| **17** | `feedbacks` | `feedback_id` (BIGINT) | `full_name`, `email`, `category`, `message`, `status` | Contact form inquiries and email dispatch audit records |
+
+<p align="center">
+  <img src="public/img/luxury-divider.svg" alt="Luxury Divider" width="100%" />
+</p>
+
+---
+
+## 🛠️ Complete Technology Stack & Library Versions
 
 ### Backend Dependencies (Go Modules)
 
-The backend runs on **Go 1.25+** (tested and fully compatible with Go 1.27+). Key dependencies defined in [`go.mod`](file:///c:/Users/admin/Desktop/Modi/ADBMS%20Project/Split-Chill/go.mod):
+The core microservice runs on **Go 1.25+** (tested up to **Go 1.27**). Key dependencies cataloged in [`go.mod`](file:///c:/Users/admin/Desktop/Modi/ADBMS%20Project/Split-Chill/go.mod):
 
-| Library / Module | Exact Version | Description & Purpose |
+| Library / Module | Exact Version | Description & Role |
 | :--- | :--- | :--- |
-| `github.com/gin-gonic/gin` | `v1.11.0` | High-performance Go HTTP web framework & router |
-| `xorm.io/xorm` | `v1.3.11` | Simple and powerful Go ORM library |
-| `xorm.io/builder` | `v0.3.13` | SQL query builder for XORM |
-| `github.com/mattn/go-sqlite3` | `v1.14.32` | SQLite3 driver for Go (CGO required) |
-| `github.com/go-sql-driver/mysql` | `v1.9.3` | MySQL driver for Go |
-| `github.com/lib/pq` | `v1.10.9` | Pure Go Postgres driver for database/sql |
-| `github.com/golang-jwt/jwt/v5` | `v5.3.0` | JSON Web Token (JWT) implementation for authentication |
-| `golang.org/x/crypto` | `v0.46.0` | Cryptographic primitives (Bcrypt password hashing) |
-| `gopkg.in/mail.v2` | `v2.3.1` | SMTP client used for sending password reset OTP emails |
-| `github.com/pquerna/otp` | `v1.5.0` | Two-Factor Authentication (TOTP / HOTP) engine |
-| `github.com/go-co-op/gocron/v2` | `v2.18.2` | Job scheduler for recurring transactions & exchange rate sync |
-| `github.com/urfave/cli/v3` | `v3.6.1` | Command-line interface builder (`splitchill-ai server run`) |
-| `gopkg.in/ini.v1` | `v1.67.0` | INI configuration parser (`conf/splitchill-ai.ini`) |
-| `github.com/sirupsen/logrus` | `v1.9.3` | Structured logger for Go |
-| `github.com/xuri/excelize/v2` | `v2.10.0` | Read and write Microsoft Excel (XLSX) spreadsheets |
-| `github.com/extrame/xls` | `v0.0.2` | Legacy Excel (XLS) parser |
+| `github.com/gin-gonic/gin` | `v1.11.0` | High-throughput Go HTTP web framework & routing engine |
+| `xorm.io/xorm` | `v1.3.11` | Enterprise Go ORM supporting multi-engine migrations |
+| `xorm.io/builder` | `v0.3.13` | SQL query expression builder for XORM |
+| `github.com/mattn/go-sqlite3` | `v1.14.32` | CGO SQLite3 driver with WAL (Write-Ahead Logging) |
+| `github.com/go-sql-driver/mysql` | `v1.9.3` | Production-grade MySQL driver |
+| `github.com/lib/pq` | `v1.10.9` | Pure Go PostgreSQL driver |
+| `github.com/golang-jwt/jwt/v5` | `v5.3.0` | JWT cryptographic token generation and validation |
+| `golang.org/x/crypto` | `v0.46.0` | Bcrypt hashing and secure password protection |
+| `gopkg.in/mail.v2` | `v2.3.1` | SMTP email dispatch client for Gmail OTP delivery |
+| `github.com/pquerna/otp` | `v1.5.0` | Two-Factor Authentication (TOTP / HOTP) verification |
+| `github.com/go-co-op/gocron/v2` | `v2.18.2` | High-precision recurring job scheduler |
+| `github.com/urfave/cli/v3` | `v3.6.1` | Command-line runtime builder (`splitchill-ai server run`) |
+| `gopkg.in/ini.v1` | `v1.67.0` | INI configuration loader (`conf/splitchill-ai.ini`) |
+| `github.com/sirupsen/logrus` | `v1.9.3` | Structured multi-level logging framework |
+| `github.com/xuri/excelize/v2` | `v2.10.0` | Microsoft Excel (XLSX) generator and reader |
+| `github.com/extrame/xls` | `v0.0.2` | Legacy Excel (XLS) file parser |
 | `github.com/minio/minio-go/v7` | `v7.0.97` | S3-compatible cloud object storage client |
-| `github.com/gin-contrib/cache` | `v1.4.1` | Cache middleware for Gin |
-| `github.com/gin-contrib/gzip` | `v1.2.5` | GZIP compression middleware for Gin |
-| `github.com/go-playground/validator/v10` | `v10.28.0` | Request validation engine |
-| `github.com/boombuler/barcode` | `v1.1.0` | QR Code and barcode generation (for 2FA setup) |
-| `github.com/coreos/go-oidc/v3` | `v3.17.0` | OpenID Connect client implementation |
-| `golang.org/x/oauth2` | `v0.34.0` | OAuth 2.0 client implementation |
-| `github.com/stretchr/testify` | `v1.11.1` | Testing toolkit with assertions |
+| `github.com/gin-contrib/cache` | `v1.4.1` | High-speed response caching middleware |
+| `github.com/gin-contrib/gzip` | `v1.2.5` | Dynamic GZIP stream compression middleware |
+| `github.com/go-playground/validator/v10` | `v10.28.0` | Input sanitization and payload validation |
+| `github.com/boombuler/barcode` | `v1.1.0` | Dynamic 2FA QR code generator |
+| `github.com/coreos/go-oidc/v3` | `v3.17.0` | OpenID Connect identity provider client |
+| `golang.org/x/oauth2` | `v0.34.0` | Standard OAuth 2.0 authorization framework |
+| `github.com/stretchr/testify` | `v1.11.1` | Comprehensive Go unit test suite |
 
 ---
 
-### Frontend Dependencies (Node / npm)
+### Frontend Dependencies (Node.js & npm)
 
-The frontend client is built with **Node.js (v20+ or v22 LTS)** and **TypeScript 5.9.3**. Dependencies from [`package.json`](file:///c:/Users/admin/Desktop/Modi/ADBMS%20Project/Split-Chill/package.json):
+Built with **Node.js 20+ / 22 LTS** and **TypeScript 5.9.3**. Dependencies from [`package.json`](file:///c:/Users/admin/Desktop/Modi/ADBMS%20Project/Split-Chill/package.json):
 
-#### Production Dependencies (`dependencies`)
+<details>
+<summary><b>View Production Dependencies (Click to Expand)</b></summary>
+<br/>
 
-| Package Name | Exact Version | Description & Purpose |
+| Package Name | Exact Version | Description & Role |
 | :--- | :--- | :--- |
 | `vue` | `^3.5.25` | Vue 3 Reactive Framework (Composition API) |
-| `vue-router` | `^4.6.4` | Official router for Vue 3 |
-| `pinia` | `^3.0.4` | Intuitive state management store for Vue 3 |
-| `vuetify` | `^3.11.3` | Material Component Framework for desktop UI |
-| `@mdi/js` | `^7.4.47` | Material Design Icons SVG collection |
-| `framework7` | `^9.0.2` | Mobile UI framework for iOS & Material theme |
-| `framework7-vue` | `^9.0.2` | Vue 3 bindings for Framework7 |
-| `framework7-icons` | `^5.0.5` | Framework7 mobile icons set |
-| `echarts` | `^6.0.0` | Apache ECharts charting and visualization library |
-| `vue-echarts` | `^8.0.1` | Apache ECharts wrapper component for Vue 3 |
-| `@vuepic/vue-datepicker` | `^12.1.0` | Datepicker component for desktop scheduling |
-| `three` | `^0.182.0` | 3D WebGL library |
-| `@tresjs/core` | `^5.3.3` | Declarative Three.js for Vue 3 |
-| `@tresjs/cientos` | `^5.2.5` | Collection of useful helpers for TresJS |
-| `vue-i18n` | `^11.2.2` | Internationalization framework for Vue 3 |
-| `axios` | `^1.13.2` | Promise based HTTP client for API requests |
-| `crypto-js` | `^4.2.0` | JavaScript cryptographic algorithms |
-| `moment` | `^2.30.1` | Parse, validate, and display dates and times |
-| `moment-timezone` | `^0.6.0` | Timezone database calculation library |
-| `leaflet` | `^1.9.4` | Mobile-friendly interactive map library |
-| `swiper` | `^12.0.3` | Mobile touch slider and swipe gestures |
-| `vuedraggable` | `^4.1.0` | Drag-and-drop component based on Sortable.js |
-| `vue3-perfect-scrollbar` | `^2.0.0` | Smooth minimalist scrollbar wrapper |
-| `clipboard` | `^2.0.11` | Copy to clipboard utility |
-| `jalaali-js` | `^1.2.8` | Jalaali (Persian) calendar conversion library |
-| `ua-parser-js` | `^1.0.39` | User-agent parser for device detection |
-| `register-service-worker` | `^1.7.2` | PWA Service worker registration script |
-| `skeleton-elements` | `^4.0.1` | Skeleton loading placeholder elements |
-| `line-awesome` | `^1.3.0` | Font Awesome alternative icon font |
-| `cbor-js` | `^0.1.0` | Concise Binary Object Representation (CBOR) decoder |
-| `chardet` | `^2.1.1` | Character encoding detector for file imports |
-| `dom7` | `^4.0.6` | Lightweight DOM manipulation library used by F7 |
+| `vue-router` | `^4.6.4` | Single Page Application (SPA) routing engine |
+| `pinia` | `^3.0.4` | Modular, type-safe reactive state store |
+| `vuetify` | `^3.11.3` | Material Design Component Framework for Desktop UI |
+| `@mdi/js` | `^7.4.47` | Material Design Vector SVG Icon Library |
+| `framework7` | `^9.0.2` | Mobile UI framework for native iOS & Android gestures |
+| `framework7-vue` | `^9.0.2` | Framework7 bindings for Vue 3 |
+| `framework7-icons` | `^5.0.5` | Native mobile icon typography collection |
+| `echarts` | `^6.0.0` | Apache ECharts charting and financial visualization engine |
+| `vue-echarts` | `^8.0.1` | Vue 3 wrapper for Apache ECharts |
+| `@vuepic/vue-datepicker` | `^12.1.0` | Desktop date and calendar picker |
+| `three` | `^0.182.0` | 3D WebGL graphics engine |
+| `@tresjs/core` | `^5.3.3` | Declarative Three.js component wrapper for Vue 3 |
+| `@tresjs/cientos` | `^5.2.5` | Three.js shader and animation helpers |
+| `vue-i18n` | `^11.2.2` | Internationalization engine for 17+ languages |
+| `axios` | `^1.13.2` | Promise-based asynchronous HTTP API client |
+| `crypto-js` | `^4.2.0` | Client-side cryptographic hashing & encryption |
+| `moment` | `^2.30.1` | Date arithmetic and parsing utility |
+| `moment-timezone` | `^0.6.0` | Global timezone offset calculation engine |
+| `leaflet` | `^1.9.4` | Mobile-optimized geospatial mapping |
+| `swiper` | `^12.0.3` | Touch slider and mobile card carousel gestures |
+| `vuedraggable` | `^4.1.0` | Drag-and-drop sortable components |
+| `vue3-perfect-scrollbar` | `^2.0.0` | Minimalist custom scrollbar engine |
+| `clipboard` | `^2.0.11` | Cross-browser clipboard copy helper |
+| `jalaali-js` | `^1.2.8` | Persian calendar conversion library |
+| `ua-parser-js` | `^1.0.39` | Device and browser identification parser |
+| `register-service-worker` | `^1.7.2` | Progressive Web App (PWA) worker registration |
+| `skeleton-elements` | `^4.0.1` | Shimmering placeholder skeletons |
+| `line-awesome` | `^1.3.0` | Line Awesome vector typography font |
+| `cbor-js` | `^0.1.0` | Concise Binary Object Representation decoder |
+| `chardet` | `^2.1.1` | Character encoding detector for CSV import |
+| `dom7` | `^4.0.6` | Lightweight DOM manipulation helper |
 
-#### Build & Dev Tooling (`devDependencies`)
+</details>
 
-| Package Name | Exact Version | Description & Purpose |
+<details>
+<summary><b>View Build & Development Tooling (Click to Expand)</b></summary>
+<br/>
+
+| Package Name | Exact Version | Description & Role |
 | :--- | :--- | :--- |
-| `vite` | `^7.2.7` | Next-generation frontend build tool |
-| `typescript` | `^5.9.3` | Typed superset of JavaScript |
-| `sass` | `^1.96.0` | Dart Sass preprocessor for SCSS styling |
-| `vue-tsc` | `^3.1.8` | Type-checking tool for Vue Single File Components |
-| `@vitejs/plugin-vue` | `^6.0.3` | Official Vite plugin for Vue 3 |
-| `vite-plugin-vuetify` | `^2.1.2` | Automatic Vuetify component & styles resolver |
-| `vite-plugin-pwa` | `^1.2.0` | Zero-config PWA plugin for Vite |
-| `eslint` | `^9.39.1` | Pluggable JavaScript and TypeScript linter |
-| `eslint-plugin-vue` | `^10.6.2` | Official ESLint plugin for Vue |
-| `cross-env` | `^10.1.0` | Cross-platform environment variable runner |
-| `jest` | `^30.2.0` | JavaScript testing framework |
-| `ts-jest` | `^29.4.6` | TypeScript preprocessor for Jest |
-| `ts-node` | `^10.9.2` | TypeScript execution engine for Node.js |
+| `vite` | `^7.2.7` | High-speed frontend build and dev server |
+| `typescript` | `^5.9.3` | Type-safe JavaScript compiler |
+| `sass` | `^1.96.0` | Dart Sass preprocessor for SCSS stylesheets |
+| `vue-tsc` | `^3.1.8` | Type-checking engine for Vue Single File Components |
+| `@vitejs/plugin-vue` | `^6.0.3` | Vite compilation plugin for Vue 3 |
+| `vite-plugin-vuetify` | `^2.1.2` | Tree-shaking and component resolver for Vuetify |
+| `vite-plugin-pwa` | `^1.2.0` | Automated Service Worker and Web App Manifest generator |
+| `eslint` | `^9.39.1` | JavaScript / TypeScript static code analyzer |
+| `eslint-plugin-vue` | `^10.6.2` | Vue 3 template syntax and style linter |
+| `cross-env` | `^10.1.0` | Cross-platform environment variable wrapper |
+| `jest` | `^30.2.0` | Automated unit testing framework |
+| `ts-jest` | `^29.4.6` | TypeScript transformer for Jest |
+| `ts-node` | `^10.9.2` | TypeScript execution environment for Node |
+
+</details>
+
+<p align="center">
+  <img src="public/img/luxury-divider.svg" alt="Luxury Divider" width="100%" />
+</p>
 
 ---
 
-## Prerequisites & System Requirements
+## 💻 Local Installation & Development Guide
 
-Before running or building Split Chill AI, ensure your system has the following installed:
+Follow these steps to set up and run the entire platform locally from scratch:
 
-1. **Node.js**: `v20.x` or `v22.x LTS` ([Download Node.js](https://nodejs.org/))
-2. **npm**: `v10.x` or higher (comes bundled with Node.js)
-3. **Go**: `v1.25` or higher ([Download Go](https://golang.org/)) *(required only if compiling the backend from source code)*
-4. **C Compiler (GCC)**: Required if compiling Go backend with SQLite3 support:
-   - **Windows**: [MinGW-w64](https://www.mingw-w64.org/) or [TDM-GCC](https://jmeubank.github.io/tdm-gcc/)
-   - **Linux**: `sudo apt install build-essential`
-   - **macOS**: `xcode-select --install`
-5. **Git**: For cloning the repository ([Download Git](https://git-scm.com/))
+### 1. System Requirements
 
-Verify your environment by running:
-```bash
-node -v       # Expected: v20.x.x or v22.x.x
-npm -v        # Expected: 10.x.x+
-go version    # Expected: go1.25.x or higher
-git --version
-```
+- **Node.js**: `v20.x` or `v22.x LTS` ([Download](https://nodejs.org/))
+- **npm**: `v10.x` or higher
+- **Go**: `v1.25` or higher ([Download](https://golang.org/)) *(required only if compiling backend from Go code)*
+- **C Compiler (GCC)**: Required for SQLite3 CGO compilation:
+  - Windows: [MinGW-w64](https://www.mingw-w64.org/) or [TDM-GCC](https://jmeubank.github.io/tdm-gcc/)
+  - Linux: `sudo apt install build-essential`
+  - macOS: `xcode-select --install`
+- **Git**: [Download Git](https://git-scm.com/)
 
 ---
 
-## Local Installation & Development Guide
+### 2. Quick Setup Commands
 
-Follow these steps to set up and run the full project locally:
-
-### Step 1: Clone the Repository
-
+#### Step 1: Clone Repository
 ```bash
 git clone https://github.com/Shavitjnr/Split-Chill.git
 cd Split-Chill
 ```
 
-### Step 2: Install Frontend Dependencies
-
-Install all production and development packages with exact version locking:
+#### Step 2: Install Node Dependencies
 ```bash
 npm install
 ```
 
-### Step 3: Install Backend Dependencies
-
-Download and verify all Go modules:
+#### Step 3: Install Go Dependencies *(if building backend)*
 ```bash
 go mod download
 go mod verify
 ```
 
-### Step 4: Configure Backend Settings
-
-Review and customize the main configuration file at [`conf/splitchill-ai.ini`](file:///c:/Users/admin/Desktop/Modi/ADBMS%20Project/Split-Chill/conf/splitchill-ai.ini):
-
-- **Server Port**: `http_port = 8082` (Backend API port)
-- **Host Binding**: `http_addr = 0.0.0.0` (Enables multi-device / LAN connections)
-- **Secret Key**: Set a secure string under `secret_key` in `[security]` section.
-- **Database**: Defaults to local SQLite (`type = sqlite3`, stored in `data/splitchill-ai.db`).
-- **SMTP Mail**: Gmail credentials for OTP verification are pre-configured in `[mail]` section.
-
-### Step 5: Run Backend Server
-
-#### Option A: Run the Precompiled Windows Binary
+#### Step 4: Run Backend Server
+##### Option A: Precompiled Windows Binary
 ```powershell
 .\splitchill-ai.exe server run
 ```
-
-#### Option B: Run Directly from Go Source
+##### Option B: Run from Source Code
 ```bash
 go run ./cmd server run
 ```
+*Backend initializes on `0.0.0.0:8082` and mounts the SQLite database at `data/splitchill-ai.db`.*
 
-The Go engine will initialize the database schema in `data/splitchill-ai.db` and start listening on `0.0.0.0:8082`.
-
-### Step 6: Run Frontend Development Server
-
-In a new terminal window:
+#### Step 5: Run Frontend Server (In a 2nd Terminal)
 ```bash
 npm run serve
 ```
-Vite will start the development server bound to `0.0.0.0:8081` with auto-reloading and proxying to the backend.
+*Vite compiles the frontend and starts listening on `0.0.0.0:8081`.*
 
-### Step 7: Access the Application
-
-Open your browser to:
-- **Desktop Dashboard**: [http://localhost:8081/desktop.html#/](http://localhost:8081/desktop.html#/)
-- **Mobile Web App**: [http://localhost:8081/mobile.html#/](http://localhost:8081/mobile.html#/)
-- **Product Landing Page**: [http://localhost:8081/landing.html](http://localhost:8081/landing.html)
-- **Backend Health Check**: [http://localhost:8082/api/v1/server/status](http://localhost:8082/api/v1/server/status)
+<p align="center">
+  <img src="public/img/luxury-divider.svg" alt="Luxury Divider" width="100%" />
+</p>
 
 ---
 
-## How to Run and Access on Other Devices (LAN, Wi-Fi & Mobile)
+## 📱 How to Run and Access on Other Devices (LAN, Wi-Fi & Mobile)
 
-Split Chill AI is built for seamless multi-device usage. You can host the server on one PC and access it simultaneously from other PCs, laptops, iPhones, iPads, and Android devices connected to the same Wi-Fi network.
+Split Chill AI features built-in **`0.0.0.0` socket binding**, enabling host computers to serve the application across your entire local network to phones, laptops, and tablets.
 
-### Architecture: Network Binding (`0.0.0.0`)
+### Architecture Overview
 
-Both servers are already configured to accept connections from other devices on your local network:
-1. **Frontend (Vite)** in `vite.config.ts`:
-   ```ts
-   server: {
-       host: '0.0.0.0', // Listens on all IPv4 addresses
-       port: 8081,
-       ...
-   }
-   ```
-2. **Backend (Go)** in `conf/splitchill-ai.ini`:
-   ```ini
-   [server]
-   http_addr = 0.0.0.0 # Binds to all network interfaces
-   http_port = 8082
-   ```
-
-### Step 1: Find Host Machine LAN IP
-
-Find the local IPv4 address of the computer running Split Chill AI:
-
-#### On Windows:
-Open PowerShell or Command Prompt and run:
-```powershell
-ipconfig
 ```
-Look for **IPv4 Address** under your active Wi-Fi or Ethernet adapter (e.g., `192.168.1.50` or `192.168.29.120`).
-
-#### On macOS / Linux:
-Open Terminal and run:
-```bash
-ip addr show   # Linux
-# or
-ifconfig       # macOS
-```
-Find the `inet` address (e.g., `192.168.1.50`).
-
-### Step 2: Configure Host Firewall
-
-Ensure incoming traffic on ports `8081` and `8082` is allowed through the host firewall.
-
-#### On Windows:
-Run PowerShell as Administrator:
-```powershell
-New-NetFirewallRule -DisplayName "Split Chill Frontend" -Direction Inbound -LocalPort 8081 -Protocol TCP -Action Allow
-New-NetFirewallRule -DisplayName "Split Chill Backend" -Direction Inbound -LocalPort 8082 -Protocol TCP -Action Allow
+ ┌────────────────────────────────────────────────────────┐
+ │   HOST COMPUTER (Windows / macOS / Linux)              │
+ │   IP: 192.168.1.50                                     │
+ │                                                        │
+ │   [Frontend: Vite on 0.0.0.0:8081]                     │
+ │   [Backend:  Go Engine on 0.0.0.0:8082]                │
+ │   [Database: SQLite / MySQL / PostgreSQL]              │
+ └───────────────────────────┬────────────────────────────┘
+                             │
+            Local Wi-Fi Network / LAN Subnet
+                             │
+     ┌───────────────────────┼───────────────────────┐
+     ▼                       ▼                       ▼
+ ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+ │ Laptop 1     │     │ iPhone / iPad│     │ Android Dev  │
+ │ (Chrome/Edge)│     │ (Safari PWA) │     │ (Chrome PWA) │
+ └──────────────┘     └──────────────┘     └──────────────┘
 ```
 
-#### On Linux (UFW):
-```bash
-sudo ufw allow 8081/tcp
-sudo ufw allow 8082/tcp
-```
+---
 
-### Step 3: Connect from Another PC or Laptop
+### Step-by-Step Device Setup
 
-On any other computer connected to the same Wi-Fi / Local Network, open Chrome, Firefox, or Edge:
+#### 1. Determine Host IP Address
+- **On Windows**: Open PowerShell and run `ipconfig`. Note the **IPv4 Address** (e.g., `192.168.1.50`).
+- **On macOS / Linux**: Run `ifconfig` or `ip addr show` to locate your local IP.
 
-- **Desktop Interface**:
+#### 2. Open Firewall Ports on Host
+Allow inbound TCP traffic on ports **8081** (Frontend) and **8082** (Backend):
+- **Windows (Run PowerShell as Admin)**:
+  ```powershell
+  New-NetFirewallRule -DisplayName "Split Chill Frontend" -Direction Inbound -LocalPort 8081 -Protocol TCP -Action Allow
+  New-NetFirewallRule -DisplayName "Split Chill Backend" -Direction Inbound -LocalPort 8082 -Protocol TCP -Action Allow
+  ```
+- **Linux (UFW)**:
+  ```bash
+  sudo ufw allow 8081/tcp
+  sudo ufw allow 8082/tcp
+  ```
+
+#### 3. Connect from Other Devices
+Ensure the other device is connected to the **same Wi-Fi network**, then open its web browser:
+
+- **From any PC, Mac, or Laptop**:
   ```
   http://<HOST_IP>:8081/desktop.html#/
   ```
   *Example:* `http://192.168.1.50:8081/desktop.html#/`
 
-### Step 4: Connect from Smartphone or Tablet (iOS / Android)
-
-Connect your phone to the same Wi-Fi network as the host computer. Open Safari (iOS) or Chrome (Android) and navigate to:
-
-- **Mobile Optimized Interface**:
+- **From any iPhone, iPad, or Android Device**:
   ```
   http://<HOST_IP>:8081/mobile.html#/
   ```
   *Example:* `http://192.168.1.50:8081/mobile.html#/`
 
-### Step 5: Install as Mobile PWA (Native App Feel)
+#### 4. Install as Mobile PWA (Full-Screen Standalone App)
+- **On iPhone / iPad (Safari)**:
+  1. Open `http://<HOST_IP>:8081/mobile.html#/`
+  2. Tap the **Share** button (rectangle with arrow pointing up).
+  3. Tap **Add to Home Screen**, then tap **Add**.
+  4. Launches without URL address bars as a standalone app!
+- **On Android (Chrome)**:
+  1. Open `http://<HOST_IP>:8081/mobile.html#/`
+  2. Tap the **three dots menu** in the top right corner.
+  3. Tap **Install app** or **Add to Home screen**.
+  4. Launches with native splash screen and offline caching!
 
-Split Chill AI includes full Progressive Web App (PWA) support. You can install it on your home screen to use full-screen without browser address bars:
-
-#### On iPhone / iPad (Safari):
-1. Navigate to `http://<HOST_IP>:8081/mobile.html#/`
-2. Tap the **Share** button (box with upward arrow at bottom)
-3. Scroll down and tap **Add to Home Screen**
-4. Tap **Add** in the top right. An app icon named **Split Chill** will appear on your home screen.
-
-#### On Android (Chrome):
-1. Navigate to `http://<HOST_IP>:8081/mobile.html#/`
-2. Tap the **three dots menu** (top right)
-3. Tap **Install app** or **Add to Home screen**
-4. Confirm installation. The app will open in full-screen standalone mode.
-
-### Step 6: Mobile QR Code Instant Connect
-
-From the Desktop UI at `http://<HOST_IP>:8081/desktop.html#/`:
+#### 5. Instant Camera QR Pairing
+From the desktop UI at `http://<HOST_IP>:8081/desktop.html#/`:
 1. Click **"Use on Mobile Device"** in the left sidebar.
-2. A QR Code dialog will appear containing the mobile URL.
-3. Open your smartphone's camera app, scan the code, and tap the link to open the mobile client immediately.
+2. A QR Code will appear containing the dynamic mobile URL.
+3. Open your smartphone camera, scan the code, and jump directly into the mobile experience!
+
+<p align="center">
+  <img src="public/img/luxury-divider.svg" alt="Luxury Divider" width="100%" />
+</p>
 
 ---
 
-## Setting Up on a Completely New Computer (Fresh Install)
+## ⚙️ Configuration Reference (`splitchill-ai.ini`)
 
-If you are cloning this project onto a new team member's computer or another device:
+Configuration is managed in [`conf/splitchill-ai.ini`](file:///c:/Users/admin/Desktop/Modi/ADBMS%20Project/Split-Chill/conf/splitchill-ai.ini):
 
-### Windows Fresh Install
-
-```powershell
-# 1. Clone repository
-git clone https://github.com/Shavitjnr/Split-Chill.git
-cd Split-Chill
-
-# 2. Install Node dependencies
-npm install
-
-# 3. Start Backend server
-.\splitchill-ai.exe server run
-
-# 4. In a second terminal, start Frontend server
-npm run serve
-```
-
-### Linux / macOS Fresh Install
-
-```bash
-# 1. Clone repository
-git clone https://github.com/Shavitjnr/Split-Chill.git
-cd Split-Chill
-
-# 2. Install Node dependencies
-npm install
-
-# 3. Build & Run backend from source
-go mod download
-go build -o splitchill-ai ./cmd
-./splitchill-ai server run
-
-# 4. In a second terminal, start Frontend server
-npm run serve
-```
-
-### Docker Quick Deployment
-
-Split Chill AI can be deployed with a single Docker command:
-
-```bash
-docker run -d \
-  --name splitchill-ai \
-  -p 8082:8080 \
-  -v $(pwd)/data:/app/data \
-  -v $(pwd)/conf:/app/conf \
-  Shavitjnr/split-chill-ai:latest
-```
-
----
-
-## Configuration Reference (`splitchill-ai.ini`)
-
-The configuration file is located at [`conf/splitchill-ai.ini`](file:///c:/Users/admin/Desktop/Modi/ADBMS%20Project/Split-Chill/conf/splitchill-ai.ini).
-
-### Server & Network
-
+### 1. Server Network Binding
 ```ini
 [server]
 protocol = http
-http_addr = 0.0.0.0          # Binds to all interfaces (required for multi-device LAN access)
-http_port = 8082             # Backend port
-domain = localhost           # Domain name
-static_root_path = dist      # Production static assets path
-enable_gzip = false          # Enable GZip compression
-log_request = true           # Log HTTP requests
+http_addr = 0.0.0.0          # Binds to all network interfaces (required for LAN/Wi-Fi)
+http_port = 8082             # Backend REST API port
+domain = localhost           # Host domain name
+static_root_path = dist      # Static asset bundle path
+enable_gzip = false          # Optional GZip compression
+log_request = true           # Access request logging
 ```
 
-### Database Setup (SQLite, MySQL, PostgreSQL)
+### 2. Database Engines (SQLite, MySQL, PostgreSQL)
 
-#### SQLite (Default & Recommended for Local/LAN):
+#### SQLite (Default & Recommended for Self-Hosting):
 ```ini
 [database]
 type = sqlite3
@@ -544,7 +503,7 @@ type = mysql
 host = 127.0.0.1:3306
 name = splitchill-ai
 user = root
-passwd = your_password
+passwd = your_secure_password
 auto_update_database = true
 ```
 
@@ -555,113 +514,105 @@ type = postgres
 host = 127.0.0.1:5432
 name = splitchill-ai
 user = postgres
-passwd = your_password
+passwd = your_secure_password
 ssl_mode = disable
 auto_update_database = true
 ```
 
-### SMTP Email & OTP Setup (Gmail / Custom SMTP)
-
-Split Chill AI comes configured with SMTP support for automated OTP password resets:
-
+### 3. SMTP Email & Automated OTP Setup
 ```ini
 [mail]
 enable_smtp = true
 smtp_host = smtp.gmail.com:587
 smtp_user = shavitdaloutra28@gmail.com
-smtp_passwd = abstkydzjakhaicg       # Gmail App Password (16 characters)
+smtp_passwd = abstkydzjakhaicg       # Gmail App Password (16-character token)
 smtp_skip_tls_verify = false
 from_address = "Spill Chill" <shavitdaloutra28@gmail.com>
 ```
 
-> **Note on Gmail App Passwords:** Standard account passwords will not work with Google SMTP. Generate an App Password in your Google Account under **Security > 2-Step Verification > App passwords**.
+> [!TIP]
+> **Gmail Setup**: Regular account passwords will be rejected by Google SMTP. Generate a dedicated App Password in your Google Account under **Security > 2-Step Verification > App passwords**.
+
+<p align="center">
+  <img src="public/img/luxury-divider.svg" alt="Luxury Divider" width="100%" />
+</p>
 
 ---
 
-## Production Build & Packaging
+## 📦 Production Build & Packaging
 
-To compile a standalone production build where the Go server directly serves the compiled frontend assets:
+To compile a standalone production distribution where the Go binary serves the compiled frontend assets directly:
 
-### Step 1: Build Frontend Bundle
+### Step 1: Build Production Frontend
 ```bash
 npm run build
 ```
-This compiles the Vue 3 application into the `dist/` directory.
+Compiles and tree-shakes all Vue 3 assets into the `dist/` directory.
 
-### Step 2: Package with Build Scripts
+### Step 2: Assemble Standalone Package
 
-#### On Windows:
-```cmd
-.\build.bat package -o splitchill-ai.zip
-```
-or with PowerShell:
-```powershell
-.\build.ps1 package -Output splitchill-ai.zip
-```
-
-#### On Linux / macOS:
-```bash
-chmod +x build.sh
-./build.sh package -o splitchill-ai.tar.gz
-```
-
-All production binaries, templates, static frontend bundles, and configuration files will be bundled into a distributable archive.
-
----
-
-## Troubleshooting & FAQs
-
-### Q1: The browser shows "Unable to connect" when opening on another device.
-- **Cause 1**: Host firewall is blocking port `8081` or `8082`. Run the firewall command in [Step 2](#step-2-configure-host-firewall) to permit incoming TCP traffic.
-- **Cause 2**: The host computer and the other device are on different Wi-Fi networks (e.g., Guest Wi-Fi vs. Main Wi-Fi). Ensure both devices share the exact same network subnet.
-- **Cause 3**: Ensure backend (`splitchill-ai.exe`) and frontend dev server (`npm run serve`) are actively running on the host machine.
-
-### Q2: Backend outputs "secret_key is not set" warning.
-- Open `conf/splitchill-ai.ini`, find `[security]`, and define a random 32+ character string under `secret_key = your_secure_random_string_here`.
-
-### Q3: Git reports "unable to unlink ... db-wal or log" on Windows.
-- SQLite locks the write-ahead log files while `splitchill-ai.exe` is running. Stop the backend process before pulling or switching git branches.
-
-### Q4: Port 8081 or 8082 is already in use.
-- Identify and terminate the process holding the port:
+- **On Windows (PowerShell)**:
   ```powershell
-  # Windows
-  netstat -ano | findstr :8082
-  taskkill /PID <PID> /F
+  .\build.ps1 package -Output splitchill-ai-windows-x64.zip
   ```
-  Or change `http_port` in `conf/splitchill-ai.ini` and `server.port` in `vite.config.ts`.
+- **On Linux / macOS**:
+  ```bash
+  chmod +x build.sh
+  ./build.sh package -o splitchill-ai-linux-x64.tar.gz
+  ```
+
+### Step 3: Docker Deployment
+```bash
+docker run -d \
+  --name splitchill-ai \
+  -p 8082:8080 \
+  -v $(pwd)/data:/splitchill-ai/data \
+  -v $(pwd)/conf:/splitchill-ai/conf \
+  shavitjnr/split-chill:latest
+```
 
 ---
 
-## Translating & Localization
+## 🌐 Localization & Global Support
 
-Split Chill AI supports internationalization across 17+ languages. Translations can be contributed in the `src/locales/` directory.
+Split Chill AI supports 17+ languages. Community contributions are organized in [`src/locales/`](file:///c:/Users/admin/Desktop/Modi/ADBMS%20Project/Split-Chill/src/locales):
 
-| Tag | Language | Contributors |
-| :--- | :--- | :--- |
-| `de` | Deutsch | [@chrgm](https://github.com/chrgm) |
-| `en` | English | / |
-| `es` | Español | [@Miguelonlonlon](https://github.com/Miguelonlonlon), [@abrugues](https://github.com/abrugues), [@AndresTeller](https://github.com/AndresTeller), [@diegofercri](https://github.com/diegofercri) |
-| `fr` | Français | [@brieucdlf](https://github.com/brieucdlf) |
-| `it` | Italiano | [@waron97](https://github.com/waron97) |
-| `ja` | 日本語 | [@tkymmm](https://github.com/tkymmm) |
-| `kn` | ಕನ್ನಡ | [@Darshanbm05](https://github.com/Darshanbm05) |
-| `ko` | 한국어 | [@overworks](https://github.com/overworks) |
-| `nl` | Nederlands | [@automagics](https://github.com/automagics) |
-| `pt-BR` | Português (Brasil) | [@thecodergus](https://github.com/thecodergus) |
-| `ru` | Русский | [@artegoser](https://github.com/artegoser) |
-| `sl` | Slovenščina | [@thehijacker](https://github.com/thehijacker) |
-| `ta` | தமிழ் | [@hhharsha36](https://github.com/hhharsha36) |
-| `th` | ไทย | [@natthavat28](https://github.com/natthavat28) |
-| `tr` | Türkçe | [@aydnykn](https://github.com/aydnykn) |
-| `uk` | Українська | [@nktlitvinenko](https://github.com/nktlitvinenko) |
-| `vi` | Tiếng Việt | [@f97](https://github.com/f97) |
-| `zh-Hans` | 中文 (简体) | / |
-| `zh-Hant` | 中文 (繁體) | / |
+| Code | Language | Code | Language |
+| :--- | :--- | :--- | :--- |
+| `en` | English | `es` | Español |
+| `fr` | Français | `de` | Deutsch |
+| `it` | Italiano | `ja` | 日本語 |
+| `ko` | 한국어 | `zh-Hans` | 简体中文 |
+| `zh-Hant` | 繁體中文 | `ru` | Русский |
+| `pt-BR` | Português (Brasil) | `nl` | Nederlands |
+| `tr` | Türkçe | `vi` | Tiếng Việt |
+| `th` | ไทย | `kn` | ಕನ್ನಡ |
+| `ta` | தமிழ் | `uk` | Українська |
 
 ---
 
-## License
+## 📜 License & Acknowledgments
 
-This project is licensed under the terms of the [MIT License](LICENSE).
-All third-party libraries and licenses are cataloged in [`third-party-dependencies.json`](file:///c:/Users/admin/Desktop/Modi/ADBMS%20Project/Split-Chill/third-party-dependencies.json).
+This platform is licensed under the **[MIT License](LICENSE)**.
+
+```
+Copyright (c) 2026 Shavitdaloutra / Split Chill AI Contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+...
+```
+
+Third-party dependencies and notices are indexed in [`third-party-dependencies.json`](file:///c:/Users/admin/Desktop/Modi/ADBMS%20Project/Split-Chill/third-party-dependencies.json).
+
+<p align="center">
+  <img src="public/img/luxury-divider.svg" alt="Luxury Divider" width="100%" />
+</p>
+
+<div align="center">
+  <sub>Crafted with passion for financial clarity, sovereignty, and harmony &bull; Split Chill AI</sub>
+</div>

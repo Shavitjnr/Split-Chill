@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/Shavitjnr/split-chill-ai/pkg/core"
+	"github.com/Shavitjnr/split-chill-ai/pkg/datastore"
 	"github.com/Shavitjnr/split-chill-ai/pkg/errs"
 	"github.com/Shavitjnr/split-chill-ai/pkg/log"
 	"github.com/Shavitjnr/split-chill-ai/pkg/mail"
@@ -144,6 +145,25 @@ func (a *FeedbacksApi) FeedbackSubmitHandler(c *core.WebContext) (any, *errs.Err
 	}
 
 	log.Infof(c, "[feedbacks.FeedbackSubmitHandler] successfully sent feedback email to %s from %s <%s>", targetAdminEmail, safeName, safeEmail)
+
+	// Persist feedback submission to database
+	dbFeedback := &models.Feedback{
+		FullName:        request.FullName,
+		Email:           request.Email,
+		Category:        categoryDisplay,
+		Message:         request.Message,
+		ClientIp:        c.ClientIP(),
+		Status:          "delivered",
+		CreatedUnixTime: time.Now().Unix(),
+	}
+	sess := datastore.Container.UserDataStore.Choose(0).NewSession(c)
+	defer sess.Close()
+	_, dbErr := sess.Insert(dbFeedback)
+	if dbErr != nil {
+		log.Warnf(c, "[feedbacks.FeedbackSubmitHandler] failed to insert feedback to database: %s", dbErr.Error())
+	} else {
+		log.Infof(c, "[feedbacks.FeedbackSubmitHandler] saved feedback id #%d to database successfully", dbFeedback.FeedbackId)
+	}
 
 	// Send an automated receipt/acknowledgement to the user if different from admin
 	if request.Email != "" && request.Email != targetAdminEmail {
